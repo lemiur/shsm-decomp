@@ -166,7 +166,6 @@ taken from them.
 
 ### Public headers and documentation
 
-- **RenderWare Graphics 3.7.** The public RenderWare 3.7 SDK headers and documentation.
 - **FMOD Ex 4.x.** The public FMOD Ex headers and the `fmod_*.cpp` strings in the executable. No FMOD source is
   used.
 - **MSL C and the Metrowerks runtime.** Names and unit layout follow the public Wii and GameCube decompilations above.
