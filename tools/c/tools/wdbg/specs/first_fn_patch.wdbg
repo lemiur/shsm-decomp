@@ -1,0 +1,15 @@
+# wdbg spec: patch [0x747944] at the entry of function #FIXFN (default 1) to -1 (FIXMODE=fix) or 0 (FIXMODE=break)
+# to show that this global alone causes the first-function quirk (docs/compiler_regalloc.md). The C spec language
+# (../SPEC.md) form of tools/mwcc_trace/specs/first_fn_patch.py.
+# 0x46bdac = CodeGen_Generator+0xfc (CodeGen.obj), per-function entry; 0x747944 is a static in the compiler's .data (unnamed)
+# The addresses below are those of Wii/1.0 (checked with build/tools/mwcc_symbols.exe); another build is refused.
+build "Wii/1.0"
+
+mode = env("FIXMODE", "fix")
+
+bp 0x46bdac
+    if hits(0x46bdac) == int(env("FIXFN", "1"))
+        wr 0x747944, x"ffffffff" if mode == "fix" else x"00000000"
+        out "patched [747944] at fn entry #%d mode=%s", hits(0x46bdac), mode
+    end
+end

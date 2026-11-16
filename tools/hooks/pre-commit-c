@@ -1,0 +1,11 @@
+#!/bin/sh
+# shsm-hook: pre-commit shim installed by build/tools/doctor.exe --install-hooks (do not edit this line)
+# Runs build/tools/pre_commit.exe of the checkout being committed (built by tools/build_c.cmd);
+# each worktree uses its own copy.
+top=$(git rev-parse --show-toplevel) || exit 2
+exe="$top/build/tools/pre_commit.exe"
+if [ -f "$exe" ] && [ -x "$exe" ]; then
+    exec "$exe" "$@"
+fi
+echo "pre-commit: build/tools/pre_commit.exe not built (run tools/build_c.cmd); skipped" >&2
+exit 0

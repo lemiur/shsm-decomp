@@ -1,0 +1,65 @@
+# wdbg spec: log, per function, whether the IR optimiser runs, and the first expression or object that stops it
+# (docs/compiler_regalloc.md, "IR optimiser gate").
+# Run: build/tools/wdbg.exe <src> <unit> <outdir> tools/c/tools/wdbg/specs/iro_gate.wdbg
+# The unit's compiler build differs per library (FMOD builds with Wii/1.0a, the rest with Wii/1.0) and the
+# addresses differ between builds, so they are taken by name from the build's own NB11 names (build/tools/mwcc_symbols.exe)
+# and the offsets inside the functions, which are the same code in both builds (checked on Wii/1.0 and Wii/1.0a):
+#   IRO_Optimizer(Object* func, Statement* stmts) (IrOptimizer.obj); func +0xc is its HashNameNode (name +0xa).
+#   IRO_Optimizer+0x6c follows its call of IRO_CanThisIRBeOptimized: al = 0 means the IR passes are skipped.
+#   IroCheck, the static checker, begins 0xf0 after IRO_CanThisIRBeOptimized (Wii/1.0: 0x5e1a30, Wii/1.0a: 0x5dcc40)
+#   and walks one ENode: +0 node kind, +4 result type, +8 qualifiers, +0x10 operand.
+#   IroCheck+0x11f: the node's type qualifiers (CParser_GetTypeQualifiers; a pointer type gives its target's) have a
+#                   bit of 0x1f000000 (the alignment qualifiers);
+#   IroCheck+0x40:  an object reference whose object's type qualifiers (object +0x10 type, +0x14 qual) have one;
+#   IroCheck+0x7b:  a node kind refused outright.
+# typequal is CParser_GetTypeQualifiers' answer (eax): for a pointer or member-pointer type the type's own
+# qualifier field, else the node's (or object's) qualifiers.
+# Another build is refused with the build line's message: add it after checking those offsets in it.
+build "Wii/1.0", "Wii/1.0a"
+
+irocheck = addr("IRO_CanThisIRBeOptimized") + 0xf0
+fname = "?"
+first = ""
+
+bp addr("IRO_Optimizer")
+    fo = u32(Esp + 4)
+    fname = "?"
+    if fo
+        h = u32(fo + 0xc)
+        if h
+            fname = cstr(rd(h + 0xa, 64))
+        end
+    end
+    first = ""
+end
+
+bp addr("IRO_Optimizer") + 0x6c
+    out "IRO %-40s optimise=%d %s", fname, Eax & 0xff, first
+end
+
+bp irocheck + 0x11f
+    if first == ""
+        n = Esi
+        t = u32(n + 4)
+        first = fmt("expr kind=%#x type.kind=%#x qual=%#x typequal=%#x", u8(n), u8(t), u32(n + 8), Eax)
+    end
+end
+
+bp irocheck + 0x40
+    if first == ""
+        o = Esi
+        nm = "?"
+        h = u32(o + 0xc)
+        if h
+            nm = cstr(rd(h + 0xa, 48))
+        end
+        first = fmt("object %s typequal=%#x", nm, Eax)
+    end
+end
+
+bp irocheck + 0x7b
+    if first == ""
+        first = fmt("refused node kind=%#x", u8(Esi))
+    end
+end
+

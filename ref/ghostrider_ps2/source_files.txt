@@ -1,0 +1,24 @@
+# no .symtab: source paths below are string literals found in the image (heuristic)
+F:/Perforce/Physics/src/core/utils/src/RwpMath.c
+c:/daily/rwsdk/plugin/pds/sky2/G3_2DStroke/G3_2DStroke_Node.c
+c:/daily/rwsdk/plugin/pds/sky2/G3_2DFill/G3_2DFill_Node.c
+//Physics/Rwp37Active/src/core/volume/src/RwpBox.c
+//Physics/Rwp37Active/src/core/volume/src/RwpCapsule.c
+//Physics/Rwp37Active/src/core/volume/src/RwpSphere.c
+//Physics/Rwp37Active/src/core/volume/src/RwpVolume.c
+//Physics/Rwp37Active/src/core/volume/src/RwpTrilist.c
+//Physics/Rwp37Active/src/core/solverutils/src/RwpConstraints.c
+//Physics/Rwp37Active/src/core/solverutils/src/RwpMatrixCap.c
+//Physics/Rwp37Active/src/core/volume/src/RwpGjk.c
+//Physics/Rwp37Active/src/core/volume/src/RwpGrid.c
+//Physics/Rwp37Active/src/core/volume/src/RwpTriangle.c
+//Physics/Rwp37Active/src/core/volume/src/RwpAggregate.c
+//Physics/Rwp37Active/src/core/volume/src/RwpNull.c
+//Physics/Rwp37Active/src/body/src/RwpBodyStd.c
+//Physics/Rwp37Active/src/generic/src/RwpGenericStd.c
+//Physics/Rwp37Active/src/ragdoll/src/RwpRagdollDef.c
+//Physics/Rwp37Active/src/ragdoll/src/RwpRagdollStd.c
+//Physics/Rwp37Active/src/core/volume/src/RwpConvex.c
+//Physics/Rwp37Active/src/core/volume/src/RwpCylinder.c
+//Physics/Rwp37Active/src/core/volume/src/RwpPlane.c
+//Physics/Rwp37Active/src/core/volume/src/RwpConvexHullMassProps.c

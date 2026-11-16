@@ -1,0 +1,350 @@
+cfg	beq .L_1 | cmpwi r3, 0x0 | beq .L_1 | beq .L_5 | beq .L_0 | li r3, 0x1 | bne .L_7 | bl foo | blr
+cfg	beq .L_0 | cmpwi r3, 0x0 | b fn_80001000
+cfg	beq .L_4 | li r3, 0x1 | bl foo | beq .L_4 | blr
+cfg	li r3, 0x1 | bl foo | b .L_2 | beq .L_5 | li r3, 0x2 | blr
+cfg	beq .L_0 | cmpwi r3, 0x0 | b fn_80001000
+cfg	beq .L_3 | beq .L_1 | beq .L_2 | blr
+cfg	bl foo | b .L_3 | beq .L_0 | blr
+cfg	beq .L_1 | li r3, 0x2 | beq .L_3 | li r3, 0x2 | bne .L_3 | b fn_80001000
+cfg	li r3, 0x2 | blr
+cfg	cmpwi r3, 0x0 | li r3, 0x2 | beq .L_2 | b .L_1 | li r3, 0x1 | li r3, 0x2 | bne .L_4 | bl foo | b fn_80001000
+cfg	li r3, 0x1 | beqlr | b fn_80001000
+cfg	cmpwi r3, 0x0 | bne .L_3 | li r3, 0x1 | b fn_80001000
+cfg	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000
+cfg	beq .L_4 | cmpwi r3, 0x0 | b .L_3 | beq .L_3 | li r3, 0x2 | blr | li r3, 0x2 | li r3, 0x1 | b fn_80001000
+cfg	li r3, 0x1 | bne .L_2 | blr | b fn_80001000
+cfg	bne .L_2 | beq .L_2 | cmpwi r3, 0x0 | beq .L_5 | beq .L_0 | bl foo | li r3, 0x1 | li r3, 0x1 | b fn_80001000
+cfg	li r3, 0x1 | cmpwi r3, 0x0 | bne .L_4 | blr | li r3, 0x2 | bne .L_2 | li r3, 0x1 | b fn_80001000
+cfg	b .L_4 | beq .L_0 | li r3, 0x2 | beq .L_5 | li r3, 0x2 | blr
+cfg	li r3, 0x2 | beq .L_3 | beq .L_2 | beq .L_3 | bne .L_3 | li r3, 0x2 | blr
+cfg	bl foo | beq .L_5 | bl foo | bne .L_2 | blr | li r3, 0x2 | li r3, 0x2 | blr
+cfg	bl foo | beq .L_5 | li r3, 0x2 | beq .L_2 | cmpwi r3, 0x0 | bne .L_5 | li r3, 0x2 | beq .L_5 | b fn_80001000
+cfg	blr | li r3, 0x1 | blr | bl foo | b fn_80001000
+cfg	li r3, 0x2 | beq .L_6 | blr | beqlr | beq .L_1 | beq .L_1 | blr
+cfg	beq .L_0 | cmpwi r3, 0x0 | beq .L_5 | blr | b .L_1 | li r3, 0x2 | beq .L_7 | blr
+cfg	blr | bl foo | cmpwi r3, 0x0 | beqlr | li r3, 0x1 | beq .L_3 | blr
+cfg	beq .L_0 | bl foo | b fn_80001000
+cfg	beq .L_4 | beqlr | bl foo | li r3, 0x1 | bne .L_2 | cmpwi r3, 0x0 | b fn_80001000
+cfg	bl foo | blr
+cfg	beq .L_6 | beq .L_4 | bl foo | bne .L_3 | li r3, 0x1 | b .L_0 | b fn_80001000
+cfg	li r3, 0x1 | b .L_3 | bl foo | cmpwi r3, 0x0 | bne .L_5 | b .L_1 | bl foo | blr
+cfg	cmpwi r3, 0x0 | bl foo | cmpwi r3, 0x0 | cmpwi r3, 0x0 | b fn_80001000
+cfg	cmpwi r3, 0x0 | b fn_80001000
+cfg	beqlr | bne .L_3 | b .L_2 | beq .L_0 | cmpwi r3, 0x0 | li r3, 0x1 | blr
+cfg	blr | beqlr | blr | bne .L_2 | b fn_80001000
+cfg	b .L_1 | cmpwi r3, 0x0 | bl foo | blr
+cfg	b .L_1 | bne .L_4 | li r3, 0x2 | blr | b fn_80001000
+cfg	blr | cmpwi r3, 0x0 | bne .L_1 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_7 | b .L_8 | beqlr | b fn_80001000
+cfg	li r3, 0x1 | bne .L_2 | li r3, 0x2 | b .L_1 | b fn_80001000
+cfg	bne .L_7 | li r3, 0x1 | blr | li r3, 0x1 | beq .L_2 | bl foo | bne .L_6 | beq .L_3 | b fn_80001000
+cfg	beq .L_1 | blr
+cfg	beq .L_1 | b fn_80001000
+cfg	bne .L_4 | cmpwi r3, 0x0 | beqlr | bl foo | bne .L_3 | beq .L_4 | b fn_80001000
+cfg	cmpwi r3, 0x0 | beq .L_6 | li r3, 0x1 | bl foo | bl foo | b .L_6 | b fn_80001000
+cfg	li r3, 0x2 | bne .L_5 | beqlr | bne .L_2 | beq .L_1 | b fn_80001000
+cfg	beq .L_2 | bl foo | beq .L_3 | blr
+cfg	cmpwi r3, 0x0 | li r3, 0x1 | beq .L_3 | li r3, 0x2 | li r3, 0x2 | bne .L_3 | bl foo | b fn_80001000
+cfg	cmpwi r3, 0x0 | beq .L_0 | cmpwi r3, 0x0 | beq .L_2 | bne .L_2 | blr | li r3, 0x1 | b .L_5 | blr
+cfg	li r3, 0x2 | li r3, 0x2 | beq .L_2 | beq .L_3 | beq .L_1 | blr
+cfg	cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_3 | li r3, 0x1 | beqlr | blr
+cfg	bne .L_4 | b .L_0 | blr | bne .L_1 | blr
+cfg	beq .L_1 | b fn_80001000
+cfg	bl foo | beq .L_3 | b .L_2 | cmpwi r3, 0x0 | blr
+cfg	bne .L_0 | beq .L_1 | li r3, 0x2 | beqlr | li r3, 0x2 | b .L_0 | b .L_1 | li r3, 0x1 | blr
+cfg	cmpwi r3, 0x0 | bne .L_0 | blr
+cfg	blr | beq .L_1 | blr
+cfg	blr | cmpwi r3, 0x0 | blr | li r3, 0x2 | li r3, 0x1 | li r3, 0x2 | blr
+cfg	li r3, 0x2 | beqlr | li r3, 0x1 | b .L_1 | b fn_80001000
+cfg	b .L_2 | blr | beq .L_2 | b fn_80001000
+cfg	cmpwi r3, 0x0 | beq .L_2 | bl foo | bl foo | blr
+cfg	beq .L_5 | bl foo | li r3, 0x1 | cmpwi r3, 0x0 | b .L_5 | cmpwi r3, 0x0 | bl foo | b fn_80001000
+cfg	blr | b .L_8 | li r3, 0x2 | bl foo | blr | blr | bl foo | beq .L_1 | b fn_80001000
+cfg	bl foo | cmpwi r3, 0x0 | bl foo | b fn_80001000
+cfg	li r3, 0x1 | beq .L_4 | b .L_4 | li r3, 0x2 | beq .L_4 | blr
+cfg	li r3, 0x2 | li r3, 0x1 | blr
+cfg	blr | bl foo | beqlr | b .L_4 | li r3, 0x1 | b fn_80001000
+cfg	li r3, 0x1 | blr | beq .L_0 | li r3, 0x1 | beq .L_0 | cmpwi r3, 0x0 | b fn_80001000
+cfg	bl foo | beq .L_7 | beq .L_1 | bne .L_5 | bne .L_5 | bl foo | beq .L_2 | b fn_80001000
+cfg	li r3, 0x1 | beq .L_2 | beqlr | beq .L_2 | beqlr | b .L_0 | b fn_80001000
+cfg	li r3, 0x2 | li r3, 0x1 | blr | bl foo | beqlr | li r3, 0x1 | b fn_80001000
+cfg	bl foo | bne .L_7 | li r3, 0x2 | bne .L_4 | beq .L_5 | beq .L_4 | bl foo | beq .L_2 | blr
+cfg	beq .L_6 | bne .L_0 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_4 | beq .L_6 | bl foo | b fn_80001000
+cfg	cmpwi r3, 0x0 | li r3, 0x2 | beq .L_3 | bl foo | beq .L_4 | bl foo | b fn_80001000
+cfg	beq .L_2 | beq .L_4 | bne .L_3 | beq .L_3 | bl foo | b fn_80001000
+cfg	b .L_2 | beq .L_1 | beq .L_3 | blr
+cfg	bne .L_2 | b .L_4 | li r3, 0x1 | bne .L_3 | b fn_80001000
+cfg	bl foo | cmpwi r3, 0x0 | b fn_80001000
+cfg	b .L_2 | li r3, 0x2 | beq .L_3 | b fn_80001000
+cfg	beq .L_1 | blr
+cfg	beq .L_1 | beq .L_4 | bne .L_4 | beq .L_6 | li r3, 0x1 | cmpwi r3, 0x0 | beqlr | b fn_80001000
+cfg	beq .L_2 | li r3, 0x1 | beq .L_2 | li r3, 0x1 | b .L_1 | li r3, 0x1 | beq .L_3 | blr
+iso	beq .L_1 | b fn_80001000	bne .L_1 | b fn_80001000
+iso	blr | beq .L_1 | blr	li r3, 0x1 | bne .L_2 | li r3, 0x2 | b .L_1 | b fn_80001000
+iso	cmpwi r3, 0x0 | beq .L_0 | cmpwi r3, 0x0 | beq .L_2 | bne .L_2 | blr | li r3, 0x1 | b .L_5 | blr	b .L_2 | blr | beq .L_2 | b fn_80001000
+iso	li r3, 0x1 | b .L_3 | bl foo | cmpwi r3, 0x0 | bne .L_5 | b .L_1 | bl foo | blr	li r3, 0x1 | b .L_3 | bl foo | cmpwi r3, 0x0 | bne .L_5 | b .L_1 | bl foo | blr
+iso	beq .L_4 | beqlr | bl foo | li r3, 0x1 | bne .L_2 | cmpwi r3, 0x0 | b fn_80001000	bne .L_7 | li r3, 0x1 | blr | li r3, 0x1 | beq .L_2 | bl foo | bne .L_6 | beq .L_3 | b fn_80001000
+iso	bl foo | beq .L_3 | b .L_2 | cmpwi r3, 0x0 | blr	li r3, 0x1 | beq .L_2 | beqlr | beq .L_2 | beqlr | b .L_0 | b fn_80001000
+iso	li r3, 0x2 | li r3, 0x2 | beq .L_2 | beq .L_3 | beq .L_1 | blr	li r3, 0x2 | li r3, 0x2 | bne .L_2 | bne .L_3 | bne .L_1 | blr
+iso	beq .L_1 | blr	beqlr | bne .L_3 | b .L_2 | beq .L_0 | cmpwi r3, 0x0 | li r3, 0x1 | blr
+iso	blr | li r3, 0x1 | blr | bl foo | b fn_80001000	beq .L_0 | cmpwi r3, 0x0 | beq .L_5 | blr | b .L_1 | li r3, 0x2 | beq .L_7 | blr
+iso	beq .L_1 | b fn_80001000	bne .L_1 | b fn_80001000
+iso	li r3, 0x2 | bne .L_5 | beqlr | bne .L_2 | beq .L_1 | b fn_80001000	li r3, 0x1 | blr | beq .L_0 | li r3, 0x1 | beq .L_0 | cmpwi r3, 0x0 | b fn_80001000
+iso	cmpwi r3, 0x0 | beq .L_6 | li r3, 0x1 | bl foo | bl foo | b .L_6 | b fn_80001000	beq .L_1 | beq .L_4 | bne .L_4 | beq .L_6 | li r3, 0x1 | cmpwi r3, 0x0 | beqlr | b fn_80001000
+iso	cmpwi r3, 0x0 | beq .L_0 | cmpwi r3, 0x0 | beq .L_2 | bne .L_2 | blr | li r3, 0x1 | b .L_5 | blr	cmpwi r3, 0x0 | beq .L_0 | cmpwi r3, 0x0 | beq .L_2 | bne .L_2 | blr | li r3, 0x1 | b .L_5 | blr
+iso	blr | cmpwi r3, 0x0 | blr | li r3, 0x2 | li r3, 0x1 | li r3, 0x2 | blr	li r3, 0x1 | beqlr | b fn_80001000
+iso	li r3, 0x1 | bne .L_2 | li r3, 0x2 | b .L_1 | b fn_80001000	cmpwi r3, 0x0 | bne .L_0 | blr
+iso	bl foo | beq .L_7 | beq .L_1 | bne .L_5 | bne .L_5 | bl foo | beq .L_2 | b fn_80001000	bl foo | beq .L_7 | beq .L_1 | bne .L_5 | bne .L_5 | bl foo | beq .L_2 | b fn_80001000
+iso	b .L_4 | beq .L_0 | li r3, 0x2 | beq .L_5 | li r3, 0x2 | blr	beq .L_1 | b fn_80001000
+iso	b .L_1 | cmpwi r3, 0x0 | bl foo | blr	bl foo | cmpwi r3, 0x0 | bl foo | b fn_80001000
+iso	beq .L_3 | beq .L_1 | beq .L_2 | blr	bne .L_3 | bne .L_1 | bne .L_2 | blr
+iso	li r3, 0x1 | bl foo | b .L_2 | beq .L_5 | li r3, 0x2 | blr	beq .L_6 | beq .L_4 | bl foo | bne .L_3 | li r3, 0x1 | b .L_0 | b fn_80001000
+iso	li r3, 0x1 | beq .L_2 | beqlr | beq .L_2 | beqlr | b .L_0 | b fn_80001000	beq .L_2 | beq .L_4 | bne .L_3 | beq .L_3 | bl foo | b fn_80001000
+iso	cmpwi r3, 0x0 | li r3, 0x2 | beq .L_3 | bl foo | beq .L_4 | bl foo | b fn_80001000	cmpwi r3, 0x0 | li r3, 0x2 | beq .L_3 | bl foo | beq .L_4 | bl foo | b fn_80001000
+iso	bl foo | beq .L_7 | beq .L_1 | bne .L_5 | bne .L_5 | bl foo | beq .L_2 | b fn_80001000	li r3, 0x2 | li r3, 0x2 | beq .L_2 | beq .L_3 | beq .L_1 | blr
+iso	cmpwi r3, 0x0 | beq .L_0 | cmpwi r3, 0x0 | beq .L_2 | bne .L_2 | blr | li r3, 0x1 | b .L_5 | blr	li r3, 0x1 | beq .L_4 | b .L_4 | li r3, 0x2 | beq .L_4 | blr
+iso	beq .L_3 | beq .L_1 | beq .L_2 | blr	bne .L_3 | bne .L_1 | bne .L_2 | blr
+iso	beq .L_4 | li r3, 0x1 | bl foo | beq .L_4 | blr	beq .L_2 | li r3, 0x1 | beq .L_2 | li r3, 0x1 | b .L_1 | li r3, 0x1 | beq .L_3 | blr
+iso	li r3, 0x2 | li r3, 0x1 | blr | bl foo | beqlr | li r3, 0x1 | b fn_80001000	beq .L_6 | beq .L_4 | bl foo | bne .L_3 | li r3, 0x1 | b .L_0 | b fn_80001000
+iso	bl foo | cmpwi r3, 0x0 | b fn_80001000	bl foo | cmpwi r3, 0x0 | b fn_80001000
+iso	blr | bl foo | beqlr | b .L_4 | li r3, 0x1 | b fn_80001000	cmpwi r3, 0x0 | li r3, 0x2 | beq .L_3 | bl foo | beq .L_4 | bl foo | b fn_80001000
+iso	li r3, 0x1 | b .L_3 | bl foo | cmpwi r3, 0x0 | bne .L_5 | b .L_1 | bl foo | blr	beqlr | bne .L_3 | b .L_2 | beq .L_0 | cmpwi r3, 0x0 | li r3, 0x1 | blr
+iso	bne .L_7 | li r3, 0x1 | blr | li r3, 0x1 | beq .L_2 | bl foo | bne .L_6 | beq .L_3 | b fn_80001000	bne .L_7 | li r3, 0x1 | blr | li r3, 0x1 | bne .L_2 | bl foo | bne .L_6 | bne .L_3 | b fn_80001000
+iso	beq .L_1 | beq .L_4 | bne .L_4 | beq .L_6 | li r3, 0x1 | cmpwi r3, 0x0 | beqlr | b fn_80001000	li r3, 0x1 | bne .L_2 | li r3, 0x2 | b .L_1 | b fn_80001000
+iso	cmpwi r3, 0x0 | beq .L_6 | li r3, 0x1 | bl foo | bl foo | b .L_6 | b fn_80001000	li r3, 0x2 | bne .L_5 | beqlr | bne .L_2 | beq .L_1 | b fn_80001000
+iso	blr | beq .L_1 | blr	blr | beq .L_1 | blr
+iso	beq .L_0 | cmpwi r3, 0x0 | b fn_80001000	cmpwi r3, 0x0 | beq .L_2 | bl foo | bl foo | blr
+iso	cmpwi r3, 0x0 | bne .L_0 | blr	bl foo | bne .L_7 | li r3, 0x2 | bne .L_4 | beq .L_5 | beq .L_4 | bl foo | beq .L_2 | blr
+iso	bne .L_4 | cmpwi r3, 0x0 | beqlr | bl foo | bne .L_3 | beq .L_4 | b fn_80001000	bne .L_4 | cmpwi r3, 0x0 | bnelr | bl foo | bne .L_3 | bne .L_4 | b fn_80001000
+iso	beq .L_0 | bl foo | b fn_80001000	b .L_1 | cmpwi r3, 0x0 | bl foo | blr
+iso	beq .L_0 | cmpwi r3, 0x0 | b fn_80001000	bne .L_0 | beq .L_1 | li r3, 0x2 | beqlr | li r3, 0x2 | b .L_0 | b .L_1 | li r3, 0x1 | blr
+iso	li r3, 0x1 | beq .L_2 | beqlr | beq .L_2 | beqlr | b .L_0 | b fn_80001000	li r3, 0x1 | bne .L_2 | bnelr | bne .L_2 | bnelr | b .L_0 | b fn_80001000
+iso	b .L_1 | cmpwi r3, 0x0 | bl foo | blr	blr | cmpwi r3, 0x0 | blr | li r3, 0x2 | li r3, 0x1 | li r3, 0x2 | blr
+iso	beq .L_0 | cmpwi r3, 0x0 | b fn_80001000	bne .L_2 | b .L_4 | li r3, 0x1 | bne .L_3 | b fn_80001000
+iso	bl foo | b .L_3 | beq .L_0 | blr	bl foo | b .L_3 | beq .L_0 | blr
+iso	blr | beq .L_1 | blr	blr | li r3, 0x1 | blr | bl foo | b fn_80001000
+iso	cmpwi r3, 0x0 | bne .L_3 | li r3, 0x1 | b fn_80001000	b .L_2 | blr | beq .L_2 | b fn_80001000
+iso	cmpwi r3, 0x0 | bl foo | cmpwi r3, 0x0 | cmpwi r3, 0x0 | b fn_80001000	cmpwi r3, 0x0 | bl foo | cmpwi r3, 0x0 | cmpwi r3, 0x0 | b fn_80001000
+iso	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000	blr | beqlr | blr | bne .L_2 | b fn_80001000
+iso	beq .L_0 | cmpwi r3, 0x0 | b fn_80001000	beq .L_4 | beqlr | bl foo | li r3, 0x1 | bne .L_2 | cmpwi r3, 0x0 | b fn_80001000
+iso	beq .L_1 | blr	beq .L_1 | blr
+iso	beq .L_6 | bne .L_0 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_4 | beq .L_6 | bl foo | b fn_80001000	li r3, 0x1 | bl foo | b .L_2 | beq .L_5 | li r3, 0x2 | blr
+iso	blr | bl foo | cmpwi r3, 0x0 | beqlr | li r3, 0x1 | beq .L_3 | blr	li r3, 0x2 | beq .L_3 | beq .L_2 | beq .L_3 | bne .L_3 | li r3, 0x2 | blr
+iso	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000	bne .L_2 | li r3, 0x1 | blr | bne .L_2 | b fn_80001000
+iso	li r3, 0x2 | li r3, 0x1 | blr | bl foo | beqlr | li r3, 0x1 | b fn_80001000	li r3, 0x1 | beqlr | b fn_80001000
+iso	cmpwi r3, 0x0 | bne .L_3 | li r3, 0x1 | b fn_80001000	li r3, 0x1 | bne .L_2 | blr | b fn_80001000
+iso	b .L_2 | blr | beq .L_2 | b fn_80001000	b .L_2 | blr | bne .L_2 | b fn_80001000
+iso	beq .L_1 | b fn_80001000	beq .L_0 | bl foo | b fn_80001000
+iso	cmpwi r3, 0x0 | beq .L_6 | li r3, 0x1 | bl foo | bl foo | b .L_6 | b fn_80001000	bl foo | cmpwi r3, 0x0 | b fn_80001000
+iso	li r3, 0x2 | bne .L_5 | beqlr | bne .L_2 | beq .L_1 | b fn_80001000	li r3, 0x2 | bne .L_5 | bnelr | bne .L_2 | bne .L_1 | b fn_80001000
+iso	cmpwi r3, 0x0 | bne .L_0 | blr	bl foo | bne .L_7 | li r3, 0x2 | bne .L_4 | beq .L_5 | beq .L_4 | bl foo | beq .L_2 | blr
+iso	bne .L_0 | beq .L_1 | li r3, 0x2 | beqlr | li r3, 0x2 | b .L_0 | b .L_1 | li r3, 0x1 | blr	li r3, 0x2 | beqlr | li r3, 0x1 | b .L_1 | b fn_80001000
+iso	beq .L_6 | beq .L_4 | bl foo | bne .L_3 | li r3, 0x1 | b .L_0 | b fn_80001000	beq .L_6 | beq .L_4 | bl foo | bne .L_3 | li r3, 0x1 | b .L_0 | b fn_80001000
+iso	b .L_2 | blr | beq .L_2 | b fn_80001000	li r3, 0x1 | blr | beq .L_0 | li r3, 0x1 | beq .L_0 | cmpwi r3, 0x0 | b fn_80001000
+iso	cmpwi r3, 0x0 | beq .L_0 | cmpwi r3, 0x0 | beq .L_2 | bne .L_2 | blr | li r3, 0x1 | b .L_5 | blr	blr | bl foo | beqlr | b .L_4 | li r3, 0x1 | b fn_80001000
+iso	b .L_2 | beq .L_1 | beq .L_3 | blr	b .L_2 | beq .L_1 | beq .L_3 | blr
+iso	beq .L_2 | beq .L_4 | bne .L_3 | beq .L_3 | bl foo | b fn_80001000	blr | cmpwi r3, 0x0 | bne .L_1 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_7 | b .L_8 | beqlr | b fn_80001000
+iso	li r3, 0x1 | beq .L_4 | b .L_4 | li r3, 0x2 | beq .L_4 | blr	li r3, 0x1 | bne .L_2 | blr | b fn_80001000
+iso	li r3, 0x1 | blr | beq .L_0 | li r3, 0x1 | beq .L_0 | cmpwi r3, 0x0 | b fn_80001000	li r3, 0x1 | blr | bne .L_0 | li r3, 0x1 | bne .L_0 | cmpwi r3, 0x0 | b fn_80001000
+iso	beq .L_5 | bl foo | li r3, 0x1 | cmpwi r3, 0x0 | b .L_5 | cmpwi r3, 0x0 | bl foo | b fn_80001000	bne .L_4 | cmpwi r3, 0x0 | beqlr | bl foo | bne .L_3 | beq .L_4 | b fn_80001000
+iso	beq .L_4 | cmpwi r3, 0x0 | b .L_3 | beq .L_3 | li r3, 0x2 | blr | li r3, 0x2 | li r3, 0x1 | b fn_80001000	li r3, 0x2 | beq .L_3 | beq .L_2 | beq .L_3 | bne .L_3 | li r3, 0x2 | blr
+iso	beq .L_0 | cmpwi r3, 0x0 | beq .L_5 | blr | b .L_1 | li r3, 0x2 | beq .L_7 | blr	bne .L_0 | cmpwi r3, 0x0 | bne .L_5 | blr | b .L_1 | li r3, 0x2 | bne .L_7 | blr
+iso	li r3, 0x1 | bne .L_2 | li r3, 0x2 | b .L_1 | b fn_80001000	cmpwi r3, 0x0 | beq .L_2 | bl foo | bl foo | blr
+iso	blr | bl foo | beqlr | b .L_4 | li r3, 0x1 | b fn_80001000	bne .L_2 | b .L_4 | li r3, 0x1 | bne .L_3 | b fn_80001000
+iso	bl foo | cmpwi r3, 0x0 | b fn_80001000	bl foo | cmpwi r3, 0x0 | b fn_80001000
+iso	cmpwi r3, 0x0 | li r3, 0x2 | beq .L_3 | bl foo | beq .L_4 | bl foo | b fn_80001000	bne .L_2 | b .L_4 | li r3, 0x1 | bne .L_3 | b fn_80001000
+iso	beq .L_6 | bne .L_0 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_4 | beq .L_6 | bl foo | b fn_80001000	beq .L_3 | beq .L_1 | beq .L_2 | blr
+iso	bl foo | cmpwi r3, 0x0 | bl foo | b fn_80001000	bl foo | cmpwi r3, 0x0 | bl foo | b fn_80001000
+iso	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000	bl foo | bne .L_7 | li r3, 0x2 | bne .L_4 | beq .L_5 | beq .L_4 | bl foo | beq .L_2 | blr
+iso	beq .L_1 | li r3, 0x2 | beq .L_3 | li r3, 0x2 | bne .L_3 | b fn_80001000	cmpwi r3, 0x0 | b fn_80001000
+iso	beq .L_0 | cmpwi r3, 0x0 | b fn_80001000	bne .L_0 | cmpwi r3, 0x0 | b fn_80001000
+iso	bl foo | beq .L_3 | b .L_2 | cmpwi r3, 0x0 | blr	beq .L_1 | b fn_80001000
+iso	cmpwi r3, 0x0 | beq .L_0 | cmpwi r3, 0x0 | beq .L_2 | bne .L_2 | blr | li r3, 0x1 | b .L_5 | blr	cmpwi r3, 0x0 | beq .L_6 | li r3, 0x1 | bl foo | bl foo | b .L_6 | b fn_80001000
+iso	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000
+iso	beq .L_0 | bl foo | b fn_80001000	b .L_2 | li r3, 0x2 | beq .L_3 | b fn_80001000
+iso	bl foo | bne .L_7 | li r3, 0x2 | bne .L_4 | beq .L_5 | beq .L_4 | bl foo | beq .L_2 | blr	b .L_4 | beq .L_0 | li r3, 0x2 | beq .L_5 | li r3, 0x2 | blr
+iso	beq .L_2 | bl foo | beq .L_3 | blr	bne .L_2 | bl foo | bne .L_3 | blr
+iso	li r3, 0x1 | blr | beq .L_0 | li r3, 0x1 | beq .L_0 | cmpwi r3, 0x0 | b fn_80001000	bl foo | cmpwi r3, 0x0 | bl foo | b fn_80001000
+iso	beq .L_3 | beq .L_1 | beq .L_2 | blr	li r3, 0x1 | beq .L_2 | beqlr | beq .L_2 | beqlr | b .L_0 | b fn_80001000
+iso	beq .L_5 | bl foo | li r3, 0x1 | cmpwi r3, 0x0 | b .L_5 | cmpwi r3, 0x0 | bl foo | b fn_80001000	bne .L_5 | bl foo | li r3, 0x1 | cmpwi r3, 0x0 | b .L_5 | cmpwi r3, 0x0 | bl foo | b fn_80001000
+iso	beq .L_0 | bl foo | b fn_80001000	li r3, 0x1 | bne .L_2 | blr | b fn_80001000
+iso	bne .L_7 | li r3, 0x1 | blr | li r3, 0x1 | beq .L_2 | bl foo | bne .L_6 | beq .L_3 | b fn_80001000	beq .L_0 | cmpwi r3, 0x0 | beq .L_5 | blr | b .L_1 | li r3, 0x2 | beq .L_7 | blr
+iso	blr | beqlr | blr | bne .L_2 | b fn_80001000	blr | beqlr | blr | bne .L_2 | b fn_80001000
+iso	b .L_2 | li r3, 0x2 | beq .L_3 | b fn_80001000	bl foo | beq .L_5 | li r3, 0x2 | beq .L_2 | cmpwi r3, 0x0 | bne .L_5 | li r3, 0x2 | beq .L_5 | b fn_80001000
+iso	li r3, 0x1 | bne .L_2 | li r3, 0x2 | b .L_1 | b fn_80001000	li r3, 0x2 | li r3, 0x1 | blr
+iso	li r3, 0x2 | blr	li r3, 0x2 | blr
+iso	cmpwi r3, 0x0 | li r3, 0x2 | beq .L_2 | b .L_1 | li r3, 0x1 | li r3, 0x2 | bne .L_4 | bl foo | b fn_80001000	beq .L_0 | bl foo | b fn_80001000
+iso	li r3, 0x2 | bne .L_5 | beqlr | bne .L_2 | beq .L_1 | b fn_80001000	cmpwi r3, 0x0 | beq .L_2 | bl foo | bl foo | blr
+iso	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000
+iso	li r3, 0x1 | beq .L_4 | b .L_4 | li r3, 0x2 | beq .L_4 | blr	li r3, 0x2 | li r3, 0x1 | blr
+iso	beq .L_1 | b fn_80001000	blr | cmpwi r3, 0x0 | bne .L_1 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_7 | b .L_8 | beqlr | b fn_80001000
+iso	li r3, 0x1 | bne .L_2 | li r3, 0x2 | b .L_1 | b fn_80001000	li r3, 0x1 | bne .L_2 | li r3, 0x2 | b .L_1 | b fn_80001000
+iso	beq .L_6 | beq .L_4 | bl foo | bne .L_3 | li r3, 0x1 | b .L_0 | b fn_80001000	beq .L_0 | cmpwi r3, 0x0 | b fn_80001000
+iso	bl foo | beq .L_7 | beq .L_1 | bne .L_5 | bne .L_5 | bl foo | beq .L_2 | b fn_80001000	li r3, 0x1 | beq .L_2 | beqlr | beq .L_2 | beqlr | b .L_0 | b fn_80001000
+iso	li r3, 0x1 | blr | beq .L_0 | li r3, 0x1 | beq .L_0 | cmpwi r3, 0x0 | b fn_80001000	li r3, 0x1 | blr | beq .L_0 | li r3, 0x1 | beq .L_0 | cmpwi r3, 0x0 | b fn_80001000
+iso	bl foo | beq .L_5 | bl foo | bne .L_2 | blr | li r3, 0x2 | li r3, 0x2 | blr	li r3, 0x2 | li r3, 0x1 | blr
+iso	blr | beqlr | blr | bne .L_2 | b fn_80001000	li r3, 0x2 | li r3, 0x1 | blr
+iso	li r3, 0x1 | beq .L_2 | beqlr | beq .L_2 | beqlr | b .L_0 | b fn_80001000	li r3, 0x1 | beq .L_2 | beqlr | beq .L_2 | beqlr | b .L_0 | b fn_80001000
+iso	cmpwi r3, 0x0 | b fn_80001000	b .L_2 | blr | beq .L_2 | b fn_80001000
+iso	li r3, 0x1 | beq .L_2 | beqlr | beq .L_2 | beqlr | b .L_0 | b fn_80001000	bl foo | bne .L_7 | li r3, 0x2 | bne .L_4 | beq .L_5 | beq .L_4 | bl foo | beq .L_2 | blr
+iso	beq .L_4 | cmpwi r3, 0x0 | b .L_3 | beq .L_3 | li r3, 0x2 | blr | li r3, 0x2 | li r3, 0x1 | b fn_80001000	beq .L_4 | cmpwi r3, 0x0 | b .L_3 | beq .L_3 | li r3, 0x2 | blr | li r3, 0x2 | li r3, 0x1 | b fn_80001000
+iso	li r3, 0x1 | beqlr | b fn_80001000	beq .L_0 | bl foo | b fn_80001000
+iso	beq .L_1 | li r3, 0x2 | beq .L_3 | li r3, 0x2 | bne .L_3 | b fn_80001000	bne .L_2 | b .L_4 | li r3, 0x1 | bne .L_3 | b fn_80001000
+iso	bne .L_4 | b .L_0 | blr | bne .L_1 | blr	bne .L_4 | b .L_0 | blr | bne .L_1 | blr
+iso	beq .L_0 | cmpwi r3, 0x0 | beq .L_5 | blr | b .L_1 | li r3, 0x2 | beq .L_7 | blr	blr | bl foo | cmpwi r3, 0x0 | beqlr | li r3, 0x1 | beq .L_3 | blr
+iso	blr | bl foo | cmpwi r3, 0x0 | beqlr | li r3, 0x1 | beq .L_3 | blr	b .L_4 | beq .L_0 | li r3, 0x2 | beq .L_5 | li r3, 0x2 | blr
+iso	cmpwi r3, 0x0 | b fn_80001000	cmpwi r3, 0x0 | b fn_80001000
+iso	beq .L_0 | cmpwi r3, 0x0 | b fn_80001000	bne .L_7 | li r3, 0x1 | blr | li r3, 0x1 | beq .L_2 | bl foo | bne .L_6 | beq .L_3 | b fn_80001000
+iso	b .L_1 | bne .L_4 | li r3, 0x2 | blr | b fn_80001000	bl foo | beq .L_7 | beq .L_1 | bne .L_5 | bne .L_5 | bl foo | beq .L_2 | b fn_80001000
+iso	beq .L_4 | beqlr | bl foo | li r3, 0x1 | bne .L_2 | cmpwi r3, 0x0 | b fn_80001000	bne .L_4 | bnelr | bl foo | li r3, 0x1 | bne .L_2 | cmpwi r3, 0x0 | b fn_80001000
+iso	beq .L_2 | li r3, 0x1 | beq .L_2 | li r3, 0x1 | b .L_1 | li r3, 0x1 | beq .L_3 | blr	li r3, 0x1 | bne .L_2 | li r3, 0x2 | b .L_1 | b fn_80001000
+iso	bne .L_4 | b .L_0 | blr | bne .L_1 | blr	beq .L_1 | b fn_80001000
+iso	b .L_2 | blr | beq .L_2 | b fn_80001000	b .L_2 | blr | bne .L_2 | b fn_80001000
+iso	li r3, 0x2 | beq .L_3 | beq .L_2 | beq .L_3 | bne .L_3 | li r3, 0x2 | blr	bl foo | bne .L_7 | li r3, 0x2 | bne .L_4 | beq .L_5 | beq .L_4 | bl foo | beq .L_2 | blr
+iso	blr | cmpwi r3, 0x0 | blr | li r3, 0x2 | li r3, 0x1 | li r3, 0x2 | blr	li r3, 0x2 | li r3, 0x1 | blr
+iso	b .L_4 | beq .L_0 | li r3, 0x2 | beq .L_5 | li r3, 0x2 | blr	b .L_4 | bne .L_0 | li r3, 0x2 | bne .L_5 | li r3, 0x2 | blr
+iso	li r3, 0x2 | li r3, 0x1 | blr	b .L_2 | blr | beq .L_2 | b fn_80001000
+iso	cmpwi r3, 0x0 | beq .L_6 | li r3, 0x1 | bl foo | bl foo | b .L_6 | b fn_80001000	beq .L_2 | bl foo | beq .L_3 | blr
+iso	li r3, 0x2 | beq .L_6 | blr | beqlr | beq .L_1 | beq .L_1 | blr	li r3, 0x2 | bne .L_6 | blr | bnelr | bne .L_1 | bne .L_1 | blr
+iso	blr | beqlr | blr | bne .L_2 | b fn_80001000	li r3, 0x1 | beq .L_2 | beqlr | beq .L_2 | beqlr | b .L_0 | b fn_80001000
+iso	cmpwi r3, 0x0 | beq .L_0 | cmpwi r3, 0x0 | beq .L_2 | bne .L_2 | blr | li r3, 0x1 | b .L_5 | blr	bl foo | cmpwi r3, 0x0 | bl foo | b fn_80001000
+iso	blr | cmpwi r3, 0x0 | bne .L_1 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_7 | b .L_8 | beqlr | b fn_80001000	blr | cmpwi r3, 0x0 | bne .L_1 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_7 | b .L_8 | beqlr | b fn_80001000
+iso	li r3, 0x2 | li r3, 0x1 | blr | bl foo | beqlr | li r3, 0x1 | b fn_80001000	beq .L_1 | b fn_80001000
+iso	li r3, 0x1 | beqlr | b fn_80001000	cmpwi r3, 0x0 | beq .L_0 | cmpwi r3, 0x0 | beq .L_2 | bne .L_2 | blr | li r3, 0x1 | b .L_5 | blr
+iso	beq .L_1 | b fn_80001000	bne .L_1 | b fn_80001000
+iso	blr | bl foo | cmpwi r3, 0x0 | beqlr | li r3, 0x1 | beq .L_3 | blr	cmpwi r3, 0x0 | li r3, 0x1 | beq .L_3 | li r3, 0x2 | li r3, 0x2 | bne .L_3 | bl foo | b fn_80001000
+iso	beqlr | bne .L_3 | b .L_2 | beq .L_0 | cmpwi r3, 0x0 | li r3, 0x1 | blr	blr | li r3, 0x1 | blr | bl foo | b fn_80001000
+iso	b .L_4 | beq .L_0 | li r3, 0x2 | beq .L_5 | li r3, 0x2 | blr	b .L_4 | bne .L_0 | li r3, 0x2 | bne .L_5 | li r3, 0x2 | blr
+iso	beqlr | bne .L_3 | b .L_2 | beq .L_0 | cmpwi r3, 0x0 | li r3, 0x1 | blr	bl foo | bne .L_7 | li r3, 0x2 | bne .L_4 | beq .L_5 | beq .L_4 | bl foo | beq .L_2 | blr
+iso	cmpwi r3, 0x0 | beq .L_2 | bl foo | bl foo | blr	b .L_1 | cmpwi r3, 0x0 | bl foo | blr
+iso	blr | cmpwi r3, 0x0 | blr | li r3, 0x2 | li r3, 0x1 | li r3, 0x2 | blr	blr | cmpwi r3, 0x0 | blr | li r3, 0x2 | li r3, 0x1 | li r3, 0x2 | blr
+iso	beq .L_1 | b fn_80001000	li r3, 0x1 | beqlr | b fn_80001000
+iso	li r3, 0x2 | blr	beq .L_1 | b fn_80001000
+iso	beq .L_1 | blr	beq .L_1 | blr
+iso	beq .L_3 | beq .L_1 | beq .L_2 | blr	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000
+iso	beq .L_4 | li r3, 0x1 | bl foo | beq .L_4 | blr	li r3, 0x2 | blr
+iso	bl foo | cmpwi r3, 0x0 | bl foo | b fn_80001000	bl foo | cmpwi r3, 0x0 | bl foo | b fn_80001000
+iso	beq .L_0 | cmpwi r3, 0x0 | beq .L_5 | blr | b .L_1 | li r3, 0x2 | beq .L_7 | blr	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000
+iso	beq .L_2 | li r3, 0x1 | beq .L_2 | li r3, 0x1 | b .L_1 | li r3, 0x1 | beq .L_3 | blr	cmpwi r3, 0x0 | li r3, 0x2 | beq .L_2 | b .L_1 | li r3, 0x1 | li r3, 0x2 | bne .L_4 | bl foo | b fn_80001000
+iso	li r3, 0x1 | bne .L_2 | blr | b fn_80001000	li r3, 0x1 | bne .L_2 | blr | b fn_80001000
+iso	cmpwi r3, 0x0 | beq .L_0 | cmpwi r3, 0x0 | beq .L_2 | bne .L_2 | blr | li r3, 0x1 | b .L_5 | blr	bne .L_7 | li r3, 0x1 | blr | li r3, 0x1 | beq .L_2 | bl foo | bne .L_6 | beq .L_3 | b fn_80001000
+iso	b .L_4 | beq .L_0 | li r3, 0x2 | beq .L_5 | li r3, 0x2 | blr	beq .L_5 | bl foo | li r3, 0x1 | cmpwi r3, 0x0 | b .L_5 | cmpwi r3, 0x0 | bl foo | b fn_80001000
+iso	b .L_2 | blr | beq .L_2 | b fn_80001000	b .L_2 | blr | bne .L_2 | b fn_80001000
+iso	blr | beq .L_1 | blr	li r3, 0x2 | beqlr | li r3, 0x1 | b .L_1 | b fn_80001000
+iso	li r3, 0x1 | bne .L_2 | blr | b fn_80001000	bl foo | cmpwi r3, 0x0 | bl foo | b fn_80001000
+iso	blr | li r3, 0x1 | blr | bl foo | b fn_80001000	blr | li r3, 0x1 | blr | bl foo | b fn_80001000
+iso	b .L_4 | beq .L_0 | li r3, 0x2 | beq .L_5 | li r3, 0x2 | blr	beq .L_2 | bl foo | beq .L_3 | blr
+iso	bl foo | beq .L_7 | beq .L_1 | bne .L_5 | bne .L_5 | bl foo | beq .L_2 | b fn_80001000	cmpwi r3, 0x0 | li r3, 0x2 | beq .L_3 | bl foo | beq .L_4 | bl foo | b fn_80001000
+iso	beq .L_4 | li r3, 0x1 | bl foo | beq .L_4 | blr	beq .L_4 | li r3, 0x1 | bl foo | beq .L_4 | blr
+iso	blr | bl foo | beqlr | b .L_4 | li r3, 0x1 | b fn_80001000	cmpwi r3, 0x0 | bl foo | cmpwi r3, 0x0 | cmpwi r3, 0x0 | b fn_80001000
+iso	beq .L_1 | beq .L_4 | bne .L_4 | beq .L_6 | li r3, 0x1 | cmpwi r3, 0x0 | beqlr | b fn_80001000	li r3, 0x1 | bl foo | b .L_2 | beq .L_5 | li r3, 0x2 | blr
+iso	li r3, 0x1 | cmpwi r3, 0x0 | bne .L_4 | blr | li r3, 0x2 | bne .L_2 | li r3, 0x1 | b fn_80001000	li r3, 0x1 | cmpwi r3, 0x0 | bne .L_4 | blr | li r3, 0x2 | bne .L_2 | li r3, 0x1 | b fn_80001000
+iso	beq .L_1 | cmpwi r3, 0x0 | beq .L_1 | beq .L_5 | beq .L_0 | li r3, 0x1 | bne .L_7 | bl foo | blr	cmpwi r3, 0x0 | bl foo | cmpwi r3, 0x0 | cmpwi r3, 0x0 | b fn_80001000
+iso	beq .L_3 | beq .L_1 | beq .L_2 | blr	bl foo | beq .L_5 | bl foo | bne .L_2 | blr | li r3, 0x2 | li r3, 0x2 | blr
+iso	bl foo | blr	bl foo | blr
+iso	li r3, 0x2 | bne .L_5 | beqlr | bne .L_2 | beq .L_1 | b fn_80001000	beq .L_1 | b fn_80001000
+iso	cmpwi r3, 0x0 | beq .L_0 | cmpwi r3, 0x0 | beq .L_2 | bne .L_2 | blr | li r3, 0x1 | b .L_5 | blr	li r3, 0x2 | blr
+iso	beqlr | bne .L_3 | b .L_2 | beq .L_0 | cmpwi r3, 0x0 | li r3, 0x1 | blr	beqlr | bne .L_3 | b .L_2 | beq .L_0 | cmpwi r3, 0x0 | li r3, 0x1 | blr
+iso	cmpwi r3, 0x0 | li r3, 0x1 | beq .L_3 | li r3, 0x2 | li r3, 0x2 | bne .L_3 | bl foo | b fn_80001000	bne .L_4 | b .L_0 | blr | bne .L_1 | blr
+iso	li r3, 0x1 | cmpwi r3, 0x0 | bne .L_4 | blr | li r3, 0x2 | bne .L_2 | li r3, 0x1 | b fn_80001000	li r3, 0x1 | beqlr | b fn_80001000
+iso	beq .L_0 | cmpwi r3, 0x0 | b fn_80001000	beq .L_0 | cmpwi r3, 0x0 | b fn_80001000
+iso	li r3, 0x2 | li r3, 0x1 | blr | bl foo | beqlr | li r3, 0x1 | b fn_80001000	beq .L_0 | cmpwi r3, 0x0 | b fn_80001000
+iso	beq .L_1 | beq .L_4 | bne .L_4 | beq .L_6 | li r3, 0x1 | cmpwi r3, 0x0 | beqlr | b fn_80001000	bl foo | beq .L_5 | bl foo | bne .L_2 | blr | li r3, 0x2 | li r3, 0x2 | blr
+iso	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000
+iso	beq .L_5 | bl foo | li r3, 0x1 | cmpwi r3, 0x0 | b .L_5 | cmpwi r3, 0x0 | bl foo | b fn_80001000	bl foo | beq .L_7 | beq .L_1 | bne .L_5 | bne .L_5 | bl foo | beq .L_2 | b fn_80001000
+iso	cmpwi r3, 0x0 | li r3, 0x1 | beq .L_3 | li r3, 0x2 | li r3, 0x2 | bne .L_3 | bl foo | b fn_80001000	bne .L_2 | b .L_4 | li r3, 0x1 | bne .L_3 | b fn_80001000
+iso	cmpwi r3, 0x0 | beq .L_6 | li r3, 0x1 | bl foo | bl foo | b .L_6 | b fn_80001000	cmpwi r3, 0x0 | beq .L_6 | li r3, 0x1 | bl foo | bl foo | b .L_6 | b fn_80001000
+iso	bl foo | cmpwi r3, 0x0 | b fn_80001000	bl foo | b .L_3 | beq .L_0 | blr
+iso	blr | cmpwi r3, 0x0 | blr | li r3, 0x2 | li r3, 0x1 | li r3, 0x2 | blr	bne .L_7 | li r3, 0x1 | blr | li r3, 0x1 | beq .L_2 | bl foo | bne .L_6 | beq .L_3 | b fn_80001000
+iso	beq .L_1 | b fn_80001000	beq .L_1 | b fn_80001000
+iso	bne .L_2 | b .L_4 | li r3, 0x1 | bne .L_3 | b fn_80001000	li r3, 0x2 | beq .L_6 | blr | beqlr | beq .L_1 | beq .L_1 | blr
+iso	li r3, 0x1 | beqlr | b fn_80001000	cmpwi r3, 0x0 | li r3, 0x2 | beq .L_3 | bl foo | beq .L_4 | bl foo | b fn_80001000
+iso	cmpwi r3, 0x0 | li r3, 0x1 | beq .L_3 | li r3, 0x2 | li r3, 0x2 | bne .L_3 | bl foo | b fn_80001000	cmpwi r3, 0x0 | li r3, 0x1 | bne .L_3 | li r3, 0x2 | li r3, 0x2 | bne .L_3 | bl foo | b fn_80001000
+iso	blr | cmpwi r3, 0x0 | bne .L_1 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_7 | b .L_8 | beqlr | b fn_80001000	li r3, 0x1 | beq .L_2 | beqlr | beq .L_2 | beqlr | b .L_0 | b fn_80001000
+iso	blr | beq .L_1 | blr	b .L_2 | blr | beq .L_2 | b fn_80001000
+iso	beq .L_1 | blr	beq .L_1 | blr
+iso	cmpwi r3, 0x0 | b fn_80001000	bne .L_2 | beq .L_2 | cmpwi r3, 0x0 | beq .L_5 | beq .L_0 | bl foo | li r3, 0x1 | li r3, 0x1 | b fn_80001000
+iso	li r3, 0x1 | beq .L_2 | beqlr | beq .L_2 | beqlr | b .L_0 | b fn_80001000	bl foo | blr
+iso	beq .L_1 | b fn_80001000	beq .L_1 | b fn_80001000
+iso	b .L_1 | bne .L_4 | li r3, 0x2 | blr | b fn_80001000	blr | beqlr | blr | bne .L_2 | b fn_80001000
+iso	li r3, 0x1 | bne .L_2 | blr | b fn_80001000	bne .L_7 | li r3, 0x1 | blr | li r3, 0x1 | beq .L_2 | bl foo | bne .L_6 | beq .L_3 | b fn_80001000
+iso	bne .L_0 | beq .L_1 | li r3, 0x2 | beqlr | li r3, 0x2 | b .L_0 | b .L_1 | li r3, 0x1 | blr	bne .L_0 | beq .L_1 | li r3, 0x2 | beqlr | li r3, 0x2 | b .L_0 | b .L_1 | li r3, 0x1 | blr
+iso	beqlr | bne .L_3 | b .L_2 | beq .L_0 | cmpwi r3, 0x0 | li r3, 0x1 | blr	cmpwi r3, 0x0 | beq .L_2 | bl foo | bl foo | blr
+iso	li r3, 0x2 | li r3, 0x2 | beq .L_2 | beq .L_3 | beq .L_1 | blr	bne .L_7 | li r3, 0x1 | blr | li r3, 0x1 | beq .L_2 | bl foo | bne .L_6 | beq .L_3 | b fn_80001000
+iso	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000	beq .L_2 | li r3, 0x1 | blr | beq .L_2 | b fn_80001000
+iso	beq .L_1 | beq .L_4 | bne .L_4 | beq .L_6 | li r3, 0x1 | cmpwi r3, 0x0 | beqlr | b fn_80001000	blr | cmpwi r3, 0x0 | bne .L_1 | cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_7 | b .L_8 | beqlr | b fn_80001000
+iso	beq .L_1 | blr	beq .L_2 | li r3, 0x1 | beq .L_2 | li r3, 0x1 | b .L_1 | li r3, 0x1 | beq .L_3 | blr
+iso	cmpwi r3, 0x0 | li r3, 0x1 | beq .L_3 | li r3, 0x2 | li r3, 0x2 | bne .L_3 | bl foo | b fn_80001000	cmpwi r3, 0x0 | li r3, 0x1 | bne .L_3 | li r3, 0x2 | li r3, 0x2 | bne .L_3 | bl foo | b fn_80001000
+iso	blr | bl foo | cmpwi r3, 0x0 | beqlr | li r3, 0x1 | beq .L_3 | blr	b .L_2 | li r3, 0x2 | beq .L_3 | b fn_80001000
+iso	cmpwi r3, 0x0 | li r3, 0x2 | beq .L_3 | bl foo | beq .L_4 | bl foo | b fn_80001000	bl foo | b .L_3 | beq .L_0 | blr
+iso	cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_3 | li r3, 0x1 | beqlr | blr	cmpwi r3, 0x0 | cmpwi r3, 0x0 | beq .L_3 | li r3, 0x1 | beqlr | blr
+iso	beq .L_3 | beq .L_1 | beq .L_2 | blr	cmpwi r3, 0x0 | li r3, 0x1 | beq .L_3 | li r3, 0x2 | li r3, 0x2 | bne .L_3 | bl foo | b fn_80001000
+iso2	cmpwi r3, 0x1 | beq .L_19 | b .L_16 | cmpwi r3, 0x5 | beq .L_11 | cmpwi r3, 0x0 | beq .L_9 | li r3, 0x3 | b .L_10 | li r3, 0x0 | b .L_16 | cmpwi r3, 0x4 | beq .L_15 | li r3, 0x9 | b .L_16 | li r3, 0x3 | cmpwi r4, 0x0 | bne .L_3 | b .L_24 | cmpwi r3, 0x4 | beq .L_23 | li r3, 0x8 | b .L_24 | li r3, 0x9 | blr	cmpwi r3, 0x1 | bne .L_8 | cmpwi r3, 0x4 | bne .L_6 | li r3, 0x9 | b .L_7 | li r3, 0x8 | b .L_24 | b .L_22 | cmpwi r3, 0x5 | beq .L_17 | cmpwi r3, 0x0 | bne .L_15 | li r3, 0x0 | b .L_16 | li r3, 0x3 | b .L_22 | cmpwi r3, 0x4 | bne .L_21 | li r3, 0x3 | b .L_22 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_9 | blr
+iso2	cmpwi r3, 0x1 | beq .L_8 | cmpwi r3, 0x9 | beq .L_6 | li r3, 0x7 | b .L_7 | li r3, 0x4 | b .L_30 | cmpwi r3, 0x5 | beq .L_23 | cmpwi r3, 0x1 | beq .L_17 | b .L_14 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_13 | b .L_22 | cmpwi r3, 0x2 | beq .L_21 | li r3, 0x4 | b .L_22 | li r3, 0x8 | b .L_30 | li r3, 0x1 | li r3, 0x9 | cmpwi r3, 0x8 | beq .L_29 | li r3, 0x4 | b .L_30 | li r3, 0x7 | blr	cmpwi r3, 0x1 | beq .L_8 | cmpwi r3, 0x9 | bne .L_6 | li r3, 0x4 | b .L_7 | li r3, 0x7 | b .L_30 | cmpwi r3, 0x5 | beq .L_23 | cmpwi r3, 0x1 | bne .L_18 | cmpwi r3, 0x2 | bne .L_16 | li r3, 0x8 | b .L_17 | li r3, 0x4 | b .L_22 | b .L_20 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_19 | b .L_30 | li r3, 0x1 | li r3, 0x9 | cmpwi r3, 0x8 | beq .L_29 | li r3, 0x4 | b .L_30 | li r3, 0x7 | blr
+iso2	cmpwi r3, 0x1 | beq .L_20 | b .L_8 | cmpwi r3, 0x1 | beq .L_7 | li r3, 0x9 | b .L_8 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_3 | cmpwi r3, 0x4 | beq .L_14 | li r3, 0x4 | b .L_19 | cmpwi r3, 0x1 | beq .L_18 | li r3, 0x8 | b .L_19 | li r3, 0x7 | b .L_28 | li r3, 0x2 | li r3, 0x6 | cmpwi r3, 0x5 | beq .L_26 | li r3, 0x0 | b .L_27 | li r3, 0x5 | li r3, 0x5 | blr	cmpwi r3, 0x1 | bne .L_11 | li r3, 0x2 | li r3, 0x6 | cmpwi r3, 0x5 | bne .L_8 | li r3, 0x5 | b .L_9 | li r3, 0x0 | li r3, 0x5 | b .L_28 | b .L_17 | cmpwi r3, 0x1 | beq .L_16 | li r3, 0x9 | b .L_17 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_12 | cmpwi r3, 0x4 | bne .L_27 | cmpwi r3, 0x1 | bne .L_25 | li r3, 0x7 | b .L_26 | li r3, 0x8 | b .L_28 | li r3, 0x4 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x9 | b .L_12 | cmpwi r3, 0x1 | beq .L_8 | li r3, 0x7 | b .L_12 | b .L_10 | li r3, 0x6 | cmpwi r4, 0x0 | bne .L_9 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x9 | b .L_12 | cmpwi r3, 0x1 | beq .L_8 | li r3, 0x7 | b .L_12 | b .L_10 | li r3, 0x6 | cmpwi r4, 0x0 | bne .L_9 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x4 | b .L_5 | li r3, 0x6 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x4 | b .L_5 | li r3, 0x6 | blr
+iso2	cmpwi r3, 0x1 | beq .L_9 | cmpwi r3, 0x3 | beq .L_6 | li r3, 0x8 | b .L_7 | li r3, 0x2 | li r3, 0x8 | b .L_10 | li r3, 0x5 | blr	cmpwi r3, 0x1 | beq .L_9 | cmpwi r3, 0x3 | bne .L_6 | li r3, 0x2 | b .L_7 | li r3, 0x8 | li r3, 0x8 | b .L_10 | li r3, 0x5 | blr
+iso2	cmpwi r3, 0x1 | beq .L_12 | cmpwi r3, 0x1 | beq .L_10 | cmpwi r3, 0x1 | beq .L_8 | li r3, 0x4 | b .L_9 | li r3, 0x5 | b .L_11 | li r3, 0x2 | b .L_13 | li r3, 0x5 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x5 | b .L_13 | cmpwi r3, 0x1 | bne .L_8 | li r3, 0x2 | b .L_13 | cmpwi r3, 0x1 | bne .L_12 | li r3, 0x5 | b .L_13 | li r3, 0x4 | blr
+iso2	cmpwi r3, 0x1 | beq .L_8 | cmpwi r3, 0x2 | beq .L_6 | li r3, 0x5 | b .L_7 | li r3, 0x7 | b .L_21 | cmpwi r3, 0x4 | beq .L_12 | li r3, 0x8 | b .L_21 | cmpwi r3, 0x7 | beq .L_20 | cmpwi r3, 0x0 | beq .L_18 | li r3, 0x1 | b .L_19 | li r3, 0x4 | b .L_21 | li r3, 0x8 | blr	cmpwi r3, 0x1 | beq .L_8 | cmpwi r3, 0x2 | beq .L_6 | li r3, 0x5 | b .L_7 | li r3, 0x7 | b .L_21 | cmpwi r3, 0x4 | beq .L_12 | li r3, 0x8 | b .L_21 | cmpwi r3, 0x7 | beq .L_20 | cmpwi r3, 0x0 | bne .L_18 | li r3, 0x4 | b .L_19 | li r3, 0x1 | b .L_21 | li r3, 0x8 | blr
+iso2	cmpwi r3, 0x1 | beq .L_12 | li r3, 0x4 | cmpwi r3, 0x1 | beq .L_7 | li r3, 0x8 | b .L_11 | b .L_9 | li r3, 0x1 | cmpwi r4, 0x0 | bne .L_8 | b .L_28 | b .L_14 | li r3, 0x6 | cmpwi r4, 0x0 | bne .L_13 | cmpwi r3, 0x7 | beq .L_24 | cmpwi r3, 0x9 | beq .L_22 | li r3, 0x4 | b .L_23 | li r3, 0x8 | b .L_28 | b .L_26 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_25 | blr	cmpwi r3, 0x1 | bne .L_19 | b .L_4 | li r3, 0x6 | cmpwi r4, 0x0 | bne .L_3 | cmpwi r3, 0x7 | beq .L_14 | cmpwi r3, 0x9 | beq .L_12 | li r3, 0x4 | b .L_13 | li r3, 0x8 | b .L_18 | b .L_16 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_15 | b .L_28 | li r3, 0x4 | cmpwi r3, 0x1 | bne .L_27 | b .L_24 | li r3, 0x1 | cmpwi r4, 0x0 | bne .L_23 | b .L_28 | li r3, 0x8 | blr
+iso2	cmpwi r3, 0x1 | beq .L_8 | cmpwi r3, 0x1 | beq .L_6 | li r3, 0x2 | b .L_7 | li r3, 0x1 | b .L_20 | b .L_18 | cmpwi r3, 0x3 | beq .L_17 | cmpwi r3, 0x0 | beq .L_15 | li r3, 0x2 | b .L_16 | li r3, 0x3 | b .L_18 | li r3, 0x4 | cmpwi r4, 0x0 | bne .L_9 | blr	cmpwi r3, 0x1 | bne .L_15 | b .L_12 | cmpwi r3, 0x3 | bne .L_7 | li r3, 0x4 | b .L_12 | cmpwi r3, 0x0 | beq .L_11 | li r3, 0x2 | b .L_12 | li r3, 0x3 | cmpwi r4, 0x0 | bne .L_3 | b .L_20 | cmpwi r3, 0x1 | bne .L_19 | li r3, 0x1 | b .L_20 | li r3, 0x2 | blr
+iso2	cmpwi r3, 0x1 | beq .L_20 | cmpwi r3, 0x4 | beq .L_14 | cmpwi r3, 0x5 | beq .L_12 | cmpwi r3, 0x6 | beq .L_10 | li r3, 0x2 | b .L_11 | li r3, 0x6 | b .L_13 | li r3, 0x2 | b .L_19 | cmpwi r3, 0x0 | beq .L_18 | li r3, 0x8 | b .L_19 | li r3, 0x6 | b .L_37 | cmpwi r3, 0x6 | beq .L_24 | li r3, 0x0 | b .L_29 | cmpwi r3, 0x4 | beq .L_28 | li r3, 0x2 | b .L_29 | li r3, 0x3 | b .L_35 | cmpwi r3, 0x1 | beq .L_34 | li r3, 0x9 | b .L_35 | li r3, 0x7 | cmpwi r4, 0x0 | bne .L_30 | blr	cmpwi r3, 0x1 | bne .L_20 | cmpwi r3, 0x6 | bne .L_10 | cmpwi r3, 0x4 | beq .L_8 | li r3, 0x2 | b .L_9 | li r3, 0x3 | b .L_11 | li r3, 0x0 | b .L_17 | cmpwi r3, 0x1 | beq .L_16 | li r3, 0x9 | b .L_17 | li r3, 0x7 | cmpwi r4, 0x0 | bne .L_12 | b .L_37 | cmpwi r3, 0x4 | beq .L_32 | cmpwi r3, 0x5 | bne .L_26 | li r3, 0x2 | b .L_31 | cmpwi r3, 0x6 | bne .L_30 | li r3, 0x6 | b .L_31 | li r3, 0x2 | b .L_37 | cmpwi r3, 0x0 | beq .L_36 | li r3, 0x8 | b .L_37 | li r3, 0x6 | blr
+iso2	cmpwi r3, 0x1 | beq .L_24 | cmpwi r3, 0x8 | beq .L_14 | cmpwi r3, 0x6 | beq .L_8 | li r3, 0x3 | b .L_13 | cmpwi r3, 0x7 | beq .L_12 | li r3, 0x0 | b .L_13 | li r3, 0x1 | b .L_23 | cmpwi r3, 0x8 | beq .L_22 | cmpwi r3, 0x4 | beq .L_20 | li r3, 0x9 | b .L_21 | li r3, 0x2 | b .L_23 | li r3, 0x3 | b .L_33 | b .L_30 | cmpwi r3, 0x6 | beq .L_29 | li r3, 0x9 | b .L_30 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_25 | li r3, 0x0 | blr	cmpwi r3, 0x1 | beq .L_24 | cmpwi r3, 0x8 | bne .L_14 | cmpwi r3, 0x8 | beq .L_12 | cmpwi r3, 0x4 | bne .L_10 | li r3, 0x2 | b .L_11 | li r3, 0x9 | b .L_13 | li r3, 0x3 | b .L_23 | cmpwi r3, 0x6 | bne .L_22 | cmpwi r3, 0x7 | bne .L_20 | li r3, 0x1 | b .L_21 | li r3, 0x0 | b .L_23 | li r3, 0x3 | b .L_33 | b .L_30 | cmpwi r3, 0x6 | beq .L_29 | li r3, 0x9 | b .L_30 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_25 | li r3, 0x0 | blr
+iso2	cmpwi r3, 0x1 | beq .L_7 | b .L_4 | li r3, 0x4 | cmpwi r4, 0x0 | bne .L_3 | b .L_8 | li r3, 0x2 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x2 | b .L_8 | b .L_6 | li r3, 0x4 | cmpwi r4, 0x0 | bne .L_5 | blr
+iso2	cmpwi r3, 0x1 | beq .L_18 | cmpwi r3, 0x0 | beq .L_11 | li r3, 0x0 | cmpwi r3, 0x9 | beq .L_9 | li r3, 0x7 | b .L_10 | li r3, 0x6 | b .L_17 | cmpwi r3, 0x4 | beq .L_16 | li r3, 0x9 | li r3, 0x2 | b .L_17 | li r3, 0x6 | b .L_29 | cmpwi r3, 0x1 | beq .L_28 | cmpwi r3, 0x0 | beq .L_25 | li r3, 0x5 | li r3, 0x3 | b .L_27 | li r3, 0x6 | li r3, 0x7 | b .L_29 | li r3, 0x1 | blr	cmpwi r3, 0x1 | bne .L_14 | cmpwi r3, 0x1 | beq .L_12 | cmpwi r3, 0x0 | beq .L_9 | li r3, 0x5 | li r3, 0x3 | b .L_11 | li r3, 0x6 | li r3, 0x7 | b .L_13 | li r3, 0x1 | b .L_29 | cmpwi r3, 0x0 | bne .L_23 | cmpwi r3, 0x4 | beq .L_21 | li r3, 0x9 | li r3, 0x2 | b .L_22 | li r3, 0x6 | b .L_29 | li r3, 0x0 | cmpwi r3, 0x9 | beq .L_28 | li r3, 0x7 | b .L_29 | li r3, 0x6 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x4 | b .L_24 | cmpwi r3, 0x3 | beq .L_19 | cmpwi r3, 0x7 | beq .L_14 | cmpwi r3, 0x0 | beq .L_12 | li r3, 0x2 | b .L_13 | li r3, 0x8 | b .L_18 | b .L_16 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_15 | b .L_24 | cmpwi r3, 0x5 | beq .L_23 | li r3, 0x0 | b .L_24 | li r3, 0x7 | blr	cmpwi r3, 0x1 | bne .L_23 | cmpwi r3, 0x3 | beq .L_17 | cmpwi r3, 0x7 | beq .L_12 | cmpwi r3, 0x0 | bne .L_10 | li r3, 0x8 | b .L_11 | li r3, 0x2 | b .L_16 | b .L_14 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_13 | b .L_22 | cmpwi r3, 0x5 | bne .L_21 | li r3, 0x7 | b .L_22 | li r3, 0x0 | b .L_24 | li r3, 0x4 | blr
+iso2	cmpwi r3, 0x1 | beq .L_9 | cmpwi r3, 0x1 | beq .L_6 | li r3, 0x4 | b .L_8 | li r3, 0x4 | li r3, 0x7 | b .L_10 | li r3, 0x1 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x1 | b .L_10 | cmpwi r3, 0x1 | beq .L_8 | li r3, 0x4 | b .L_10 | li r3, 0x4 | li r3, 0x7 | blr
+iso2	cmpwi r3, 0x1 | beq .L_16 | b .L_13 | cmpwi r3, 0x3 | beq .L_7 | li r3, 0x9 | b .L_8 | li r3, 0x2 | cmpwi r3, 0x7 | beq .L_12 | li r3, 0x1 | b .L_13 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_3 | b .L_21 | cmpwi r3, 0x9 | beq .L_20 | li r3, 0x6 | b .L_21 | li r3, 0x4 | blr	cmpwi r3, 0x1 | beq .L_16 | b .L_13 | cmpwi r3, 0x3 | beq .L_7 | li r3, 0x9 | b .L_8 | li r3, 0x2 | cmpwi r3, 0x7 | beq .L_12 | li r3, 0x1 | b .L_13 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_3 | b .L_21 | cmpwi r3, 0x9 | beq .L_20 | li r3, 0x6 | b .L_21 | li r3, 0x4 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x3 | b .L_17 | cmpwi r3, 0x9 | beq .L_16 | cmpwi r3, 0x3 | beq .L_10 | li r3, 0x5 | b .L_15 | cmpwi r3, 0x8 | beq .L_14 | li r3, 0x2 | b .L_15 | li r3, 0x3 | b .L_17 | li r3, 0x1 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x3 | b .L_17 | cmpwi r3, 0x9 | beq .L_16 | cmpwi r3, 0x3 | bne .L_14 | cmpwi r3, 0x8 | beq .L_12 | li r3, 0x2 | b .L_13 | li r3, 0x3 | b .L_15 | li r3, 0x5 | b .L_17 | li r3, 0x1 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x0 | b .L_13 | b .L_11 | cmpwi r3, 0x4 | beq .L_9 | li r3, 0x2 | b .L_11 | li r3, 0x8 | li r3, 0x1 | cmpwi r4, 0x0 | bne .L_5 | blr	cmpwi r3, 0x1 | bne .L_12 | b .L_9 | cmpwi r3, 0x4 | beq .L_7 | li r3, 0x2 | b .L_9 | li r3, 0x8 | li r3, 0x1 | cmpwi r4, 0x0 | bne .L_3 | b .L_13 | li r3, 0x0 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x9 | b .L_8 | b .L_6 | li r3, 0x2 | cmpwi r4, 0x0 | bne .L_5 | blr	cmpwi r3, 0x1 | bne .L_7 | b .L_4 | li r3, 0x2 | cmpwi r4, 0x0 | bne .L_3 | b .L_8 | li r3, 0x9 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x7 | b .L_5 | li r3, 0x5 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x7 | b .L_5 | li r3, 0x5 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x0 | b .L_14 | cmpwi r3, 0x8 | beq .L_13 | cmpwi r3, 0x2 | beq .L_11 | li r3, 0x9 | li r3, 0x1 | b .L_12 | li r3, 0x7 | b .L_14 | li r3, 0x7 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x0 | b .L_14 | cmpwi r3, 0x8 | bne .L_8 | li r3, 0x7 | b .L_14 | cmpwi r3, 0x2 | bne .L_12 | li r3, 0x7 | b .L_14 | li r3, 0x9 | li r3, 0x1 | blr
+iso2	cmpwi r3, 0x1 | beq .L_24 | cmpwi r3, 0x1 | beq .L_14 | cmpwi r3, 0x6 | beq .L_9 | li r3, 0x5 | li r3, 0x1 | b .L_13 | b .L_11 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_10 | b .L_23 | cmpwi r3, 0x1 | beq .L_18 | li r3, 0x7 | b .L_23 | cmpwi r3, 0x6 | beq .L_22 | li r3, 0x3 | b .L_23 | li r3, 0x3 | b .L_25 | li r3, 0x1 | blr	cmpwi r3, 0x1 | beq .L_24 | cmpwi r3, 0x1 | beq .L_14 | cmpwi r3, 0x6 | bne .L_11 | b .L_8 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_7 | b .L_13 | li r3, 0x5 | li r3, 0x1 | b .L_23 | cmpwi r3, 0x1 | beq .L_18 | li r3, 0x7 | b .L_23 | cmpwi r3, 0x6 | beq .L_22 | li r3, 0x3 | b .L_23 | li r3, 0x3 | b .L_25 | li r3, 0x1 | blr
+iso2	cmpwi r3, 0x1 | beq .L_17 | cmpwi r3, 0x1 | beq .L_15 | cmpwi r3, 0x9 | beq .L_12 | cmpwi r3, 0x5 | beq .L_10 | li r3, 0x2 | b .L_11 | li r3, 0x3 | b .L_14 | li r3, 0x4 | li r3, 0x6 | b .L_16 | li r3, 0x3 | b .L_18 | li r3, 0x0 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x0 | b .L_18 | cmpwi r3, 0x1 | beq .L_17 | cmpwi r3, 0x9 | beq .L_14 | cmpwi r3, 0x5 | bne .L_12 | li r3, 0x3 | b .L_13 | li r3, 0x2 | b .L_16 | li r3, 0x4 | li r3, 0x6 | b .L_18 | li r3, 0x3 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x4 | b .L_13 | b .L_11 | cmpwi r3, 0x6 | beq .L_10 | li r3, 0x5 | li r3, 0x0 | b .L_11 | li r3, 0x4 | cmpwi r4, 0x0 | bne .L_5 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x4 | b .L_13 | b .L_11 | cmpwi r3, 0x6 | beq .L_10 | li r3, 0x5 | li r3, 0x0 | b .L_11 | li r3, 0x4 | cmpwi r4, 0x0 | bne .L_5 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x7 | b .L_18 | b .L_9 | b .L_7 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_6 | cmpwi r4, 0x0 | bne .L_5 | b .L_16 | b .L_14 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_13 | cmpwi r4, 0x0 | bne .L_12 | blr	cmpwi r3, 0x1 | bne .L_17 | b .L_7 | b .L_5 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_4 | cmpwi r4, 0x0 | bne .L_3 | b .L_14 | b .L_12 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_11 | cmpwi r4, 0x0 | bne .L_10 | b .L_18 | li r3, 0x7 | blr
+iso2	cmpwi r3, 0x1 | beq .L_5 | li r3, 0x4 | li r3, 0x8 | b .L_6 | li r3, 0x7 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x7 | b .L_6 | li r3, 0x4 | li r3, 0x8 | blr
+iso2	cmpwi r3, 0x1 | beq .L_19 | cmpwi r3, 0x1 | beq .L_7 | li r3, 0x7 | li r3, 0x7 | b .L_12 | cmpwi r3, 0x7 | beq .L_11 | li r3, 0x3 | b .L_12 | li r3, 0x5 | cmpwi r3, 0x6 | beq .L_17 | li r3, 0x8 | li r3, 0x8 | b .L_18 | li r3, 0x3 | b .L_36 | cmpwi r3, 0x8 | beq .L_27 | b .L_24 | li r3, 0x5 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_22 | b .L_36 | cmpwi r3, 0x3 | beq .L_31 | li r3, 0x2 | b .L_36 | cmpwi r3, 0x5 | beq .L_35 | li r3, 0x1 | b .L_36 | li r3, 0x8 | blr	cmpwi r3, 0x1 | beq .L_19 | cmpwi r3, 0x1 | beq .L_7 | li r3, 0x7 | li r3, 0x7 | b .L_12 | cmpwi r3, 0x7 | beq .L_11 | li r3, 0x3 | b .L_12 | li r3, 0x5 | cmpwi r3, 0x6 | bne .L_16 | li r3, 0x3 | b .L_18 | li r3, 0x8 | li r3, 0x8 | b .L_36 | cmpwi r3, 0x8 | beq .L_27 | b .L_24 | li r3, 0x5 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_22 | b .L_36 | cmpwi r3, 0x3 | bne .L_35 | cmpwi r3, 0x5 | beq .L_33 | li r3, 0x1 | b .L_34 | li r3, 0x8 | b .L_36 | li r3, 0x2 | blr
+iso2	cmpwi r3, 0x1 | beq .L_20 | cmpwi r3, 0x8 | beq .L_6 | li r3, 0x5 | b .L_19 | cmpwi r3, 0x8 | beq .L_14 | cmpwi r3, 0x2 | beq .L_12 | li r3, 0x0 | b .L_13 | li r3, 0x1 | b .L_19 | cmpwi r3, 0x1 | beq .L_18 | li r3, 0x2 | b .L_19 | li r3, 0x5 | b .L_21 | li r3, 0x5 | blr	cmpwi r3, 0x1 | beq .L_20 | cmpwi r3, 0x8 | beq .L_6 | li r3, 0x5 | b .L_19 | cmpwi r3, 0x8 | beq .L_14 | cmpwi r3, 0x2 | bne .L_12 | li r3, 0x1 | b .L_13 | li r3, 0x0 | b .L_19 | cmpwi r3, 0x1 | beq .L_18 | li r3, 0x2 | b .L_19 | li r3, 0x5 | b .L_21 | li r3, 0x5 | blr
+iso2	cmpwi r3, 0x1 | beq .L_13 | cmpwi r3, 0x8 | beq .L_10 | cmpwi r3, 0x0 | beq .L_8 | li r3, 0x0 | b .L_9 | li r3, 0x6 | b .L_11 | li r3, 0x4 | li r3, 0x7 | b .L_14 | li r3, 0x1 | blr	cmpwi r3, 0x1 | beq .L_13 | cmpwi r3, 0x8 | bne .L_6 | li r3, 0x4 | b .L_11 | cmpwi r3, 0x0 | beq .L_10 | li r3, 0x0 | b .L_11 | li r3, 0x6 | li r3, 0x7 | b .L_14 | li r3, 0x1 | blr
+iso2	cmpwi r3, 0x1 | beq .L_7 | li r3, 0x1 | li r3, 0x0 | li r3, 0x6 | li r3, 0x4 | b .L_8 | li r3, 0x3 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x3 | b .L_8 | li r3, 0x1 | li r3, 0x0 | li r3, 0x6 | li r3, 0x4 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x1 | b .L_5 | li r3, 0x6 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x6 | b .L_5 | li r3, 0x1 | blr
+iso2	cmpwi r3, 0x1 | beq .L_12 | cmpwi r3, 0x4 | beq .L_10 | b .L_7 | li r3, 0x7 | li r3, 0x2 | cmpwi r4, 0x0 | bne .L_5 | b .L_11 | li r3, 0x4 | b .L_33 | cmpwi r3, 0x6 | beq .L_24 | cmpwi r3, 0x4 | beq .L_21 | b .L_18 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_17 | b .L_23 | li r3, 0x4 | li r3, 0x1 | b .L_33 | cmpwi r3, 0x7 | beq .L_29 | li r3, 0x0 | li r3, 0x1 | b .L_33 | b .L_31 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_30 | blr	cmpwi r3, 0x1 | beq .L_12 | cmpwi r3, 0x4 | beq .L_10 | b .L_7 | li r3, 0x7 | li r3, 0x2 | cmpwi r4, 0x0 | bne .L_5 | b .L_11 | li r3, 0x4 | b .L_33 | cmpwi r3, 0x6 | beq .L_24 | cmpwi r3, 0x4 | beq .L_21 | b .L_18 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_17 | b .L_23 | li r3, 0x4 | li r3, 0x1 | b .L_33 | cmpwi r3, 0x7 | beq .L_29 | li r3, 0x0 | li r3, 0x1 | b .L_33 | b .L_31 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_30 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x5 | b .L_5 | li r3, 0x9 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x9 | b .L_5 | li r3, 0x5 | blr
+iso2	cmpwi r3, 0x1 | beq .L_14 | b .L_4 | li r3, 0x3 | cmpwi r4, 0x0 | bne .L_3 | cmpwi r3, 0x2 | beq .L_11 | li r3, 0x6 | li r3, 0x5 | b .L_13 | li r3, 0x2 | li r3, 0x9 | b .L_28 | cmpwi r3, 0x7 | beq .L_26 | cmpwi r3, 0x1 | beq .L_24 | cmpwi r3, 0x7 | beq .L_22 | li r3, 0x5 | b .L_23 | li r3, 0x1 | b .L_25 | li r3, 0x8 | b .L_28 | li r3, 0x2 | li r3, 0x8 | blr	cmpwi r3, 0x1 | bne .L_17 | cmpwi r3, 0x7 | beq .L_14 | cmpwi r3, 0x1 | bne .L_8 | li r3, 0x8 | b .L_13 | cmpwi r3, 0x7 | bne .L_12 | li r3, 0x1 | b .L_13 | li r3, 0x5 | b .L_16 | li r3, 0x2 | li r3, 0x8 | b .L_28 | b .L_19 | li r3, 0x3 | cmpwi r4, 0x0 | bne .L_18 | cmpwi r3, 0x2 | beq .L_26 | li r3, 0x6 | li r3, 0x5 | b .L_28 | li r3, 0x2 | li r3, 0x9 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x4 | b .L_13 | cmpwi r3, 0x1 | beq .L_12 | cmpwi r3, 0x9 | beq .L_10 | li r3, 0x5 | b .L_11 | li r3, 0x8 | b .L_13 | li r3, 0x3 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x4 | b .L_13 | cmpwi r3, 0x1 | beq .L_12 | cmpwi r3, 0x9 | bne .L_10 | li r3, 0x8 | b .L_11 | li r3, 0x5 | b .L_13 | li r3, 0x3 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x7 | b .L_20 | cmpwi r3, 0x2 | beq .L_19 | cmpwi r3, 0x9 | beq .L_14 | cmpwi r3, 0x9 | beq .L_12 | li r3, 0x1 | b .L_13 | li r3, 0x9 | b .L_18 | b .L_16 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_15 | b .L_20 | li r3, 0x2 | blr	cmpwi r3, 0x1 | bne .L_19 | cmpwi r3, 0x2 | beq .L_17 | cmpwi r3, 0x9 | beq .L_12 | cmpwi r3, 0x9 | bne .L_10 | li r3, 0x9 | b .L_11 | li r3, 0x1 | b .L_16 | b .L_14 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_13 | b .L_18 | li r3, 0x2 | b .L_20 | li r3, 0x7 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x5 | b .L_25 | cmpwi r3, 0x5 | beq .L_17 | cmpwi r3, 0x7 | beq .L_10 | li r3, 0x4 | b .L_11 | li r3, 0x9 | cmpwi r3, 0x7 | beq .L_15 | li r3, 0x8 | b .L_16 | li r3, 0x0 | b .L_25 | cmpwi r3, 0x7 | beq .L_21 | li r3, 0x1 | b .L_25 | b .L_23 | li r3, 0x6 | cmpwi r4, 0x0 | bne .L_22 | blr	cmpwi r3, 0x1 | bne .L_24 | cmpwi r3, 0x5 | beq .L_15 | cmpwi r3, 0x7 | bne .L_8 | li r3, 0x9 | b .L_9 | li r3, 0x4 | cmpwi r3, 0x7 | beq .L_13 | li r3, 0x8 | b .L_14 | li r3, 0x0 | b .L_23 | cmpwi r3, 0x7 | bne .L_22 | b .L_19 | li r3, 0x6 | cmpwi r4, 0x0 | bne .L_18 | b .L_23 | li r3, 0x1 | b .L_25 | li r3, 0x5 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x5 | b .L_14 | cmpwi r3, 0x2 | beq .L_8 | li r3, 0x5 | b .L_14 | cmpwi r3, 0x9 | beq .L_13 | li r3, 0x0 | li r3, 0x2 | b .L_14 | li r3, 0x8 | blr	cmpwi r3, 0x1 | bne .L_13 | cmpwi r3, 0x2 | beq .L_6 | li r3, 0x5 | b .L_12 | cmpwi r3, 0x9 | beq .L_11 | li r3, 0x0 | li r3, 0x2 | b .L_12 | li r3, 0x8 | b .L_14 | li r3, 0x5 | blr
+iso2	cmpwi r3, 0x1 | beq .L_18 | cmpwi r3, 0x9 | beq .L_10 | b .L_7 | li r3, 0x0 | li r3, 0x2 | cmpwi r4, 0x0 | bne .L_5 | b .L_17 | cmpwi r3, 0x9 | beq .L_15 | li r3, 0x2 | li r3, 0x1 | b .L_17 | li r3, 0x2 | li r3, 0x6 | b .L_19 | li r3, 0x3 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x3 | b .L_19 | cmpwi r3, 0x9 | bne .L_14 | cmpwi r3, 0x9 | beq .L_11 | li r3, 0x2 | li r3, 0x1 | b .L_13 | li r3, 0x2 | li r3, 0x6 | b .L_19 | b .L_17 | li r3, 0x0 | li r3, 0x2 | cmpwi r4, 0x0 | bne .L_15 | blr
+iso2	cmpwi r3, 0x1 | beq .L_8 | cmpwi r3, 0x3 | beq .L_6 | li r3, 0x6 | b .L_7 | li r3, 0x3 | b .L_20 | b .L_18 | cmpwi r3, 0x1 | beq .L_13 | li r3, 0x4 | b .L_14 | li r3, 0x8 | b .L_16 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_15 | cmpwi r4, 0x0 | bne .L_9 | blr	cmpwi r3, 0x1 | beq .L_8 | cmpwi r3, 0x3 | bne .L_6 | li r3, 0x3 | b .L_7 | li r3, 0x6 | b .L_20 | b .L_18 | cmpwi r3, 0x1 | beq .L_13 | li r3, 0x4 | b .L_14 | li r3, 0x8 | b .L_16 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_15 | cmpwi r4, 0x0 | bne .L_9 | blr
+iso2	cmpwi r3, 0x1 | beq .L_21 | cmpwi r3, 0x7 | beq .L_15 | cmpwi r3, 0x9 | beq .L_9 | li r3, 0x3 | li r3, 0x9 | b .L_14 | cmpwi r3, 0x3 | beq .L_13 | li r3, 0x7 | b .L_14 | li r3, 0x9 | b .L_20 | li r3, 0x2 | b .L_18 | li r3, 0x2 | cmpwi r4, 0x0 | bne .L_17 | b .L_22 | li r3, 0x5 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x5 | b .L_22 | cmpwi r3, 0x7 | bne .L_12 | li r3, 0x2 | b .L_9 | li r3, 0x2 | cmpwi r4, 0x0 | bne .L_8 | b .L_22 | cmpwi r3, 0x9 | beq .L_17 | li r3, 0x3 | li r3, 0x9 | b .L_22 | cmpwi r3, 0x3 | beq .L_21 | li r3, 0x7 | b .L_22 | li r3, 0x9 | blr
+iso2	cmpwi r3, 0x1 | beq .L_17 | cmpwi r3, 0x2 | beq .L_11 | li r3, 0x0 | cmpwi r3, 0x3 | beq .L_9 | li r3, 0x9 | b .L_10 | li r3, 0x9 | b .L_16 | b .L_14 | li r3, 0x8 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_12 | b .L_29 | b .L_22 | b .L_20 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_19 | cmpwi r4, 0x0 | bne .L_18 | cmpwi r3, 0x9 | beq .L_28 | li r3, 0x9 | b .L_29 | li r3, 0x9 | blr	cmpwi r3, 0x1 | beq .L_17 | cmpwi r3, 0x2 | bne .L_10 | b .L_7 | li r3, 0x8 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_5 | b .L_16 | li r3, 0x0 | cmpwi r3, 0x3 | bne .L_15 | li r3, 0x9 | b .L_16 | li r3, 0x9 | b .L_29 | b .L_22 | b .L_20 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_19 | cmpwi r4, 0x0 | bne .L_18 | cmpwi r3, 0x9 | bne .L_28 | li r3, 0x9 | b .L_29 | li r3, 0x9 | blr
+iso2	cmpwi r3, 0x1 | beq .L_18 | cmpwi r3, 0x8 | beq .L_6 | li r3, 0x9 | b .L_17 | cmpwi r3, 0x6 | beq .L_13 | b .L_10 | li r3, 0x1 | cmpwi r4, 0x0 | bne .L_9 | b .L_17 | b .L_15 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_14 | b .L_38 | cmpwi r3, 0x7 | beq .L_29 | b .L_26 | cmpwi r3, 0x6 | beq .L_25 | li r3, 0x8 | b .L_26 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_21 | b .L_38 | cmpwi r3, 0x2 | beq .L_37 | cmpwi r3, 0x8 | beq .L_35 | li r3, 0x1 | b .L_36 | li r3, 0x4 | b .L_38 | li r3, 0x5 | blr	cmpwi r3, 0x1 | bne .L_23 | cmpwi r3, 0x7 | bne .L_14 | cmpwi r3, 0x2 | beq .L_12 | cmpwi r3, 0x8 | bne .L_10 | li r3, 0x4 | b .L_11 | li r3, 0x1 | b .L_13 | li r3, 0x5 | b .L_22 | b .L_20 | cmpwi r3, 0x6 | beq .L_19 | li r3, 0x8 | b .L_20 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_15 | b .L_38 | cmpwi r3, 0x8 | beq .L_27 | li r3, 0x9 | b .L_38 | cmpwi r3, 0x6 | bne .L_34 | b .L_31 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_30 | b .L_38 | b .L_36 | li r3, 0x1 | cmpwi r4, 0x0 | bne .L_35 | blr
+iso2	cmpwi r3, 0x1 | beq .L_25 | cmpwi r3, 0x9 | beq .L_14 | cmpwi r3, 0x4 | beq .L_8 | li r3, 0x2 | b .L_13 | cmpwi r3, 0x9 | beq .L_12 | li r3, 0x3 | b .L_13 | li r3, 0x1 | b .L_24 | cmpwi r3, 0x2 | beq .L_19 | li r3, 0x3 | li r3, 0x8 | b .L_24 | cmpwi r3, 0x2 | beq .L_23 | li r3, 0x0 | b .L_24 | li r3, 0x9 | b .L_26 | li r3, 0x7 | blr	cmpwi r3, 0x1 | beq .L_25 | cmpwi r3, 0x9 | bne .L_15 | cmpwi r3, 0x2 | beq .L_9 | li r3, 0x3 | li r3, 0x8 | b .L_14 | cmpwi r3, 0x2 | bne .L_13 | li r3, 0x9 | b .L_14 | li r3, 0x0 | b .L_24 | cmpwi r3, 0x4 | bne .L_23 | cmpwi r3, 0x9 | beq .L_21 | li r3, 0x3 | b .L_22 | li r3, 0x1 | b .L_24 | li r3, 0x2 | b .L_26 | li r3, 0x7 | blr
+iso2	cmpwi r3, 0x1 | beq .L_8 | cmpwi r3, 0x4 | beq .L_6 | li r3, 0x5 | b .L_7 | li r3, 0x6 | b .L_21 | b .L_19 | cmpwi r3, 0x2 | beq .L_17 | cmpwi r3, 0x9 | beq .L_15 | li r3, 0x6 | b .L_16 | li r3, 0x4 | b .L_19 | li r3, 0x9 | li r3, 0x6 | cmpwi r4, 0x0 | bne .L_9 | blr	cmpwi r3, 0x1 | bne .L_16 | b .L_13 | cmpwi r3, 0x2 | bne .L_8 | li r3, 0x9 | li r3, 0x6 | b .L_13 | cmpwi r3, 0x9 | beq .L_12 | li r3, 0x6 | b .L_13 | li r3, 0x4 | cmpwi r4, 0x0 | bne .L_3 | b .L_21 | cmpwi r3, 0x4 | beq .L_20 | li r3, 0x5 | b .L_21 | li r3, 0x6 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x5 | b .L_14 | cmpwi r3, 0x7 | beq .L_13 | li r3, 0x9 | cmpwi r3, 0x3 | beq .L_11 | li r3, 0x8 | b .L_12 | li r3, 0x7 | b .L_14 | li r3, 0x3 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x5 | b .L_14 | cmpwi r3, 0x7 | bne .L_8 | li r3, 0x3 | b .L_14 | li r3, 0x9 | cmpwi r3, 0x3 | beq .L_13 | li r3, 0x8 | b .L_14 | li r3, 0x7 | blr
+iso2	cmpwi r3, 0x1 | beq .L_12 | cmpwi r3, 0x3 | beq .L_10 | cmpwi r3, 0x4 | beq .L_8 | li r3, 0x6 | b .L_9 | li r3, 0x8 | b .L_11 | li r3, 0x0 | b .L_13 | li r3, 0x1 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x1 | b .L_13 | cmpwi r3, 0x3 | beq .L_12 | cmpwi r3, 0x4 | bne .L_10 | li r3, 0x8 | b .L_11 | li r3, 0x6 | b .L_13 | li r3, 0x0 | blr
+iso2	cmpwi r3, 0x1 | beq .L_16 | cmpwi r3, 0x0 | beq .L_11 | cmpwi r3, 0x9 | beq .L_9 | li r3, 0x7 | li r3, 0x6 | b .L_10 | li r3, 0x5 | b .L_15 | b .L_13 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_12 | b .L_24 | li r3, 0x2 | cmpwi r3, 0x1 | beq .L_21 | li r3, 0x9 | b .L_22 | li r3, 0x5 | li r3, 0x2 | li r3, 0x6 | blr	cmpwi r3, 0x1 | bne .L_11 | li r3, 0x2 | cmpwi r3, 0x1 | beq .L_7 | li r3, 0x9 | b .L_8 | li r3, 0x5 | li r3, 0x2 | li r3, 0x6 | b .L_24 | cmpwi r3, 0x0 | beq .L_20 | cmpwi r3, 0x9 | beq .L_18 | li r3, 0x7 | li r3, 0x6 | b .L_19 | li r3, 0x5 | b .L_24 | b .L_22 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_21 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x0 | b .L_12 | cmpwi r3, 0x2 | beq .L_8 | li r3, 0x9 | b .L_9 | li r3, 0x4 | li r3, 0x6 | li r3, 0x8 | li r3, 0x1 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x0 | b .L_12 | cmpwi r3, 0x2 | beq .L_8 | li r3, 0x9 | b .L_9 | li r3, 0x4 | li r3, 0x6 | li r3, 0x8 | li r3, 0x1 | blr
+iso2	cmpwi r3, 0x1 | beq .L_12 | b .L_9 | cmpwi r3, 0x8 | beq .L_8 | li r3, 0x3 | li r3, 0x4 | b .L_9 | li r3, 0x3 | cmpwi r4, 0x0 | bne .L_3 | b .L_20 | cmpwi r3, 0x9 | beq .L_16 | li r3, 0x8 | b .L_20 | b .L_18 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_17 | blr	cmpwi r3, 0x1 | beq .L_12 | b .L_9 | cmpwi r3, 0x8 | beq .L_8 | li r3, 0x3 | li r3, 0x4 | b .L_9 | li r3, 0x3 | cmpwi r4, 0x0 | bne .L_3 | b .L_20 | cmpwi r3, 0x9 | bne .L_19 | b .L_16 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_15 | b .L_20 | li r3, 0x8 | blr
+iso2	cmpwi r3, 0x1 | beq .L_13 | b .L_10 | cmpwi r3, 0x4 | beq .L_8 | li r3, 0x4 | li r3, 0x4 | b .L_10 | li r3, 0x5 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_3 | b .L_30 | cmpwi r3, 0x5 | beq .L_29 | cmpwi r3, 0x4 | beq .L_23 | cmpwi r3, 0x7 | beq .L_21 | li r3, 0x4 | b .L_22 | li r3, 0x3 | b .L_28 | cmpwi r3, 0x0 | beq .L_27 | li r3, 0x2 | b .L_28 | li r3, 0x4 | b .L_30 | li r3, 0x9 | blr	cmpwi r3, 0x1 | beq .L_13 | b .L_10 | cmpwi r3, 0x4 | bne .L_8 | li r3, 0x5 | li r3, 0x5 | b .L_10 | li r3, 0x4 | li r3, 0x4 | cmpwi r4, 0x0 | bne .L_3 | b .L_30 | cmpwi r3, 0x5 | bne .L_17 | li r3, 0x9 | b .L_30 | cmpwi r3, 0x4 | bne .L_25 | cmpwi r3, 0x0 | beq .L_23 | li r3, 0x2 | b .L_24 | li r3, 0x4 | b .L_30 | cmpwi r3, 0x7 | bne .L_29 | li r3, 0x3 | b .L_30 | li r3, 0x4 | blr
+iso2	cmpwi r3, 0x1 | beq .L_20 | cmpwi r3, 0x5 | beq .L_9 | b .L_6 | li r3, 0x7 | cmpwi r4, 0x0 | bne .L_5 | b .L_19 | cmpwi r3, 0x5 | beq .L_14 | li r3, 0x0 | li r3, 0x1 | b .L_19 | cmpwi r3, 0x6 | beq .L_18 | li r3, 0x0 | b .L_19 | li r3, 0x1 | b .L_38 | cmpwi r3, 0x6 | beq .L_33 | cmpwi r3, 0x8 | beq .L_27 | li r3, 0x9 | li r3, 0x3 | b .L_32 | cmpwi r3, 0x0 | beq .L_31 | li r3, 0x9 | b .L_32 | li r3, 0x9 | b .L_38 | cmpwi r3, 0x4 | beq .L_37 | li r3, 0x5 | b .L_38 | li r3, 0x3 | blr	cmpwi r3, 0x1 | bne .L_21 | cmpwi r3, 0x6 | bne .L_10 | cmpwi r3, 0x4 | bne .L_8 | li r3, 0x3 | b .L_9 | li r3, 0x5 | b .L_20 | cmpwi r3, 0x8 | beq .L_15 | li r3, 0x9 | li r3, 0x3 | b .L_20 | cmpwi r3, 0x0 | bne .L_19 | li r3, 0x9 | b .L_20 | li r3, 0x9 | b .L_38 | cmpwi r3, 0x5 | beq .L_28 | b .L_25 | li r3, 0x7 | cmpwi r4, 0x0 | bne .L_24 | b .L_38 | cmpwi r3, 0x5 | bne .L_36 | cmpwi r3, 0x6 | beq .L_34 | li r3, 0x0 | b .L_35 | li r3, 0x1 | b .L_38 | li r3, 0x0 | li r3, 0x1 | blr
+iso2	cmpwi r3, 0x1 | beq .L_16 | cmpwi r3, 0x9 | beq .L_14 | cmpwi r3, 0x5 | beq .L_12 | cmpwi r3, 0x0 | beq .L_10 | li r3, 0x4 | b .L_11 | li r3, 0x6 | b .L_13 | li r3, 0x6 | b .L_15 | li r3, 0x5 | b .L_28 | cmpwi r3, 0x8 | beq .L_20 | li r3, 0x6 | b .L_28 | b .L_26 | cmpwi r3, 0x6 | beq .L_25 | li r3, 0x9 | b .L_26 | li r3, 0x8 | cmpwi r4, 0x0 | bne .L_21 | blr	cmpwi r3, 0x1 | bne .L_15 | cmpwi r3, 0x8 | bne .L_13 | b .L_10 | cmpwi r3, 0x6 | bne .L_9 | li r3, 0x8 | b .L_10 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_5 | b .L_14 | li r3, 0x6 | b .L_28 | cmpwi r3, 0x9 | beq .L_27 | cmpwi r3, 0x5 | beq .L_25 | cmpwi r3, 0x0 | bne .L_23 | li r3, 0x6 | b .L_24 | li r3, 0x4 | b .L_26 | li r3, 0x6 | b .L_28 | li r3, 0x5 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x8 | b .L_10 | cmpwi r3, 0x1 | beq .L_8 | li r3, 0x9 | b .L_10 | li r3, 0x8 | li r3, 0x6 | blr	cmpwi r3, 0x1 | bne .L_9 | cmpwi r3, 0x1 | beq .L_6 | li r3, 0x9 | b .L_8 | li r3, 0x8 | li r3, 0x6 | b .L_10 | li r3, 0x8 | blr
+iso2	cmpwi r3, 0x1 | beq .L_8 | cmpwi r3, 0x5 | beq .L_6 | li r3, 0x8 | b .L_7 | li r3, 0x2 | b .L_20 | cmpwi r3, 0x6 | beq .L_19 | b .L_16 | cmpwi r3, 0x5 | beq .L_15 | li r3, 0x3 | b .L_16 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_11 | b .L_20 | li r3, 0x9 | blr	cmpwi r3, 0x1 | bne .L_15 | cmpwi r3, 0x6 | bne .L_6 | li r3, 0x9 | b .L_14 | b .L_12 | cmpwi r3, 0x5 | bne .L_11 | li r3, 0x5 | b .L_12 | li r3, 0x3 | cmpwi r4, 0x0 | bne .L_7 | b .L_20 | cmpwi r3, 0x5 | bne .L_19 | li r3, 0x2 | b .L_20 | li r3, 0x8 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x9 | b .L_9 | cmpwi r3, 0x0 | beq .L_8 | li r3, 0x7 | b .L_9 | li r3, 0x3 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x9 | b .L_9 | cmpwi r3, 0x0 | beq .L_8 | li r3, 0x7 | b .L_9 | li r3, 0x3 | blr
+iso2	cmpwi r3, 0x1 | beq .L_24 | cmpwi r3, 0x7 | beq .L_14 | cmpwi r3, 0x2 | beq .L_12 | cmpwi r3, 0x0 | beq .L_10 | li r3, 0x4 | b .L_11 | li r3, 0x1 | b .L_13 | li r3, 0x0 | b .L_23 | cmpwi r3, 0x6 | beq .L_22 | cmpwi r3, 0x3 | beq .L_20 | li r3, 0x3 | b .L_21 | li r3, 0x7 | b .L_23 | li r3, 0x9 | b .L_25 | li r3, 0x8 | blr	cmpwi r3, 0x1 | beq .L_24 | cmpwi r3, 0x7 | bne .L_14 | cmpwi r3, 0x6 | bne .L_8 | li r3, 0x9 | b .L_13 | cmpwi r3, 0x3 | bne .L_12 | li r3, 0x7 | b .L_13 | li r3, 0x3 | b .L_23 | cmpwi r3, 0x2 | beq .L_22 | cmpwi r3, 0x0 | bne .L_20 | li r3, 0x1 | b .L_21 | li r3, 0x4 | b .L_23 | li r3, 0x0 | b .L_25 | li r3, 0x8 | blr
+iso2	cmpwi r3, 0x1 | beq .L_19 | cmpwi r3, 0x5 | beq .L_11 | li r3, 0x3 | cmpwi r3, 0x7 | beq .L_9 | li r3, 0x0 | b .L_10 | li r3, 0x4 | b .L_18 | cmpwi r3, 0x6 | beq .L_16 | li r3, 0x8 | li r3, 0x6 | b .L_18 | li r3, 0x8 | li r3, 0x7 | b .L_29 | b .L_21 | li r3, 0x2 | cmpwi r4, 0x0 | bne .L_20 | cmpwi r3, 0x3 | beq .L_28 | li r3, 0x4 | li r3, 0x2 | b .L_29 | li r3, 0x9 | blr	cmpwi r3, 0x1 | bne .L_13 | b .L_4 | li r3, 0x2 | cmpwi r4, 0x0 | bne .L_3 | cmpwi r3, 0x3 | bne .L_10 | li r3, 0x9 | b .L_12 | li r3, 0x4 | li r3, 0x2 | b .L_29 | cmpwi r3, 0x5 | beq .L_22 | li r3, 0x3 | cmpwi r3, 0x7 | bne .L_20 | li r3, 0x4 | b .L_21 | li r3, 0x0 | b .L_29 | cmpwi r3, 0x6 | beq .L_27 | li r3, 0x8 | li r3, 0x6 | b .L_29 | li r3, 0x8 | li r3, 0x7 | blr
+iso2	cmpwi r3, 0x1 | beq .L_17 | cmpwi r3, 0x8 | beq .L_10 | b .L_7 | li r3, 0x7 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_5 | b .L_16 | cmpwi r3, 0x7 | beq .L_15 | li r3, 0x5 | li r3, 0x4 | b .L_16 | li r3, 0x1 | b .L_18 | li r3, 0x3 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x3 | b .L_18 | cmpwi r3, 0x8 | beq .L_12 | b .L_9 | li r3, 0x7 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_7 | b .L_18 | cmpwi r3, 0x7 | bne .L_16 | li r3, 0x1 | b .L_18 | li r3, 0x5 | li r3, 0x4 | blr
+iso2	cmpwi r3, 0x1 | beq .L_10 | cmpwi r3, 0x4 | beq .L_6 | li r3, 0x2 | b .L_8 | li r3, 0x1 | li r3, 0x8 | li r3, 0x8 | b .L_11 | li r3, 0x6 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x6 | b .L_11 | cmpwi r3, 0x4 | beq .L_8 | li r3, 0x2 | b .L_10 | li r3, 0x1 | li r3, 0x8 | li r3, 0x8 | blr
+iso2	cmpwi r3, 0x1 | beq .L_15 | b .L_12 | cmpwi r3, 0x6 | beq .L_11 | cmpwi r3, 0x6 | beq .L_9 | li r3, 0x9 | b .L_10 | li r3, 0x7 | b .L_12 | li r3, 0x4 | cmpwi r4, 0x0 | bne .L_3 | b .L_16 | li r3, 0x4 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x4 | b .L_16 | b .L_14 | cmpwi r3, 0x6 | beq .L_13 | cmpwi r3, 0x6 | bne .L_11 | li r3, 0x7 | b .L_12 | li r3, 0x9 | b .L_14 | li r3, 0x4 | cmpwi r4, 0x0 | bne .L_5 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x3 | b .L_5 | li r3, 0x8 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x3 | b .L_5 | li r3, 0x8 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x2 | b .L_27 | cmpwi r3, 0x6 | beq .L_12 | cmpwi r3, 0x2 | beq .L_10 | li r3, 0x6 | b .L_11 | li r3, 0x0 | b .L_17 | cmpwi r3, 0x5 | beq .L_16 | li r3, 0x9 | b .L_17 | li r3, 0x9 | cmpwi r3, 0x2 | beq .L_22 | li r3, 0x9 | li r3, 0x8 | b .L_27 | cmpwi r3, 0x7 | beq .L_26 | li r3, 0x1 | b .L_27 | li r3, 0x4 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x2 | b .L_27 | cmpwi r3, 0x6 | beq .L_12 | cmpwi r3, 0x2 | beq .L_10 | li r3, 0x6 | b .L_11 | li r3, 0x0 | b .L_17 | cmpwi r3, 0x5 | beq .L_16 | li r3, 0x9 | b .L_17 | li r3, 0x9 | cmpwi r3, 0x2 | bne .L_25 | cmpwi r3, 0x7 | bne .L_23 | li r3, 0x4 | b .L_24 | li r3, 0x1 | b .L_27 | li r3, 0x9 | li r3, 0x8 | blr
+iso2	cmpwi r3, 0x1 | beq .L_22 | cmpwi r3, 0x5 | beq .L_13 | cmpwi r3, 0x7 | beq .L_8 | li r3, 0x5 | b .L_12 | b .L_10 | li r3, 0x1 | cmpwi r4, 0x0 | bne .L_9 | b .L_21 | b .L_19 | cmpwi r3, 0x6 | beq .L_18 | li r3, 0x4 | b .L_19 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_14 | b .L_26 | b .L_24 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_23 | blr	cmpwi r3, 0x1 | bne .L_7 | b .L_4 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_3 | b .L_26 | cmpwi r3, 0x5 | bne .L_18 | b .L_15 | cmpwi r3, 0x6 | beq .L_14 | li r3, 0x4 | b .L_15 | li r3, 0x5 | cmpwi r4, 0x0 | bne .L_10 | b .L_26 | cmpwi r3, 0x7 | bne .L_25 | b .L_22 | li r3, 0x1 | cmpwi r4, 0x0 | bne .L_21 | b .L_26 | li r3, 0x5 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x3 | b .L_14 | cmpwi r3, 0x9 | beq .L_8 | li r3, 0x2 | b .L_13 | cmpwi r3, 0x8 | beq .L_12 | li r3, 0x4 | b .L_13 | li r3, 0x0 | li r3, 0x9 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x3 | b .L_14 | cmpwi r3, 0x9 | beq .L_8 | li r3, 0x2 | b .L_13 | cmpwi r3, 0x8 | beq .L_12 | li r3, 0x4 | b .L_13 | li r3, 0x0 | li r3, 0x9 | blr
+iso2	cmpwi r3, 0x1 | beq .L_25 | cmpwi r3, 0x2 | beq .L_9 | b .L_6 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_5 | b .L_14 | cmpwi r3, 0x4 | beq .L_13 | li r3, 0x5 | b .L_14 | li r3, 0x1 | cmpwi r3, 0x1 | beq .L_18 | li r3, 0x7 | b .L_19 | li r3, 0x7 | cmpwi r3, 0x7 | beq .L_23 | li r3, 0x4 | b .L_24 | li r3, 0x4 | b .L_30 | cmpwi r3, 0x0 | beq .L_29 | li r3, 0x7 | b .L_30 | li r3, 0x6 | blr	cmpwi r3, 0x1 | beq .L_25 | cmpwi r3, 0x2 | beq .L_9 | b .L_6 | li r3, 0x0 | cmpwi r4, 0x0 | bne .L_5 | b .L_14 | cmpwi r3, 0x4 | bne .L_13 | li r3, 0x1 | b .L_14 | li r3, 0x5 | cmpwi r3, 0x1 | bne .L_18 | li r3, 0x7 | b .L_19 | li r3, 0x7 | cmpwi r3, 0x7 | bne .L_23 | li r3, 0x4 | b .L_24 | li r3, 0x4 | b .L_30 | cmpwi r3, 0x0 | bne .L_29 | li r3, 0x6 | b .L_30 | li r3, 0x7 | blr
+iso2	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x7 | b .L_5 | li r3, 0x7 | blr	cmpwi r3, 0x1 | beq .L_4 | li r3, 0x7 | b .L_5 | li r3, 0x7 | blr
+iso2	cmpwi r3, 0x1 | beq .L_12 | cmpwi r3, 0x6 | beq .L_8 | li r3, 0x0 | li r3, 0x5 | li r3, 0x3 | b .L_11 | li r3, 0x2 | li r3, 0x5 | li r3, 0x5 | b .L_24 | b .L_22 | cmpwi r3, 0x1 | beq .L_17 | li r3, 0x4 | b .L_18 | li r3, 0x1 | b .L_20 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_19 | cmpwi r4, 0x0 | bne .L_13 | blr	cmpwi r3, 0x1 | bne .L_15 | b .L_12 | cmpwi r3, 0x1 | beq .L_7 | li r3, 0x4 | b .L_8 | li r3, 0x1 | b .L_10 | li r3, 0x9 | cmpwi r4, 0x0 | bne .L_9 | cmpwi r4, 0x0 | bne .L_3 | b .L_24 | cmpwi r3, 0x6 | beq .L_21 | li r3, 0x0 | li r3, 0x5 | li r3, 0x3 | b .L_24 | li r3, 0x2 | li r3, 0x5 | li r3, 0x5 | blr
+iso2	cmpwi r3, 0x1 | beq .L_10 | li r3, 0x7 | li r3, 0x6 | cmpwi r3, 0x7 | beq .L_8 | li r3, 0x7 | b .L_9 | li r3, 0x0 | b .L_11 | li r3, 0x1 | blr	cmpwi r3, 0x1 | bne .L_4 | li r3, 0x1 | b .L_11 | li r3, 0x7 | li r3, 0x6 | cmpwi r3, 0x7 | beq .L_10 | li r3, 0x7 | b .L_11 | li r3, 0x0 | blr

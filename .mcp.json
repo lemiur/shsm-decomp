@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "shsm-dolphin": {
+      "type": "stdio",
+      "command": "build\\tools\\mcp_server.exe",
+      "args": []
+    }
+  }
+}

@@ -1,0 +1,78 @@
+# IDE folders
+.idea/
+.vs/
+
+# Caches
+__pycache__
+.mypy_cache
+.cache/
+
+# User's root files: disc images, archives, notes (never commit)
+/*.rvz
+/*.iso
+/*.zip
+/*.7z
+/*.wbfs
+/*.gcm
+/*.nkit.*
+/Silent Hill Shattered Memories Asset Disc/
+
+# Original game files (keep only the inventory and placeholders)
+orig/*
+!orig/INVENTORY.md
+!orig/R5WEA4/
+orig/R5WEA4/*
+!orig/R5WEA4/.gitkeep
+*.dol
+*.rel
+*.elf
+*.o
+*.map
+*.MAP
+
+# Toolchain (proprietary compilers, downloaded binaries, third-party sources)
+tools/compilers/
+tools/bin/
+tools/src/
+
+# Reference material: text outputs may be committed, binary blobs may not
+ref/**/*.bin
+ref/**/*.elf
+ref/**/*.ELF
+ref/**/*.iso
+ref/**/*.arc
+ref/**/*.ARC
+ref/**/*.irx
+ref/**/*.IRX
+ref/**/*.dat
+ref/**/*.DAT
+ref/**/*.raw
+ref/**/SLES_*
+ref/**/SLUS_*
+ref/**/SYSTEM.CNF
+
+# Build files
+build/
+.ninja_*
+build.ninja
+
+# decompctx output
+ctx.*
+*.ctx
+
+# Generated configs
+objdiff.json
+compile_commands.json
+
+# Miscellaneous
+/*.txt
+*.exe
+*.dll
+
+# walls lane: local analysis tools (not committed)
+tools/venv/
+tools/permuter/
+
+# Local tool state
+.codex/
+.claude/

@@ -1,0 +1,4 @@
+zlib-ng 2.2.4 - zlib data compression library for the next generation systems.
+(C) 1995-2024 Jean-loup Gailly and Mark Adler; zlib-ng contributors (see src/README.md).
+Distributed under the zlib licence; the full text is in LICENSE.md. Used by tools/c/lib/shsm_zlib and
+tools/c/lib/shsm_archive.

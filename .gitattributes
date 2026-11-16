@@ -1,0 +1,21 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Explicitly declare text files
+*.py   text
+
+# Enforce platform-specific encodings
+*.bat  text eol=crlf
+*.sh   text eol=lf
+*.sha1 text eol=lf
+
+# decomp-toolkit writes files with LF
+config/**/*.txt  text eol=lf
+
+# POSIX shell script run by git as the pre-commit hook: LF in every checkout
+tools/hooks/pre-commit text eol=lf
+tools/hooks/pre-commit-c text eol=lf
+
+# Generated reports: regenerated at every merge, never worth reading as a diff
+config/R5WEA4/baseline_report.json -diff
+docs/progress.md -diff

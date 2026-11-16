@@ -1,0 +1,2 @@
+zlib-ng 2.2.4 (https://github.com/zlib-ng/zlib-ng/archive/refs/tags/2.2.4.tar.gz), built with ZLIB_COMPAT=ON (CPython 3.14's zlib); test/ and doc/ dropped
+Taken from another project of the author's tools/c/third_party/zlib-ng at commit 49e811503d7ba5c9cff92160557df057c50a8ab3; the upstream tree is unchanged in src/ (LICENSE.md and this VERSION moved up one level); CMakeLists.txt and NOTICE are this project's.

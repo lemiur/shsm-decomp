@@ -1,0 +1,17 @@
+capstone 5.0.7
+Upstream: https://github.com/capstone-engine/capstone, tag 5.0.7
+  (archive https://github.com/capstone-engine/capstone/archive/refs/tags/5.0.7.tar.gz).
+Taken from: third_party/capstone of another project of the author's at commit 49e811503d7ba5c9cff92160557df057c50a8ab3
+  (that project's vendored copy; copied unchanged, nothing downloaded).
+Source path: the archive's core (cs.c, Mapping.c, MCInst.c, MCInstrDesc.c, MCRegisterInfo.c, SStream.c, utils.c and
+  their headers), include/capstone/, arch/X86 and arch/PowerPC; the other architectures keep only their *Module.h
+  (cs.c includes them); the *_reduce tables dropped (CAPSTONE_X86_REDUCE off).
+
+Build (CMakeLists.txt): target shsm_capstone, compiled with CAPSTONE_HAS_X86 only. The PowerPC decoder's sources are
+vendored but compiled only with -DSHSM_CAPSTONE_PPC=ON (default OFF; adds arch/PowerPC/*.c and
+CAPSTONE_HAS_POWERPC). The Python reference (tools/mwcc_trace/pe_disasm.py) uses the capstone 5.0.7 wheel, so the
+same release gives the same instruction text.
+
+Local patch (that project's, kept): arch/X86/X86IntelInstPrinter.c and X86ATTInstPrinter.c initialise `uint8_t encsize` to 0.
+It was read uninitialised for the far-pointer operands of LCALL/LJMP (detail x86.encoding.imm_size: 0xCC in Debug
+builds); 0 is what the Python capstone wheel reports.

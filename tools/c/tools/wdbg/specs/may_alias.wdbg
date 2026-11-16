@@ -1,0 +1,81 @@
+# wdbg spec: log every answer of the back end's memory-alias test (docs/compiler_regalloc.md, "Scheduler memory
+# disambiguation"). The C spec language (../SPEC.md) form of tools/mwcc_trace/specs/may_alias.py.
+# Run: build/tools/wdbg.exe <src> <unit> <outdir> tools/c/tools/wdbg/specs/may_alias.wdbg
+# 0x5c3460 may_alias(PCode* a, PCode* b) (Alias.obj) passes a->alias, b->alias (PCode +0x1c) to the static comparator
+# 0x5c3480; 0x5c3473 is the instruction after that call (eax = the answer).
+# Alias layout as read in the comparator: +0x14 object, +0x18 offset, +0x1c size, +0x30 kind (0 object,
+# 1 object+offset+size, 2 set). Object +0xc is its HashNameNode (name at +0xa).
+# The Python's name(d, al) is written out twice (the language has no functions): once for a, once for b.
+# The addresses below are those of Wii/1.0 (checked with build/tools/mwcc_symbols.exe); another build is refused.
+build "Wii/1.0"
+
+bp 0x5c3460
+    pa = u32(Esp + 4)
+    pb = u32(Esp + 8)
+
+    al = u32(pa + 0x1c)
+    if not al
+        cur_a = "none"
+    else
+        o = u32(al + 0x14)
+        k = u8(al + 0x30)
+        nm = "?"
+        if o
+            h = u32(o + 0xc)
+            if h
+                nm = cstr(rd(h + 0xa, 48))
+            end
+        end
+        if k == 0
+            kn = "obj"
+        elif k == 1
+            kn = "loc"
+        elif k == 2
+            kn = "set"
+        else
+            kn = str(k)
+        end
+        cur_a = fmt("%s:%s", kn, nm)
+        if k == 1
+            cur_a += fmt("+%#x/%d", u32(al + 0x18), u32(al + 0x1c))
+        end
+        if o and u8(o + 0x14) == 1
+            cur_a += "(ro)"
+        end
+    end
+
+    al = u32(pb + 0x1c)
+    if not al
+        cur_b = "none"
+    else
+        o = u32(al + 0x14)
+        k = u8(al + 0x30)
+        nm = "?"
+        if o
+            h = u32(o + 0xc)
+            if h
+                nm = cstr(rd(h + 0xa, 48))
+            end
+        end
+        if k == 0
+            kn = "obj"
+        elif k == 1
+            kn = "loc"
+        elif k == 2
+            kn = "set"
+        else
+            kn = str(k)
+        end
+        cur_b = fmt("%s:%s", kn, nm)
+        if k == 1
+            cur_b += fmt("+%#x/%d", u32(al + 0x18), u32(al + 0x1c))
+        end
+        if o and u8(o + 0x14) == 1
+            cur_b += "(ro)"
+        end
+    end
+end
+
+bp 0x5c3473
+    out "may_alias %-28s %-28s -> %d", cur_a, cur_b, Eax & 0xff
+end

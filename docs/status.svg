@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="822" height="460" viewBox="0 0 822 460" font-family="system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif" font-size="12">
+<title>Progress by library (code bytes)</title>
+<rect x="0.5" y="0.5" width="821" height="459" rx="8" fill="#ffffff" stroke="#ced4da"/>
+<text x="16" y="32" font-size="20" font-weight="700" fill="#212529">18.92% matched under the rules</text>
+<text x="16" y="52" fill="#495057">754656 / 3988520 bytes, 2883 / 13947 functions</text>
+<text x="16" y="74" fill="#495057" font-weight="700">Progress by library (code bytes)</text>
+<rect x="16" y="84" width="10" height="10" fill="#2b8a3e"/>
+<text x="30" y="93" fill="#495057" font-size="11">matched (linked)</text>
+<rect x="155" y="84" width="10" height="10" fill="#5c940d"/>
+<text x="169" y="93" fill="#495057" font-size="11">exact, unlinked</text>
+<rect x="287" y="84" width="10" height="10" fill="#d9480f"/>
+<text x="301" y="93" fill="#495057" font-size="11">in progress</text>
+<rect x="392" y="84" width="10" height="10" fill="#868e96"/>
+<text x="406" y="93" fill="#495057" font-size="11">unstarted</text>
+<text x="16" y="118" fill="#212529">game</text>
+<rect x="166" y="106" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="106" width="11.85" height="16" fill="#2b8a3e" stroke="#ffffff" stroke-width="1"><title>game matched (linked): 36768 bytes</title></rect>
+<rect x="177.85" y="106" width="2.99" height="16" fill="#5c940d" stroke="#ffffff" stroke-width="1"><title>game exact, unlinked: 9268 bytes</title></rect>
+<rect x="180.83" y="106" width="4.31" height="16" fill="#d9480f" stroke="#ffffff" stroke-width="1"><title>game in progress: 13368 bytes</title></rect>
+<rect x="185.14" y="106" width="500.86" height="16" fill="#868e96" stroke="#ffffff" stroke-width="1"><title>game unstarted: 1554712 bytes</title></rect>
+<text x="694" y="118" fill="#212529">2.3%  1.5 MiB</text>
+<text x="16" y="140" fill="#212529">climax</text>
+<rect x="166" y="128" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="128" width="3.94" height="16" fill="#5c940d" stroke="#ffffff" stroke-width="1"><title>climax exact, unlinked: 2376 bytes</title></rect>
+<rect x="169.94" y="128" width="3.99" height="16" fill="#d9480f" stroke="#ffffff" stroke-width="1"><title>climax in progress: 2404 bytes</title></rect>
+<rect x="173.94" y="128" width="512.06" height="16" fill="#868e96" stroke="#ffffff" stroke-width="1"><title>climax unstarted: 308424 bytes</title></rect>
+<text x="694" y="140" fill="#212529">0.0%  306 KiB</text>
+<text x="16" y="162" fill="#212529">sdk</text>
+<rect x="166" y="150" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="150" width="470.31" height="16" fill="#2b8a3e" stroke="#ffffff" stroke-width="1"><title>sdk matched (linked): 622164 bytes</title></rect>
+<rect x="636.31" y="150" width="30.54" height="16" fill="#5c940d" stroke="#ffffff" stroke-width="1"><title>sdk exact, unlinked: 40400 bytes</title></rect>
+<rect x="666.85" y="150" width="6.07" height="16" fill="#d9480f" stroke="#ffffff" stroke-width="1"><title>sdk in progress: 8032 bytes</title></rect>
+<rect x="672.92" y="150" width="13.08" height="16" fill="#868e96" stroke="#ffffff" stroke-width="1"><title>sdk unstarted: 17304 bytes</title></rect>
+<text x="694" y="162" fill="#212529">90.4%  672 KiB</text>
+<text x="16" y="184" fill="#212529">MSL_C</text>
+<rect x="166" y="172" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="172" width="143.16" height="16" fill="#2b8a3e" stroke="#ffffff" stroke-width="1"><title>MSL_C matched (linked): 18404 bytes</title></rect>
+<rect x="309.16" y="172" width="376.84" height="16" fill="#868e96" stroke="#ffffff" stroke-width="1"><title>MSL_C unstarted: 48444 bytes</title></rect>
+<text x="694" y="184" fill="#212529">27.5%  65 KiB</text>
+<text x="16" y="206" fill="#212529">Runtime.PPCEABI.H</text>
+<rect x="166" y="194" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="194" width="503.68" height="16" fill="#2b8a3e" stroke="#ffffff" stroke-width="1"><title>Runtime.PPCEABI.H matched (linked): 3580 bytes</title></rect>
+<rect x="669.68" y="194" width="5.63" height="16" fill="#5c940d" stroke="#ffffff" stroke-width="1"><title>Runtime.PPCEABI.H exact, unlinked: 40 bytes</title></rect>
+<rect x="675.31" y="194" width="10.69" height="16" fill="#d9480f" stroke="#ffffff" stroke-width="1"><title>Runtime.PPCEABI.H in progress: 76 bytes</title></rect>
+<text x="694" y="206" fill="#212529">96.9%  4 KiB</text>
+<text x="16" y="228" fill="#212529">MetroTRK</text>
+<rect x="166" y="216" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="216" width="302.62" height="16" fill="#2b8a3e" stroke="#ffffff" stroke-width="1"><title>MetroTRK matched (linked): 12100 bytes</title></rect>
+<rect x="468.62" y="216" width="138.05" height="16" fill="#5c940d" stroke="#ffffff" stroke-width="1"><title>MetroTRK exact, unlinked: 5520 bytes</title></rect>
+<rect x="606.67" y="216" width="31.81" height="16" fill="#d9480f" stroke="#ffffff" stroke-width="1"><title>MetroTRK in progress: 1272 bytes</title></rect>
+<rect x="638.48" y="216" width="47.52" height="16" fill="#868e96" stroke="#ffffff" stroke-width="1"><title>MetroTRK unstarted: 1900 bytes</title></rect>
+<text x="694" y="228" fill="#212529">58.2%  20 KiB</text>
+<text x="16" y="250" fill="#212529">crt</text>
+<rect x="166" y="238" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="238" width="4.71" height="16" fill="#2b8a3e" stroke="#ffffff" stroke-width="1"><title>crt matched (linked): 88 bytes</title></rect>
+<rect x="170.71" y="238" width="515.29" height="16" fill="#868e96" stroke="#ffffff" stroke-width="1"><title>crt unstarted: 9620 bytes</title></rect>
+<text x="694" y="250" fill="#212529">0.9%  9 KiB</text>
+<text x="16" y="272" fill="#212529">libjpeg</text>
+<rect x="166" y="260" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="260" width="434.41" height="16" fill="#2b8a3e" stroke="#ffffff" stroke-width="1"><title>libjpeg matched (linked): 64620 bytes</title></rect>
+<rect x="600.41" y="260" width="29.53" height="16" fill="#5c940d" stroke="#ffffff" stroke-width="1"><title>libjpeg exact, unlinked: 4392 bytes</title></rect>
+<rect x="629.93" y="260" width="3.07" height="16" fill="#d9480f" stroke="#ffffff" stroke-width="1"><title>libjpeg in progress: 456 bytes</title></rect>
+<rect x="633.00" y="260" width="53.00" height="16" fill="#868e96" stroke="#ffffff" stroke-width="1"><title>libjpeg unstarted: 7884 bytes</title></rect>
+<text x="694" y="272" fill="#212529">83.5%  76 KiB</text>
+<text x="16" y="294" fill="#212529">zlib</text>
+<rect x="166" y="282" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="282" width="520.00" height="16" fill="#2b8a3e" stroke="#ffffff" stroke-width="1"><title>zlib matched (linked): 13396 bytes</title></rect>
+<text x="694" y="294" fill="#212529">100.0%  13 KiB</text>
+<text x="16" y="316" fill="#212529">renderware</text>
+<rect x="166" y="304" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="304" width="520.00" height="16" fill="#868e96" stroke="#ffffff" stroke-width="1"><title>renderware unstarted: 409856 bytes</title></rect>
+<text x="694" y="316" fill="#212529">0.0%  400 KiB</text>
+<text x="16" y="338" fill="#212529">rwphysics</text>
+<rect x="166" y="326" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="326" width="520.00" height="16" fill="#868e96" stroke="#ffffff" stroke-width="1"><title>rwphysics unstarted: 223828 bytes</title></rect>
+<text x="694" y="338" fill="#212529">0.0%  219 KiB</text>
+<text x="16" y="360" fill="#212529">fmod</text>
+<rect x="166" y="348" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="348" width="520.00" height="16" fill="#868e96" stroke="#ffffff" stroke-width="1"><title>fmod unstarted: 561584 bytes</title></rect>
+<text x="694" y="360" fill="#212529">0.0%  548 KiB</text>
+<text x="16" y="382" fill="#212529">unknown</text>
+<rect x="166" y="370" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="370" width="520.00" height="16" fill="#868e96" stroke="#ffffff" stroke-width="1"><title>unknown unstarted: 684 bytes</title></rect>
+<text x="694" y="382" fill="#212529">0.0%  684 B</text>
+<text x="16" y="412" fill="#212529" font-weight="700">total</text>
+<rect x="166" y="400" width="520" height="16" fill="#f1f3f5"/>
+<rect x="166.00" y="400" width="100.17" height="16" fill="#2b8a3e" stroke="#ffffff" stroke-width="1"><title>total matched (linked): 771120 bytes</title></rect>
+<rect x="266.17" y="400" width="8.05" height="16" fill="#5c940d" stroke="#ffffff" stroke-width="1"><title>total exact, unlinked: 61996 bytes</title></rect>
+<rect x="274.22" y="400" width="3.33" height="16" fill="#d9480f" stroke="#ffffff" stroke-width="1"><title>total in progress: 25608 bytes</title></rect>
+<rect x="277.55" y="400" width="408.45" height="16" fill="#868e96" stroke="#ffffff" stroke-width="1"><title>total unstarted: 3144240 bytes</title></rect>
+<text x="694" y="412" fill="#212529" font-weight="700">19.3%  3.8 MiB</text>
+<text x="16" y="446" fill="#6c757d" font-size="10">bars: share of each library's code bytes; libraries by address (config/libraries.tsv)</text>
+</svg>

@@ -1,0 +1,30 @@
+// Reference: doldecomp/ogws include/revolution/AXFX/AXFXReverbHi.h
+#ifndef REVOLUTION_AXFX_REVERBHI_H
+#define REVOLUTION_AXFX_REVERBHI_H
+
+#include <revolution/axfx/AXFXReverbHiExp.h>
+#include <revolution/types.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct AXFX_REVERBHI {
+    AXFX_REVERBHI_EXP exp; // at 0x0
+    f32 coloration;        // at 0x148
+    f32 mix;               // at 0x14C
+    f32 time;              // at 0x150
+    f32 damping;           // at 0x154
+    f32 preDelay;          // at 0x158
+    f32 crosstalk;         // at 0x15C
+} AXFX_REVERBHI;
+
+BOOL AXFXReverbHiInit(AXFX_REVERBHI* fx);
+BOOL AXFXReverbHiShutdown(AXFX_REVERBHI* fx);
+void AXFXReverbHiCallback(void* chans, void* context);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

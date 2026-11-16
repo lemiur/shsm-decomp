@@ -1,0 +1,8 @@
+SQLite 3.50.4, the amalgamation: sqlite3.c and sqlite3.h only (shell.c and sqlite3ext.h dropped), unchanged.
+Release archive: https://www.sqlite.org/2025/sqlite-amalgamation-3500400.zip
+(SHA3-256 of the zip f131b68e6ba5fb891cc13ebb5ff9555054c77294cb92d8d1268bad5dba4fa2a1).
+This is the SQLite version CPython 3.14 links here (sqlite3.sqlite_version 3.50.4), so the Python and C tools write
+and read build/index/asm.sqlite with the same library version.
+Taken from: third_party/sqlite of another project of the author's (that project's C tools) at commit
+49e811503d7ba5c9cff92160557df057c50a8ab3, files sqlite3.c, sqlite3.h, PUBLIC-DOMAIN.txt copied byte for byte.
+Changes: none.

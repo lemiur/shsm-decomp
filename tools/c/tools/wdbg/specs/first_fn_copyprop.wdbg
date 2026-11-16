@@ -1,0 +1,45 @@
+# wdbg spec: log the copy-propagation predicate/action and the [0x747940]/[0x747944] globals (first-function quirk,
+# docs/compiler_regalloc.md). The C spec language (../SPEC.md) form of tools/mwcc_trace/specs/first_fn_copyprop.py.
+# Run: build/tools/wdbg.exe <src> <unit> <outdir> tools/c/tools/wdbg/specs/first_fn_copyprop.wdbg
+# Breakpoint addresses (names from the compiler's NB11 info, build/tools/mwcc_symbols.exe):
+#   0x6497c0 propagatecopyinstructions (CopyPropagation.obj)    0x46bdac CodeGen_Generator+0xfc (CodeGen.obj), per-function entry
+#   0x649840 static in CopyPropagation.obj; per-use predicate   0x649910 same; predicate 'no match' return
+#   0x6498ba same; operand is def+use                           0x6498d4 same; operand substituted
+#   0x649800 same; per-node action (delete the copy)            0x649930 same; action, [0x747940]==0 path
+# The addresses below are those of Wii/1.0 (checked with build/tools/mwcc_symbols.exe); another build is refused.
+build "Wii/1.0"
+
+calls = 0
+
+bp 0x6497c0
+    calls += 1
+    out "=== 6497c0 call#%d flag=%d", calls, u32(Esp + 8)
+end
+
+bp 0x46bdac
+    out "######## fn entry #%d", hits(0x46bdac)
+end
+
+bp 0x649840
+    out "  pred1 node=%d use=%d  [747940]=%d [747944]=%d", u32(Esp + 4), u32(Esp + 8), u32(0x747940), u32(0x747944)
+end
+
+bp 0x649910
+    out "    -> 6499f0 said NO (node=%d)", Ebx
+end
+
+bp 0x6498ba
+    out "    -> operand is def+use (747940=0)"
+end
+
+bp 0x6498d4
+    out "    -> SUBSTITUTED operand (747940=1,747944=node)"
+end
+
+bp 0x649800
+    out "  action1 node=%d  [747940]=%d [747944]=%d", u32(Esp + 4), u32(0x747940), u32(0x747944)
+end
+
+bp 0x649930
+    out "  action0 node=%d  [747940]=%d [747944]=%d", u32(Esp + 4), u32(0x747940), u32(0x747944)
+end

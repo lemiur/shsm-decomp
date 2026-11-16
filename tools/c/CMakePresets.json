@@ -1,0 +1,28 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "tools",
+      "displayName": "Tools (x64, Release, Visual Studio 2022)",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/../../build/tools-cmake",
+      "cacheVariables": { "SHSM_TOOLS_OUT": "${sourceDir}/../../build/tools" }
+    }
+  ],
+  "buildPresets": [
+    { "name": "tools", "configurePreset": "tools", "configuration": "Release", "jobs": 4,
+      "nativeToolOptions": [ "/nodeReuse:false" ], "environment": { "MSBUILDDISABLENODEREUSE": "1" } }
+  ],
+  "testPresets": [
+    { "name": "tools", "configurePreset": "tools", "configuration": "Release",
+      "output": { "outputOnFailure": true }, "execution": { "jobs": 4, "timeout": 600 } }
+  ],
+  "workflowPresets": [
+    { "name": "tools-build", "displayName": "Build every tool (Release, no tests)",
+      "steps": [ { "type": "configure", "name": "tools" }, { "type": "build", "name": "tools" } ] },
+    { "name": "tools", "displayName": "Build every tool and run the unit tests",
+      "steps": [ { "type": "configure", "name": "tools" }, { "type": "build", "name": "tools" },
+                 { "type": "test", "name": "tools" } ] }
+  ]
+}

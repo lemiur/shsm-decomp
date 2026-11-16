@@ -1,0 +1,24 @@
+# Strings found only in the executable of the PS2 release of Silent Hill: Shattered Memories.
+# Supplied by the user on 2026-11-15 as a list ("PS2 Debug Strings"); none of them occurs in the Wii DOL
+# (checked with build/tools/query.exe find-string). They are attribute and debug-output names that the Wii build
+# compiled out. Nothing in the PS2 executable references them (they are unreferenced pool literals);
+# debug_strings.md attributes each to a handler or unit from its neighbours in the string pool.
+ZoneDebug
+ZoneLinkDebug
+(Debug) Disable Lighting Engine
+(Debug) Enable Non Black Fog
+(Debug) World Alpha Mode
+(Debug) Disable Light Engine for non focus secondary zones
+(Debug) Render Shadow Meshes
+(debug) Reflection Markers
+(debug) Reflection Highlight
+(Debug) Show Shadow Buffer
+(Debug) Display Buffer
+(Debug) Spotlight Show LProj
+(Debug) Ramp Scale
+(Debug) Beam Confinement Length
+(Debug) Enable
+(Debug) Tension Level
+(Debug) Interpolation Time
+(Debug) Overide Combat Level
+{DebugOutput} %s

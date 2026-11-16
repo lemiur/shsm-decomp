@@ -1,0 +1,61 @@
+# Address-to-library attribution of main.dol code, transcribed from docs/library_map.md ("Range table").
+# Columns: start, end (exclusive), library, note. Read by pick.exe and status.exe.
+# Library names: `group/sub` for the RVL SDK (`sdk/<configure.py lib>`), game lanes and Climax engine blocks;
+# the configure.py library name otherwise. Edges are as approximate as the doc says (game lanes G1-G7 are
+# work cuts, not TU edges). Alignment gaps the doc leaves unowned are folded into the preceding row (noted).
+# Rows are sorted, never overlap, and cover .text (0x800067A0-0x803D8360) without gaps (the pick tool's tests).
+start	end	library	note
+0x80004000	0x800066E0	crt	.init: __start, memcpy, memset, __init_registers; MetroTRK vectors
+0x800067A0	0x80033D34	game/G1	core, collision, anim, zones (lane cut; edges low)
+0x80033D34	0x80073554	game/G2	audio, characters, enemies (lane cut)
+0x80073554	0x800C5000	game/G3	player, fx, scene, IGC (lane cut)
+0x800C5000	0x80100000	game/G4	triggers, UI, save, photo (lane cut)
+0x80100000	0x80144000	game/G5	XAML UI, camera, AI (lane cut)
+0x80144000	0x80179000	game/G6	fx, psych, puzzles (lane cut)
+0x80179000	0x8018F8C4	game/G7	therapy, traversal, map (lane cut)
+0x8018F8C4	0x801900E8	game/rvl	platform glue (rvl.cpp, main)
+0x801900E8	0x80190BEC	sdk/NdevExi2AD	debugger EXI2 driver
+0x80190BEC	0x80195D28	MetroTRK	0x80190BEC-0x80190C0C targsupp is dtk asm
+0x80195D28	0x801A6248	MSL_C
+0x801A6248	0x801A70B8	Runtime.PPCEABI.H
+0x801A70B8	0x801B4354	climax/core	RWS, streaming, handlers (low confidence)
+0x801B4354	0x801B67FC	climax/stream	compressed-stream class (medium)
+0x801B67FC	0x801B86C8	climax/core	C++ helpers called from game code, not IJG (low)
+0x801B86C8	0x801C9624	libjpeg	IJG 6b
+0x801C9624	0x801CCA78	zlib	1.2.3 inflate side
+0x801CCA78	0x801CCD24	unknown	unidentified library, not zlib (low)
+0x801CCD24	0x80209D54	climax/xml	Climax XML, config, typed assets, movies, rw tables (low)
+0x80209D54	0x80209D80	game/misc	one 0x20-byte game function; 12 unowned bytes folded in
+0x80209D80	0x8020D780	sdk/thp	THP player
+0x8020D780	0x8020F550	sdk/exi
+0x8020F550	0x80210680	sdk/si
+0x80210680	0x8021E8B0	sdk/os	incl. PPCArch
+0x8021E8B0	0x8021EA70	sdk/db	__init (ppc_eabi_init) and db
+0x8021EA70	0x8021EFA0	game/paired-single	medium; part may be SDK MTX
+0x8021EFA0	0x80227F50	sdk/dvd	end medium
+0x80227F50	0x8022CA00	sdk/vi	vi.c, i2c.c, vi3in1.c
+0x8022CA00	0x8022CA60	sdk/pad
+0x8022CA60	0x8022D030	sdk/ai
+0x8022D030	0x802309D0	sdk/ax	end medium
+0x802309D0	0x802334C0	sdk/axfx	12 unowned bytes at the end folded in
+0x802334C0	0x80236C10	sdk/mix
+0x80236C10	0x802377A0	sdk/dsp
+0x802377A0	0x8023F0E0	sdk/gx	12 unowned bytes at the end folded in
+0x8023F0E0	0x802401D0	sdk/mem
+0x802401D0	0x80240550	sdk/euart
+0x80240550	0x80243C80	sdk/ipc	ipc, isfs (fs), ios
+0x80243C80	0x80247450	sdk/nand
+0x80247450	0x802494B4	sdk/sc	scsystem, scapi, scapi_prdinfo (weakest SDK edge)
+0x802494B4	0x80249790	game/audio	fn_802494B4; doc says not SDK
+0x80249790	0x80249DB0	sdk/esp	end taken from arc.c's start
+0x80249DB0	0x8024A790	sdk/arc	8 unowned bytes at the end folded in
+0x8024A790	0x80277F60	sdk/bte	Broadcom BTE stack and glue
+0x80277F60	0x802780A0	sdk/tpl	start medium
+0x802780A0	0x8027C0A0	sdk/kpad	8 unowned bytes at the end folded in
+0x8027C0A0	0x8027D5F0	sdk/usb	USB/IOS HID client (unowned in the doc; ends where splits.txt starts WPAD.c)
+0x8027D5F0	0x8028A4C0	sdk/wpad	splits.txt start; the doc's two unowned stubs 0x8027D660-0x8027D680 fall inside
+0x8028A4C0	0x80290F00	sdk/wud
+0x80290F00	0x802F5000	renderware	RenderWare Graphics 3.7 (low edges)
+0x802F5000	0x8032BA54	rwphysics	RW Physics (Rwp*; start low)
+0x8032BA54	0x803B4C10	fmod	FMOD Ex 4.x + event system
+0x803B4C10	0x803D8360	sdk/hbm	Home Button Menu, nw4hbm lyt/ut/math, hbm sound

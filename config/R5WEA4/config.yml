@@ -1,0 +1,100 @@
+# Silent Hill: Shattered Memories (Wii, USA) - R5WEA4
+# See config.example.yml for documentation of every key.
+object_base: orig/R5WEA4
+object: sys/main.dol
+hash: 6a3964eaf1ebe8225283363e4161a793a03683d3
+symbols: config/R5WEA4/symbols.txt
+splits: config/R5WEA4/splits.txt
+# Linker-table entries that nothing references by name; without these the
+# linker strips them from source-built objects.
+force_active:
+  - __init_cpp_exceptions_reference
+  - __destroy_global_chain_reference
+  - __fini_cpp_exceptions_reference
+# Game behaviour units that nothing references by name: only their static
+# initialiser (.ctors) registers them, and the linker keeps an object's .ctors
+# only when something else in it is live. One global per unit: its class
+# registration object.
+  - lbl_80529328
+  - lbl_80529584
+  - lbl_8052968C
+  - lbl_805297B4
+  - lbl_8052980C
+  - lbl_8052986C
+  - lbl_80529A54
+  - lbl_80529A64
+  - lbl_80529AC4
+  - lbl_80529AD0
+  - lbl_80529ADC
+  - lbl_80529AE4
+  - lbl_80529AEC
+  - lbl_80529AF8
+  - lbl_80529B04
+  - lbl_80529B0C
+  - lbl_80529B1C
+  - lbl_80529B3C
+  - lbl_80529B44
+  - lbl_80529B64
+  - lbl_80529B74
+  - lbl_80529B7C
+  - lbl_80529B9C
+  - lbl_80529BA0
+  - lbl_80529BAC
+  - lbl_80529BC4
+  - lbl_80529BB4
+  - lbl_80529BBC
+  - lbl_80529BCC
+  - lbl_80529BD4
+  - lbl_80529BDC
+  - lbl_80529BE4
+  - lbl_80529C04
+  - lbl_80529C34
+  - lbl_8052A3E4
+  - lbl_8052A3FC
+  - lbl_8052A404
+  - lbl_8052A40C
+# MetroTRK targsupp trap stubs nothing calls (the original is an assembly file,
+# which the linker kept whole).
+  - TRKOpenFile
+  - TRKPositionFile
+
+# .comment section version for split objects (linker/compiler family).
+# Wii compilers (CW 4.x) use 14/15. Provisional; only affects matched objects.
+mw_comment_version: 14
+
+# No map file or symbols exist for this DOL: let dtk run full analysis.
+symbols_known: false
+detect_objects: true
+detect_strings: true
+write_asm: true
+fill_gaps: true
+export_all: true
+
+# Data words that happen to fall inside libjpeg functions (table values, not
+# pointers); as relocations they would target jdmarker's static functions.
+block_relocations:
+  - source: .data:0x80401810
+  - source: .data:0x80424184
+  # jquant1 base_dither_matrix row 1 (bytes 80 40 B0 70), not a pointer.
+  - source: .rodata:0x803DA708
+  # vi3in1 gammaSet[10].yout[5..6] (0x8000, 0xA000), not a pointer.
+  - source: .data:0x8043C0E8
+  # zlib crc32 crc_table (CRC words, not pointers).
+  - source: .rodata:0x803DA948
+    end: .rodata:0x803DC948
+  # WPADEncrypt tb[0xA4..0xA7] (bytes 80 1D 0E B0), not a pointer.
+  - source: .data:0x80448084
+  # OSInit: lis r4, 0x8000 serves the low-memory load 0x310C(r4) and the constant
+  # arena start 0x80004000 (addi r3, r4, 0x4000); a number, not gTRKInterruptVectorTable.
+  - source: .text:0x80211458
+  - source: .text:0x802114CC
+
+# zlib inflate: fixedtables() (inlined) addresses lenfix through a spilled high half
+# (lis r0 / stw / lwz / addi), which dtk's analysis does not pair.
+add_relocations:
+  - source: .text:0x801CAB34
+    type: ha
+    target: "@LOCAL@fixedtables__Fe@lenfix"
+  - source: .text:0x801CAB6C
+    type: l
+    target: "@LOCAL@fixedtables__Fe@lenfix"

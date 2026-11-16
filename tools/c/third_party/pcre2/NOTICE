@@ -1,0 +1,5 @@
+PCRE2 10.44 - Perl-compatible regular expressions, 8-bit library with JIT.
+Written by Philip Hazel; JIT compiler (sljit) by Zoltan Herczeg. Copyright (c) 1997-2024 University of Cambridge,
+Copyright (c) 2010-2024 Zoltan Herczeg, Copyright (c) 2009-2024 Zoltan Herczeg (sljit).
+Distributed under the BSD-3-Clause licence with the PCRE2 exception; the full text is in LICENCE, the authors in
+AUTHORS. Used by tools/c/lib/shsm_re.

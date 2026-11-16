@@ -1,0 +1,2 @@
+# address size type bind section raw_name demangled_name
+# .symtab present: False; symbols: 0; mangling scheme: none

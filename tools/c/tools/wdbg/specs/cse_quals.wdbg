@@ -1,0 +1,18 @@
+# wdbg spec: log every expression comparison of the IR common-subexpression pass (docs/compiler_regalloc.md,
+# "Common subexpressions: qualifiers are part of the expression"). The C spec language (../SPEC.md) form of
+# tools/mwcc_trace/specs/cse_quals.py.
+# Run: build/tools/wdbg.exe <src> <unit> <outdir> tools/c/tools/wdbg/specs/cse_quals.wdbg
+# 0x5d4460 static in IroUtil.obj, the comparator behind IRO_ExprsSameSemantically (called from IroCSE.obj).
+# ENode layout as read there: +0 operator byte, +6 flags dword (qualifiers; 0x1 = const), +0x12 result type,
+# +0x2a first operand.
+# The addresses below are those of Wii/1.0 (checked with build/tools/mwcc_symbols.exe); another build is refused.
+build "Wii/1.0"
+
+bp 0x5d4460
+    a = u32(Esp + 4)
+    b = u32(Esp + 8)
+    ca = u32(a + 0x2a)
+    cb = u32(b + 0x2a)
+    out "cmp op=%d/%d flags=%#x/%#x  operand op=%d/%d", u8(a), u8(b), u32(a + 6), u32(b + 6), \
+        u8(ca) if ca > 0x10000 else -1, u8(cb) if cb > 0x10000 else -1
+end

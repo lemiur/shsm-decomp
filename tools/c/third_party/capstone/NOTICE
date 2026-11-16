@@ -1,0 +1,6 @@
+This directory contains Capstone 5.0.7 (https://www.capstone-engine.org/), the disassembly framework by
+Nguyen Anh Quynh and the Capstone contributors (CREDITS.TXT).
+
+Capstone is distributed under the BSD 3-Clause licence (LICENSE.TXT). Parts derived from the LLVM project are
+distributed under the University of Illinois/NCSA Open Source Licence (LICENSE_LLVM.TXT). Both licences require the
+copyright notices and licence texts to be kept with the source and reproduced in binary distributions.
