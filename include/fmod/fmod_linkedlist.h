@@ -48,11 +48,12 @@ public:
         if ( current == this ) {
             return NULL;
         }
-        while ( index-- > 0 ) {
+        while ( index > 0 ) {
             current = current->mNodeNext;
             if ( current == this ) {
                 return NULL;
             }
+            index--;
         }
         return current;
     }
@@ -133,8 +134,37 @@ public:
     enum { NODE_PRIORITY_NONE = 0xFFFFFFFF };
 
     SortedLinkedListNode() {
-        mNodePriority = NODE_PRIORITY_NONE;
         initNode();
+    }
+
+    // Makes this node an empty list with no priority (name invented).
+    void initNode() {
+        mNodePriority = NODE_PRIORITY_NONE;
+        LinkedListNode::initNode();
+    }
+
+    // Gives this node priority and links it in before the first node of the list headed by head with a
+    // greater one. The head, whose priority is the greatest, ends the search (name invented).
+    void addSorted( SortedLinkedListNode *head, unsigned int priority ) {
+        SortedLinkedListNode *current = static_cast<SortedLinkedListNode *>( head->mNodeNext );
+        do {
+            if ( priority < current->mNodePriority ) {
+                mNodePriority = priority;
+                addBefore( current );
+                break;
+            }
+            current = static_cast<SortedLinkedListNode *>( current->mNodeNext );
+        } while ( current->mNodePrev != head );
+    }
+
+    // Unlinks this node and leaves it linked to itself with no priority (name invented).
+    void removeNode() {
+        mNodePrev->mNodeNext = mNodeNext;
+        mNodeNext->mNodePrev = mNodePrev;
+        mNodePrev = this;
+        mNodeNext = this;
+        mNodePriority = NODE_PRIORITY_NONE;
+        mNodeData = NULL;
     }
 };
 

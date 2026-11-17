@@ -2562,6 +2562,10 @@ fmod/fmod_plugin.cpp:
 	.text       start:0x8033E7E8 end:0x8033E828
 	.data       start:0x8044CA88 end:0x8044CAA8
 
+fmod/fmod_pluginfactory.cpp:
+	.text       start:0x8033E828 end:0x8033FC14
+	.data       start:0x8044CAA8 end:0x8044CCF8
+
 fmod/fmod_reverb.cpp:
 	.text       start:0x8033FC14 end:0x8033FE40
 
@@ -2652,7 +2656,7 @@ fmod/fmod_dsp_wavetable.cpp:
 
 fmod/fmod_codec.cpp:
 	.text       start:0x80369770 end:0x8036A534
-	.data       start:0x8044ED78 end:0x8044EE78
+	.data       start:0x8044ED78 end:0x8044EE88
 	.sdata2     start:0x8052FC10 end:0x8052FC28
 
 fmod/fmod_codec_raw.cpp:

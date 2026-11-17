@@ -192,8 +192,12 @@ void _ScopeTraceMerge(RwScopeTrace** headref, RwScopeTrace* p, RwScopeTrace* q) 
 
 /*
  * Propagates cluster requirements backward across the topologically sorted pipeline and
- * eliminates dead paths. (Gormiti DWARF: _PropagateDependenciesAndKillDeadPaths; unpaired,
- * 250/250 rows, remaining diff is volatile register rotation r5/r6/r7/r8 in first loop.)
+ * eliminates dead paths. (Gormiti DWARF: _PropagateDependenciesAndKillDeadPaths; unpaired: Gormiti's
+ * revision hoists the inner duplicate test's bound with the outer one, retail reloads it per j.)
+ * Wall: register/schedule, 14 rows. In the first loop retail colours j before the hoisted loop bound, the
+ * inner bound and the inner offset (j = r5, as in Gormiti); the build colours it after them (j = r8). Ruled out:
+ * either loop bound written through iospec or through node->nodeDef->io (the Debug build uses the latter for
+ * both), and iospec (with _IoSpecSearch4Cluster's parameter) as a pointer to const.
  */
 static RwUInt32 fn_8029D500(RxPipeline* pipeline) {
     RwUInt32 numUniqueClusters;

@@ -1,0 +1,26 @@
+# WorldSyncCamera: spSect moved back to where the sibling's DWARF declares it (after spaStack) and its
+# RULE-EXCEPTION: R30 comment dropped. Declaring it last closes the function, a declaration order the DWARF does
+# not show: the solver must report that as a decl-order probe (RULE-EXCEPTION territory), never as a MATCH.
+unit main/rwsdk/world/baworobj
+function WorldSyncCamera
+expect verdict NO-FORM-WITHIN-RULES
+expect verdict-not MATCH
+expect contains closes under a declaration order the sibling's DWARF does not show: a RULE-EXCEPTION under R30
+find <<EOT
+    RpSector* spaStack[rpWORLDMAXBSPDEPTH];
+    RwV3d vViewPoint;
+EOT
+replace <<EOT
+    RpSector* spaStack[rpWORLDMAXBSPDEPTH];
+    RpSector* spSect;
+    RwV3d vViewPoint;
+EOT
+find <<EOT
+    RwInt32 position;
+    /* RULE-EXCEPTION: R30, declaration order: the DWARF lists spSect earlier; declared last it gets retail's
+       register numbering */
+    RpSector* spSect;
+EOT
+replace <<EOT
+    RwInt32 position;
+EOT

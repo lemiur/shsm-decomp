@@ -1,0 +1,13 @@
+# Rulings the decision solver reads (build/tools/solver.exe). Tab-separated: kind<TAB>args...<TAB>note.
+#   surviving-source <unit prefix>                      original source survives: no respelling candidates
+#   lever-flag       <flag>                             a per-file flag ruled a lever
+#   probe-flag       <flag>                             a flag compiled as a probe (never a candidate, never applied)
+#   const-accessor   <plain spelling> <const spelling>  a const accessor the module's own API supplies
+
+surviving-source	libjpeg/	the IJG 6b text survives (docs/exceptions.md, libjpeg jmemmgr: identical to the jpegsr6b release but for whitespace)
+lever-flag	-inline noauto	per-file -inline noauto is ruled a lever; OSNet stays parked (docs/exceptions.md, OSNet ruling)
+probe-flag	-inline noauto	only functions marked inline are expanded (baframe, bacamera, basync, OSNet evidence in docs/exceptions.md)
+probe-flag	-inline deferred	named as a cure for a definition-order case in docs/compiler_regalloc.md
+const-accessor	CLIMAXP1_ATOMIC_DATA	CLIMAXP1_ATOMIC_CONST_DATA	climax/RwPlugin: the plugin data accessor and its const twin
+const-accessor	RWPLUGINOFFSET	RWPLUGINOFFSETCONST	RenderWare: the plugin offset macro and its const twin
+const-accessor	lbl_8052861C	GetDisplayHeight()	display-height accessor ruling (include/game/Display.h, docs/exceptions.md)

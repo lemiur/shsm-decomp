@@ -1,0 +1,27 @@
+# _rwFreeListFreeReal: heap moved back into a block (the sibling's Debug DWARF lists it in a block) and its
+# RULE-EXCEPTION: R30 comment dropped. Our source assigns heap in the while body, so the block is the while body.
+# Declaring it at function scope closes the function: a decl-order probe (RULE-EXCEPTION territory), never a MATCH.
+unit main/rwsdk/src/plcore/bamemory
+function _rwFreeListFreeReal
+expect verdict NO-FORM-WITHIN-RULES
+expect verdict-not MATCH
+expect contains closes under a declaration order the sibling's DWARF does not show: a RULE-EXCEPTION under R30
+find <<EOT
+    /* RULE-EXCEPTION: R30, declaration placement: the DWARF has heap in the block; at function scope it gets
+       retail's register colouring */
+    RwUInt8* heap;
+    RwUInt32 heapEntries;
+EOT
+replace <<EOT
+    RwUInt32 heapEntries;
+EOT
+find <<EOT
+    while (link != lastLink) {
+        heap = (RwUInt8*)(link + 1);
+EOT
+replace <<EOT
+    while (link != lastLink) {
+        RwUInt8* heap;
+
+        heap = (RwUInt8*)(link + 1);
+EOT

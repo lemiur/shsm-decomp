@@ -29,6 +29,13 @@ typedef struct RxGameCubeVertexAttr {
     RwUInt8 field_0x0A[2];   /* 0xA */
 } RxGameCubeVertexAttr;
 
+/*
+ * Flags of RxGameCubeVertexBuffer.flags for the pseudo HDR lighting (names invented): the buffer's
+ * colours are to be kept at half range, and they are at half range now.
+ */
+#define rxGCVBHDRPRELIGHT 0x200
+#define rxGCVBHDRPRELIGHTAPPLIED 0x100
+
 /* RxGameCubeVertexBuffer: the header of an instanced vertex buffer, stored right after its resource entry. */
 typedef struct RxGameCubeVertexBuffer {
     RwUInt16 token;                 /* 0x0 draw sync token of the last draw that read the buffer */

@@ -11,6 +11,8 @@ typedef struct WdbgDebug {
     bool syms_tried;
     const char *exe;    /* the compiler being run (tools/compilers/<build>/mwcceppc.exe), whose names sym() and addr() read */
     const char *build;  /* its build, "Wii/1.0a" */
+    bool exited;        /* the loop saw the exit-process event */
+    u32 exit_code;      /* its exit code */
 } WdbgDebug;
 
 /* The host callbacks over d. */

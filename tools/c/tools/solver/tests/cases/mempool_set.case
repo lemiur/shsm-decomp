@@ -1,0 +1,16 @@
+# MemPool::set: the search guard's byte and bit taken in the DWARF's locals byteoffset and bitoffset (1f5589a0),
+# reverted to the inline expression. The solver finds a reuse-local form from the DWARF locals: measured, the
+# bitoffset edit alone (`bitoffset = mFirstFreeBlock & 7;` before the guard) already makes the function exact.
+unit main/fmod/fmod_memory
+function set__Q24FMOD7MemPoolFiii
+expect verdict MATCH
+expect winner reuse-local
+expect contains bitoffset = mFirstFreeBlock & 7
+find <<EOT
+        byteoffset = mFirstFreeBlock / 8;
+        bitoffset  = mFirstFreeBlock & 7;
+        if ( mBitmap[byteoffset] & ( 1 << bitoffset ) ) {
+EOT
+replace <<EOT
+        if ( mBitmap[mFirstFreeBlock / 8] & ( 1 << ( mFirstFreeBlock & 7 ) ) ) {
+EOT

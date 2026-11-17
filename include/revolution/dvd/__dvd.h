@@ -21,6 +21,7 @@ BOOL __DVDLowBreak(void);
 BOOL __DVDStopMotorAsync(DVDCommandBlock* block, DVDCBCallback callback);
 void __DVDRestartMotor(void);
 extern DVDCommandBlock __DVDStopMotorCommandBlock; // defined in dvd.c
+extern DVDCommandBlock __DVDRestartMotorCommandBlock; // defined in dvd.c
 u32 __DVDGetCoverStatus(void);
 void __DVDPrepareReset(void);
 void __DVDPrepareResetAsync(DVDCBCallback callback);

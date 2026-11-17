@@ -24,7 +24,7 @@ StAtomicRef RwClimaxAtomicsBuffer[rwCLIMAXATOMICSBUFFERSIZE];
 RwUInt32 RwClimaxMaterialMask = 1;
 
 /* The compiler lays the zero-initialised small data out in reverse order of definition. */
-RwInt32 _Current_RwClimaxReflectionOffset;
+RwMatrix* _Current_RwClimaxReflectionOffset;
 
 /* The first free entry of the buffer. */
 StAtomicRef* RwClimaxCurrentAtomicRef;
@@ -39,7 +39,7 @@ RwUInt32 RwClimaxWorldRenderFlags;
 RwBool RwClimaxPseudoHDR;
 
 /* Sets the reflection offset (the unit's only setter of it; nothing in the game calls this). */
-void RwClimaxSetReflectionOffset(RwInt32 offset) {
+void RwClimaxSetReflectionOffset(RwMatrix* offset) {
     _Current_RwClimaxReflectionOffset = offset;
 } // 0x802DB4FC
 

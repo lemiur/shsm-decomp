@@ -4,6 +4,7 @@
 #define RWSDK_WORLD_CLIMAXCOMMON_H
 
 #include <rwsdk/rwtypes.h>
+#include <rwsdk/plcore/bamatrix.h>
 #include <rwsdk/world/baclump.h>
 #include <rwsdk/world/balight.h>
 #include <rwsdk/world/bamateri.h>
@@ -54,9 +55,9 @@ extern RwUInt32 RwClimaxAtomics_UsedCurrent;
 extern RwUInt32 RwClimaxAtomics_OverflowMax;
 extern RwUInt32 RwClimaxAtomics_OverflowCurrent;
 extern StAtomicRef* RwClimaxCurrentAtomicRef;
-extern RwInt32 _Current_RwClimaxReflectionOffset;
+extern RwMatrix* _Current_RwClimaxReflectionOffset;
 
-extern void RwClimaxSetReflectionOffset(RwInt32 offset);
+extern void RwClimaxSetReflectionOffset(RwMatrix* offset);
 extern RpWorldSector* RwClimaxWorldSectorRender(RpWorldSector* sector, void* data);
 extern void RwClimaxAtomicSetPass(RpAtomic* atomic, RwUInt32 pass);
 extern void RwClimaxAtomicSetLightMask(RpAtomic* atomic, RwUInt32 lightMask);

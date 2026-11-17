@@ -486,14 +486,31 @@ CcObjectComparison *cc_compare_object(AvpArena *a, const CcRepo *r, AvpStr unit,
     AvpSet *paired = avp_set_new();
     AvpStrVec compiled_only = {0}, retail_only = {0};
     bool filter = symbols && avp_set_len(symbols) > 0;
+    /* One compiled function per retail function: the one of the same name, else the first in the object. The
+     * shared fn_<addr> prefix pairs a second function (a weak stub carrying another class's mangling) with the same
+     * retail name; that one is compiled-only (match reports it as EXTRA), not a second result for the retail
+     * function. */
+    AvpMap *owner = avp_map_new();
     AvpMapIter it = {0};
     while (avp_map_next(comp, &it)) {
         AvpStr rname = {NULL, 0};
         AvpVal *ov = names ? avp_map_get(names, it.key) : NULL;
         if (ov && ov->p && ((AvpStr *)ov->p)->n) rname = *(AvpStr *)ov->p;
         else rname = cc_retail_name_for(it.key, retail);
+        if (!rname.p || !avp_map_get(retail, rname)) continue;
+        if (avp_map_has(owner, rname) && !avp_str_eq(it.key, rname)) continue;
+        AvpStr *o = AVP_NEW(a, AvpStr);
+        *o = it.key;
+        avp_map_put(owner, rname, NULL)->p = o;
+    }
+    it.pos = 0;
+    while (avp_map_next(comp, &it)) {
+        AvpStr rname = {NULL, 0};
+        AvpVal *ov = names ? avp_map_get(names, it.key) : NULL;
+        if (ov && ov->p && ((AvpStr *)ov->p)->n) rname = *(AvpStr *)ov->p;
+        else rname = cc_retail_name_for(it.key, retail);
         AvpVal *rv = rname.p ? avp_map_get(retail, rname) : NULL;
-        if (!rv) {
+        if (!rv || !avp_str_eq(*(const AvpStr *)avp_map_get(owner, rname)->p, it.key)) {
             avp_vec_push(&compiled_only, it.key);
             continue;
         }
@@ -509,5 +526,6 @@ CcObjectComparison *cc_compare_object(AvpArena *a, const CcRepo *r, AvpStr unit,
     oc->compiled_only = freeze_sorted(a, &compiled_only);
     oc->retail_only = freeze_sorted(a, &retail_only);
     avp_set_free(paired);
+    avp_map_free(owner);
     return oc;
 }

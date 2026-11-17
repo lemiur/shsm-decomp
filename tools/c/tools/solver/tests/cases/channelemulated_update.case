@@ -1,0 +1,22 @@
+# ChannelEmulated::update: the two returning ifs after the paused test written as one `||` condition, reverted to two
+# separate ifs with the same body. The control-flow stop must find the merged condition again.
+unit main/fmod/fmod_channel_emulated
+function update__Q24FMOD15ChannelEmulatedFi
+expect class control-flow
+expect verdict MATCH
+expect winner merge-ifs
+find <<EOT
+    if ( ( ( mParent->mFlags & CHANNELI_FLAG_PAUSED ) && !( mParent->mFlags & CHANNELI_FLAG_PLAYINGPAUSED ) )
+         || ( mMode & FMOD_VIRTUAL_PLAYFROMSTART ) ) {
+        return FMOD_OK;
+    }
+EOT
+replace <<EOT
+    if ( ( mParent->mFlags & CHANNELI_FLAG_PAUSED ) && !( mParent->mFlags & CHANNELI_FLAG_PLAYINGPAUSED ) ) {
+        return FMOD_OK;
+    }
+
+    if ( mMode & FMOD_VIRTUAL_PLAYFROMSTART ) {
+        return FMOD_OK;
+    }
+EOT

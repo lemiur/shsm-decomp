@@ -1,8 +1,10 @@
 // Reference: zeldaret/tp libs/revolution/src/os/OSNet.c
-// Parked (data): retail .data keeps the caller-name strings of the resource-manager helpers (and
-// "NWC24ResumeScheduler", a function with no copy in retail). The compiler emits them only while the
-// callerName argument reaches code generation (out-of-line helpers, or a statement reading it), not
-// for these fully inlined helpers, whose release bodies ignore it; both references force the strings.
+// The caller name is a __FUNCTION__ literal at every call site: the sibling's OSNet.o names these objects
+// __FUNCTION__$NNN in .data, and retail keeps one per caller. The reference's helpers report failures through
+// callerName with OSReport; retail has no reports, but its .data proves the parameter was still read, since the
+// compiler emits the literal only when the helper reads it. Each helper therefore carries one (void)callerName;
+// at the place of the reference's report. NWC24ResumeScheduler is dead-stripped in retail (the sibling's Release
+// and Debug maps list it UNUSED); its body stays for the literal it owns.
 #include <revolution/os.h>
 #include <revolution/ipc/ipcclt.h>
 #include <revolution/sc.h>
@@ -30,7 +32,7 @@ static s32 CallbackAsyncIpc(s32 result, void* arg);
  * Resource manager helpers
  *
  * Wrappers over the IOS calls that map their failures to NWC24 error codes.
- * Only ever inlined; the caller name is unused in this build.
+ * Only ever inlined; callerName is read only where the reference reports a failure (see the file header).
  */
 
 /* Opens path; IOS returns -6 while the firmware is still starting up. */
@@ -41,6 +43,7 @@ static inline NWC24Err NWC24iOpenResourceManager_(const char* callerName, const 
 
     *fd = IOS_Open(path, flags);
     if (*fd < 0) {
+        (void)callerName; // Debug build: report at this point (zeldaret/tp libs/revolution/src/os/OSNet.c)
         if (*fd == -6) {
             return NWC24_ERR_FIRMWARE;
         } else {
@@ -55,6 +58,7 @@ static inline NWC24Err NWC24iOpenResourceManager_(const char* callerName, const 
 static inline NWC24Err NWC24iCloseResourceManager_(const char* callerName, s32 fd) {
     int rt = IOS_Close(fd);
     if (rt < 0) {
+        (void)callerName; // Debug build: report at this point (zeldaret/tp libs/revolution/src/os/OSNet.c)
         return NWC24_ERR_IOS;
     }
 
@@ -65,6 +69,7 @@ static inline NWC24Err NWC24iCloseResourceManager_(const char* callerName, s32 f
 static inline NWC24Err NWC24iIoctlResourceManager_(const char* callerName, s32 fd, s32 cmd, void* input, u32 inputLen, void* output, u32 outputLen) {
     int rt = IOS_Ioctl(fd, cmd, input, inputLen, output, outputLen);
     if (rt < 0) {
+        (void)callerName; // Debug build: report at this point (zeldaret/tp libs/revolution/src/os/OSNet.c)
         return NWC24_ERR_IOS;
     }
 
@@ -75,6 +80,7 @@ static inline NWC24Err NWC24iIoctlResourceManager_(const char* callerName, s32 f
 static inline NWC24Err NWC24iIoctlResourceManagerAsync_(const char* callerName, s32 fd, s32 cmd, void* input, u32 inputLen, void* output, u32 outputLen, void* cbArg) {
     int rt = IOS_IoctlAsync(fd, cmd, input, inputLen, output, outputLen, CallbackAsyncIpc, cbArg);
     if (rt < 0) {
+        (void)callerName; // Debug build: report at this point (zeldaret/tp libs/revolution/src/os/OSNet.c)
         return NWC24_ERR_IOS;
     }
 
@@ -90,6 +96,7 @@ static inline BOOL NWC24iIsAsyncRequestPending_(void) {
 /* The NWC24 calls are unavailable from an exception handler (no current thread). */
 static inline s32 CheckCallingStatus(const char* callerName) {
     if (OSGetCurrentThread() == 0) {
+        (void)callerName; // Debug build: report at this point (zeldaret/tp libs/revolution/src/os/OSNet.c)
         return NWC24_ERR_PERM;
     }
 
@@ -168,7 +175,7 @@ NWC24Err NWC24iPrepareShutdown(void) {
     OSRegisterShutdownFunction(&ShutdownFuncInfo);
 
     if (nwc24ShtFd < 0) {
-        rt = NWC24iOpenResourceManager_("NWC24iPrepareShutdown", "/dev/net/kd/request", &nwc24ShtFd, 1);
+        rt = NWC24iOpenResourceManager_(__FUNCTION__, "/dev/net/kd/request", &nwc24ShtFd, 1);
     }
 
     nwc24ShtRetryRest = NWC24_SHUTDOWN_RETRIES;
@@ -208,19 +215,19 @@ NWC24Err NWC24SuspendScheduler(void) {
     NWC24Err closeRt = NWC24_OK;
     s32 fd;
 
-    rt = CheckCallingStatus("NWC24SuspendScheduler");
+    rt = CheckCallingStatus(__FUNCTION__);
     if (rt < NWC24_OK) {
         return rt;
     }
 
-    rt = NWC24iOpenResourceManager_("NWC24SuspendScheduler", "/dev/net/kd/request", &fd, 0);
+    rt = NWC24iOpenResourceManager_(__FUNCTION__, "/dev/net/kd/request", &fd, 0);
     if (rt >= NWC24_OK) {
-        rt = NWC24iIoctlResourceManager_("NWC24SuspendScheduler", fd, 1, NULL, 0, &susResult, sizeof(susResult));
+        rt = NWC24iIoctlResourceManager_(__FUNCTION__, fd, 1, NULL, 0, &susResult, sizeof(susResult));
         if (rt >= NWC24_OK) {
             rt = *(NWC24Err*)susResult;
         }
 
-        closeRt = NWC24iCloseResourceManager_("NWC24SuspendScheduler", fd);
+        closeRt = NWC24iCloseResourceManager_(__FUNCTION__, fd);
         if (closeRt < NWC24_OK) {
             rt = closeRt;
         }
@@ -228,6 +235,42 @@ NWC24Err NWC24SuspendScheduler(void) {
 
     return rt;
 } // 0x8021D930
+
+/*
+ * NWC24ResumeScheduler
+ *
+ * Asks the kd request resource manager to resume the WiiConnect24 scheduler.
+ * No copy in retail (dead-stripped): the sibling's OSNet.o has a function of this size beside
+ * NWC24SuspendScheduler (Release) and lists it UNUSED, so the linker dropped it. Modelled on
+ * NWC24SuspendScheduler; unconfirmed: the ioctl command (2 here, 1 there). The buffer is a local so that the
+ * dead body leaves retail's .bss unchanged.
+ */
+NWC24Err NWC24ResumeScheduler(void) {
+    u8 susResult[0x20] IPC_ALIGN;
+    NWC24Err rt = NWC24_OK;
+    NWC24Err closeRt = NWC24_OK;
+    s32 fd;
+
+    rt = CheckCallingStatus(__FUNCTION__);
+    if (rt < NWC24_OK) {
+        return rt;
+    }
+
+    rt = NWC24iOpenResourceManager_(__FUNCTION__, "/dev/net/kd/request", &fd, 0);
+    if (rt >= NWC24_OK) {
+        rt = NWC24iIoctlResourceManager_(__FUNCTION__, fd, 2, NULL, 0, &susResult, sizeof(susResult));
+        if (rt >= NWC24_OK) {
+            rt = *(NWC24Err*)susResult;
+        }
+
+        closeRt = NWC24iCloseResourceManager_(__FUNCTION__, fd);
+        if (closeRt < NWC24_OK) {
+            rt = closeRt;
+        }
+    }
+
+    return rt;
+} // no copy in retail (dead-stripped)
 
 /*
  * NWC24iRequestShutdown
@@ -241,7 +284,7 @@ NWC24Err NWC24iRequestShutdown(u32 event, s32* result) {
     NWC24Err ret = NWC24_OK;
 
     shtBuffer[0] = event;
-    ret = NWC24iIoctlResourceManagerAsync_("NWC24iRequestShutdown", nwc24ShtFd, 0x28, shtBuffer, 0x20, shtResult, 0x20, result);
+    ret = NWC24iIoctlResourceManagerAsync_(__FUNCTION__, nwc24ShtFd, 0x28, shtBuffer, 0x20, shtResult, 0x20, result);
     return ret;
 } // 0x8021DA30
 
@@ -297,22 +340,22 @@ NWC24Err NWC24iSetRtcCounter_(s32 rtc, BOOL notify) {
     NWC24Err closeRt = NWC24_OK;
     s32 fd;
 
-    rt = CheckCallingStatus("NWC24iSetRtcCounter_");
+    rt = CheckCallingStatus(__FUNCTION__);
     if (rt < NWC24_OK) {
         return rt;
     }
 
-    rt = NWC24iOpenResourceManager_("NWC24iSetRtcCounter_", "/dev/net/kd/time", &fd, 0);
+    rt = NWC24iOpenResourceManager_(__FUNCTION__, "/dev/net/kd/time", &fd, 0);
     if (rt >= NWC24_OK) {
         nwc24TimeCommonBuffer[0] = rtc;
         nwc24TimeCommonBuffer[1] = notify;
 
-        rt = NWC24iIoctlResourceManager_("NWC24iSetRtcCounter_", fd, 0x17, &nwc24TimeCommonBuffer, sizeof(nwc24TimeCommonBuffer), &nwc24TimeCommonResult, sizeof(nwc24TimeCommonResult));
+        rt = NWC24iIoctlResourceManager_(__FUNCTION__, fd, 0x17, &nwc24TimeCommonBuffer, sizeof(nwc24TimeCommonBuffer), &nwc24TimeCommonResult, sizeof(nwc24TimeCommonResult));
         if (rt >= NWC24_OK) {
             rt = *(int*)nwc24TimeCommonResult;
         }
 
-        closeRt = NWC24iCloseResourceManager_("NWC24iSetRtcCounter_", fd);
+        closeRt = NWC24iCloseResourceManager_(__FUNCTION__, fd);
         if (rt >= NWC24_OK) {
             rt = closeRt;
         }

@@ -61,6 +61,14 @@ public:
     File                      *mFile;                   // 0xF8
     bool                       mNonInterleaved;         // 0xFC
 
+    Codec() {
+        mType     = FMOD_SOUND_TYPE_UNKNOWN;
+        mMetadata = NULL;
+        fileread  = defaultFileRead;
+        fileseek  = defaultFileSeek;
+        metadata  = defaultMetaData;
+    }
+
     FMOD_RESULT reset() {
         mPCMBufferOffsetBytes = 0;
         if ( mPCMBuffer ) {
@@ -81,6 +89,16 @@ public:
     FMOD_RESULT getPosition( unsigned int *position, FMOD_TIMEUNIT postype );
     FMOD_RESULT metaData( FMOD_TAGTYPE type, const char *name, void *data, unsigned int datalen,
                           FMOD_TAGDATATYPE datatype, bool unique );
+
+    // The callbacks a codec's state gets when its description does not supply them (fmod_pluginfactory.cpp).
+    static FMOD_RESULT F_CALLBACK defaultFileRead( void *handle, void *buffer, unsigned int sizebytes,
+                                                   unsigned int *bytesread, void *userdata );
+    static FMOD_RESULT F_CALLBACK defaultFileSeek( void *handle, unsigned int pos, void *userdata );
+    static FMOD_RESULT F_CALLBACK defaultMetaData( FMOD_CODEC_STATE *codec_state, FMOD_TAGTYPE tagtype, char *name,
+                                                   void *data, unsigned int datalen, FMOD_TAGDATATYPE datatype,
+                                                   int unique );
+    static FMOD_RESULT F_CALLBACK defaultGetWaveFormat( FMOD_CODEC_STATE *codec_state, int index,
+                                                        FMOD_CODEC_WAVEFORMAT *waveformat );
 };
 
 } // namespace FMOD

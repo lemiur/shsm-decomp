@@ -462,8 +462,6 @@ File::flip
 
 Reads the next half buffer into the buffer. wait waits for the file's semaphore first (the file thread
 passes false).
-One row differs from retail: the operand order of the first add forming destptr (wall: register/schedule;
-reassociating the sum, a separate += and an integer-first sum did not change it).
 ====================
 */
 FMOD_RESULT File::flip( bool wait ) {
@@ -475,7 +473,7 @@ FMOD_RESULT File::flip( bool wait ) {
 
     {
         unsigned int bytestoread = mBlockSize - mBufferSkip;
-        char        *destptr     = (char *)mBuffer + mBufferSkip + mBlockOffset;
+        char        *destptr     = (char *)mBuffer + mBlockOffset + mBufferSkip;
 
         mFlags |= FILE_FLAG_READING;
 
@@ -683,9 +681,8 @@ File::read
 
 Reads count items of size bytes into buffer through the file's buffer, swaps the items to the
 platform's byte order and decrypts them; rd receives the number of items read. A read cut short by the
-end of the file returns FMOD_ERR_FILE_EOF.
-Two rows differ from retail (wall: register/schedule): the load of mBlockSize before the round-down of the direct
-read is placed one row earlier, and that mullw has its operands swapped. Reordering the product did not change it.
+end of the file returns FMOD_ERR_FILE_EOF. The direct read's round-down to whole blocks is two statements,
+as the sibling's line table shows.
 ====================
 */
 FMOD_RESULT File::read( void *buffer, unsigned int size, unsigned int count, unsigned int *rd ) {
@@ -730,7 +727,8 @@ FMOD_RESULT File::read( void *buffer, unsigned int size, unsigned int count, uns
                     }
                 }
 
-                size = size / mBlockSize * mBlockSize;
+                size /= mBlockSize;
+                size *= mBlockSize;
             }
 
             result = reallyRead( (char *)buffer + r, size, &size );
@@ -1054,9 +1052,12 @@ File::enableDoubleBuffer
 Doubles the buffer: sizebytes (at least 2048 and one block, rounded down to whole blocks) is the size
 of each half, and the file thread is given the file to keep ahead of the reader. oldbuffer is the
 buffer to carry over, or NULL to keep the one already allocated.
-Wall: register/schedule. Retail keeps sizebytes and oldbuffersize in one register (r30) and divides before the
-stores of the block fields; the compiled code loads oldbuffersize first and needs a second register. Moving the
-division, the oldbuffersize load or the product did not change it.
+Wall: register/schedule. Retail keeps sizebytes and oldbuffersize in one register (r30) and uses one load of
+mBlockSize for the clamp, the division, the product and mBufferSkip; the build reloads it for the division and
+needs a second callee-saved register. Ruled out: the clamp as `mBlockSize > sizebytes` or as a ternary; the round-down
+as `sizebytes /= ...; sizebytes *= ...;` with mBlockSize = sizebytes; four orders of the oldbuffersize, mBufferSkip,
+mBlockOffset and mBlockSize statements. The sibling's line table (oldbuffersize 1962, divide 1965, product and the
+mBlockSize store 1966, mBufferSkip 1968 storing the old block size, mBlockOffset 1969) fits none of them.
 ====================
 */
 FMOD_RESULT File::enableDoubleBuffer( unsigned int sizebytes, void *oldbuffer ) {
@@ -1082,10 +1083,10 @@ FMOD_RESULT File::enableDoubleBuffer( unsigned int sizebytes, void *oldbuffer ) 
         sizebytes = mBlockSize;
     }
 
-    mBlockOffset         = 0;
-    oldbuffersize        = mBufferSize;
     mBufferSkip          = mBlockSize;
     mBlockSize           = sizebytes / mBlockSize * mBlockSize;
+    mBlockOffset         = 0;
+    oldbuffersize        = mBufferSize;
     mNextPosition        = mBlockSize;
     mNextPositionDisplay = mBlockSize;
     mBufferSize          = mBlockSize * 2;

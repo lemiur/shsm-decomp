@@ -3,6 +3,7 @@
 #ifndef RWSDK_WORLD_VTXFMT_H
 #define RWSDK_WORLD_VTXFMT_H
 
+#include <revolution/gx/GXEnum.h>
 #include <rwsdk/badevice.h>
 #include <rwsdk/rwtypes.h>
 #include <rwsdk/world/gcpipe.h>
@@ -42,6 +43,19 @@ extern RpGameCubeVtxFmt* fn_802DF0DC(void);
 
 /* Configures the GX vertex attribute format tables for the given format and pipe data (_rwDlVtxFmtSetup in Gormiti). */
 extern void fn_802DEE68(RpGameCubeVtxFmt* fmt, RxGameCubePipeData* pipeData);
+
+/* Resets a format to the default settings with one reference. */
+extern void RpGameCubeVtxFmtInit(RpGameCubeVtxFmt* fmt);
+
+/* Sets the component type of a format's normals and whether binormals and tangents come with them. */
+extern void RpGameCubeVtxFmtSetNormal(RpGameCubeVtxFmt* fmt, GXCompType type, int nbt);
+
+/* A new format with the default settings, and the release of one reference to a format. */
+extern RpGameCubeVtxFmt* RpGameCubeVtxFmtCreate(void);
+extern void RpGameCubeVtxFmtDestroy(RpGameCubeVtxFmt* fmt);
+
+/* Gives a geometry a format of its own. */
+extern void RpGameCubeGeometrySetVtxFmt(RpGeometry* geometry, RpGameCubeVtxFmt* fmt);
 
 #ifdef __cplusplus
 }

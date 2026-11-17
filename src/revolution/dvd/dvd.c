@@ -68,6 +68,8 @@ static u8 __DVDTicketViewBuffer[OSRoundUp32B(sizeof(ESTicketView))] ATTRIBUTE_AL
 
 static OSAlarm FatalAlarm;
 DVDCommandBlock __DVDStopMotorCommandBlock;
+// Name from the Gormiti sibling's Final link map (object dvd.o); retail references no copy of it, the object only fills the .bss gap.
+DVDCommandBlock __DVDRestartMotorCommandBlock;
 
 // prototypes
 static void stateDownRotation(DVDCommandBlock*);

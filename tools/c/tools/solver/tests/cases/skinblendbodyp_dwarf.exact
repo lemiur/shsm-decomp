@@ -1,0 +1,41 @@
+# _rpSkinBlendBodyP before ba2a4870 (no gqr5value / gqr5address, one asm block for the GQR5 save). That form is
+# byte-exact (the commit was a rules fix, not a byte fix), so it is no stop: phase2_real_test reads it to check the
+# DWARF comparison names the two locals the sibling lists and ours lacks, and that the run reports the function exact.
+unit main/rwsdk/plugin/skin2/skingcn
+function _rpSkinBlendBodyP
+find <<EOT
+                       RpGameCubeVtxFmt* vtxFmt, int numVertices) {
+    unsigned int gqr5value;
+    unsigned int* gqr5address = &gqr5value;
+EOT
+replace <<EOT
+                       RpGameCubeVtxFmt* vtxFmt, int numVertices) {
+EOT
+find <<EOT
+        mfspr tmp, GQR5
+    }
+    *gqr5address = tmp;
+    asm {
+        mtspr GQR5, weightGQR
+        mtspr GQR6, posGQR
+    }
+EOT
+replace <<EOT
+        mfspr tmp, GQR5
+        mtspr GQR5, weightGQR
+        mtspr GQR6, posGQR
+    }
+EOT
+find <<EOT
+        _rwDlSkinUpdate4WeightsP(matrixCache, skin, &asmData);
+        break;
+    }
+
+    tmp = *gqr5address;
+EOT
+replace <<EOT
+        _rwDlSkinUpdate4WeightsP(matrixCache, skin, &asmData);
+        break;
+    }
+
+EOT

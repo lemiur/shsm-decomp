@@ -9,9 +9,9 @@
 // linker); their strings remain in the unit's .data. They keep PrimeDecomp/sdk's bodies in the SDK order, as SDK C
 // units do (AGENTS.md, "Dead-stripped functions").
 //
-// Parked (NonMatching) pending the user's ruling on invented dead-stripped bodies that carry retail strings:
-// IUSB_ReadBlkMsg, IUSB_WriteBlkMsg and IUSB_RegisterInsertionNotifyWithIdAsync have no reference body and are
-// written here only so that their five strings land in .data (open item, docs/exceptions.md "sdk-usb-1 rulings").
+// IUSB_ReadBlkMsg, IUSB_WriteBlkMsg and IUSB_RegisterInsertionNotifyWithIdAsync have no reference body. The sibling's
+// link map lists each UNUSED in its usb.o, and retail .data holds five strings only they own; each body is modelled
+// on its live twin, never counted, and says what is unconfirmed (AGENTS.md, "Dead-stripped functions").
 #include <revolution/ipc/ipcclt.h>
 #include <revolution/ipc/ipcMain.h>
 #include <revolution/ipc/memory.h>
@@ -653,7 +653,9 @@ IOSError IUSB_WriteIntrMsgAsync(IOSFd fd, u32 ep, u32 buflen, char* buf, USBCall
  * IUSB_ReadBlkMsg
  *
  * Synchronous bulk read: the short bulk ioctl up to its 16-bit limit, the long one beyond.
- * No reference has this body: it is reconstructed from its two retail strings and IUSB_ReadBlkMsgAsync.
+ * No copy in retail (dead-stripped): the sibling's usb.o lists it UNUSED. Modelled on IUSB_ReadBlkMsgAsync;
+ * unconfirmed: the signature, the order of the two log statements against the transfer calls, and the wording of
+ * the arguments (retail keeps the two format strings, which only this function and IUSB_WriteBlkMsg own).
  */
 IOSError IUSB_ReadBlkMsg(IOSFd fd, u32 ep, u32 buflen, char* buf)
 {
@@ -694,7 +696,9 @@ IOSError IUSB_ReadBlkMsgAsync(IOSFd fd, u32 ep, u32 buflen, char* buf, USBCallba
  * IUSB_WriteBlkMsg
  *
  * Synchronous bulk write: the short bulk ioctl up to its 16-bit limit, the long one beyond.
- * No reference has this body: it is reconstructed from IUSB_ReadBlkMsg and IUSB_WriteBlkMsgAsync.
+ * No copy in retail (dead-stripped): the sibling's usb.o lists it UNUSED. Modelled on IUSB_WriteBlkMsgAsync, with
+ * IUSB_ReadBlkMsg's logging; unconfirmed: the signature and that it logs as the read does (the two format strings
+ * are shared with IUSB_ReadBlkMsg).
  */
 IOSError IUSB_WriteBlkMsg(IOSFd fd, u32 ep, u32 buflen, char* buf)
 {
@@ -1514,9 +1518,10 @@ done:
  * IUSB_RegisterInsertionNotifyWithIdAsync
  *
  * Calls cb when a device with the given vendor and product id is attached under path, reporting it by id.
- * No reference has this body: its signature and text are reconstructed from its three retail strings
- * (its __FUNCTION__, the allocation failure and the open failure) on the pattern of
- * IUSB_DeviceInsertionNotifyAsync (open item in docs/exceptions.md).
+ * No copy in retail (dead-stripped): the sibling's usb.o lists it UNUSED. Modelled on
+ * IUSB_DeviceInsertionNotifyAsync; unconfirmed: the signature, the ioctl command, the allocation order and the
+ * clean-up paths (retail keeps three strings only this function owns: its __FUNCTION__, the allocation failure and
+ * the open failure).
  */
 IOSError IUSB_RegisterInsertionNotifyWithIdAsync(const char* path, u16 vid, u16 pid, USBCallbackFunc cb, void* cbArg)
 {

@@ -397,6 +397,26 @@ typedef struct RpGameCubeTevInd {
     RpGXIndTexAlphaSel alphaSel;
 } RpGameCubeTevInd;
 
+/*
+ * What a record of an effect's configuration asks for: the bits of the flags member of the configuration, of a
+ * texture matrix, a texture coordinate generator, an indirect stage and a TEV stage (names invented: no evidence
+ * names them).
+ */
+#define rpGAMECUBEMTCONFIG_REGS 0x01     /* the configuration sets the colour registers */
+#define rpGAMECUBEMTCONFIG_KREGS 0x02    /* the configuration sets the constant colours */
+#define rpGAMECUBEMTCONFIG_BLEND 0x04    /* the configuration sets the blend functions */
+#define rpGAMECUBEMTCONFIG_ZCOMPLOC 0x08 /* the depth compare follows the texturing (a clear bit: it precedes it) */
+#define rpGAMECUBEMTCONFIG_RASCH0A0 0x10 /* a stage that reads a rasterised colour reads channel 0 and its alpha */
+#define rpGAMECUBEMTCONFIG_ENVMAP 0x20   /* the configuration loads the environment map matrix into texture matrix 0 */
+#define rpGAMECUBETEXMTX_2X4 0x01        /* the texture matrix is 2x4 (clear: 3x4) */
+#define rpGAMECUBETEXMTX_TRANSLATION 0x02 /* the texture matrix keeps the translation of its frame */
+#define rpGAMECUBETEXGEN_DISABLED 0x01   /* the generator is skipped */
+#define rpGAMECUBETEXGEN_NORMALIZE 0x02  /* the generator normalizes its coordinate */
+#define rpGAMECUBETEXGEN_SCALE 0x04      /* the generator scales its coordinate by scaleS and scaleT */
+#define rpGAMECUBEINDSTAGE_DISABLED 0x01 /* the indirect stage is skipped */
+#define rpGAMECUBETEVSTAGE_DISABLED 0x01 /* the TEV stage is skipped */
+#define rpGAMECUBETEVIND_STAGEMASK 0x3   /* the indirect stage a TEV stage uses: the lowest bits of its packed indirect part */
+
 /* The data of a GameCube multitexture effect: it follows the RpMTEffect header in memory. */
 typedef struct RpGameCubeMTConfig {
     unsigned int flags;
@@ -431,9 +451,10 @@ extern void RpGameCubeTevIndUnpack(RpGameCubeTevInd* data, unsigned int* pkData)
 /*
  * The callbacks of a material's multitexture on the GameCube, kept in the platform extension of the
  * RpMultiTexture (Gormiti DWARF, RpMatFx.a multiTexGcnPipe.obj): one before and one after the material's
- * pipeline stage, both given callBackData.
+ * pipeline stage, both given callBackData. Retail's callbacks take four arguments: Gormiti's (a later revision)
+ * take the object's LTM, too.
  */
-typedef RpMaterial* (*RpMultiTextureGameCubeCallBack)(RpMaterial* material, void* data, RwMatrix* ltm,
+typedef RpMaterial* (*RpMultiTextureGameCubeCallBack)(RpMaterial* material, void* object,
                                                       RxGameCubePipeData* pipeData, void* callBackData);
 
 typedef struct rpMultiTextureGameCubeExt {

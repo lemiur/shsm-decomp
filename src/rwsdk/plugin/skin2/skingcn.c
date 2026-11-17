@@ -23,6 +23,7 @@
 #include <rwsdk/plcore/bavector.h>
 #include <rwsdk/plugin/hanim/rphanim.h>
 #include <rwsdk/plugin/skin2/rpskin.h>
+#include <rwsdk/plugin/skin2/skin.h>
 #include <rwsdk/world/baclump.h>
 #include <rwsdk/world/bageomet.h>
 #include <rwsdk/world/bamateri.h>
@@ -34,14 +35,10 @@
 #include <rwsdk/world/instancegeom.h>
 #include <rwsdk/world/vtxfmt.h>
 
-#define RPSKINGEOMETRYGETDATA(geometry) \
-    (*RWPLUGINOFFSET(RpSkin*, (geometry), _rpSkinGlobals.geometryOffset))
-#define RPSKINATOMICGETDATA(atomic) \
-    (RWPLUGINOFFSET(SkinAtomicData, (atomic), _rpSkinGlobals.atomicOffset))
-
-#define SKINRESENTRYGETARRAYBASE(resEntry) ((void*)(((unsigned int)(resEntry) + 0x3D) & ~0x1F))
-
-/* GQR5 setting for 1.7 fixed-point unsigned 8-bit bone weights (LD_SCALE = 7, LD_TYPE = 4 / GX_U8). */
+/*
+ * GQR5 setting for 1.7 fixed-point unsigned 8-bit bone weights (LD_SCALE = 7, LD_TYPE = 4 / GX_U8)
+ * (name invented).
+ */
 #define RPSKIN_WEIGHT_GQR 0x07040000
 
 /*
@@ -106,6 +103,35 @@ static void _rpSkinResEntryWaitDone(RwResEntry* resEntry) {
 } // 0x802EB388
 
 /*
+ * ==================== _rpSkinVertexBuffersUseExisting ====================
+ * Points the vertex buffer at the skinned vertex data the atomic already holds in its skin res
+ * entry (reacquired this frame), keeping both entries in use and stamping the draw sync token.
+ * Gormiti DWARF (Debug: skingcn.c line 228, out of line; Final inlines it into
+ * _rpSkinAtomicReinstanceCallBack, which retail pairs exactly).
+ */
+static int _rpSkinVertexBuffersUseExisting(SkinAtomicData* atomicData, RpAtomic* atomic,
+                                           RxGameCubeVertexBuffer* vbHeader, RxGameCubePipeData* pipeData) {
+    RwResEntry** childResEntryOwnderRef; // spelling as in the Gormiti DWARF
+    RpGeometry* geometry;
+
+    geometry = RpAtomicGetGeometry(atomic);
+    RwResourcesUseResEntry(pipeData->resEntry);
+
+    childResEntryOwnderRef = (RwResEntry**)&vbHeader->attr[0].array;
+    *childResEntryOwnderRef = atomicData->platformData.skinResEntry;
+    vbHeader->attr[0].array = SKINRESENTRYGETARRAYBASE(vbHeader->attr[0].array);
+    if (geometry->flags & rpGEOMETRYNORMALS) {
+        vbHeader->attr[1].array = (void*)((unsigned char*)vbHeader->attr[0].array +
+                                          (((geometry->numVertices * vbHeader->attr[0].stride) + 0x1F) & ~0x1F));
+    }
+
+    ((RwResEntry**)vbHeader->attr[0].array)[-1] = atomicData->platformData.skinResEntry;
+    RwResourcesUseResEntry(atomicData->platformData.skinResEntry);
+    ((RxGameCubeVertexBuffer*)(((RwResEntry**)vbHeader->attr[0].array)[-1] + 1))->token = _RwDlTokenCurrent;
+    return 1;
+} // no copy in retail (inlined)
+
+/*
  * ==================== _rpSkinVertexBuffersUpdate ====================
  * Acquires or reuses a skinned vertex buffer resource entry for the current frame, stashing the
  * unskinned arrays on the atomic or skin if needed and pointing the vertex buffer attributes at
@@ -154,7 +180,13 @@ int _rpSkinVertexBuffersUpdate(RpSkin* skin, RpAtomic* atomic, RxGameCubeVertexB
     }
 
     if (vbHeader->attr[0].array != NULL) {
-        if (!_rwDlTokenQueryDone(((RxGameCubeVertexBuffer*)(((RwResEntry**)vbHeader->attr[0].array)[-1] + 1))->token)) {
+        unsigned short token = ((RxGameCubeVertexBuffer*)(((RwResEntry**)vbHeader->attr[0].array)[-1] + 1))->token;
+
+        if (!_rwDlTokenQueryDone(token)) {
+            /*
+             * Original quirk: this passes the array less one RwResEntry (retail subtracts 0x18 from
+             * the array), not the entry stored in the word before the array.
+             */
             _clSkinCache_OrphanSkinRes((RwResEntry*)vbHeader->attr[0].array - 1);
             vbHeader->attr[0].array = NULL;
             if (geometry->flags & rpGEOMETRYNORMALS) {
@@ -167,21 +199,20 @@ int _rpSkinVertexBuffersUpdate(RpSkin* skin, RpAtomic* atomic, RxGameCubeVertexB
         unsigned int size;
         RpGameCubeVtxFmt* vtxFmt;
 
-        vtxFmt = *RWPLUGINOFFSET(RpGameCubeVtxFmt*, geometry, _rpDlGeomVtxFmtOffset);
+        size = 6;
+        vtxFmt = RpGeometryGetGameCubeVtxFmt(geometry);
         if (vtxFmt != NULL) {
             unsigned int vtxSizeConvTable[5] = { 3, 3, 6, 6, 12 };
 
-            size = (((geometry->numVertices * vtxSizeConvTable[vtxFmt->pos]) + 0x1F) & ~0x1F) + 6;
+            size += ((geometry->numVertices * vtxSizeConvTable[vtxFmt->pos]) + 0x1F) & ~0x1F;
             if (geometry->flags & rpGEOMETRYNORMALS) {
                 size += ((geometry->numVertices * (vtxSizeConvTable[vtxFmt->norm] * (vtxFmt->nbt ? 3 : 1))) + 0x1F) &
                         ~0x1F;
             }
         } else {
-            unsigned int posSize = ((geometry->numVertices * 12) + 0x1F) & ~0x1F;
-
-            size = posSize + 6;
+            size += ((geometry->numVertices * 12) + 0x1F) & ~0x1F;
             if (geometry->flags & rpGEOMETRYNORMALS) {
-                size += posSize;
+                size += ((geometry->numVertices * 12) + 0x1F) & ~0x1F;
             }
         }
 
@@ -195,7 +226,7 @@ int _rpSkinVertexBuffersUpdate(RpSkin* skin, RpAtomic* atomic, RxGameCubeVertexB
             return 0;
         }
 
-        vbHeader->attr[0].array = (void*)(((unsigned int)vbHeader->attr[0].array + 0x3D) & ~0x1F);
+        vbHeader->attr[0].array = SKINRESENTRYGETARRAYBASE(vbHeader->attr[0].array);
         if (geometry->flags & rpGEOMETRYNORMALS) {
             vbHeader->attr[1].array = (void*)((unsigned char*)vbHeader->attr[0].array +
                                               (((geometry->numVertices * vbHeader->attr[0].stride) + 0x1F) & ~0x1F));
@@ -282,9 +313,14 @@ void _rpSkinMatrixBlendUpdate(RwMatrix* matDst, RpSkin* skin, RwMatrix* ltm, RpH
  * Skins vertex positions into dstVertices using GQR5/GQR6 for quantised loads and stores, then
  * flushes the destination buffer and invalidates the GX vertex cache.
  */
-// ASM-HELPER: C function whose GQR5/GQR6 mfspr/mtspr statements have no C spelling in MWCC; matches Gormiti DWARF locals
+// ASM-HELPER: GQR5, GQR6 (mfspr/mtspr only), Gormiti DWARF: a C function whose locals gqr5value, gqr5address,
+// tmp, weightGQR and posGQR are modelled here; the save and restore of GQR5 through gqr5address are C (the Debug
+// build stores and reloads through it, Final optimises gqr5value away). The asm operands need `register` (MWCC
+// error 34001 otherwise).
 void _rpSkinBlendBodyP(RpSkin* skin, RwMatrix* matrixCache, void* srcVertices, void* dstVertices,
                        RpGameCubeVtxFmt* vtxFmt, int numVertices) {
+    unsigned int gqr5value;
+    unsigned int* gqr5address = &gqr5value;
     register unsigned int tmp;
     register unsigned int weightGQR;
     register unsigned int posGQR;
@@ -311,6 +347,9 @@ void _rpSkinBlendBodyP(RpSkin* skin, RwMatrix* matrixCache, void* srcVertices, v
 
     asm {
         mfspr tmp, GQR5
+    }
+    *gqr5address = tmp;
+    asm {
         mtspr GQR5, weightGQR
         mtspr GQR6, posGQR
     }
@@ -338,6 +377,7 @@ void _rpSkinBlendBodyP(RpSkin* skin, RwMatrix* matrixCache, void* srcVertices, v
         break;
     }
 
+    tmp = *gqr5address;
     asm {
         mtspr GQR5, tmp
     }
@@ -353,9 +393,13 @@ void _rpSkinBlendBodyP(RpSkin* skin, RwMatrix* matrixCache, void* srcVertices, v
  * Skins vertex positions and normals into dstVertices/dstNormals using GQR5/GQR6/GQR7, then
  * flushes the destination buffers and invalidates the GX vertex cache.
  */
-// ASM-HELPER: C function whose GQR5/GQR6/GQR7 mfspr/mtspr statements have no C spelling in MWCC; matches Gormiti DWARF locals
+// ASM-HELPER: GQR5, GQR6, GQR7 (mfspr/mtspr only), Gormiti DWARF: a C function whose locals gqr5value,
+// gqr5address, tmp, weightGQR, posGQR and normGQR are modelled here; the save and restore of GQR5 through
+// gqr5address are C, as in _rpSkinBlendBodyP. The asm operands need `register` (MWCC error 34001 otherwise).
 void _rpSkinBlendBodyPN(RpSkin* skin, RwMatrix* matrixCache, void* srcVertices, void* srcNormals,
                         void* dstVertices, void* dstNormals, RpGameCubeVtxFmt* vtxFmt, int numVertices) {
+    unsigned int gqr5value;
+    unsigned int* gqr5address = &gqr5value;
     register unsigned int tmp;
     register unsigned int weightGQR;
     register unsigned int posGQR;
@@ -396,6 +440,9 @@ void _rpSkinBlendBodyPN(RpSkin* skin, RwMatrix* matrixCache, void* srcVertices, 
 
     asm {
         mfspr tmp, GQR5
+    }
+    *gqr5address = tmp;
+    asm {
         mtspr GQR5, weightGQR
         mtspr GQR6, posGQR
         mtspr GQR7, normGQR
@@ -424,6 +471,7 @@ void _rpSkinBlendBodyPN(RpSkin* skin, RwMatrix* matrixCache, void* srcVertices, 
         break;
     }
 
+    tmp = *gqr5address;
     asm {
         mtspr GQR5, tmp
     }
@@ -507,17 +555,7 @@ void* _rpSkinAtomicReinstanceCallBack(void* object, RxGameCubePipeData* pipeData
         skinAtomicData->platformData.skinResEntry =
             _clSkinCache_ReAquireResource(atomic, skinAtomicData->platformData.skinResEntry, vbHeader);
         if (skinAtomicData->platformData.skinResEntry != NULL) {
-            RpGeometry* geom = atomic->geometry;
-
-            RwResourcesUseResEntry(pipeData->resEntry);
-            vbHeader->attr[0].array = SKINRESENTRYGETARRAYBASE(skinAtomicData->platformData.skinResEntry);
-            if (geom->flags & rpGEOMETRYNORMALS) {
-                vbHeader->attr[1].array = (void*)((unsigned char*)vbHeader->attr[0].array +
-                    (((geom->numVertices * vbHeader->attr[0].stride) + 0x1F) & ~0x1F));
-            }
-            ((RwResEntry**)vbHeader->attr[0].array)[-1] = skinAtomicData->platformData.skinResEntry;
-            RwResourcesUseResEntry(skinAtomicData->platformData.skinResEntry);
-            ((RxGameCubeVertexBuffer*)(((RwResEntry**)vbHeader->attr[0].array)[-1] + 1))->token = _RwDlTokenCurrent;
+            _rpSkinVertexBuffersUseExisting(skinAtomicData, atomic, vbHeader, pipeData);
             return object;
         }
 
@@ -528,13 +566,13 @@ void* _rpSkinAtomicReinstanceCallBack(void* object, RxGameCubePipeData* pipeData
     }
 
     if (skin->vertexMaps.maxWeights > 1 || skin->platformData.skinType == rpSKINTYPETOON) {
-        RwResEntry* resEntry = pipeData->resEntry;
         void** positions;
         void** normals;
 
-        vbHeader = (RxGameCubeVertexBuffer*)(resEntry + 1);
-        if (((RwObject*)resEntry->owner)->type == rpATOMIC) {
-            SkinAtomicData* atomicData = RPSKINATOMICGETDATA(resEntry->owner);
+        /* The original recomputes vbHeader here, to the value it already holds (Gormiti Debug line table). */
+        vbHeader = (RxGameCubeVertexBuffer*)(pipeData->resEntry + 1);
+        if (((RwObject*)pipeData->resEntry->owner)->type == rpATOMIC) {
+            SkinAtomicData* atomicData = RPSKINATOMICGETDATA(pipeData->resEntry->owner);
 
             positions = &atomicData->platformData.vertices;
             normals = &atomicData->platformData.normals;
@@ -579,10 +617,10 @@ void* _rpSkinAtomicReinstanceCallBack(void* object, RxGameCubePipeData* pipeData
         if (geometry->flags & rpGEOMETRYNORMALS) {
             _rpSkinBlendBodyPN(skin, _rpSkinGlobals.matrixCache.aligned, *positions, *normals,
                                vbHeader->attr[0].array, vbHeader->attr[1].array,
-                               *RWPLUGINOFFSET(RpGameCubeVtxFmt*, geometry, _rpDlGeomVtxFmtOffset), geometry->numVertices);
+                               RpGeometryGetGameCubeVtxFmt(geometry), geometry->numVertices);
         } else {
             _rpSkinBlendBodyP(skin, _rpSkinGlobals.matrixCache.aligned, *positions, vbHeader->attr[0].array,
-                              *RWPLUGINOFFSET(RpGameCubeVtxFmt*, geometry, _rpDlGeomVtxFmtOffset), geometry->numVertices);
+                              RpGeometryGetGameCubeVtxFmt(geometry), geometry->numVertices);
         }
     } else {
         _rpSkinMatrixBlendUpdate(_rpSkinGlobals.matrixCache.aligned, skin, RwFrameGetLTM(RpAtomicGetFrame(atomic)),
@@ -669,7 +707,7 @@ void* _rpSkinRenderCallback(void* object, RxGameCubePipeData* pipeData) {
     vbHeader->token = _RwDlTokenCurrent;
 
     skin = RpSkinGeometryGetSkin(atomic->geometry);
-    fmt = *RWPLUGINOFFSET(RpGameCubeVtxFmt*, atomic->geometry, _rpDlGeomVtxFmtOffset);
+    fmt = RpGeometryGetGameCubeVtxFmt(atomic->geometry);
     ltm = RwFrameGetLTM(RpAtomicGetFrame(atomic));
 
     if (_Current_RwClimaxVertexProcCB != NULL) {
@@ -692,6 +730,7 @@ void* _rpSkinRenderCallback(void* object, RxGameCubePipeData* pipeData) {
         GXSetVtxDesc(GX_VA_PNMTXIDX, GX_DIRECT);
     }
 
+    /* Original quirk: the default format is fetched and discarded (retail's call keeps no result). */
     if (fmt == NULL) {
         fn_802DF0DC();
     }
@@ -821,7 +860,7 @@ static RpSkin* _rpSkinCreate(RpSkin* skin, unsigned int numVertices) {
             unsigned int j;
 
             for (j = 0; j < skin->vertexMaps.maxWeights; j++) {
-                *weight = (unsigned char)(128.0f * ((float*)&skin->vertexMaps.matrixWeights[i])[j]);
+                *weight = (unsigned char)(128.0f * (&skin->vertexMaps.matrixWeights[i].w0)[j]);
                 sum += *weight++;
             }
 

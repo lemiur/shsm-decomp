@@ -13,6 +13,7 @@
 #include <rwsdk/plcore/bastream.h>
 #include <rwsdk/plugin/matfx/multitex.h>
 #include <rwsdk/plugin/skin2/rpskin.h>
+#include <rwsdk/plugin/skin2/skin.h>
 #include <rwsdk/world/gcpipe.h>
 
 /* The plugin's error ID (rpplugin.h in the plugin's own sources). */
@@ -25,10 +26,6 @@
  */
 #undef RWBUILDNUMBER
 #define RWBUILDNUMBER 0x55
-
-/* The skin of a geometry. */
-#define RPSKINGEOMETRYGETDATA(geometry) \
-    (*RWPLUGINOFFSET(RpSkin*, (geometry), _rpSkinGlobals.geometryOffset))
 
 /*
  * ==================== _rpSkinGeometryNativeSize ====================

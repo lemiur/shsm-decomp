@@ -23,64 +23,148 @@ Status labels: **read** (seen in the disassembly), **measured** (compiler experi
 
 ## Pipeline of the global allocator (read)
 
-Per register class (0 SPR, 1 CR field, 2 VR, 3 FPR, 4 GPR; class byte at `[0x794146]` (`coloring_class`)), the driver at `0x5b88f0` (colorinstructions, Coloring.obj)
-repeats, at most 10 times (assert in `Coloring.c`):
+Per register class (0 SPR, 1 CR field, 2 VR, 3 FPR, 4 GPR; class byte at `[0x794146]` (`coloring_class`)), the driver at
+`0x5b88f0` (colorinstructions, Coloring.obj) skips a class whose used-register count `[0x778924 + 4*class]` equals its
+physical count `[0x770b68 + 4*class]` (no virtual registers), then repeats, at most 10 times (attempt counter
+`[0x770970]`, assert in `Coloring.c`):
 
-1. build the interference graph (`0x63d720` (buildinterferencegraph, InterferenceGraph.obj), InterferenceGraph.c), with coalescing (`0x63dc60` (static in InterferenceGraph.obj)) until a pass
-   merges nothing;
+1. build the interference graph (`0x63d720` (buildinterferencegraph, InterferenceGraph.obj)): the alias array
+   (`[0x7378f0]`, one u16 per node, initialised to the identity), then in a loop the nodes (`0x63e3d0`, static), the
+   edges (`0x63dfb0`, static) and coalescing (`0x63dc60`, static) until a pass merges nothing; then the variables
+   (`0x63d930`, static), the coalescing marks (`0x63db20`, static) and the rematerialisation walk (`0x63d7e0`, static);
 2. simplify (`0x5b8dc0` (static in Coloring.obj; simplify));
 3. select (`0x5b8bf0` (static in Coloring.obj; select), with the register picker `0x592bf0` (pickcolor, RegisterInfo.obj));
-4. on success rewrite the operands (`0x5b8a90` (static in Coloring.obj; operand rewrite)); on failure insert spill code (`0x63e9d0` (insertspillcode, Spill.obj), Spill.c) and retry.
+4. on success rewrite the operands (`0x5b8a90` (static in Coloring.obj; operand rewrite)); on failure insert spill code
+   (`0x63e9d0` (insertspillcode, Spill.obj)) and start again with attempt + 1.
 
-Graph nodes are 32 bytes (`[0x77356c] + 32*index`): spill cost at +0x0c, colour at +0x12 (-1 none), flags at
-+0x14, degree at +0x16, an edge tree at +0x1c. **Nodes 0..n-1 are the physical registers; virtual registers
-follow in their creation order.** The node index is the only ordering the allocator uses.
+`Wii/1.0a` (FMOD) has the same code, instruction for instruction: Coloring.obj at `-0x4950`, RegisterInfo.obj at
+`-0x4530` and InterferenceGraph.obj at `-0x5030` from the `Wii/1.0` addresses (read); its data addresses differ (the
+`RA_` keys of `tools/c/tools/mwtrace/mwt_build.c`). `mwtrace regalloc` (Tools, below) traces every step named here.
+
+### Nodes (read; the degree copy measured)
+
+32 bytes each at `[0x77356c] + 32*index`. **Nodes 0..n-1 are the physical registers of the class; virtual registers
+follow in their creation order**, and the node index is the virtual register number.
+
+| offset | field |
+|---|---|
+| +0x00 | link of simplify's stack and of its high-degree list |
+| +0x04 | the `Object` the node stands for (set by `0x63d930` from each parameter's and local's VarInfo), 0 for a temporary |
+| +0x08 | the single defining instruction when the value can be rematerialised (`0x63d7e0`, `is_location_independent`), else 0 |
+| +0x0c | spill cost (0 until estimatespillcosts runs) |
+| +0x10 | the node's own index |
+| +0x12 | colour (-1 none; the physical root's index for a node coalesced into a physical register) |
+| +0x14 | flags: 0x1 spilled (select), 0x2 removed by simplify, 0x4 coalesced into another node, 0x8 a coalescing root, 0x10 and 0x20 the two halves of a register-pair variable, 0x40 more than one definition (no rematerialisation), 0x80 and 0x400 set by estimatespillcosts from operand flags 0x40 and 0x10 (the node's spill ratio is then the constant at `0x6e88f4`, `0x7f7fffff` (FLT_MAX), or at `0x6e88f0`, `0x7effffff`), 0x200 a pair node (two colours; its edges count 2), 0x800 kept from rematerialisation (meaning not established), 0x4000 the VLE picker's restriction |
+| +0x16 | degree (simplify decrements it) |
+| +0x18 | equal to +0x16 when the graph is complete and not decremented by simplify (measured; what reads it is not established) |
+| +0x1a | the sort key of `machine_specific_sort_graph` (VLE only) |
+| +0x1c | the node's edge list: edge records with the endpoints at +0x0c (lower) and +0x0e (higher), the next edge of the lower endpoint at +0x04 and of the higher at +0x08 |
+
+The variables walk (`0x63d930`) reads, per parameter (list `[0x772358]`) and local (list `[0x7787cc]`), the VarInfo
+(`Registers_GetVarInfo` `0x594f00`: +0x0e flags, 0x2 in a register, 0x4 a register pair; +0x0f class; +0x10 virtual
+register; +0x12 the pair's second register) and stores the Object at node +0x04; the objects of `[0x7722e4]` are walked
+the same way.
 
 ### Coalescing (read)
 
-- Copies are visited in program order, block by block. Both operands are resolved through a union-find array
-  (`[0x7378f0]`).
-- A copy is skipped when the two sides interfere (`0x63e780` (interferes, InterferenceGraph.obj)) or a pair check rejects them (`0x594640` (machinespecific_coalesce_restriction, RegisterInfo.obj)).
-- On a merge **the lower index survives** (`alias[hi] = lo`). Physical registers have the lowest indices, so a
-  variable coalesced with an argument register *becomes* that register (precoloured).
+- Copies (instruction flag 0x10, class byte +0x3b, operand registers +0x30 and +0x3e) are visited in program order,
+  block by block. Both operands are resolved to their roots through the alias array.
+- Equal roots: the copy is deleted. Otherwise the copy is kept when the roots interfere (`0x63e780` (interferes,
+  InterferenceGraph.obj)), when `0x594640` (machinespecific_coalesce_restriction, RegisterInfo.obj) refuses the pair,
+  or when the higher root is a member of a sparse set (sparse array `[0x737900]`, dense `[0x7378fc]`, count
+  `[0x7378f8]`; who fills it and what it stands for is not established).
+- A merge stores `alias[hi] = lo` (`0x63ddd5`): **the lower index survives**. The higher node's edges are added to the
+  lower (`makeinterfere` `0x63e810`) and the copy is deleted. Physical registers have the lowest indices, so a variable
+  coalesced with an argument register *becomes* that register (colour = the register, flag 0x4, set by `0x63db20`).
 - After any merge the graph is rebuilt and coalescing repeats.
+- `0x63db20` then marks every coalesced node (0x4) and its root (0x8); a root without an Object takes the coalesced
+  node's (`0x63dc43`), so a temporary root can carry a variable's Object.
 
-### Simplify (read)
+### Simplify (read; the choice measured)
 
-- K is the number of allocatable registers of the class, volatile and nonvolatile together.
-- Each sweep visits the virtual nodes in **ascending index order**. Every node with degree < K is pushed and
-  its neighbours' degrees drop. Sweeps repeat until one pushes nothing.
-- When no node has degree < K, the node with the smallest `degree / spill cost` is pushed optimistically
-  (Briggs style). Ties go to the first node in the high-degree list.
+- K = `available_registers(class)` (`0x5b6030`): GPR 29, FPR 32, CR 7 (measured).
+- Each sweep visits the virtual nodes not yet removed or coalesced (flags 0x6) in **ascending index order**. A node
+  with degree < K is pushed and its neighbours' degrees drop by one (two for a pair). The drop is immediate, so a
+  higher-index node can still be pushed in the same sweep. A node with degree >= K goes on the high-degree list (at its
+  head: the list runs from the highest index down). Sweeps repeat until one pushes nothing.
+- `machine_specific_sort_graph` (`0x592b00`) re-sorts the stack by node +0x1a only for GPRs with the VLE byte
+  `[0x778e9b]` set; the byte is 0 in every traced compile (measured), so the stack is the push order.
+- When the high-degree list is not empty, `estimatespillcosts` (`0x63f3a0`, Spill.obj) runs once: for each operand of
+  the class in a block of weight w (block +0x24; 1 when `[0x779112]` is set), a use adds 2w (w when the node can be
+  rematerialised or `[0x779112]` is set) and a definition adds w (subtracts w when the node can be rematerialised or
+  the instruction's flags hold 0x8002).
+- Then the node with the **smallest spill cost / degree** is pushed optimistically (read: `fild degree; fild cost;
+  fdivrp`; measured on `DSPResampler::execute`, where node 36 at 3/31 was chosen over node 32 at 6641/31). A tie keeps
+  the first candidate of the list, the highest index (measured, the same case: 36 before 34, both 3/31). Sweeps then
+  resume.
 
 ### Select (read)
 
-- Nodes are popped LIFO. In the common case where the first sweep pushes everything, that means **highest
-  index coloured first**.
-- The picker takes the **lowest-numbered free register** of the class's normal list. For GPRs that is the
-  volatile set in ascending order: r0 (where the instruction allows it; not as a base register), then r3, r4,
-  and so on up to r12. Neighbours' colours are excluded.
-- When nothing in the normal list is free (interference with call-clobbered registers, inferred), the next
-  register from the reserve list is added: **r31, then r30, and so on**. Added registers stay available for
-  later nodes, and the lowest free one wins.
+- Nodes are popped LIFO: the last pushed first. When the first sweep pushes everything, that means **highest index
+  coloured first**; the nodes of a later sweep are coloured before every node of an earlier one.
+- The start mask is `volatile_registers(class)` (`0x5b5fe0`): GPR r0 r3-r12, FPR f0-f13, CR cr0-cr1 cr6-cr7
+  (measured). The colour of every neighbour that has one (a physical register's index, a coloured node's colour; two
+  bits for a pair) is cleared from it.
+- The picker takes the **lowest set bit** (`0x592bf0`; the VLE restriction applies only with `[0x778e9b]`). r0 is not
+  taken where an instruction cannot use it: such a node has an edge to physical node 0 (measured: base-register
+  temporaries interfere with r0).
+- When nothing is free, `obtain_nonvolatile_register` (`0x5b5e40`) hands out the class's next nonvolatile register
+  (the per-class list at `0x76f910`, counter `[0x7786f8 + 4*class]`, skipping reserved ones in `[0x76fbd0]`): **r31,
+  then r30, and so on**. It joins the mask for the rest of select and the node is tried again. The nonvolatile registers
+  handed out are the ones the prologue saves (measured: the self-check of every traced case).
+- When none is left, the node is marked spilled (0x1), select returns 0 and spill code follows (`DSPResampler::execute`:
+  one GPR spill, colouring at attempt 1).
 - There is no copy bias and no register hint: the picker never looks at a related node's colour.
+
+### Operand rewrite and the -sym on DWARF (read and measured)
+
+`0x5b8a90` gives every register operand of the class its node's colour, then, per node with an Object, not spilled,
+whose `[Object +0x40] +0x09` byte is set, writes the colour into the VarInfo (+0x10; +0x12 for a pair's second half).
+`-sym on` writes the VarInfo register into the DWARF. A variable whose byte is clear keeps its virtual register number,
+which the DWARF records as a DWARF register number (`DSPResampler::execute`: `outbuffer`, virtual 34, is printed `f2`,
+`outchannels`, 36, `f4`). The byte was set when the variables were walked and is clear at the rewrite; what clears it
+is not established. A variable whose node is dead (degree 0: its uses were copy-propagated into temporaries) is
+coloured r0 or f0, and the DWARF says so.
 
 ## How source maps to node indices (measured)
 
-Each line was checked with `cc.exe` on probes under `build/tmp/` (examples are given inline).
+Each line was checked with `cc.exe` probes under `build/tmp/` and with `mwtrace regalloc` (cases named inline).
 
 - **Locals get virtual registers in reverse declaration order**, after the parameters, so the last-declared
-  local has the lowest index and the first-declared the highest.
+  local has the lowest index and the first-declared the highest (the numbering walk `0x46f140`, below).
   - Across a call, with `int a, b, c;` the first-declared `a` is coloured first and gets r31, then b r30,
-    c r29, whatever the order of first use (`call_abc`, `call_cba`, `call_abc_usecba`).
+    c r29, whatever the order of first use (`call_abc`, `call_cba`, `call_abc_usecba`); the parameter `x` (a lower
+    index) gets r28.
+  - `WorldSyncCamera`: plpPlanes, cameraExt, goBackToFront, nStack, position, spSect (declaration order) are nodes
+    45..40 and get r31..r26; declared after `spaStack`, spSect is node 45 and r31, and the other five move one down.
   - With no call, a loop that keeps `a`..`f` live gives `a` = r6 up to `f` = r11. Reverse numbering pops `a`
-    first, and lowest-free gives it the lowest free register.
+    first, and lowest-free gives it the lowest free register (`_rwFreeListFreeReal`: heap at function scope is node
+    40, coloured first, r5; declared in the while block it is node 36, coloured third, r7).
+- **That order decides only among the nodes simplify removes in the same sweep.** Select colours the nodes of a later
+  sweep first, so a node whose degree stays >= K through the first sweep is coloured before every node removed in it,
+  whatever its index or declaration:
+  - `CPsyPointOfInterest::fn_801A73A8`: `this` (node 32, the lowest index) has degree 49, is pushed in sweep 2 and is
+    coloured first: r31. Every other node is removed in sweep 1.
+  - `MemPool::set`: the four parameters and three of the four locals (nodes 32-36, 38, 39; degrees 37 to 72) are
+    pushed in sweep 2 and take r25-r31 by index; the local `count` (node 37, degree 13) is removed in sweep 1 and gets
+    r0, and the compiler-made node 40 (degree 24, sweep 1, live across a call) gets r24.
+  - Which nodes reach a later sweep follows from their degree (how many values are live at the same time) and from the
+    drops the earlier pushes of the sweep give, so one more live value can move a node between sweeps.
 - **Compiler temporaries** (expression results, call results) are created later and get higher indices, so
-  they are coloured before the named locals and take the lowest registers (r0, r3, ...).
-- **A local initialised from a call result** (`a = k(x)`) is coalesced with the result temporary. It then
-  colours like a late node: `a` gets r31 whether it is declared before or after `b` (`tmpexpr`, `tmpexpr2`).
+  in the same sweep they are coloured before the named locals and take the lowest registers (r0, r3, ...).
+- **A value copy-propagated out of a variable lives in a temporary**: the variable's own node is dead (degree 0) and a
+  temporary carries the value and its register. A probe of the `tmpexpr` shape (`int a = k(x)` used across later calls): `a` is node 33,
+  degree 0, r0 (also in its DWARF); the value is temporary 37, r31. This is what was described as "a local initialised
+  from a call result is coalesced with the result temporary" (`tmpexpr`, `tmpexpr2`): no merge happens, the variable
+  is replaced.
+- **Inlined callees' objects and compiler-made objects** are locals too. The inliner renames a callee's locals and
+  parameter objects to `@NNN` (`Wii/1.0` `0x55ed18` and `0x55eef4`, `Wii/1.0a` `0x55aba8` and `0x55ad43`: the result of
+  CParser_GetUniqueName stored at Object +0x0c), so only the trace tells where they come from. Other `@NNN` locals come
+  from CFunc (newlabel, `create_temp_object`, the statics after `CFunc_CompoundStatement` and after
+  `CFunc_GenerateLoop`; 414, 53, 133 and 92 of them in one compile of `fmod_memory.cpp`) and have no source name. In
+  `MemPool::set` the named locals (36-39) precede 13 such objects (40-52), which precede the temporaries.
 - **A parameter that is never reassigned** is coalesced with its argument register (`pnomod`: `p` stays in r3
-  through a loop with `p++`).
+  through a loop with `p++`; `loop6`: `p`, node 32, is coalesced into r3).
 - **A parameter whose first statement reassigns it from itself** (`p = p + n;`, also `p += n`, also through
   an lvalue cast `(char *)p = (char *)p + n`) is *not* coalesced. The entry copy from the argument register is
   propagated into the add and disappears, so the variable is an ordinary low-index node.
@@ -95,50 +179,125 @@ Each line was checked with `cc.exe` on probes under `build/tmp/` (examples are g
 
 Diagnosis recipe for a numbering wall:
 
-1. List each variable's register in retail and in the build.
-2. Sort them by register to recover the colouring order: lowest volatile = coloured first; r31 = first
-   callee-saved.
-3. Compare that order with the declaration order (reversed), the order temporaries are created, and parameter
-   coalescing. Two swapped callee-saved registers usually mean two swapped declarations, or a local that is (or
-   is not) initialised straight from a call result.
+1. `build/tools/mwtrace.exe regalloc <unit> --function SYM` gives each node's variable, degree, sweep, select
+   position and register; put retail's registers beside them (`match.exe --diff`).
+2. Find the first variable whose register differs and the node that has its register in retail: their sweeps,
+   degrees and indices say which of the rules above decides.
+3. Try a source change with `--against FILE2`: it prints the nodes the edit adds or changes, the first simplify and
+   select position that differs and every named variable whose register moves.
 
 ## Scheduler (read and measured)
 
-Traced in `Wii/1.0` with a ctypes debugger that runs `mwcceppc` under breakpoints and dumps the scheduler's
-nodes (`build/tmp/sched/dbg.py`, `tracer.py`; sample dumps `trace0.txt`, `trace1.txt`; scratch, not committed).
+`build/tools/mwtrace.exe sched <unit> --function SYM` (Tools, below) traces every step named here: the nodes, the
+edges with their kinds, each selection with the key that decided, checked against the object. Addresses are `Wii/1.0`;
+`Wii/1.0a` has the block scheduler and everything after it (0x5bb600 on) instruction for instruction at -0x4980, its own
+shorter driver at `0x5b6ad0` and its own data addresses (read; the `SC_` keys of `tools/c/tools/mwtrace/mwt_build.c`).
 
-- **Driver** `0x5bb420` (scheduleinstructions, Scheduler.obj) (assert string `Scheduler.c`). It runs once per basic block, twice per function: pass 1
-  before register allocation (virtual registers; flag `[0x770c84]` (`coloring`) = 1) and pass 2 after it (physical registers).
-  `-opt noschedule` disables both (that listing shows the scheduler's input order).
-- **Machine model** is picked by the processor byte `[0x778ea4]` (`-proc`). `gekko`, `750` and `7400` use the table
-  at `0x70335e` (data: machine750): two integer units and a 6-entry completion queue. `603e`, `604e`, `601`, `generic` and `403` use
-  other tables and schedule differently.
-- **Node build** `0x5bb600` (static in Scheduler.obj), per block: dependence edges (`0x5bb980` (static in Scheduler.obj), `0x5bbfc0` (static in Scheduler.obj), `0x5bbbd0` (static in Scheduler.obj)), then each node's
-  height (longest latency path to the block end) and slack.
-- **List scheduling** `0x5bb6f0` (static in Scheduler.obj)-`0x5bb7c3` (static in Scheduler.obj): forward, cycle by cycle; ready nodes are those whose predecessors
-  have issued and whose operands are available.
-- **Selection** `0x5bb7e0` (static in Scheduler.obj). The first ready node in program order is the incumbent. A later candidate replaces it
-  only if it is strictly better by the first key that differs:
+- **Driver** `0x5bb420` (scheduleinstructions, Scheduler.obj; assert string `Scheduler.c`) (read). It sets the machine
+  model `[0x731548]` from the processor byte `[0x778ea4]` (`-proc`; `gekko`, byte 4, takes the table at `0x70335e`), calls
+  its initialiser (+0x28) and `gather_alias_info`, then walks the block list `[0x7722fc]` and schedules a block when it
+  has **more than 2 instructions** (block +0x28) and either the argument is nonzero or the block's flags (+0x2a) & 3 are
+  clear; it then sets flag 8. Blocks of 1 or 2 instructions keep their input order (measured: listed by `mwtrace sched`
+  as not scheduled; their instructions reach the object in that order). What flags 1 and 2 mean is not established; the
+  entry and exit blocks of pass 1 carry them (0x5, 0x6) and are empty (measured).
+- **Two passes**, both called from CodeGen_Generator (read): pass 1 at `0x46cc74` with argument 0, only when the schedule
+  mode byte `[0x778ea5]` is 2, before `colorinstructions` (virtual registers; `[0x770c84]` (`coloring`) = 1, measured); pass
+  2 at `0x46cbc5` with argument 1 when the byte is nonzero, after register allocation, `generate_prologue`,
+  `generate_epilogue` and `peepholeoptimizepcode` (physical registers; coloring 0, measured). **Pass 2 schedules the
+  prologue and epilogue with the body** (measured: its first block holds `stwu`, `mflr`, the saves and the body's first
+  instructions). The mode byte is 2 in every traced compile. `Wii/1.0a` calls the driver from `0x46b325` and `0x46b3d4`
+  (in the static `0x46b230`). `-opt noschedule` was not checked by the trace.
+- **Machine model** (`gekko`, measured): issue width (+0) 2, +4 = 1 (so register output and anti dependences get latency
+  0), +8 = 0 (extra latency into a branch). Its callbacks: +0x0c latency of an instruction, +0x10 reset, +0x14 can-issue,
+  +0x18 issue (reserve), +0x1c end of cycle, +0x20 serialises (read). Can-issue refuses a second load or store in a
+  cycle (measured: `fn_8000A76C`, every load ready at cycle 0 slot 1 answers 0). `603e`, `604e`, `601`, `generic` and `403`
+  use other tables (read).
+- **Nodes** (block scheduler `0x5bb600`, static, read). The block is walked from its last instruction (block +0x18,
+  pcode +4 the previous one); each node is pushed on the list's head, so the list is in program order. 26 bytes: +0 next,
+  +4 previous, +8 successor edges, +0x0c the pcode, +0x10 latency (machine +0x0c), +0x12 the earliest issue cycle, +0x14
+  slack, +0x16 height (the latency at creation, raised by each edge), +0x18 predecessors not yet issued. Once the block
+  is built, slack = the block's greatest height `[0x73154c]` - height (`0x5bb697`).
+- **Edges** (read; every kind measured). The edge adder `0x5bc0b0` (static) takes (earlier, later, flag): latency = the
+  earlier's latency when the flag is set, else 0; one less (not below 0) when the later is a store (pcode flags 0x40004)
+  whose first operand `is_same_operand` the earlier's; plus machine +8 when the later is a branch (pcode flags 0x1); an
+  edge already there keeps the greater latency; the earlier's height becomes at least latency + the later's height. The
+  dependence builder `0x5bb980` (static), per node, with per-class, per-register lists of the later definitions
+  (`[0x731562]`) and uses (`[0x731576]`):
+  - register operands (kind 0) through `0x5bbfc0` (static): a definition gets an edge to every later use (`raw`, flag 1)
+    and every later definition (`waw`); a use to every later definition (`war`); `waw` and `war` take flag 1 only for
+    class 0 (SPR), else machine +4 == 0, so latency 0 on gekko. An operand that is both used and defined (a `bl`'s r3) is
+    taken as a definition only (`and eax, 2`, read);
+  - memory: a load (pcode flags 0x20002) against every later store, a store against every later load and store, each
+    pair asked of `may_alias` (next section; never load against load), an edge (flag 1) when it answers 1;
+  - instructions with pcode flag 0x80 are chained among themselves (`[0x731552]`, `ordered`);
+  - a serialising instruction (pcode flags & 9 with flags2 & 0x800000, or flags & 0x100, or the machine's +0x20 callback)
+    gets an edge to every later instruction (`serial`), and every instruction gets one, latency 0, to each later
+    serialising one (`[0x731556]`, `to-serial`; measured: a `bl` is one);
+  - a node with no successor gets an edge, latency 0, to the block's branch (`[0x73154e]`, the last instruction with pcode
+    flag 0x1; `branch`).
+- **List scheduling** `0x5bb6f0`-`0x5bb7c3` (read). Cycle by cycle from 0, up to machine +0 selections a cycle; a
+  selection that finds nothing ends the cycle. An issued node's successors each lose a predecessor and get earliest =
+  max(earliest, cycle + edge latency); the instruction is appended to the block (the new order), the machine's +0x18
+  reserves it, the node leaves the list. Machine +0x1c ends the cycle.
+- **Selection** `0x5bb7e0` (static) (read; every key measured by the trace's replay of the logged numbers). Ready: no
+  predecessor left, earliest <= cycle, and can-issue nonzero. The first ready node in program order is the incumbent; each
+  later ready node replaces it only if strictly better by the first key that differs:
   1. critical (slack <= current cycle) beats non-critical;
   2. more successors whose only remaining predecessor is this node;
   3. greater height;
-  4. pass 1 only: the smaller opcode-priority byte at `0x6f06cb + 22*opcode` (`li` 4, `lis` 4, `addi` 2,
-     `mtctr` 1, `lwz` 3, `mr` 0, `b` 0);
+  4. only while `[0x770c84]` (coloring) is set, that is in pass 1: the smaller opcode-priority byte at
+     `0x6f06cb + 22*opcode` (measured: `LI` 4, `LIS` 4, `MFLR` 4, `LWZ` 3, `LFS` 3, `LFD` 3, `ADDI` 2, `STWU` 2,
+     `FMUL` 2, `STW` 1, `MR` 0);
   5. otherwise the incumbent stays (program order).
-- In pass 2 ties are broken by program order alone.
+
+  In pass 2 keys 1 to 3 apply as in pass 1; only key 4 is off. When `[0x779112]` is set an extra loop calls can-issue
+  for the ready nodes after the incumbent and ignores the answers (read; the byte is 0 in every traced compile, its
+  meaning is not established).
+- **After the scheduler** (read and measured). After pass 2 come only `peepholeoptimizepcode` (when the VLE byte
+  `[0x778e9b]` is set) and `assemblefunction` (`0x5a0ad0`: `optimizefinalbranches`, `0x5a0f00` (static), which deletes and
+  adds instructions, then `assemblepcode` per instruction at `0x5a0cf8`). In every function traced (`mwtrace sched`'s
+  self-check: the game, RenderWare and FMOD cases below) each pass-2 block's output order is the object's order, and no
+  instruction was deleted from or added inside a scheduled block. Between the passes the order of pass 1 is the one
+  register allocation numbers and colours; pass 2 then reorders physical-register code.
+- **regalloc's instruction numbers** (`#N` in `mwtrace regalloc`, the `ra` column of `mwtrace sched`) count the
+  rematerialisation walk `0x63d7e0`: blocks forward, **each block from its last instruction** (read: block +0x18,
+  pcode +4), so within a block a later instruction has a lower number (measured: `fn_8000A76C`'s LFS #300 is issued
+  before the LFD #298 of the same block).
 
 Consequences for matching:
 
-- Two independent instructions with equal height and fan-out are ordered by key 4 in pass 1, not by their
-  source order: swapping the source order of `i = 0` and `p = table` does not swap `li` and `addi`.
+- Two independent instructions with equal criticality, successor count and height are ordered by key 4 in pass 1, by
+  program order in pass 2. Measured with `tools/c/tools/mwtrace/tests/fixtures/sched_key4_a.c` and `_b.c` (`--against`):
+  swapping the source order of `i = 0` and `p = table` ahead of `g(i, p)` does not swap `li` and `addi`, but not because
+  a key overrides it: both texts give the scheduler the same input (the values are generated where they are used), and
+  in both pass 1 issues `addi` over `li` by priority 2 < 4 at cycle 1.
 - Anything that adds or removes a node in the block (even a dead copy that is deleted later) changes heights and
-  fan-out counts and can reorder the survivors. See the first-function quirk below.
+  successor counts and can reorder the survivors. See the first-function quirk below.
+- Diagnosis: for a row whose instruction retail has at another position, `mwtrace sched ... --pair @A,@B` (the two
+  object rows) names the selection and the key, or the edge that held one of them; an order difference in pass 2 with
+  the same pass-1 order is decided by keys 1-3 on physical-register code.
+
+Cases (measured with `mwtrace sched`, self-check clean):
+
+- `TriListNBTDataSetup8` (RenderWare `nbtGen`): its first differing rows are an order difference: retail emits
+  `clrlslwi r30, r5, 24, 2` before the two `clrlslwi` of r0, the build after them. In pass 2 (block 4) the r5 one has
+  height 9 and both r0 ones 14: kept behind by key 3; in pass 1 the three are equal and program order decides.
+  `TriStripNBTDataSetup8`'s first differing rows are a register difference (the same instructions in the same order).
+- `FMOD::File::enableDoubleBuffer` (`Wii/1.0a`): the first differing rows are a register difference (the build saves one
+  nonvolatile more); in the build, pass 2 keeps `mr r28, r4` behind `stw r28` by a `war` edge and `divwu` behind
+  `lwz r4` by its `raw` latency 2.
+- `fn_8000A76C` (`game/unk_8000A040`): pass 1 issues the LFS (virtual f85, regalloc #300) at cycle 0, before the LFD
+  (f89, #298), by key 1 (slack 0 against 4): the LFS's temporary is the one defined first.
 
 ## Scheduler memory disambiguation (read and measured)
 
 Whether the scheduler may move a load past a store (or two stores past each other) is decided per pair by
 `may_alias` (`0x5c3460`, Alias.obj). The scheduler's dependence builders (statics at `0x5bbb56`, `0x5bbc06`,
-`0x5bbc56` call sites, Scheduler.obj) ask it for every pair of memory instructions in a block; local CSE's
+`0x5bbc56` call sites, Scheduler.obj) ask it, for each load, about every later store, and for each store, about every
+later load and store of the block (never two loads; read, and measured: `mwtrace sched` lists each pair with the answer
+under "memory pairs"); an answer of 1 is an edge of the earlier's latency (`mem-load-store`, `mem-store-load`,
+`mem-store-store`). A precheck (`0x5bbcc0`, static) runs first when `[0x778f2b]` is set, and a nonzero answer skips the
+pair (read; the byte is 0 in every traced compile, its meaning is not established). Local CSE's
 `killmemory` (LocalCSE.obj) asks it too, so the same answer decides whether a stored value is reused or reloaded
 after a later store. `is_dependent` (`0x5bb390`) is the register test, not the memory one.
 
@@ -160,6 +319,11 @@ after a later store. `is_dependent` (`0x5bb390`) is the register test, not the m
 - Measured with `tools/c/tools/wdbg/specs/may_alias.wdbg` on `static S dst; void f(const S* p) { dst = *p; }` and the
   same with `S* p`: every `*p` / `dst` pair answers 0 for the const parameter and 1 for the plain one. The struct
   copy then comes out as all loads first, then all stores (const) versus load-load-store-store pairs (plain).
+  `mwtrace sched` on the same pair (`tools/c/tools/mwtrace/tests/fixtures/sched_alias.c`, `copy_plain` and
+  `copy_const`) shows the edges: with the plain parameter each store has a `mem-load-store` edge from every earlier
+  load and each later load a `mem-store-load` edge from every earlier store (latency 2), while stores to different
+  words of `dst` answer 0; with the const parameter every pair answers 0 and pass 1 issues the four loads before the
+  stores, by key 2 (each load has a store waiting only on it) and program order (measured).
 - What decides is the declared type of the parameter itself. A const or restrict local initialised from a plain
   parameter (measured: the local is copy-propagated and gets the parameter's record, so only the parameter's
   type counts), a const cast at the use or `memcpy` do not change the answer for a plain parameter. Stores through a
@@ -183,8 +347,11 @@ source order points at a const (or restrict) parameter in the original signature
 
 In the first function of a translation unit that reaches the copy-propagation pass, the entry copy of the first
 parameter (`mr r32, r3`, pcode node 0) is substituted into its uses but not deleted. The dead copy survives into
-scheduler pass 1 and changes the selection in its block. The dead-instruction check after pass 1 (`0x5b8300` (peepholeoptimizepcode, Peephole.obj)) then
-deletes it, so the final listing shows only the changed order.
+scheduler pass 1 and changes the selection in its block. It is deleted before register allocation's instruction walk
+(measured with `mwtrace sched`), so the final listing shows only the changed order. Between pass 1 (`0x46cc74`) and
+`colorinstructions` the only pass called is `eliminatedeadcode` (`0x5b8870`, at `0x46ca10` when `[0x779111]` >= 1);
+`peepholeoptimizepcode` (`0x5b8300`) runs only after the prologue and epilogue (read in CodeGen_Generator's calls). Which
+call deletes the copy was not traced.
 
 Mechanism (read in the disassembly, confirmed by patching memory under the debugger):
 
@@ -202,6 +369,13 @@ Mechanism (read in the disassembly, confirmed by patching memory under the debug
 - Patch tests: setting `[0x747944]` = -1 at the first function's entry (breakpoint `0x46bdac` (CodeGen_Generator+0xfc, CodeGen.obj)) gives retail's
   order for `__register_fragment`; setting it back to 0 at the entry of a second function brings the quirk back
   in that function.
+- `mwtrace sched` shows the copy as a node (measured, `tools/c/tools/mwtrace/tests/fixtures/sched_first.c` against
+  `sched_second.c`, `void probe(int n) { gi = n; gp = table; }` first in its file or after a function that takes the
+  quirk): pass 1's block has one node more, `#0 MR r32= r3`, with no edge at all (its value is used nowhere), ready from
+  cycle 0; it is compared at every selection (there it loses by height and criticality) and fills the second slot of
+  cycle 1, which the other text leaves empty. The copy has no regalloc number and is not emitted: it is gone before
+  register allocation's instruction walk. In this probe the survivors' order is the same in both texts; where the copy
+  has a successor, its height and successor count enter the keys as described above.
 
 What this means for source:
 
@@ -377,6 +551,10 @@ reverse), look for a comparison or member read of the aligned type in it or in w
   the compiler (`pe_disasm.exe`).
 - `build/tools/permute.exe <unit> <fn> [--run]` sets up decomp-permuter (see docs/tools.md and docs/toolchain.md). For a C++ unit it strips the
   `extern "C"` wrappers and compiles base.c as C, which keeps the symbol of an `extern "C"` function.
+- `build/tools/mwtrace.exe regalloc <unit> --function SYM [--against FILE2]` traces one function's allocation: per class
+  and attempt the nodes in select order with their variable, degree, sweep, spill cost, free registers and register,
+  the simplify order, the optimistic choices and the coalescing, self-checked against the -sym on DWARF and the
+  prologue; `--against` compares two source texts (docs/tools.md).
 - `build/tools/wdbg.exe <src> <unit> <outdir> <spec.wdbg>` runs mwcceppc under a
   debugger with the unit's flags. The spec file (`tools/c/tools/wdbg/SPEC.md` gives the format) maps breakpoint addresses to handlers that read or patch the
   compiler's memory; output in `<outdir>/log.txt`. Specs for the first-function
@@ -385,8 +563,11 @@ reverse), look for a comparison or member read of the aligned type in it or in w
   `build/tools/wdbg.exe iro-scan` runs it over the non-exact functions of every NonMatching unit (or the named units) and flags
   a function whose IR optimiser is off while its siblings have it on; a spec carries a `build` line and refuses a compiler
   build whose addresses it does not know (FMOD builds with `Wii/1.0a`, the rest with `Wii/1.0`).
-  A compiler crash is logged with its address, name and stack. The scheduler dumps came from the older
-  `build/tmp/sched/dbg.py` (scratch).
+  A compiler crash is logged with its address, name and stack.
+- `build/tools/mwtrace.exe sched <unit> --function SYM [--against FILE2] [--pair A,B]` traces one function's scheduling:
+  per pass and block the nodes, the edges with their kinds, the memory pairs, each selection with the key that decided,
+  self-checked by replaying the selections and against the object; `--pair` answers what ordered two instructions
+  (docs/tools.md).
 
 The partial mwcceppc decompilation the user supplied (Wii 1.1; CABI, CMangler and the MS-DOS OS layer only) has
 no back-end code. The allocator was located through its `Coloring.c`, `InterferenceGraph.c` and `Spill.c` assert

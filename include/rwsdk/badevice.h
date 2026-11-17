@@ -326,6 +326,7 @@ RwBool RwEngineInit(const RwMemoryFunctions* memFuncs, RwUInt32 initFlags, RwUIn
 #define RwCalloc(_n, _s, _h) (RWSRCGLOBAL(memoryFuncs).rwcalloc((_n), (_s), (_h)))
 
 #define RwRenderStateSet(_state, _value) (RWSRCGLOBAL(dOpenDevice).fpRenderStateSet((_state), (_value)))
+#define RwRenderStateGet(_state, _value) (RWSRCGLOBAL(dOpenDevice).fpRenderStateGet((_state), (_value)))
 #define RwIm2DRenderPrimitive(_primType, _vertices, _numVertices) \
     (RWSRCGLOBAL(dOpenDevice).fpIm2DRenderPrimitive((_primType), (_vertices), (_numVertices)))
 #define RwIm2DGetNearScreenZ() (RWSRCGLOBAL(dOpenDevice).zBufferNear)

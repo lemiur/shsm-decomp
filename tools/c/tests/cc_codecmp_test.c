@@ -349,6 +349,48 @@ AVP_TEST(branch_target) {
     CHECK(strcmp(r->target_mismatches->v[0].kind, "branch") == 0);
 }
 
+/* Two compiled functions share the retail function's fn_<addr> prefix (a weak stub of another class, named first in
+ * the object, and the function itself): the one of the retail name owns it. The stub is compiled-only, and no
+ * result of the retail function is its comparison with the stub. */
+AVP_TEST(prefix_pairing_leaves_one_owner_per_retail_function) {
+    AvpArena *a = avp_arena();
+    char *root = avp_mkdtemp(a, "cc-codecmp-owner-", "", NULL);
+    AVP_ASSERT(root);
+    const char *asm_path = avp_sprintf(a, "%s\\Unit.s", root);
+    AVP_ASSERT(avp_write_text(asm_path,
+                              AVP_S(".fn fn_80001000__12CDrawingTestFv, global\n"
+                                    "/* 80001000 00000000  48 00 00 20 */\tb helper\n"
+                                    ".endfn fn_80001000__12CDrawingTestFv\n"
+                                    ".fn other, global\n"
+                                    "/* 80001004 00000004  4E 80 00 20 */\tblr\n"
+                                    ".endfn other\n"),
+                              AVP_TM_UTF8));
+    AvpMap *compiled = cc_parse_listing(a,
+                                        AVP_S(".fn fn_80001000__17CAttributeHandlerFv, weak\n"
+                                              "/* 00000000 00000034  4E 80 00 20 */\tblr\n"
+                                              ".endfn fn_80001000__17CAttributeHandlerFv\n"
+                                              ".fn fn_80001000__12CDrawingTestFv, global\n"
+                                              "/* 00000004 00000038  48 00 00 20 */\tb helper\n"
+                                              ".endfn fn_80001000__12CDrawingTestFv\n"
+                                              ".fn other, global\n"
+                                              "/* 00000008 0000003C  4E 80 00 20 */\tblr\n"
+                                              ".endfn other\n"),
+                                        NULL);
+    CcRepo cr = {root, "R5WEA4"};
+    CcError err = {0};
+    CcObjectComparison *oc =
+        cc_compare_object(a, &cr, AVP_S("main/test/Unit"), NULL, NULL, false, NULL, asm_path, compiled, NULL, NULL, &err);
+    REQUIRE(oc);
+    CHECK_EQ_U64(avp_map_len(oc->results), 2);
+    AvpVal *own = avp_map_get(oc->results, AVP_S("fn_80001000__12CDrawingTestFv"));
+    REQUIRE(own);
+    CHECK(((const CcCompareResult *)own->p)->exact);
+    CHECK(!avp_map_has(oc->results, AVP_S("fn_80001000__17CAttributeHandlerFv")));
+    REQUIRE(oc->compiled_only.n == 1);
+    CHECK_STR(oc->compiled_only.v[0], "fn_80001000__17CAttributeHandlerFv");
+    CHECK_EQ_U64(oc->retail_only.n, 0);
+}
+
 AVP_TEST(not_an_elf) {
     const char *why;
     CHECK(cc_elf_parse(avp_arena(), "\x7f" "ELF\x02\x02", 6, &why) == NULL);

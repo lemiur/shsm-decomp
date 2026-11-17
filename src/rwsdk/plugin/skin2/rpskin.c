@@ -14,6 +14,7 @@
 #include <rwsdk/plcore/bastream.h>
 #include <rwsdk/plugin/matfx/multitex.h>
 #include <rwsdk/plugin/skin2/rpskin.h>
+#include <rwsdk/plugin/skin2/skin.h>
 #include <rwsdk/world/baclump.h>
 #include <rwsdk/world/bageomet.h>
 
@@ -22,12 +23,6 @@
 
 /* The skin matrices the cache holds for one frame (name invented). */
 #define SKINMATRIXCACHESIZE 256
-
-/* The skin of a geometry, and the skin data of an atomic. */
-#define RPSKINGEOMETRYGETDATA(geometry) \
-    (*RWPLUGINOFFSET(RpSkin*, (geometry), _rpSkinGlobals.geometryOffset))
-#define RPSKINATOMICGETDATA(atomic) \
-    (RWPLUGINOFFSET(SkinAtomicData, (atomic), _rpSkinGlobals.atomicOffset))
 
 /* The free list of RpSkin: its first block's space, and the size and count of the blocks. */
 static RwFreeList _rpSkinFreeList;

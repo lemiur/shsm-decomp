@@ -14,23 +14,11 @@
 #include <rwsdk/driver/wii/dltoken.h>
 #include <rwsdk/plcore/baresour.h>
 #include <rwsdk/plugin/skin2/rpskin.h>
+#include <rwsdk/plugin/skin2/skin.h>
 #include <rwsdk/world/gcpipe.h>
 
 /* The cache, least recently used entry first. */
 static SkinResCacheEntry* sCacheList;
-
-/* The skin data of an atomic. */
-#define RPSKINATOMICGETDATA(atomic) \
-    (RWPLUGINOFFSET(SkinAtomicData, (atomic), _rpSkinGlobals.atomicOffset))
-
-/*
- * The vertex arrays of a skin res entry start on a 32 byte boundary a little way after its header
- * (the GX pipe reads them by DMA); the word before them points back to the entry, whose vertex
- * buffer header holds the draw sync token of the last draw.
- */
-#define SKINRESENTRYGETARRAYBASE(resEntry) ((void*)(((unsigned int)(resEntry) + 0x3D) & ~0x1F))
-#define SKINRESENTRYGETVBHEADER(resEntry) \
-    ((RxGameCubeVertexBuffer*)(((RwResEntry**)SKINRESENTRYGETARRAYBASE(resEntry))[-1] + 1))
 
 /*
  * ==================== _clSkinCache_FlagUsed ====================

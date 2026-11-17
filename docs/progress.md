@@ -13,11 +13,11 @@ Counts cover functions linked from source (units marked `Matching` in `configure
 <!-- ledger:begin numbers -->
 | measure | functions | code bytes |
 |---|---|---|
-| **matched under the rules** (headline) | 5108 / 13922 | 1245176 / 3974484 |
-| bytes matched (linked from source, excluding `ORIGINAL-ASM`) | 5113 / 13922 | 1247196 / 3974484 |
+| **matched under the rules** (headline) | 5284 / 13922 | 1299940 / 3974484 |
+| bytes matched (linked from source, excluding `ORIGINAL-ASM`) | 5289 / 13922 | 1301960 / 3974484 |
 | `ORIGINAL-ASM` (linked, listed apart, outside both counts and totals) | 116 | 28536 |
-| linked from source in total (objdiff "complete") | 5229 | 1275732 |
-| `Matching` units | 582 / 1378 | |
+| linked from source in total (objdiff "complete") | 5405 | 1330496 |
+| `Matching` units | 589 / 1377 | |
 <!-- ledger:end numbers -->
 
 Totals exclude the `ORIGINAL-ASM` functions (<!-- ledger:begin gross -->14038 functions and 4003020 code bytes<!-- ledger:end gross --> in all, counting the dtk
@@ -972,58 +972,58 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `revolution/dvd/dvdfs` | `entryToPath` | 0x8021F640 | 456 | matched |  |
 | `revolution/dvd/dvdfs` | `DVDReadAsyncPrio` | 0x8021F810 | 208 | matched |  |
 | `revolution/dvd/dvdfs` | `cbForReadAsync` | 0x8021F8E0 | 24 | matched |  |
-| `revolution/dvd/dvd` | `StampCommand` | 0x8021F900 | 180 | parked, 100% | renamed from `fn_8021F900`: tp name by order and size |
-| `revolution/dvd/dvd` | `defaultOptionalCommandChecker` | 0x8021F9C0 | 4 | parked, 100% | renamed from `fn_8021F9C0`: tp name by order and size |
-| `revolution/dvd/dvd` | `DVDInit` | 0x8021F9D0 | 340 | parked, 100% |  |
-| `revolution/dvd/dvd` | `stateReadingFST` | 0x8021FB30 | 376 | parked, 100% | renamed from `fn_8021FB30`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateReadingFST` | 0x8021FCB0 | 388 | parked, 100% | renamed from `fn_8021FCB0`: tp name by order and size |
-| `revolution/dvd/dvd` | `FatalAlarmHandler` | 0x8021FE40 | 4 | parked, 100% | renamed from `fn_8021FE40`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateError` | 0x8021FE50 | 272 | parked, 100% | renamed from `fn_8021FE50`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStoreErrorCode1` | 0x8021FF60 | 20 | parked, 100% | renamed from `fn_8021FF60`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStoreErrorCode2` | 0x8021FF80 | 60 | parked, 100% | renamed from `fn_8021FF80`: tp name by order and size |
-| `revolution/dvd/dvd` | `CategorizeError` | 0x8021FFC0 | 244 | parked, 100% | renamed from `fn_8021FFC0`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStoreErrorCode3` | 0x802200C0 | 196 | parked, 100% | renamed from `fn_802200C0`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateGettingError` | 0x80220190 | 1284 | parked, 100% | renamed from `fn_80220190`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForUnrecoveredError` | 0x802206A0 | 480 | parked, 100% | renamed from `fn_802206A0`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForUnrecoveredErrorRetry` | 0x80220880 | 212 | parked, 100% | renamed from `fn_80220880`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateGoToRetry` | 0x80220960 | 576 | parked, 100% | renamed from `fn_80220960`: tp name by order and size |
-| `revolution/dvd/dvd` | `stateCheckID` | 0x80220BA0 | 824 | parked, 100% | renamed from `fn_80220BA0`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateReadingTOC` | 0x80220EE0 | 416 | parked, 100% | renamed from `fn_80220EE0`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateReadingPartitionInfo` | 0x80221080 | 1148 | parked, 100% | renamed from `fn_80221080`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateOpenPartition` | 0x80221500 | 392 | parked, 100% | renamed from `fn_80221500`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateOpenPartition2` | 0x80221690 | 356 | parked, 100% | renamed from `fn_80221690`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateCheckID1` | 0x80221800 | 456 | parked, 100% | renamed from `fn_80221800`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateCheckID2` | 0x802219D0 | 404 | parked, 100% | renamed from `fn_802219D0`: tp name by order and size |
-| `revolution/dvd/dvd` | `stateCoverClosed` | 0x80221B70 | 196 | parked, 100% | renamed from `fn_80221B70`: tp name by order and size |
-| `revolution/dvd/dvd` | `ResetAlarmHandler` | 0x80221C40 | 592 | parked, 100% | renamed from `fn_80221C40`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateReset` | 0x80221E90 | 228 | parked, 100% | renamed from `fn_80221E90`: tp name by order and size |
-| `revolution/dvd/dvd` | `stateDownRotation` | 0x80221F80 | 200 | parked, 100% | renamed from `fn_80221F80`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateDownRotation` | 0x80222050 | 576 | parked, 100% | renamed from `fn_80222050`: tp name by order and size |
-| `revolution/dvd/dvd` | `stateCoverClosed_CMD` | 0x80222290 | 376 | parked, 100% | renamed from `fn_80222290`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateCoverClosed` | 0x80222410 | 216 | parked, 100% | renamed from `fn_80222410`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForPrepareCoverRegister` | 0x802224F0 | 392 | parked, 100% | renamed from `fn_802224F0`: tp name by order and size |
-| `revolution/dvd/dvd` | `CoverAlarmHandler` | 0x80222680 | 36 | parked, 100% | renamed from `fn_80222680`: tp name by order and size |
-| `revolution/dvd/dvd` | `stateReady` | 0x802226B0 | 796 | parked, 100% | renamed from `fn_802226B0`: tp name by order and size |
-| `revolution/dvd/dvd` | `stateBusy` | 0x802229D0 | 1456 | parked, 100% | renamed from `fn_802229D0`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForStateBusy` | 0x80222F80 | 2528 | parked, 100% | renamed from `fn_80222F80`: tp name by order and size |
-| `revolution/dvd/dvd` | `DVDReadAbsAsyncPrio` | 0x80223960 | 228 | parked, 100% |  |
-| `revolution/dvd/dvd` | `DVDInquiryAsync` | 0x80223A50 | 216 | parked, 100% |  |
-| `revolution/dvd/dvd` | `DVDGetCommandBlockStatus` | 0x80223B30 | 200 | parked, 100% |  |
-| `revolution/dvd/dvd` | `DVDGetDriveStatus` | 0x80223C00 | 156 | parked, 100% | renamed from `fn_80223C00`: tp name by order and size |
-| `revolution/dvd/dvd` | `DVDSetAutoInvalidation` | 0x80223CA0 | 16 | parked, 100% |  |
-| `revolution/dvd/dvd` | `DVDResume` | 0x80223CB0 | 80 | parked, 100% |  |
-| `revolution/dvd/dvd` | `DVDCancelAsync` | 0x80223D00 | 868 | parked, 100% | renamed from `fn_80223D00`: tp name by order and size |
-| `revolution/dvd/dvd` | `DVDCancel` | 0x80224070 | 192 | parked, 100% | renamed from `fn_80224070`: tp name by order and size |
-| `revolution/dvd/dvd` | `cbForCancelSync` | 0x80224130 | 8 | parked, 100% | renamed from `fn_80224130`: tp name by order and size |
-| `revolution/dvd/dvd` | `__BS2DVDLowCallback` | 0x80224140 | 8 | parked, 100% | renamed from `fn_80224140`: tp name by order and size |
-| `revolution/dvd/dvd` | `__DVDGetCoverStatus` | 0x80224150 | 204 | parked, 100% |  |
-| `revolution/dvd/dvd` | `DVDCheckDiskAsync` | 0x80224220 | 568 | parked, 100% | renamed from `fn_80224220`: tp name by order and size |
-| `revolution/dvd/dvd` | `__DVDPrepareResetAsync` | 0x80224460 | 284 | parked, 100% |  |
-| `revolution/dvd/dvd` | `Callback` | 0x80224580 | 12 | parked, 100% | renamed from `fn_80224580`: tp name by order and size |
-| `revolution/dvd/dvd` | `__DVDPrepareReset` | 0x80224590 | 312 | parked, 100% |  |
-| `revolution/dvd/dvd` | `__DVDTestAlarm` | 0x802246D0 | 32 | parked, 100% |  |
-| `revolution/dvd/dvd` | `__DVDStopMotorAsync` | 0x802246F0 | 8 | parked, 100% | renamed from `fn_802246F0`: tp name by order and size |
-| `revolution/dvd/dvd` | `__DVDRestartMotor` | 0x80224700 | 4 | parked, 100% | renamed from `fn_80224700`: tp name by order and size |
+| `revolution/dvd/dvd` | `StampCommand` | 0x8021F900 | 180 | matched | renamed from `fn_8021F900`: tp name by order and size |
+| `revolution/dvd/dvd` | `defaultOptionalCommandChecker` | 0x8021F9C0 | 4 | matched | renamed from `fn_8021F9C0`: tp name by order and size |
+| `revolution/dvd/dvd` | `DVDInit` | 0x8021F9D0 | 340 | matched |  |
+| `revolution/dvd/dvd` | `stateReadingFST` | 0x8021FB30 | 376 | matched | renamed from `fn_8021FB30`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateReadingFST` | 0x8021FCB0 | 388 | matched | renamed from `fn_8021FCB0`: tp name by order and size |
+| `revolution/dvd/dvd` | `FatalAlarmHandler` | 0x8021FE40 | 4 | matched | renamed from `fn_8021FE40`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateError` | 0x8021FE50 | 272 | matched | renamed from `fn_8021FE50`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStoreErrorCode1` | 0x8021FF60 | 20 | matched | renamed from `fn_8021FF60`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStoreErrorCode2` | 0x8021FF80 | 60 | matched | renamed from `fn_8021FF80`: tp name by order and size |
+| `revolution/dvd/dvd` | `CategorizeError` | 0x8021FFC0 | 244 | matched | renamed from `fn_8021FFC0`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStoreErrorCode3` | 0x802200C0 | 196 | matched | renamed from `fn_802200C0`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateGettingError` | 0x80220190 | 1284 | matched | renamed from `fn_80220190`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForUnrecoveredError` | 0x802206A0 | 480 | matched | renamed from `fn_802206A0`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForUnrecoveredErrorRetry` | 0x80220880 | 212 | matched | renamed from `fn_80220880`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateGoToRetry` | 0x80220960 | 576 | matched | renamed from `fn_80220960`: tp name by order and size |
+| `revolution/dvd/dvd` | `stateCheckID` | 0x80220BA0 | 824 | matched | renamed from `fn_80220BA0`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateReadingTOC` | 0x80220EE0 | 416 | matched | renamed from `fn_80220EE0`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateReadingPartitionInfo` | 0x80221080 | 1148 | matched | renamed from `fn_80221080`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateOpenPartition` | 0x80221500 | 392 | matched | renamed from `fn_80221500`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateOpenPartition2` | 0x80221690 | 356 | matched | renamed from `fn_80221690`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateCheckID1` | 0x80221800 | 456 | matched | renamed from `fn_80221800`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateCheckID2` | 0x802219D0 | 404 | matched | renamed from `fn_802219D0`: tp name by order and size |
+| `revolution/dvd/dvd` | `stateCoverClosed` | 0x80221B70 | 196 | matched | renamed from `fn_80221B70`: tp name by order and size |
+| `revolution/dvd/dvd` | `ResetAlarmHandler` | 0x80221C40 | 592 | matched | renamed from `fn_80221C40`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateReset` | 0x80221E90 | 228 | matched | renamed from `fn_80221E90`: tp name by order and size |
+| `revolution/dvd/dvd` | `stateDownRotation` | 0x80221F80 | 200 | matched | renamed from `fn_80221F80`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateDownRotation` | 0x80222050 | 576 | matched | renamed from `fn_80222050`: tp name by order and size |
+| `revolution/dvd/dvd` | `stateCoverClosed_CMD` | 0x80222290 | 376 | matched | renamed from `fn_80222290`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateCoverClosed` | 0x80222410 | 216 | matched | renamed from `fn_80222410`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForPrepareCoverRegister` | 0x802224F0 | 392 | matched | renamed from `fn_802224F0`: tp name by order and size |
+| `revolution/dvd/dvd` | `CoverAlarmHandler` | 0x80222680 | 36 | matched | renamed from `fn_80222680`: tp name by order and size |
+| `revolution/dvd/dvd` | `stateReady` | 0x802226B0 | 796 | matched | renamed from `fn_802226B0`: tp name by order and size |
+| `revolution/dvd/dvd` | `stateBusy` | 0x802229D0 | 1456 | matched | renamed from `fn_802229D0`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForStateBusy` | 0x80222F80 | 2528 | matched | renamed from `fn_80222F80`: tp name by order and size |
+| `revolution/dvd/dvd` | `DVDReadAbsAsyncPrio` | 0x80223960 | 228 | matched |  |
+| `revolution/dvd/dvd` | `DVDInquiryAsync` | 0x80223A50 | 216 | matched |  |
+| `revolution/dvd/dvd` | `DVDGetCommandBlockStatus` | 0x80223B30 | 200 | matched |  |
+| `revolution/dvd/dvd` | `DVDGetDriveStatus` | 0x80223C00 | 156 | matched | renamed from `fn_80223C00`: tp name by order and size |
+| `revolution/dvd/dvd` | `DVDSetAutoInvalidation` | 0x80223CA0 | 16 | matched |  |
+| `revolution/dvd/dvd` | `DVDResume` | 0x80223CB0 | 80 | matched |  |
+| `revolution/dvd/dvd` | `DVDCancelAsync` | 0x80223D00 | 868 | matched | renamed from `fn_80223D00`: tp name by order and size |
+| `revolution/dvd/dvd` | `DVDCancel` | 0x80224070 | 192 | matched | renamed from `fn_80224070`: tp name by order and size |
+| `revolution/dvd/dvd` | `cbForCancelSync` | 0x80224130 | 8 | matched | renamed from `fn_80224130`: tp name by order and size |
+| `revolution/dvd/dvd` | `__BS2DVDLowCallback` | 0x80224140 | 8 | matched | renamed from `fn_80224140`: tp name by order and size |
+| `revolution/dvd/dvd` | `__DVDGetCoverStatus` | 0x80224150 | 204 | matched |  |
+| `revolution/dvd/dvd` | `DVDCheckDiskAsync` | 0x80224220 | 568 | matched | renamed from `fn_80224220`: tp name by order and size |
+| `revolution/dvd/dvd` | `__DVDPrepareResetAsync` | 0x80224460 | 284 | matched |  |
+| `revolution/dvd/dvd` | `Callback` | 0x80224580 | 12 | matched | renamed from `fn_80224580`: tp name by order and size |
+| `revolution/dvd/dvd` | `__DVDPrepareReset` | 0x80224590 | 312 | matched |  |
+| `revolution/dvd/dvd` | `__DVDTestAlarm` | 0x802246D0 | 32 | matched |  |
+| `revolution/dvd/dvd` | `__DVDStopMotorAsync` | 0x802246F0 | 8 | matched | renamed from `fn_802246F0`: tp name by order and size |
+| `revolution/dvd/dvd` | `__DVDRestartMotor` | 0x80224700 | 4 | matched | renamed from `fn_80224700`: tp name by order and size |
 | `revolution/dvd/dvdqueue` | `__DVDClearWaitingQueue` | 0x80224710 | 56 | matched |  |
 | `revolution/dvd/dvdqueue` | `__DVDPushWaitingQueue` | 0x80224750 | 104 | matched |  |
 | `revolution/dvd/dvdqueue` | `__DVDPopWaitingQueue` | 0x802247C0 | 160 | matched |  |
@@ -3672,25 +3672,25 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `rwsdk/plugin/matfx/gcn/multiTexGcnData` | `RpGameCubeMTEffectCreate` | 0x802C1A0C | 368 | matched |  |
 | `rwsdk/plugin/matfx/gcn/multiTexGcnData` | `RpGameCubeMTEffectGetConfig` | 0x802C1B7C | 8 | matched |  |
 | `rwsdk/plugin/matfx/gcn/multiTexGcnData` | `RpGameCubeTevIndUnpack` | 0x802C1B84 | 80 | matched |  |
-| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `GameCubeMTOpen` | 0x802C1BD4 | 68 | parked, 100% |  |
-| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `GameCubeMTClose` | 0x802C1C18 | 4 | parked, 100% |  |
-| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `GameCubeMTEffectSetupTevStage` | 0x802C1C1C | 320 | parked, not written |  |
-| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `GetTexFrameMatrix` | 0x802C1D5C | 628 | parked, 0.6% |  |
-| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `_rpGameCubeMTEffectSend` | 0x802C1FD0 | 2300 | parked, 0.2% |  |
-| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `_rpGameCubeMTEffectClean` | 0x802C28CC | 252 | parked, 1.6% |  |
-| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `_rpGameCubeMTMeshRenderCallBack` | 0x802C29C8 | 540 | parked, 0.7% |  |
-| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `_rpGameCubeMTPipePluginAttach` | 0x802C2BE4 | 68 | parked, 100% |  |
-| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `RpMultiTextureSetGameCubeMTCallBacks` | 0x802C2C28 | 20 | parked, 100% |  |
-| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `RpMultiTextureGetGameCubeMTCallBacks` | 0x802C2C3C | 56 | parked, 100% |  |
-| `rwsdk/plugin/matfx/gcn/nbtGen` | `fn_802C2C74` | 0x802C2C74 | 244 | parked, 1.6% | placeholder |
-| `rwsdk/plugin/matfx/gcn/nbtGen` | `TriStripNBTDataSetup8` | 0x802C2D68 | 376 | parked, 1.1% |  |
-| `rwsdk/plugin/matfx/gcn/nbtGen` | `TriStripNBTDataSetup16` | 0x802C2EE0 | 376 | parked, 1.1% |  |
-| `rwsdk/plugin/matfx/gcn/nbtGen` | `TriListNBTDataSetup8` | 0x802C3058 | 324 | parked, 1.2% |  |
-| `rwsdk/plugin/matfx/gcn/nbtGen` | `TriListNBTDataSetup16` | 0x802C319C | 324 | parked, 1.2% |  |
-| `rwsdk/plugin/matfx/gcn/nbtGen` | `fn_802C32E0` | 0x802C32E0 | 2404 | parked, 0.2% | placeholder |
-| `rwsdk/plugin/matfx/gcn/nbtGen` | `fn_802C3C44` | 0x802C3C44 | 1004 | parked, 0.4% | placeholder |
-| `rwsdk/plugin/matfx/gcn/nbtGen` | `fn_802C4030` | 0x802C4030 | 224 | parked, 1.8% | placeholder |
-| `rwsdk/plugin/matfx/gcn/nbtGen` | `fn_802C4110` | 0x802C4110 | 4 | parked, 100% | placeholder |
+| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `GameCubeMTOpen` | 0x802C1BD4 | 68 | matched |  |
+| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `GameCubeMTClose` | 0x802C1C18 | 4 | matched |  |
+| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `GameCubeMTEffectSetupTevStage` | 0x802C1C1C | 320 | matched |  |
+| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `GetTexFrameMatrix` | 0x802C1D5C | 628 | matched |  |
+| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `_rpGameCubeMTEffectSend` | 0x802C1FD0 | 2300 | matched |  |
+| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `_rpGameCubeMTEffectClean` | 0x802C28CC | 252 | matched |  |
+| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `_rpGameCubeMTMeshRenderCallBack` | 0x802C29C8 | 540 | matched |  |
+| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `_rpGameCubeMTPipePluginAttach` | 0x802C2BE4 | 68 | matched |  |
+| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `RpMultiTextureSetGameCubeMTCallBacks` | 0x802C2C28 | 20 | matched |  |
+| `rwsdk/plugin/matfx/gcn/multiTexGcnPipe` | `RpMultiTextureGetGameCubeMTCallBacks` | 0x802C2C3C | 56 | matched |  |
+| `rwsdk/plugin/matfx/gcn/nbtGen` | `CalcNBTSetup` | 0x802C2C74 | 244 | parked, 32.0% (MATCH-PENDING: R17, exceptions.md) |  |
+| `rwsdk/plugin/matfx/gcn/nbtGen` | `TriStripNBTDataSetup8` | 0x802C2D68 | 376 | parked, 88.2% |  |
+| `rwsdk/plugin/matfx/gcn/nbtGen` | `TriStripNBTDataSetup16` | 0x802C2EE0 | 376 | parked, 88.2% |  |
+| `rwsdk/plugin/matfx/gcn/nbtGen` | `TriListNBTDataSetup8` | 0x802C3058 | 324 | parked, 88.1% |  |
+| `rwsdk/plugin/matfx/gcn/nbtGen` | `TriListNBTDataSetup16` | 0x802C319C | 324 | parked, 88.1% |  |
+| `rwsdk/plugin/matfx/gcn/nbtGen` | `CalcMeshNBTs` | 0x802C32E0 | 2404 | parked, not written |  |
+| `rwsdk/plugin/matfx/gcn/nbtGen` | `_rpGameCubeMTPipeDataCalcNBTs` | 0x802C3C44 | 1004 | parked, 100% |  |
+| `rwsdk/plugin/matfx/gcn/nbtGen` | `_rpGameCubeMTPipeDataQueryNBTs` | 0x802C4030 | 224 | parked, 100% |  |
+| `rwsdk/plugin/matfx/gcn/nbtGen` | `CalcNBT` | 0x802C4110 | 4 | parked, 100% |  |
 | `rwsdk/plugin/hanim/rphanim` | `HAnimFramesLinkToHierarchy` | 0x802C4114 | 148 | matched |  |
 | `rwsdk/plugin/hanim/rphanim` | `HAnimOpen` | 0x802C41A8 | 236 | matched |  |
 | `rwsdk/plugin/hanim/rphanim` | `HAnimClose` | 0x802C4294 | 80 | matched |  |
@@ -4043,16 +4043,16 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `rwsdk/world/climaxplatform` | `RwClimaxRVLConvertMatrix` | 0x802DBAD8 | 100 | matched |  |
 | `rwsdk/world/climaxplatform` | `RwClimaxRVLHDRPrelightApply` | 0x802DBB3C | 120 | matched |  |
 | `rwsdk/world/climaxplatform` | `RwClimaxRVLHDRPrelightRemove` | 0x802DBBB4 | 120 | matched |  |
-| `rwsdk/world/gclights` | `_rpGCHWLightingApplyDirectionalLight` | 0x802DBC2C | 480 | parked, 100% |  |
-| `rwsdk/world/gclights` | `_rwGCLightsGlobalEnable` | 0x802DBE0C | 288 | parked, 100% |  |
-| `rwsdk/world/gclights` | `_rwGCLightsLocalEnable` | 0x802DBF2C | 972 | parked, 95.9% |  |
-| `rwsdk/world/gclights` | `_rwGCLightsListInit` | 0x802DC2F8 | 12 | parked, 100% |  |
-| `rwsdk/world/gclights` | `_rwGCLightsListFlush` | 0x802DC304 | 256 | parked, 100% |  |
-| `rwsdk/world/gclights` | `_rwGCLightsLocalQueue` | 0x802DC404 | 80 | parked, 77.5% |  |
-| `rwsdk/world/gclights` | `rwDlLightExtCnst` | 0x802DC454 | 16 | parked, 100% |  |
-| `rwsdk/world/gclights` | `rwDlLightExtDest` | 0x802DC464 | 4 | parked, 100% |  |
-| `rwsdk/world/gclights` | `rwDlLightExtCopy` | 0x802DC468 | 4 | parked, 100% |  |
-| `rwsdk/world/gclights` | `_rpDlLightPluginAttach` | 0x802DC46C | 76 | parked, 100% |  |
+| `rwsdk/world/gclights` | `_rpGCHWLightingApplyDirectionalLight` | 0x802DBC2C | 480 | matched |  |
+| `rwsdk/world/gclights` | `_rwGCLightsGlobalEnable` | 0x802DBE0C | 288 | matched |  |
+| `rwsdk/world/gclights` | `_rwGCLightsLocalEnable` | 0x802DBF2C | 972 | matched |  |
+| `rwsdk/world/gclights` | `_rwGCLightsListInit` | 0x802DC2F8 | 12 | matched |  |
+| `rwsdk/world/gclights` | `_rwGCLightsListFlush` | 0x802DC304 | 256 | matched |  |
+| `rwsdk/world/gclights` | `_rwGCLightsLocalQueue` | 0x802DC404 | 80 | matched |  |
+| `rwsdk/world/gclights` | `rwDlLightExtCnst` | 0x802DC454 | 16 | matched |  |
+| `rwsdk/world/gclights` | `rwDlLightExtDest` | 0x802DC464 | 4 | matched |  |
+| `rwsdk/world/gclights` | `rwDlLightExtCopy` | 0x802DC468 | 4 | matched |  |
+| `rwsdk/world/gclights` | `_rpDlLightPluginAttach` | 0x802DC46C | 76 | matched |  |
 | `rwsdk/world/gcmorph` | `_rwDlV3dInterp` | 0x802DC670 | 4 | matched |  |
 | `rwsdk/world/gcpipe` | `_rxGCResEntryWaitDone` | 0x802DC674 | 136 | matched |  |
 | `rwsdk/world/native` | `_rpNativeRead` | 0x802DCAB0 | 764 | matched |  |
@@ -4082,18 +4082,18 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `rwsdk/world/setup` | `MatFunc4` | 0x802DE3EC | 176 | matched |  |
 | `rwsdk/world/setup` | `MatFunc5` | 0x802DE49C | 48 | matched |  |
 | `rwsdk/world/setup` | `MatFunc6` | 0x802DE4CC | 156 | matched |  |
-| `rwsdk/world/vtxfmt` | `fn_802DEE68` | 0x802DEE68 | 628 | parked, 0.6% | placeholder |
-| `rwsdk/world/vtxfmt` | `fn_802DF0DC` | 0x802DF0DC | 12 | parked, 33.3% | placeholder |
-| `rwsdk/world/vtxfmt` | `fn_802DF0E8` | 0x802DF0E8 | 12 | parked, 33.3% | placeholder |
-| `rwsdk/world/vtxfmt` | `_rxDlVertexFmtDest` | 0x802DF0F4 | 100 | parked, 4.0% |  |
-| `rwsdk/world/vtxfmt` | `_rpDlVtxFmtOpen` | 0x802DF158 | 80 | parked, 5.0% |  |
-| `rwsdk/world/vtxfmt` | `_rpDlVtxFmtClose` | 0x802DF1A8 | 20 | parked, 20.0% |  |
-| `rwsdk/world/vtxfmt` | `_rpDlVtxFmtPluginAttach` | 0x802DF1BC | 176 | parked, 2.3% |  |
-| `rwsdk/world/vtxfmt` | `RpGameCubeVtxFmtSetNormal` | 0x802DF26C | 12 | parked, 33.3% |  |
-| `rwsdk/world/vtxfmt` | `RpGameCubeVtxFmtInit` | 0x802DF278 | 112 | parked, 3.6% |  |
-| `rwsdk/world/vtxfmt` | `RpGameCubeVtxFmtCreate` | 0x802DF2E8 | 76 | parked, 5.3% |  |
-| `rwsdk/world/vtxfmt` | `RpGameCubeVtxFmtDestroy` | 0x802DF334 | 40 | parked, 10.0% |  |
-| `rwsdk/world/vtxfmt` | `RpGameCubeGeometrySetVtxFmt` | 0x802DF35C | 132 | parked, 3.0% |  |
+| `rwsdk/world/vtxfmt` | `fn_802DEE68` | 0x802DEE68 | 628 | matched | placeholder |
+| `rwsdk/world/vtxfmt` | `fn_802DF0DC` | 0x802DF0DC | 12 | matched | placeholder |
+| `rwsdk/world/vtxfmt` | `_rxDlVertexFmtConst` | 0x802DF0E8 | 12 | matched |  |
+| `rwsdk/world/vtxfmt` | `_rxDlVertexFmtDest` | 0x802DF0F4 | 100 | matched |  |
+| `rwsdk/world/vtxfmt` | `_rpDlVtxFmtOpen` | 0x802DF158 | 80 | matched |  |
+| `rwsdk/world/vtxfmt` | `_rpDlVtxFmtClose` | 0x802DF1A8 | 20 | matched |  |
+| `rwsdk/world/vtxfmt` | `_rpDlVtxFmtPluginAttach` | 0x802DF1BC | 176 | matched |  |
+| `rwsdk/world/vtxfmt` | `RpGameCubeVtxFmtSetNormal` | 0x802DF26C | 12 | matched |  |
+| `rwsdk/world/vtxfmt` | `RpGameCubeVtxFmtInit` | 0x802DF278 | 112 | matched |  |
+| `rwsdk/world/vtxfmt` | `RpGameCubeVtxFmtCreate` | 0x802DF2E8 | 76 | matched |  |
+| `rwsdk/world/vtxfmt` | `RpGameCubeVtxFmtDestroy` | 0x802DF334 | 40 | matched |  |
+| `rwsdk/world/vtxfmt` | `RpGameCubeGeometrySetVtxFmt` | 0x802DF35C | 132 | matched |  |
 | `rwsdk/world/wrldpipe` | `_rxWorldDevicePluginAttach` | 0x802DF3E0 | 64 | matched |  |
 | `rwsdk/world/wrldpipe` | `_rpCreatePlatformMaterialPipelines` | 0x802DF420 | 8 | matched |  |
 | `rwsdk/world/wrldpipe` | `_rpDestroyPlatformMaterialPipelines` | 0x802DF428 | 4 | matched |  |
@@ -4181,20 +4181,20 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `rwsdk/plugin/skin2/rescache` | `_clSkinCache_TokenStampResource` | 0x802EB10C | 76 | matched |  |
 | `rwsdk/plugin/skin2/rescache` | `_clSkinCache_ReAquireResource` | 0x802EB158 | 244 | matched |  |
 | `rwsdk/plugin/skin2/rescache` | `_clSkinCache_AtomicDestruct` | 0x802EB24C | 44 | matched |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinMainResEntryCB` | 0x802EB278 | 272 | parked, 100% |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinResEntryWaitDone` | 0x802EB388 | 144 | parked, 100% |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinVertexBuffersUpdate` | 0x802EB418 | 1080 | parked, 100% |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinMatrixBlendUpdate` | 0x802EB850 | 496 | parked, 100% |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinBlendBodyP` | 0x802EBA40 | 388 | parked, 100% |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinBlendBodyPN` | 0x802EBBC4 | 552 | parked, 100% |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinInstanceCallback` | 0x802EBDEC | 280 | parked, 100% |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinAtomicReinstanceCallBack` | 0x802EBF04 | 996 | parked, 100% (C with an inline-asm block; listed helper when linked) |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinLoadMatrix` | 0x802EC2E8 | 208 | parked, 100% |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinLoadMatrixPalette` | 0x802EC3B8 | 180 | parked, 100% |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinRenderCallback` | 0x802EC46C | 864 | parked, 100% |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinCreate` | 0x802EC7CC | 680 | parked, 100% |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinInitialize` | 0x802ECA74 | 160 | parked, 100% |  |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinDeinitialize` | 0x802ECB14 | 120 | parked, 100% |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinMainResEntryCB` | 0x802EB278 | 272 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinResEntryWaitDone` | 0x802EB388 | 144 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinVertexBuffersUpdate` | 0x802EB418 | 1080 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinMatrixBlendUpdate` | 0x802EB850 | 496 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinBlendBodyP` | 0x802EBA40 | 388 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinBlendBodyPN` | 0x802EBBC4 | 552 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinInstanceCallback` | 0x802EBDEC | 280 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinAtomicReinstanceCallBack` | 0x802EBF04 | 996 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinLoadMatrix` | 0x802EC2E8 | 208 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinLoadMatrixPalette` | 0x802EC3B8 | 180 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinRenderCallback` | 0x802EC46C | 864 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinCreate` | 0x802EC7CC | 680 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinInitialize` | 0x802ECA74 | 160 | matched |  |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinDeinitialize` | 0x802ECB14 | 120 | matched |  |
 | `rwsdk/plugin/skin2/skingcnasm` | `_rwDlSkinUpdate2WeightsP` | 0x802ECB8C | 280 | ORIGINAL-ASM |  |
 | `rwsdk/plugin/skin2/skingcnasm` | `_rwDlSkinUpdate2WeightsPN` | 0x802ECCA4 | 468 | ORIGINAL-ASM |  |
 | `rwsdk/plugin/skin2/skingcnasm` | `_rwDlSkinUpdate3WeightsP` | 0x802ECE78 | 368 | ORIGINAL-ASM |  |
@@ -4418,6 +4418,29 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `fmod/fmod_music` | `__dt__Q24FMOD12ChannelMusicFv` | 0x8033E500 | 64 | matched |  |
 | `fmod/fmod_music` | `__sinit_\fmod_music_cpp` | 0x8033E540 | 680 | matched | placeholder (compiler-generated name) |
 | `fmod/fmod_plugin` | `release__Q24FMOD6PluginFv` | 0x8033E7E8 | 64 | matched |  |
+| `fmod/fmod_pluginfactory` | `defaultMetaData__Q24FMOD5CodecFP16FMOD_CODEC_STATE12FMOD_TAGTYPEPcPvUi16FMOD_TAGDATATYPEi` | 0x8033E828 | 28 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `defaultFileSeek__Q24FMOD5CodecFPvUiPv` | 0x8033E844 | 8 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `defaultFileRead__Q24FMOD5CodecFPvPvUiPUiPv` | 0x8033E84C | 16 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `__ct__Q24FMOD13PluginFactoryFv` | 0x8033E85C | 196 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `release__Q24FMOD13PluginFactoryFv` | 0x8033E920 | 592 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `setSystem__Q24FMOD13PluginFactoryFPQ24FMOD7SystemI` | 0x8033EB70 | 12 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `setPluginPath__Q24FMOD13PluginFactoryFPCc` | 0x8033EB7C | 96 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `unloadPlugin__Q24FMOD13PluginFactoryFUi` | 0x8033EBDC | 564 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `registerCodec__Q24FMOD13PluginFactoryFPQ24FMOD25FMOD_CODEC_DESCRIPTION_EXPUiUi` | 0x8033EE10 | 468 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `registerOutput__Q24FMOD13PluginFactoryFPQ24FMOD26FMOD_OUTPUT_DESCRIPTION_EXPUi` | 0x8033EFE4 | 536 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `getNumCodecs__Q24FMOD13PluginFactoryFPi` | 0x8033F1FC | 60 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `getNumDSPs__Q24FMOD13PluginFactoryFPi` | 0x8033F238 | 60 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `getNumOutputs__Q24FMOD13PluginFactoryFPi` | 0x8033F274 | 60 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `getCodecHandle__Q24FMOD13PluginFactoryFiPUi` | 0x8033F2B0 | 116 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `getDSPHandle__Q24FMOD13PluginFactoryFiPUi` | 0x8033F324 | 116 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `getOutputHandle__Q24FMOD13PluginFactoryFiPUi` | 0x8033F398 | 116 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `getCodec__Q24FMOD13PluginFactoryFUiPPQ24FMOD25FMOD_CODEC_DESCRIPTION_EX` | 0x8033F40C | 104 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `getDSP__Q24FMOD13PluginFactoryFUiPPQ24FMOD23FMOD_DSP_DESCRIPTION_EX` | 0x8033F474 | 104 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `getOutput__Q24FMOD13PluginFactoryFUiPPQ24FMOD26FMOD_OUTPUT_DESCRIPTION_EX` | 0x8033F4DC | 104 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `createCodec__Q24FMOD13PluginFactoryFPQ24FMOD25FMOD_CODEC_DESCRIPTION_EXPPQ24FMOD5Codec` | 0x8033F544 | 328 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `defaultGetWaveFormat__Q24FMOD5CodecFP16FMOD_CODEC_STATEiP21FMOD_CODEC_WAVEFORMAT` | 0x8033F68C | 120 | parked, 100% |  |
+| `fmod/fmod_pluginfactory` | `createDSP__Q24FMOD13PluginFactoryFPQ24FMOD23FMOD_DSP_DESCRIPTION_EXPPQ24FMOD4DSPI` | 0x8033F704 | 988 | parked, not written |  |
+| `fmod/fmod_pluginfactory` | `createOutput__Q24FMOD13PluginFactoryFPQ24FMOD26FMOD_OUTPUT_DESCRIPTION_EXPPQ24FMOD6Output` | 0x8033FAE0 | 308 | parked, 100% |  |
 | `fmod/fmod_reverb` | `release__Q24FMOD6ReverbFv` | 0x8033FC14 | 60 | matched |  |
 | `fmod/fmod_reverb` | `set3DAttributes__Q24FMOD6ReverbFPC11FMOD_VECTORff` | 0x8033FC50 | 104 | matched |  |
 | `fmod/fmod_reverb` | `get3DAttributes__Q24FMOD6ReverbFP11FMOD_VECTORPfPf` | 0x8033FCB8 | 104 | matched |  |
@@ -4613,10 +4636,10 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `fmod/fmod_file` | `close__Q24FMOD4FileFv` | 0x80373F1C | 488 | parked, 100% |  |
 | `fmod/fmod_file` | `cancel__Q24FMOD4FileFv` | 0x80374104 | 28 | parked, 100% |  |
 | `fmod/fmod_file` | `reallyCancel__Q24FMOD4FileFv` | 0x80374120 | 8 | parked, 100% |  |
-| `fmod/fmod_file` | `flip__Q24FMOD4FileFb` | 0x80374128 | 616 | parked, 99.9% |  |
+| `fmod/fmod_file` | `flip__Q24FMOD4FileFb` | 0x80374128 | 616 | parked, 100% |  |
 | `fmod/fmod_file` | `seekAndReset__Q24FMOD4FileFv` | 0x80374390 | 236 | parked, 100% |  |
 | `fmod/fmod_file` | `checkBufferedStatus__Q24FMOD4FileFv` | 0x8037447C | 808 | parked, 100% |  |
-| `fmod/fmod_file` | `read__Q24FMOD4FileFPvUiUiPUi` | 0x803747A4 | 1656 | parked, 99.9% |  |
+| `fmod/fmod_file` | `read__Q24FMOD4FileFPvUiUiPUi` | 0x803747A4 | 1656 | parked, 100% |  |
 | `fmod/fmod_file` | `getByte__Q24FMOD4FileFPUc` | 0x80374E1C | 76 | parked, 100% |  |
 | `fmod/fmod_file` | `getByte__Q24FMOD4FileFPi` | 0x80374E68 | 80 | parked, 100% |  |
 | `fmod/fmod_file` | `getWord__Q24FMOD4FileFPUs` | 0x80374EB8 | 76 | parked, 100% |  |
@@ -4625,7 +4648,7 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `fmod/fmod_file` | `seek__Q24FMOD4FileFii` | 0x80374F9C | 464 | parked, 100% |  |
 | `fmod/fmod_file` | `tell__Q24FMOD4FileFPUi` | 0x8037516C | 56 | parked, 100% |  |
 | `fmod/fmod_file` | `setStartOffset__Q24FMOD4FileFUi` | 0x803751A4 | 44 | parked, 100% |  |
-| `fmod/fmod_file` | `enableDoubleBuffer__Q24FMOD4FileFUiPv` | 0x803751D0 | 440 | parked, 91.0% |  |
+| `fmod/fmod_file` | `enableDoubleBuffer__Q24FMOD4FileFUiPv` | 0x803751D0 | 440 | parked, 91.1% |  |
 | `fmod/fmod_file` | `setName__Q24FMOD4FileFPc` | 0x80375388 | 80 | parked, 100% |  |
 | `fmod/fmod_file_disk` | `reallyOpen__Q24FMOD8DiskFileFPCcPUi` | 0x803753D8 | 204 | matched |  |
 | `fmod/fmod_file_disk` | `reallyClose__Q24FMOD8DiskFileFv` | 0x803754A4 | 72 | matched |  |
@@ -4644,20 +4667,20 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `fmod/fmod_file_user` | `reallyClose__Q24FMOD8UserFileFv` | 0x803757E4 | 96 | matched |  |
 | `fmod/fmod_file_user` | `reallyRead__Q24FMOD8UserFileFPvUiPUi` | 0x80375844 | 108 | matched |  |
 | `fmod/fmod_file_user` | `reallySeek__Q24FMOD8UserFileFUi` | 0x803758B0 | 116 | matched |  |
-| `fmod/fmod_memory` | `alloc__Q24FMOD12MemSingletonFiPCci` | 0x80375924 | 92 | parked, 100% |  |
-| `fmod/fmod_memory` | `free__Q24FMOD12MemSingletonFPCci` | 0x80375980 | 120 | parked, 100% |  |
-| `fmod/fmod_memory` | `Memory_DefaultMalloc__4FMODFUiUi` | 0x803759F8 | 4 | parked, 100% |  |
-| `fmod/fmod_memory` | `Memory_DefaultRealloc__4FMODFPvUiUi` | 0x803759FC | 4 | parked, 100% |  |
-| `fmod/fmod_memory` | `Memory_DefaultFree__4FMODFPvUi` | 0x80375A00 | 4 | parked, 100% |  |
-| `fmod/fmod_memory` | `__ct__Q24FMOD7MemPoolFv` | 0x80375A04 | 212 | parked, 100% |  |
-| `fmod/fmod_memory` | `__dt__Q24FMOD7MemPoolFv` | 0x80375AD8 | 84 | parked, 100% |  |
-| `fmod/fmod_memory` | `init__Q24FMOD7MemPoolFPvii` | 0x80375B2C | 356 | parked, 100% |  |
-| `fmod/fmod_memory` | `close__Q24FMOD7MemPoolFv` | 0x80375C90 | 348 | parked, 100% |  |
-| `fmod/fmod_memory` | `set__Q24FMOD7MemPoolFiii` | 0x80375DEC | 592 | parked, 99.9% |  |
-| `fmod/fmod_memory` | `alloc__Q24FMOD7MemPoolFiPCciUib` | 0x8037603C | 936 | parked, 100% |  |
-| `fmod/fmod_memory` | `free__Q24FMOD7MemPoolFPvPCciUi` | 0x803763E4 | 356 | parked, 100% |  |
-| `fmod/fmod_memory` | `calloc__Q24FMOD7MemPoolFiPCciUi` | 0x80376548 | 8 | parked, 100% |  |
-| `fmod/fmod_memory` | `realloc__Q24FMOD7MemPoolFPviPCciUi` | 0x80376550 | 1224 | parked, 100% |  |
+| `fmod/fmod_memory` | `alloc__Q24FMOD12MemSingletonFiPCci` | 0x80375924 | 92 | matched |  |
+| `fmod/fmod_memory` | `free__Q24FMOD12MemSingletonFPCci` | 0x80375980 | 120 | matched |  |
+| `fmod/fmod_memory` | `Memory_DefaultMalloc__4FMODFUiUi` | 0x803759F8 | 4 | matched |  |
+| `fmod/fmod_memory` | `Memory_DefaultRealloc__4FMODFPvUiUi` | 0x803759FC | 4 | matched |  |
+| `fmod/fmod_memory` | `Memory_DefaultFree__4FMODFPvUi` | 0x80375A00 | 4 | matched |  |
+| `fmod/fmod_memory` | `__ct__Q24FMOD7MemPoolFv` | 0x80375A04 | 212 | matched |  |
+| `fmod/fmod_memory` | `__dt__Q24FMOD7MemPoolFv` | 0x80375AD8 | 84 | matched |  |
+| `fmod/fmod_memory` | `init__Q24FMOD7MemPoolFPvii` | 0x80375B2C | 356 | matched |  |
+| `fmod/fmod_memory` | `close__Q24FMOD7MemPoolFv` | 0x80375C90 | 348 | matched |  |
+| `fmod/fmod_memory` | `set__Q24FMOD7MemPoolFiii` | 0x80375DEC | 592 | matched |  |
+| `fmod/fmod_memory` | `alloc__Q24FMOD7MemPoolFiPCciUib` | 0x8037603C | 936 | matched |  |
+| `fmod/fmod_memory` | `free__Q24FMOD7MemPoolFPvPCciUi` | 0x803763E4 | 356 | matched |  |
+| `fmod/fmod_memory` | `calloc__Q24FMOD7MemPoolFiPCciUi` | 0x80376548 | 8 | matched |  |
+| `fmod/fmod_memory` | `realloc__Q24FMOD7MemPoolFPviPCciUi` | 0x80376550 | 1224 | matched |  |
 | `fmod/fmod_string` | `FMOD_strlen` | 0x80376A18 | 32 | matched |  |
 | `fmod/fmod_string` | `FMOD_strcpy` | 0x80376A38 | 36 | matched |  |
 | `fmod/fmod_string` | `FMOD_strncpy` | 0x80376A5C | 48 | matched |  |
@@ -6002,70 +6025,70 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `climax/Audio/Source` | `SetVolume__Q25Audio6SourceFf` | 0x801FDFF8 | 44 | matched |  |
 | `climax/Audio/Source` | `Clone__Q25Audio6SourceFb` | 0x801FE024 | 8 | matched |  |
 | `climax/Audio/Source` | `GetSoundType__Q25Audio6SourceFv` | 0x801FE02C | 8 | matched |  |
-| `climax/Audio/System` | `__dt__Q25Audio14AsyncQueueItemFv` | 0x801FE034 | 92 | parked, 100% |  |
-| `climax/Audio/System` | `GetPlatformPostfix__5AudioFv` | 0x801FE090 | 8 | parked, 100% |  |
-| `climax/Audio/System` | `SFileOpen__Q25Audio6SystemFPCciPUiPPvPPv` | 0x801FE098 | 220 | parked, 100% |  |
-| `climax/Audio/System` | `SFileClose__Q25Audio6SystemFPvPv` | 0x801FE174 | 80 | parked, 100% |  |
-| `climax/Audio/System` | `SFileRead__Q25Audio6SystemFPvPvUiPUiPv` | 0x801FE1C4 | 108 | parked, 100% |  |
-| `climax/Audio/System` | `SFileSeek__Q25Audio6SystemFPvUiPv` | 0x801FE230 | 76 | parked, 100% |  |
-| `climax/Audio/System` | `__ct__Q25Audio6SystemFiiPQ25Audio12MemoryParams` | 0x801FE27C | 408 | parked, 100% |  |
-| `climax/Audio/System` | `__dt__Q29ListUtils32STLList<PQ25Audio12SoundProject>Fv` | 0x801FE414 | 216 | parked, 100% |  |
-| `climax/Audio/System` | `__dt__Q29ListUtils36STLList<PQ25Audio16DiskSoundProject>Fv` | 0x801FE4EC | 216 | parked, 100% |  |
-| `climax/Audio/System` | `__dt__Q29ListUtils25STLList<PQ25Audio6Source>Fv` | 0x801FE5C4 | 216 | parked, 100% |  |
-| `climax/Audio/System` | `__dt__Q29ListUtils30STLList<PQ25Audio10EventGroup>Fv` | 0x801FE69C | 216 | parked, 100% |  |
-| `climax/Audio/System` | `__dt__Q29ListUtils32STLList<PQ25Audio12ReverbPreset>Fv` | 0x801FE774 | 216 | parked, 100% |  |
-| `climax/Audio/System` | `__dt__Q29ListUtils41STLList<PQ25Audio21AsyncDiskSoundProject>Fv` | 0x801FE84C | 216 | parked, 100% |  |
-| `climax/Audio/System` | `Init__Q25Audio6SystemFiiPQ25Audio12MemoryParams` | 0x801FE924 | 108 | parked, 100% |  |
-| `climax/Audio/System` | `LocalInit__Q25Audio6SystemFiiPQ25Audio12MemoryParams` | 0x801FE990 | 524 | parked, 100% |  |
-| `climax/Audio/System` | `SetFileOpenCallback__Q25Audio6SystemFPFPCcPUiPQ25Audio10FileHandle_i` | 0x801FEB9C | 156 | parked, 100% |  |
-| `climax/Audio/System` | `SetSynchronousDiskCallbacks__Q25Audio6SystemFPFPCcPUiPQ25Audio10FileHandle_iPFPv_iPFPvPvUiPUi_iPFPvUi_iPFPvRUi_i` | 0x801FEC38 | 28 | parked, 100% |  |
-| `climax/Audio/System` | `SetAsynchronousDiskCallbacks__Q25Audio6SystemFPFPCcPUiPQ25Audio10FileHandleb_iPFPv_iPFPvPvUiPUiPFPvPcii_iPvb_iPFPvUi_iPFPvRUi_iPFPv_iPFPv_i` | 0x801FEC54 | 36 | parked, 100% |  |
-| `climax/Audio/System` | `SetFileSystemCallbacks__Q25Audio6SystemFPFPCcPUiPQ25Audio10FileHandle_iPFPv_iPFPvPvUiPUi_iPFPvUi_ii` | 0x801FEC78 | 152 | parked, 100% |  |
-| `climax/Audio/System` | `ChannelStart__Q25Audio6SystemFPQ24FMOD7Channel` | 0x801FED10 | 16 | parked, 100% |  |
-| `climax/Audio/System` | `RemoveSource__Q25Audio6SystemFPQ25Audio6Sourceb` | 0x801FED20 | 240 | parked, 100% |  |
-| `climax/Audio/System` | `LoadStreamSource__Q25Audio6SystemFPCciPQ25Audio12SourceParams` | 0x801FEE10 | 264 | parked, 100% |  |
-| `climax/Audio/System` | `InterpolateReverb__Q25Audio6SystemFPQ25Audio12ReverbPresetPQ25Audio12ReverbPresetf` | 0x801FEF18 | 720 | parked, 100% |  |
-| `climax/Audio/System` | `UpdatePendingDeleteEventGroups__Q25Audio6SystemFv` | 0x801FF1E8 | 876 | parked, 100% |  |
-| `climax/Audio/System` | `SAsyncCallback__Q25Audio6SystemFPvPcii` | 0x801FF554 | 36 | parked, 100% |  |
-| `climax/Audio/System` | `AsyncCallback__Q25Audio6SystemFPvPcii` | 0x801FF578 | 336 | parked, 100% |  |
-| `climax/Audio/System` | `CancelAllAsyncStreams__Q25Audio6SystemFv` | 0x801FF6C8 | 108 | parked, 100% |  |
-| `climax/Audio/System` | `AddAsyncStream__Q25Audio6SystemFPQ25Audio10DiskStream` | 0x801FF734 | 36 | parked, 100% |  |
-| `climax/Audio/System` | `RemoveAsyncStream__Q25Audio6SystemFPQ25Audio10DiskStream` | 0x801FF758 | 192 | parked, 100% |  |
-| `climax/Audio/System` | `CheckAsyncStream__Q25Audio6SystemFPQ25Audio10DiskStream` | 0x801FF818 | 52 | parked, 100% |  |
-| `climax/Audio/System` | `CancelAsyncItemForEventSource__Q25Audio6SystemFPQ25Audio16AsyncEventSource` | 0x801FF84C | 336 | parked, 100% |  |
-| `climax/Audio/System` | `QueueAsyncItem__Q25Audio6SystemFPQ25Audio14AsyncQueueItem` | 0x801FF99C | 12 | parked, 100% |  |
-| `climax/Audio/System` | `UpdateAsync__Q25Audio6SystemFv` | 0x801FF9A8 | 736 | parked, 100% |  |
-| `climax/Audio/System` | `FlushPendingAsyncGroups__Q25Audio6SystemFv` | 0x801FFC88 | 1416 | parked, 100% |  |
-| `climax/Audio/System` | `AddUpdateSound__Q25Audio6SystemFPQ25Audio11EventSource` | 0x80200210 | 204 | parked, 100% |  |
-| `climax/Audio/System` | `RemoveUpdateSound__Q25Audio6SystemFPQ25Audio11EventSource` | 0x802002DC | 148 | parked, 100% |  |
-| `climax/Audio/System` | `AddPendingCloseAsyncStream__Q25Audio6SystemFPQ25Audio10DiskStream` | 0x80200370 | 80 | parked, 100% |  |
-| `climax/Audio/System` | `Update__Q25Audio6SystemFf` | 0x802003C0 | 492 | parked, 100% |  |
-| `climax/Audio/System` | `GetDefaultListener__Q25Audio6SystemFv` | 0x802005AC | 8 | parked, 100% |  |
-| `climax/Audio/System` | `LoadFirstEventSourceFromAnyGroup__Q25Audio6SystemFPCc` | 0x802005B4 | 156 | parked, 100% |  |
-| `climax/Audio/System` | `IsEventGroupLoaded__Q25Audio6SystemFPCc` | 0x80200650 | 220 | parked, 100% |  |
-| `climax/Audio/System` | `LoadEventGroup__Q25Audio6SystemFPCcPCcibb` | 0x8020072C | 512 | parked, 100% |  |
-| `climax/Audio/System` | `ForceDeleteEventGroup__Q25Audio6SystemFPQ25Audio10EventGroupb` | 0x8020092C | 260 | parked, 100% |  |
-| `climax/Audio/System` | `FreeEventGroup__Q25Audio6SystemFPQ25Audio10EventGroupb` | 0x80200A30 | 564 | parked, 100% |  |
-| `climax/Audio/System` | `LoadDiskSoundProject__Q25Audio6SystemFPQ25Audio10FileHandlePCc` | 0x80200C64 | 648 | parked, 100% |  |
-| `climax/Audio/System` | `RemoveAsyncPlayback__Q25Audio6SystemFPQ25Audio16AsyncEventSource` | 0x80200EEC | 148 | parked, 100% |  |
-| `climax/Audio/System` | `LoadAsyncDiskSoundProject__Q25Audio6SystemFPCc` | 0x80200F80 | 848 | parked, 100% |  |
-| `climax/Audio/System` | `LoadAsyncEventGroup__Q25Audio6SystemFPCcPQ25Audio16DiskSoundProjectb` | 0x802012D0 | 400 | parked, 100% |  |
-| `climax/Audio/System` | `LoadDiskSoundProject__Q25Audio6SystemFPCc` | 0x80201460 | 240 | parked, 100% |  |
-| `climax/Audio/System` | `LoadSoundProject__Q25Audio6SystemFPvi` | 0x80201550 | 464 | parked, 100% |  |
-| `climax/Audio/System` | `FindSoundProjectFile__Q25Audio6SystemFPCc` | 0x80201720 | 232 | parked, 100% |  |
-| `climax/Audio/System` | `FindDiskSoundProjectFile__Q25Audio6SystemFPCcPPQ25Audio16DiskSoundProject` | 0x80201808 | 260 | parked, 100% |  |
-| `climax/Audio/System` | `FreeDiskSoundProject__Q25Audio6SystemFPQ25Audio16DiskSoundProjectb` | 0x8020190C | 416 | parked, 100% |  |
-| `climax/Audio/System` | `FreeSoundProject__Q25Audio6SystemFPQ25Audio12SoundProjectb` | 0x80201AAC | 236 | parked, 100% |  |
-| `climax/Audio/System` | `__dt__Q25Audio12SoundProjectFv` | 0x80201B98 | 120 | parked, 100% |  |
-| `climax/Audio/System` | `LoadEventGroup__Q25Audio6SystemFPQ25Audio12SoundProject` | 0x80201C10 | 28 | parked, 100% |  |
-| `climax/Audio/System` | `FindReverbPreset__Q25Audio6SystemFPCc` | 0x80201C2C | 112 | parked, 100% |  |
-| `climax/Audio/System` | `SetReverbPreset__Q25Audio6SystemFPQ25Audio12ReverbPresetb` | 0x80201C9C | 252 | parked, 100% |  |
-| `climax/Audio/System` | `SetReverb__Q25Audio6SystemFPCc` | 0x80201D98 | 268 | parked, 100% |  |
-| `climax/Audio/System` | `AddReverbPreset__Q25Audio6SystemFPQ25Audio12ReverbPreset` | 0x80201EA4 | 156 | parked, 100% |  |
-| `climax/Audio/System` | `CanDeleteEventSource__Q25Audio6SystemFPQ25Audio11EventSourceb` | 0x80201F40 | 228 | parked, 100% |  |
-| `climax/Audio/System` | `IsLoaded__Q25Audio21AsyncDiskSoundProjectCFv` | 0x80202024 | 40 | parked, 100% |  |
-| `climax/Audio/System` | `IsAsync__Q25Audio21AsyncDiskSoundProjectCFv` | 0x8020204C | 8 | parked, 100% |  |
-| `climax/Audio/System` | `__dt__Q25Audio21AsyncDiskSoundProjectFv` | 0x80202054 | 124 | parked, 100% |  |
+| `climax/Audio/System` | `__dt__Q25Audio14AsyncQueueItemFv` | 0x801FE034 | 92 | matched |  |
+| `climax/Audio/System` | `GetPlatformPostfix__5AudioFv` | 0x801FE090 | 8 | matched |  |
+| `climax/Audio/System` | `SFileOpen__Q25Audio6SystemFPCciPUiPPvPPv` | 0x801FE098 | 220 | matched |  |
+| `climax/Audio/System` | `SFileClose__Q25Audio6SystemFPvPv` | 0x801FE174 | 80 | matched |  |
+| `climax/Audio/System` | `SFileRead__Q25Audio6SystemFPvPvUiPUiPv` | 0x801FE1C4 | 108 | matched |  |
+| `climax/Audio/System` | `SFileSeek__Q25Audio6SystemFPvUiPv` | 0x801FE230 | 76 | matched |  |
+| `climax/Audio/System` | `__ct__Q25Audio6SystemFiiPQ25Audio12MemoryParams` | 0x801FE27C | 408 | matched |  |
+| `climax/Audio/System` | `__dt__Q29ListUtils32STLList<PQ25Audio12SoundProject>Fv` | 0x801FE414 | 216 | matched |  |
+| `climax/Audio/System` | `__dt__Q29ListUtils36STLList<PQ25Audio16DiskSoundProject>Fv` | 0x801FE4EC | 216 | matched |  |
+| `climax/Audio/System` | `__dt__Q29ListUtils25STLList<PQ25Audio6Source>Fv` | 0x801FE5C4 | 216 | matched |  |
+| `climax/Audio/System` | `__dt__Q29ListUtils30STLList<PQ25Audio10EventGroup>Fv` | 0x801FE69C | 216 | matched |  |
+| `climax/Audio/System` | `__dt__Q29ListUtils32STLList<PQ25Audio12ReverbPreset>Fv` | 0x801FE774 | 216 | matched |  |
+| `climax/Audio/System` | `__dt__Q29ListUtils41STLList<PQ25Audio21AsyncDiskSoundProject>Fv` | 0x801FE84C | 216 | matched |  |
+| `climax/Audio/System` | `Init__Q25Audio6SystemFiiPQ25Audio12MemoryParams` | 0x801FE924 | 108 | matched |  |
+| `climax/Audio/System` | `LocalInit__Q25Audio6SystemFiiPQ25Audio12MemoryParams` | 0x801FE990 | 524 | matched |  |
+| `climax/Audio/System` | `SetFileOpenCallback__Q25Audio6SystemFPFPCcPUiPQ25Audio10FileHandle_i` | 0x801FEB9C | 156 | matched |  |
+| `climax/Audio/System` | `SetSynchronousDiskCallbacks__Q25Audio6SystemFPFPCcPUiPQ25Audio10FileHandle_iPFPv_iPFPvPvUiPUi_iPFPvUi_iPFPvRUi_i` | 0x801FEC38 | 28 | matched |  |
+| `climax/Audio/System` | `SetAsynchronousDiskCallbacks__Q25Audio6SystemFPFPCcPUiPQ25Audio10FileHandleb_iPFPv_iPFPvPvUiPUiPFPvPcii_iPvb_iPFPvUi_iPFPvRUi_iPFPv_iPFPv_i` | 0x801FEC54 | 36 | matched |  |
+| `climax/Audio/System` | `SetFileSystemCallbacks__Q25Audio6SystemFPFPCcPUiPQ25Audio10FileHandle_iPFPv_iPFPvPvUiPUi_iPFPvUi_ii` | 0x801FEC78 | 152 | matched |  |
+| `climax/Audio/System` | `ChannelStart__Q25Audio6SystemFPQ24FMOD7Channel` | 0x801FED10 | 16 | matched |  |
+| `climax/Audio/System` | `RemoveSource__Q25Audio6SystemFPQ25Audio6Sourceb` | 0x801FED20 | 240 | matched |  |
+| `climax/Audio/System` | `LoadStreamSource__Q25Audio6SystemFPCciPQ25Audio12SourceParams` | 0x801FEE10 | 264 | matched |  |
+| `climax/Audio/System` | `InterpolateReverb__Q25Audio6SystemFPQ25Audio12ReverbPresetPQ25Audio12ReverbPresetf` | 0x801FEF18 | 720 | matched |  |
+| `climax/Audio/System` | `UpdatePendingDeleteEventGroups__Q25Audio6SystemFv` | 0x801FF1E8 | 876 | matched |  |
+| `climax/Audio/System` | `SAsyncCallback__Q25Audio6SystemFPvPcii` | 0x801FF554 | 36 | matched |  |
+| `climax/Audio/System` | `AsyncCallback__Q25Audio6SystemFPvPcii` | 0x801FF578 | 336 | matched |  |
+| `climax/Audio/System` | `CancelAllAsyncStreams__Q25Audio6SystemFv` | 0x801FF6C8 | 108 | matched |  |
+| `climax/Audio/System` | `AddAsyncStream__Q25Audio6SystemFPQ25Audio10DiskStream` | 0x801FF734 | 36 | matched |  |
+| `climax/Audio/System` | `RemoveAsyncStream__Q25Audio6SystemFPQ25Audio10DiskStream` | 0x801FF758 | 192 | matched |  |
+| `climax/Audio/System` | `CheckAsyncStream__Q25Audio6SystemFPQ25Audio10DiskStream` | 0x801FF818 | 52 | matched |  |
+| `climax/Audio/System` | `CancelAsyncItemForEventSource__Q25Audio6SystemFPQ25Audio16AsyncEventSource` | 0x801FF84C | 336 | matched |  |
+| `climax/Audio/System` | `QueueAsyncItem__Q25Audio6SystemFPQ25Audio14AsyncQueueItem` | 0x801FF99C | 12 | matched |  |
+| `climax/Audio/System` | `UpdateAsync__Q25Audio6SystemFv` | 0x801FF9A8 | 736 | matched |  |
+| `climax/Audio/System` | `FlushPendingAsyncGroups__Q25Audio6SystemFv` | 0x801FFC88 | 1416 | matched |  |
+| `climax/Audio/System` | `AddUpdateSound__Q25Audio6SystemFPQ25Audio11EventSource` | 0x80200210 | 204 | matched |  |
+| `climax/Audio/System` | `RemoveUpdateSound__Q25Audio6SystemFPQ25Audio11EventSource` | 0x802002DC | 148 | matched |  |
+| `climax/Audio/System` | `AddPendingCloseAsyncStream__Q25Audio6SystemFPQ25Audio10DiskStream` | 0x80200370 | 80 | matched |  |
+| `climax/Audio/System` | `Update__Q25Audio6SystemFf` | 0x802003C0 | 492 | matched |  |
+| `climax/Audio/System` | `GetDefaultListener__Q25Audio6SystemFv` | 0x802005AC | 8 | matched |  |
+| `climax/Audio/System` | `LoadFirstEventSourceFromAnyGroup__Q25Audio6SystemFPCc` | 0x802005B4 | 156 | matched |  |
+| `climax/Audio/System` | `IsEventGroupLoaded__Q25Audio6SystemFPCc` | 0x80200650 | 220 | matched |  |
+| `climax/Audio/System` | `LoadEventGroup__Q25Audio6SystemFPCcPCcibb` | 0x8020072C | 512 | matched |  |
+| `climax/Audio/System` | `ForceDeleteEventGroup__Q25Audio6SystemFPQ25Audio10EventGroupb` | 0x8020092C | 260 | matched |  |
+| `climax/Audio/System` | `FreeEventGroup__Q25Audio6SystemFPQ25Audio10EventGroupb` | 0x80200A30 | 564 | matched |  |
+| `climax/Audio/System` | `LoadDiskSoundProject__Q25Audio6SystemFPQ25Audio10FileHandlePCc` | 0x80200C64 | 648 | matched |  |
+| `climax/Audio/System` | `RemoveAsyncPlayback__Q25Audio6SystemFPQ25Audio16AsyncEventSource` | 0x80200EEC | 148 | matched |  |
+| `climax/Audio/System` | `LoadAsyncDiskSoundProject__Q25Audio6SystemFPCc` | 0x80200F80 | 848 | matched |  |
+| `climax/Audio/System` | `LoadAsyncEventGroup__Q25Audio6SystemFPCcPQ25Audio16DiskSoundProjectb` | 0x802012D0 | 400 | matched |  |
+| `climax/Audio/System` | `LoadDiskSoundProject__Q25Audio6SystemFPCc` | 0x80201460 | 240 | matched |  |
+| `climax/Audio/System` | `LoadSoundProject__Q25Audio6SystemFPvi` | 0x80201550 | 464 | matched |  |
+| `climax/Audio/System` | `FindSoundProjectFile__Q25Audio6SystemFPCc` | 0x80201720 | 232 | matched |  |
+| `climax/Audio/System` | `FindDiskSoundProjectFile__Q25Audio6SystemFPCcPPQ25Audio16DiskSoundProject` | 0x80201808 | 260 | matched |  |
+| `climax/Audio/System` | `FreeDiskSoundProject__Q25Audio6SystemFPQ25Audio16DiskSoundProjectb` | 0x8020190C | 416 | matched |  |
+| `climax/Audio/System` | `FreeSoundProject__Q25Audio6SystemFPQ25Audio12SoundProjectb` | 0x80201AAC | 236 | matched |  |
+| `climax/Audio/System` | `__dt__Q25Audio12SoundProjectFv` | 0x80201B98 | 120 | matched |  |
+| `climax/Audio/System` | `LoadEventGroup__Q25Audio6SystemFPQ25Audio12SoundProject` | 0x80201C10 | 28 | matched |  |
+| `climax/Audio/System` | `FindReverbPreset__Q25Audio6SystemFPCc` | 0x80201C2C | 112 | matched |  |
+| `climax/Audio/System` | `SetReverbPreset__Q25Audio6SystemFPQ25Audio12ReverbPresetb` | 0x80201C9C | 252 | matched |  |
+| `climax/Audio/System` | `SetReverb__Q25Audio6SystemFPCc` | 0x80201D98 | 268 | matched |  |
+| `climax/Audio/System` | `AddReverbPreset__Q25Audio6SystemFPQ25Audio12ReverbPreset` | 0x80201EA4 | 156 | matched |  |
+| `climax/Audio/System` | `CanDeleteEventSource__Q25Audio6SystemFPQ25Audio11EventSourceb` | 0x80201F40 | 228 | matched |  |
+| `climax/Audio/System` | `IsLoaded__Q25Audio21AsyncDiskSoundProjectCFv` | 0x80202024 | 40 | matched |  |
+| `climax/Audio/System` | `IsAsync__Q25Audio21AsyncDiskSoundProjectCFv` | 0x8020204C | 8 | matched |  |
+| `climax/Audio/System` | `__dt__Q25Audio21AsyncDiskSoundProjectFv` | 0x80202054 | 124 | matched |  |
 | `climax/Time` | `Open__Q23RWS4TimeFv` | 0x802020D0 | 4 | matched |  |
 | `climax/Time` | `GetTime__Q23RWS4TimeFv` | 0x802020D4 | 72 | matched |  |
 | `climax/Time` | `GetSysTime__Q23RWS4TimeFv` | 0x8020211C | 4 | matched |  |

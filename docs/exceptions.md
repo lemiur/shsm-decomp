@@ -159,7 +159,7 @@ functions holding the same instruction sequence).
 | `revolution/hbm/nw4hbm/ut/ut_TagProcessorBase` | `CalcRect` (char and wchar_t instances) | `inline f32 FSelect(register f32 cond, register f32 ifPos, register f32 ifNeg)` (`include/revolution/hbm/nw4hbm/math/arithmetic.h`), through `Rect::Normalize` | sdk_2009's `nw4hbm/math/arithmetic.h` helper verbatim (one `asm { fsel }` on `register` floats). Wii/1.0a has no single-precision `fsel` intrinsic (`__fsels` is undefined) and `__fsel` returns double: each of the four results gains an `frsp` (CalcRect 91.9%). Source marker `// ASM-HELPER` at the function. |
 | `revolution/thp/THPDec` | `__THPDecompressYUV` | `static inline void __THPGQRSetup(void)`, `static inline void __THPGQRRestore(void)` | mkdd `THPDec.c` has both with the same names and bodies (`mfspr`/`mtspr` of GQR5/GQR6 around C stores of the saved values). Source markers at the functions. |
 | `revolution/thp/THPDec` | `__THPHuffDecodeDCTCompY`, `__THPHuffDecodeDCTCompU`, `__THPHuffDecodeDCTCompV` (ORIGINAL-ASM) | `inline s32 __THPHuffDecodeTab(register THPFileInfo* info, register THPHuffmanTab* h)` | mkdd's helper (asm blocks around the table walk). Its callers are ORIGINAL-ASM, so it adds nothing to the counts. Source marker at the function. |
-| `rwsdk/plugin/skin2/skingcn` | `_rpSkinBlendBodyP`, `_rpSkinBlendBodyPN` | `asm { mfspr tmp, GQR5; mtspr GQR5..7, ... }` and `asm { mtspr GQR5, tmp }` | RenderWare GCN paired-single skinning setup/restore (`GQR5`/`GQR6`/`GQR7` have no C spelling in MWCC; `tmp`, `weightGQR`, `posGQR`, `normGQR` match Gormiti DWARF locals). Source marker `// ASM-HELPER` at both functions. Counted as C. |
+| `rwsdk/plugin/skin2/skingcn` | `_rpSkinBlendBodyP`, `_rpSkinBlendBodyPN` | `asm { mfspr tmp, GQR5 }`, `asm { mtspr GQR5, weightGQR; mtspr GQR6, posGQR }` (PN: also `mtspr GQR7, normGQR`) and `asm { mtspr GQR5, tmp }` | Special-purpose register moves only (user's ruling, 2026-11-16): GQR5 to GQR7 have no C spelling. The Gormiti DWARF (`skin2/gcn/skingcn.c`, Debug and Final) shows C functions with the locals `gqr5value`, `gqr5address`, `tmp`, `weightGQR`, `posGQR` (PN: `normGQR`), modelled under those names; the save and restore of GQR5 through `gqr5address` are C statements (the Debug build stores and reloads through it on lines of their own; Final optimises `gqr5value` away, as retail does). The asm operands are `register` locals (MWCC error 34001 otherwise). Source marker `// ASM-HELPER` at both functions. Counted as C. |
 
 ## Review rulings (counted)
 
@@ -173,9 +173,14 @@ functions holding the same instruction sequence).
 | `OSSetErrorHandler` | R4 | `*(u64*)&thread->context.fpr[i] = 0xFFFFFFFFFFFFFFFFULL` (and `psf[i]`) stores an all-ones bit pattern into a `f64` member through a type pun. Not offset arithmetic: the member is named and typed; the pun writes a NaN pattern C has no literal for. Original SDK form. |
 | `__OSInitAudioSystem` | R4, R17 | `*(vu32*)&__DSPRegs[16]` (`DSP_DMA_MMADDR`, `_ARADDR`, `_CNT`) writes a 32-bit DMA register pair of the 16-bit DSP block in one store. An indexed element of the typed register block, not a byte offset; `volatile` because it is a hardware register (evidence note on each macro). Original SDK form. |
 | `__AIClockInit`, `__OSStopAudioSystem`, `__OSUnhandledException` | R17 | `__DSPRegs`, `__DIRegs` and `__ACRRegs` are hardware register blocks (`vu16`/`vu32`); evidence notes at the declarations in `revolution/hardware.h`. |
+| `NWC24iOpenResourceManager_`, `NWC24iCloseResourceManager_`, `NWC24iIoctlResourceManager_`, `NWC24iIoctlResourceManagerAsync_`, `CheckCallingStatus`, `NWC24ResumeScheduler` | R17 | Each resource-manager helper takes `callerName` and reads it with one `(void)callerName;` statement at the place of the reference's debug report, with the comment `// Debug build: report at this point (zeldaret/tp libs/revolution/src/os/OSNet.c)`. That read is what materialises the caller's `__FUNCTION__` literal in retail `.data` (the sibling's `OSNet.o` names the objects `__FUNCTION__$NNN`, one per caller, and its Release build has the same `.data` order and sizes); without it the compiler drops the literals. User's ruling of 2026-11-16 (AGENTS.md, "Release-compiled-out debug checks"): a parameter that only a compiled-out debug report reads. `NWC24ResumeScheduler` is the dead-stripped twin that owns the fifth literal (user's ruling of 2026-11-16, dead-stripped functions without reference text). Evidence: `orig/_ref/gormiti_wii/Exe/MAP/GormitiRelease.MAP`, `os.a OSNet.o`. |
 
 ## Open items that do not block a match
 
+- **`fmod/fmod_memory` helpers (R7, R30; invented):** `FindFreeBlocks` and `FindThreadSlot` are invented inline
+  helpers (name and shape marked at the code; the sibling's line table puts each on one line of its callers, so the
+  original was probably a macro). The declaration order of their locals gives retail's register numbering in `alloc`
+  and `realloc`; review it against the reader test (R30) when the original spelling is evidenced.
 - **MIX unit split and invented names (R12, R7; sdk-axart):** `revolution/mix/mix_rmt.c` carries the "unit name
   unconfirmed" comment (no public Wii MIX source). The split into `mix.c` and `mix_rmt.c` is PROVISIONAL: a single
   `mix.c` with `#pragma dont_inline on`/`reset` around the three remote functions compiles to the same bytes (see
@@ -775,6 +780,9 @@ functions holding the same instruction sequence).
 - **Game unit name unconfirmed (game-bootstrap):** `game/PadRumble.cpp` (0x800067A0-0x80006C7C) is named after
   the pad rumble messages it defines (`"MsgStartBigRumble"`...); no string names the file. It carries the "unit
   name unconfirmed" comment; rename it when a class-name string evidences the unit.
+- **Game unit name unconfirmed (Localisation):** `climax/Localisation.cpp` (the languages and regions, the Config.xml
+  reader, the "BootStrings" and "Strings" table loaders and the text lookup) is named after what it does; no string
+  names the file. It carries the "unit name unconfirmed" comment; rename it when a class-name string evidences the unit.
 - **Game placeholder names (game-bootstrap, R7):** every class, member function and global of `game/PadRumble`
   except the `Msg*` message objects is a placeholder under the placeholder-naming ruling (AGENTS.md): the classes
   `unk_Ramp`, `unk_Tweaks`, `unk_TweakEntry` (names invented) and `unk_801A92A8` (the 8-byte message identifier,
@@ -950,9 +958,15 @@ docs/toolchain.md profile table). Evidence: `RGB2YUV` (inlined into `Halt`), the
 multiply-adds in retail. Both references build the whole RVL SDK with `-fp_contract off` (tp
 `cflags_revolution_base`, ogws `cflags_rvl`); this project builds the SDK with the base `-fp_contract on`, and no
 other matched SDK unit has yet shown a difference. Open item: try `-fp_contract off` library-wide (it would replace
-the per-object flag if every SDK unit keeps its score). `OSNet.c` (parked) carries `-inline noauto`, which neither
-reference uses (ogws and tp build OSNet with their library flags); unproven, a lever until evidenced, as in the
-`global_optimizer` ruling above. It affects no count while OSNet is parked.
+the per-object flag if every SDK unit keeps its score). `OSNet.c` (parked) carries `-inline noauto` per object; neither
+reference uses it (ogws and tp build OSNet with their library flags). With the library's flags alone three of
+OSNet's eight functions are exact, with `-ipa function` or `-ipa off` in its place four, with it all eight. It is not
+a flag of the `os` library: built with the flag on the whole library (`RVLSDKLib("os", ...)` with `lib_cflags`, regenerated before measuring),
+20 of the 34 `os` units lose functions: static helpers that retail inlines (`SetTimer` in OSAlarm, for one) come out of
+line. The user's ruling of 2026-11-16: the flag on OSNet.c alone is a lever, as in the `global_optimizer` ruling
+above (this unit is its only evidence), and the unit stays parked until evidence for the setting appears.
+`#pragma auto_inline off` at the top of OSNet.c gives the same bytes without the flag and is not used either. It affects no count while OSNet
+is parked.
 
 **`goto` in `ScreenReport` (OSFatal; ruling: authentic, R14 [checked]).** The line-break and wrap paths jump back to
 the top of the function to start the next row. tp has the same `goto loop_1`, ogws `goto new_line`; the bytes need
@@ -1344,8 +1358,8 @@ other accesses (`cbForStoreErrorCode2`, `cbForStateGoToRetry`, the second store 
 `DVDResetRequired`) match either way, so the qualifier distorts nothing. The flag is set from interrupt callbacks and
 polled through `DVDResetRequired`, the same use as the SDK's volatile `ResumeFromHere`, `Canceling` and `PausingFlag`
 beside it. A qualifier on the file-scope declaration with a codegen reason and a plausible SDK-revision change (this
-SDK is from 2009, tp's from 2006), not a carrier local. dvd.c is parked, so the ruling matters only when the unit
-links.
+SDK is from 2009, tp's from 2006), not a carrier local. dvd.c is Matching, so the declaration is
+linked.
 
 **dvd.c R17 cleanup (ruling: two authentic, one corrected at review).**
 - `DVDInit`: `if (bootInfo->magic != 0xE5207C22 && bootInfo->magic != 0x0D15EA5E) FirstTimeInBootrom = TRUE;`
@@ -1981,8 +1995,7 @@ header said 0x40), `game/unk_8000A040` has four unwritten functions (not five), 
   as in tp.
 - **Cross-lane edits (checked).**
   - `dvd/__dvd.h`: declares `__DVDStopMotorAsync`, `__DVDRestartMotor` and `__DVDStopMotorCommandBlock` (defined in
-    `dvd.c`). The `dvd.c` stub signature `__DVDStopMotorAsync(DVDCommandBlock*, DVDCBCallback)` stays at 100% (unit
-    99.87%, the baseline figure).
+    `dvd.c`). The `dvd.c` stub signature `__DVDStopMotorAsync(DVDCommandBlock*, DVDCBCallback)` stays at 100%.
   - `mtx.h`: `Vec2` and `PSMTXMultVec` (SDK names).
   - `math.h`: adds `double sin(double)` and `double sqrt(double)` in MSL's form, next to main's `fabs`.
   - `symbols.txt` renames outside the lane's ranges: `fn_801A5D30` -> `sin` (fdlibm `s_sin` shape, `lis 0x3fe9`
@@ -3112,9 +3125,6 @@ lyt_window (Matching).
   header is unchanged.
 
 ## Parked (NonMatching), with reasons
-- `revolution/usb/usb` (sdk-usb-1): 14 of 14 functions 100%, `gatecheck layout` clean; parked pending the user's
-  ruling on invented dead-stripped bodies that carry retail strings (open item, "sdk-usb-1 rulings"). Linked, the
-  gate was green on the lane.
 - `revolution/hbm/sound/synctrl` (sdk-hbm-16): 3 of 4 functions 100%; `__HBMSYNResetAllControllers`
   90.55%, a loop-preheader schedule residue (ruling above).
 
@@ -3134,6 +3144,10 @@ lyt_window (Matching).
   debugger gives retail's order. So the original file compiled something before `__register_fragment` that no
   reference shows; inventing a function there would be a fakematch (the Wii references cover it with
   `#pragma schedule once`, not adopted). Same in all nine Wii compiler builds. `__unregister_fragment` is 100%.
+  Ruled out as well: every spelling of the table walk's setup (`for (i = 0, fragment = fragmentinfo; …)`, the pointer
+  assigned before the loop as a statement or in its declaration, `i = 0` as a separate statement, the two swapped in
+  and out of the `for` init) compiles to the same `li r6` placement, and a per-object `-schedule off` moves eight rows
+  of this function and five of `__unregister_fragment` the wrong way, so neither is the original's build setting.
 - `revolution/os/OS` (sdk-os-4): 19 of 20 functions 100% in objdiff (five of them assembly, see the ledger),
   `OSInit` 99.9% (store order). Three functions reach their score only under `#pragma global_optimizer off`
   (ruling above: `MATCH-PENDING` if linked so); the pragma is function-scoped, not a build setting (the
@@ -3159,25 +3173,22 @@ lyt_window (Matching).
   allocation (96.4%; retail keeps the ES `rc` in a callee-saved register across the ESP calls, the build in r3),
   and `#pragma global_optimizer off` around the function makes it worse (93.8%). `Run` (60 bytes) is an assembly
   function (ORIGINAL-ASM when the unit is linked; not counted while parked).
-- `revolution/dvd/dvd` (sdk-io-2, sdk-io-3, sdk-dvd): 50 of 52 functions 100%. `cbForStateReadingPartitionInfo`
+- `revolution/dvd/dvd` (sdk-io-2, sdk-io-3, sdk-dvd): Matching, all 52 functions exact. `cbForStateReadingPartitionInfo`
   matches since sdk-dvd reads the launch partition from the low-memory words `__OSLaunchPartitionType` (0x80003194)
   and `__OSLaunchPartitionOffset` (0x80003198, name invented) in `dvd/__dvd.h`, as xbret does (retail reloads 0x3194
-  in the partition loop). Residues: `cbForStateOpenPartition` 98.7%, `cbForStateCheckID2` 98.8%: the inlined
-  `StampIntType` folds `lastCommand[CommandInfoCounter - 1]` to `counter * 20 + 0x14` where retail keeps the `subi`
-  and `+ 0x28` (wall: other/register). Retail itself has both forms (six callbacks `subi`, eight folded); our build
-  reproduces the split in the twelve other callbacks. Tried without effect: xbret's spellings of both callbacks and of
-  `StampIntType` (`<= 0`), xbret's function order, `static` `StampCommand` and `StampIntType`, Wii/1.0RC1 to 1.3 and
-  0x4201_127 (flagsweep). The R17 findings of the sdk-io-2 review are
+  in the partition loop). The R17 findings of the sdk-io-2 review are
   cleared (rulings "DVD rulings (sdk-io-3)"); the checker reports no [match] finding in the unit. Open ([checked]/[free]):
   22 R25 `()` parameter lists in C (tp's spelling of the state functions), the bare boot magics in `DVDInit` (R11). 42 of the unit's functions were
   renamed from `fn_` by order and size against tp's `dvd.c`, and the lane renamed the `dvdlow.c` functions around
   it the same way (spot-checked at review: `DVDLowRead`, `DVDLowSeek`, `DVDLowInquiry`, `DVDLowStopMotor`,
   `DVDLowAudioBufferConfig`, `DVDLowSetMaximumRotation` and `DVDLowGetNoDiscBufferSizes` issue the IOS DI ioctls
   0x71, 0xAB, 0x12, 0xE3, 0xE4, 0xDD and 0x92, each the one its tp name sends).
-- `revolution/os/OSNet` (sdk-os-5): code 99.8-100% (all eight functions 100% in the merge report), built with an
-  unproven `-inline noauto` (ruling above). Data wall: five orphan caller-name strings in retail `.data` that no
-  reconstructed function references (their debug-report callers were stripped); the unit's data cannot be placed
-  without inventing their users.
+- `revolution/os/OSNet` (sdk-os-5): all eight functions exact and the DOL hash holds with the unit linked from source;
+  the five caller-name `.data` literals are MWCC `__FUNCTION__` objects (the sibling's `OSNet.o` names them
+  `__FUNCTION__$NNN`, one per caller), emitted because each resource-manager helper reads `callerName` where the
+  reference reports a failure (R17 row above; `NWC24ResumeScheduler`, dead-stripped in retail, owns the fifth). Parked
+  only on `-inline noauto` (passage above): this unit alone evidences it and it breaks other `os` units, so the user's
+  ruling of 2026-11-16 keeps the unit parked until evidence for the setting appears.
 - `revolution/os/OSSemaphore`: `OSWaitSemaphore` 89.1%. Retail reloads `sem->count` after the wait loop for
   the decrement (`lwz r4, 0x0(r29)`); the source keeps the count from the loop test. `volatile s32 count` closes it
   but is rejected as a fakematch: the SDK's `OSSemaphore` declares a plain `s32 count` (zeldaret/tp
@@ -3192,6 +3203,9 @@ lyt_window (Matching).
   run (about 44k iterations) reached 2/114 rows with a `(long)` cast on one operand of one sum; IJG 6b has no cast
   there, so the state was rejected and not committed (permuter record below). The function is the stock IJG 6b text (checked against the jpegsr6b release: identical but for whitespace); unprototyped `jpeg_get_small`, `unsigned int` locals, every Wii/GC compiler, `-O2`..`-O4,s`, `-ipa function`, `-inline deferred/smart/all` and the `-opt no*` switches do not change the merge. `first_pool_slop`/`extra_pool_slop` are named in symbols.txt. The other 13 functions are 100%, `jinit_memory_mgr`
   included (its `getenv` call now targets `getenv` in `MSL_C/MSL_Common/Src/environment`).
+  The three-term spelling of the pool-size sum is ruled out by the user's ruling of 2026-11-16 (AGENTS.md, "Surviving
+  source against a lever"): retail's two adds at 0x801C50E4 and 0x801C50F0 are IJG's own `+= min_request + slop`, so
+  the unit stays parked on IJG's text.
 - `revolution/gx/GXTransform` (sdk-gx): 14 of 15 functions 100%. `GXLoadTexMtxImm` 89.6%: the build hoists the cheap
   else-arm of each selection (slot address, word count) above its compare where retail keeps two-armed branches (unit
   `.text` 8 bytes short). ogws and xenoblade match only with `(u64)` casts on those arms (a fakematch); the spellings
@@ -3268,20 +3282,13 @@ lyt_window (Matching).
 - `climax/RwPlugin`: 14 of 16 functions exact. `ClimaxP1AtomicDataDestructor` 93.89%: retail reloads the item pointer
   after the null test (schedule; a macro and a local data pointer keep it in one register). `ClimaxP1EffectPluginAttach`
   99.84% (1 row): one `subf` with swapped operands, the `==` test of the inlined atomic attach.
-- `climax/Audio/System`: 60 of 64 functions exact; `UpdatePendingDeleteEventGroups` 99.03%, `UpdateAsync` 98.85%,
-  `FlushPendingAsyncGroups` 98.53% and `LoadEventGroup(SoundProject*)` 0.00% are open, under a wall pass.
 - `fmod/fmod_dsp_resampler`: 8 of 9 functions exact; `DSPResampler::execute` 99.56% (11 rows), wall register/schedule: in
   the two position-wrap tails retail reloads `mNoDMA` after the loop-flag test. Reading `mNoDMA` through a pointer to
   const `DSPResampler` in either tail makes it exact (a const read is its own expression to the common-subexpression
   pass, as in the display-height accessor ruling), but no spelling for it is evidenced (Gormiti's DWARF lists no inline
-  member of `DSPResampler`), so the unit waits on a ruling. The body carries two spellings that Gormiti's DWARF does
-  not list: a `loopstart` local on the backward path and a `readpos` local in the fill loop.
-- `fmod/fmod_memory`: 13 of 14 functions exact; `MemPool::set` 99.86% (3 rows), register only: the guard before the
-  search keeps the constant 1 in r3 and the shift amount in r4 where the build has them the other way round. Ruled out:
-  the guard's operand order and twelve declaration orders of the search's locals. Retail's `set` is another revision
-  than Gormiti's (0x250 bytes against 0x268). The unit has two invented inline helpers, `FindFreeBlocks` and
-  `FindThreadSlot` (name and shape invented, marked at the code); the declaration order of their locals was chosen for
-  retail's register numbering and is to be reviewed against the reader test (R30) before the unit links.
+  member of `DSPResampler`). The user's ruling of 2026-11-16 (AGENTS.md, "Const-qualified reads") rules the const read
+  a lever here, since no const accessor is evidenced: the function stays open. The body carries two spellings that
+  Gormiti's DWARF does not list: a `loopstart` local on the backward path and a `readpos` local in the fill loop.
 - `fmod/fmod_dsp_connectioni`: 11 of 12 functions exact; `DSPConnectionI::setPan` 99.77% (20 rows, 0 target mismatches),
   register only: in the QUAD/SURROUND/5POINT1/7POINT1 and PROLOGIC two-channel arms retail holds `1.0f` in f2 and the
   pan factor `l` in f3 where the build has f3 and f2 (the 1-in-channel and `l`/`r` swap rows). Retail's switch carries a
@@ -3295,6 +3302,13 @@ lyt_window (Matching).
   that retail does not carry (`_ReqCreate`, `_ReqSearch4Cluster`, `_ReqDeleteEntry`, `_IoSpecSearch4Cluster`,
   `_ScopeTraceCreate`, `_ScopeTraceAddEntry`, `_EnumPipelineClusters`, `_CountHeadNodeRqdsAndOpts`), each marked
   `// no copy in retail (inlined)`; `ReqGetEntry` is a macro of this unit.
+- `rwsdk/plugin/skin2/rpskin`: 26 of 27 functions exact; `SkinGeometryRead` is open, register wall: the inlined
+  `SkinFindMaxWeights` takes its two loop counters in swapped registers. `SkinAtomicRead`'s copy of the same inline is
+  exact; declaring `j` before `i` in the helper closes `SkinGeometryRead` and opens `SkinAtomicRead`'s, so neither
+  form is kept.
+- `climax/Localisation`: 7 of 14 functions exact; `fn_801D197C`, `unk_StringTable::fn_801D1CFC`, `fn_801D207C`,
+  `fn_801D22E0`, `fn_801D2554`, `fn_801D2630` and `fn_801D26E0` are open; reason not yet recorded (no function header
+  in the source gives one).
 - Invented names of the `integrate/antigravity2` units (marked at the code or the declaration): `CHANNELI_FLAG_0x1`,
   `CHANNELI_FLAG_0x2`, `SOUNDI_CHANNELMASK_ALLMONO`/`_ALLSTEREO`, `EVENTCATEGORYI_MAXPLAYBACKS_*`,
   `EVENTCATEGORYI_PATH_LENGTH`, `EVENTCATEGORYI_FILEVERSION_MAXPLAYBACKS`, `EVENT_CATEGORY_MASTER`/`_MUSIC`,
@@ -4386,18 +4400,17 @@ Open items: the unit names `game/MusicTrigger`, `game/PlaneTrigger` (strings wit
   `IUSB_DeviceClassInsertionNotifyAsync`. The built `.data`, `.sdata` and `.sbss` match retail (`gatecheck layout`).
   The functions xbret stubs that own no string and that no reference gives a body
   (`IUSB_DeviceInsertionNotifyAsyncWithTimeout`, `IUSB_SetIsoAlt`, `IUSB_CancelInsertionNotify`) are not written.
-- **Open item (ruling requested): bodies reconstructed from strings alone.** Five retail strings belong to 2009-only
-  functions that no reference writes out (xbret and mscharged place them with `DECOMP_FORCEACTIVE`, tp with
-  `dummy_str_*` functions): `"calling short blk transfer fn: ..."` and `"calling long blk transfer fn: ..."` between
-  `__IntrBlkMsgInt` and `__CtrlMsgInt`, and `"IUSB_RegisterInsertionNotifyWithIdAsync"` (its `__FUNCTION__`),
-  `"%s: Not enough memory\n"` and `"Failed to open %s: %d\n"` at the end. They are emitted by bodies written here
-  on the pattern of their neighbours: sync `IUSB_ReadBlkMsg`/`IUSB_WriteBlkMsg` (the short/long dispatch of the
-  async pair, logging each choice) and `IUSB_RegisterInsertionNotifyWithIdAsync` (on
-  `IUSB_DeviceInsertionNotifyAsync`; allocation before the open, as the string order says). Their signatures and
-  text are invented; no retail byte holds their code, and the gate is green whatever they contain as long as they
-  emit the five literals in this order. Each is marked at the code.
-  The unit is parked (`NonMatching`) until the ruling: the dead-stripped ruling keeps a reference's body, and these
-  three bodies have none, so admitting them is new policy (the merge review's decision).
+- **Bodies without a reference (user's ruling, 2026-11-16, AGENTS.md "Dead-stripped functions").** Five retail strings
+  belong to 2009-only functions that no reference writes out (xbret and mscharged place them with
+  `DECOMP_FORCEACTIVE`, tp with `dummy_str_*` functions): `"calling short blk transfer fn: ..."` and `"calling long blk
+  transfer fn: ..."` between `__IntrBlkMsgInt` and `__CtrlMsgInt`, and `"IUSB_RegisterInsertionNotifyWithIdAsync"` (its
+  `__FUNCTION__`), `"%s: Not enough memory\n"` and `"Failed to open %s: %d\n"` at the end. The sibling's link maps
+  (Release, Final and Debug, `usb.a usb.o`) list `IUSB_ReadBlkMsg`, `IUSB_WriteBlkMsg` and
+  `IUSB_RegisterInsertionNotifyWithIdAsync` as `UNUSED` in the same object, and retail `.data` holds strings only they
+  own, so each keeps a body marked `// no copy in retail (dead-stripped)`, modelled on its live twin
+  (`IUSB_ReadBlkMsgAsync`, `IUSB_WriteBlkMsgAsync`, `IUSB_DeviceInsertionNotifyAsync`) with a line at the code naming the
+  twin and what is unconfirmed (signatures, log placement, the ioctl command, allocation order, clean-up paths). The
+  bodies are never counted. The unit is `Matching`.
 
 ## crt-1 rulings (match/usb-crt)
 

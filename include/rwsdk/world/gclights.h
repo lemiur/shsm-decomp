@@ -42,11 +42,11 @@ extern RwInt32 _RwDlLightExtOffset;
 extern void _rwGCLightsGlobalEnable(RpLightFlag lightFlags, RxGameCubePipeData* pipeData);
 
 /* Loads one light into the next hardware light of a pipeline's data. */
-extern void _rwGCLightsLocalEnable(RpLight* light, RxGameCubePipeData* pipeData);
+extern void _rwGCLightsLocalEnable(const RpLight* light, RxGameCubePipeData* pipeData);
 
 /* The queue of the lights near the object being drawn: cleared, filled by contribution, and then applied to the hardware. */
 extern void _rwGCLightsListInit(void);
-extern void _rwGCLightsLocalQueue(RpLight* light, float contrib);
+extern void _rwGCLightsLocalQueue(const RpLight* light, float contrib);
 extern void _rwGCLightsListFlush(RxGameCubePipeData* pipeData);
 
 #ifdef __cplusplus

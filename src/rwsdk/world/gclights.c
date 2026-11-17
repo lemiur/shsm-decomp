@@ -15,9 +15,9 @@
 #include <rwsdk/world/climaxcommon.h>
 #include <rwsdk/world/gclights.h>
 
-/* A light of the queue and how much it lights the object. */
+/* A light of the queue and how much it lights the object (the light read only: MWCC's DWARF records no const). */
 typedef struct StLighQueueItem {
-    RpLight* light;
+    const RpLight* light;
     float contrib;
 } StLighQueueItem;
 
@@ -29,10 +29,11 @@ static GXLightObj _RwGCLightObjs[rwDLMAXHWLIGHTS];
 /* The lights at most loaded by the list flush. */
 static int _MaxLights = 4;
 
+/* Defined before the queue count: small uninitialised data is laid out in reverse order of definition. */
+RwInt32 _RwDlLightExtOffset;
+
 static StLighQueueItem sLightQueue[rwDLLIGHTQUEUESIZE];
 static int sLightQueueCount;
-
-RwInt32 _RwDlLightExtOffset;
 
 /*
  * ==================== _rpGCHWLightingApplyDirectionalLight ====================
@@ -114,15 +115,15 @@ void _rwGCLightsGlobalEnable(RpLightFlag lightFlags, RxGameCubePipeData* pipeDat
  * Loads a point, spot or soft spot light into the next hardware light of the pipeline data: its
  * colour, its position (and direction) in view space, its angle and distance attenuation. The switch has
  * empty cases for the directional and ambient types, as retail's compare tree shows.
- * Not exact (register/schedule wall, 7 rows): retail loads and tests the light's flags (lhz, rlwinm.) right
- * after GXLoadLightObjImm, before the light mask is updated; here the test follows the update.
+ * The light is a pointer to const (MWCC's DWARF records no const): retail moves the read of the light's
+ * flags ahead of the light mask update, which the scheduler does only for a const pointer parameter.
  */
-void _rwGCLightsLocalEnable(RpLight* light, RxGameCubePipeData* pipeData) {
+void _rwGCLightsLocalEnable(const RpLight* light, RxGameCubePipeData* pipeData) {
     RwV3d at;
     RwV3d pos;
     GXColor color;
     RwMatrix* matrix;
-    RwRGBAReal* lightColor;
+    const RwRGBAReal* lightColor;
     _rwDlLightExt* lightExt;
 
     if (!(RwClimaxWorldRenderFlags & rwCLIMAXRENDERFLAGNOLIGHTING) && pipeData->numActiveLights < rwDLMAXHWLIGHTS) {
@@ -228,11 +229,10 @@ void _rwGCLightsListFlush(RxGameCubePipeData* pipeData) {
 
 /*
  * Queues a light with its contribution; a light flagged as a priority is ranked a full unit higher.
- * Not exact (register/schedule wall): retail loads the light's flags (lhz) before the two stores into the
- * queue entry and keeps the count in r5; here the load follows the stores. Compiled and ruled out: the
- * early return, a pointer to the entry.
+ * The light is a pointer to const, as the queue entry's: retail reads the light's flags before the two
+ * stores into the entry, which the scheduler does only for a const pointer parameter.
  */
-void _rwGCLightsLocalQueue(RpLight* light, float contrib) {
+void _rwGCLightsLocalQueue(const RpLight* light, float contrib) {
     if (sLightQueueCount < rwDLLIGHTQUEUESIZE) {
         sLightQueue[sLightQueueCount].light = light;
         sLightQueue[sLightQueueCount].contrib = contrib;

@@ -25,6 +25,10 @@ FindFreeBlocks
 Looks for numblocks free blocks in a row in the bitmap of pool, from block startblock on, giving up at
 endblock or the end of the pool; returns the offset of the first block of the run, or -1. A full word is
 skipped 32 blocks at a time. Name and shape invented: retail inlines it into set, alloc and realloc.
+The sibling's line table puts each search on one line of its caller, so the original was probably a macro.
+Written as a macro (or in place) with its own locals, a copy of the end bound and a conditional result, set,
+alloc and realloc keep their shape but not their colouring (98-99%, five declaration orders tried): the inline
+function's locals are numbered in reverse declaration order by the expansion, which alloc and realloc need.
 ====================
 */
 static inline int FindFreeBlocks( MemPool *pool, int startblock, int numblocks, int endblock ) {
@@ -69,7 +73,8 @@ FindThreadSlot
 
 Returns the slot of the pool's thread table that belongs to the calling thread, taking the first free one
 for a thread not seen before (slot 0 is the total); the last slot when the table is full. Name and shape
-invented: retail inlines it into alloc and realloc.
+invented: retail inlines it into alloc and realloc. As with FindFreeBlocks, the sibling's line table puts
+it on one line of each caller (a macro in the original, probably); not tried as one.
 ====================
 */
 static inline int FindThreadSlot( MemPool *pool ) {
@@ -278,10 +283,10 @@ MemPool::set
 Marks numblocks blocks from blockoffset as used (value set) or free (value clear), a bit at a time to a
 word boundary, then a byte at a time, then the rest, and keeps mFirstFreeBlock on the first free block.
 
-Not exact: register/schedule only, 3 rows (wall.exe). In the guard before the search retail keeps the
-constant 1 in r3 and the shift amount in r4; the compile has them the other way round. Ruled out: the
-operand order of the guard and twelve declaration orders of the search's locals (which make alloc and
-realloc exact).
+The test of whether the first free block is still free takes its byte and bit in byteoffset and bitoffset,
+the function's two locals for a bitmap position. The sibling's DWARF lists exactly these four locals
+(byteoffset, bitoffset, count, blocksleft); retail is another revision than the sibling (0x250 bytes
+against 0x268).
 ====================
 */
 void MemPool::set( int blockoffset, int value, int numblocks ) {
@@ -338,7 +343,9 @@ void MemPool::set( int blockoffset, int value, int numblocks ) {
         if ( blockoffset == mFirstFreeBlock ) {
             mFirstFreeBlock = blockoffset + numblocks;
         }
-        if ( mBitmap[mFirstFreeBlock / 8] & ( 1 << ( mFirstFreeBlock & 7 ) ) ) {
+        byteoffset = mFirstFreeBlock / 8;
+        bitoffset  = mFirstFreeBlock & 7;
+        if ( mBitmap[byteoffset] & ( 1 << bitoffset ) ) {
             mFirstFreeBlock = FindFreeBlocks( this, mFirstFreeBlock, 1, mSizeBlocks );
         }
     } else {

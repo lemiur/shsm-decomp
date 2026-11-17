@@ -143,6 +143,12 @@ R17 does not apply inside a `// no copy in retail` body: it is the reference's t
 2026-10-23). The rule checker skips R17 in bodies whose closing line carries the plain marker, `(dead-stripped)` or
 `(dead-stripped or inlined)` (the last confirmed by the user's ruling, 2026-10-23); an `(inlined)`-only body does not
 exempt, because that code reaches retail through its callers.
+A dead-stripped function whose text no reference has (user's ruling, 2026-11-16) may still have a body when the
+sibling's link map lists it `UNUSED` in the same object and retail holds data that only it owns (its `__FUNCTION__`
+or string literals). The body is modelled on its live twin, is never counted, and is marked
+`// no copy in retail (dead-stripped)` with a line naming the twin and what is unconfirmed (`NWC24ResumeScheduler` in
+`revolution/os/OSNet.c`; the same case in `revolution/usb/usb.c`). Defining the literal as free-standing data instead
+would invent an owner for compiler-generated data.
 
 **Embedded line numbers (user's ruling, 2026-11-15).** Where retail's bytes embed a source line number (FMOD's
 allocator and debug calls pass `__LINE__`), the project form is one `#line N` directly before the statement whose
@@ -161,6 +167,18 @@ docs/exceptions.md; the function counts.
 **Compound literals in C++ (user's ruling, 2026-11-15).** The compound literal in FMOD's `MusicSettings::MusicSettings`
 (an MWCC extension in C++) is accepted with its comment: the sibling's line table puts the copy and the `memcpy` on
 one line and names only `cprop`.
+
+**Const-qualified reads (user's ruling, 2026-11-16).** MWCC's common-subexpression pass treats a read through a
+const-qualified lvalue as its own expression, so retail reloads a value that is read once through a const accessor
+and once through a plain one. Such a read is accepted where the module's own API supplies the const accessor: a
+const macro (RenderWare's `RWPLUGINOFFSETCONST`, as `CLIMAXP1_ATOMIC_CONST_DATA` in `climax/RwPlugin.cpp`), a const
+member function, a const parameter, or a ruled accessor (the display-height pair). A cast to const written at one
+site, with no such accessor, is a lever and the function stays open (`DSPResampler::execute`).
+
+**Surviving source against a lever (user's ruling, 2026-11-16).** A respelling of surviving original source that a
+lever search found, and that only stops the compiler reusing a value, is not adopted when retail's instructions are
+equally the surviving text's own (libjpeg `alloc_small`: retail adds `min_request + slop` and then the total, which
+is IJG's `+= min_request + slop`; the three-term sum is rejected and the unit stays parked on IJG's text).
 
 ## Objective and scores
 
@@ -266,6 +284,13 @@ wrapped in a helper to dodge R18 is still a fakematch. The checker reports R18 o
 assembly (an `asm` function, an `asm { }` block, or a helper defined in the same file and called once), and a
 header-level `asm` inline that is not listed as "helper not listed as ORIGINAL-ASM".
 
+**Special-purpose register moves (user's ruling, 2026-11-16).** `asm` statements that only move a special-purpose
+register (`mfspr`, `mtspr`; such a register has no C spelling) inside a function the sibling's DWARF shows to be C
+(it lists the function's C locals, those the statements name among them) are not an R18 finding: the function counts
+when it matches and passes the other [match] rules. The source models those locals under the DWARF's names, carries
+`// ASM-HELPER: <registers>, <evidence>` at the function, and is listed in docs/exceptions.md (`_rpSkinBlendBodyP`,
+`_rpSkinBlendBodyPN`: GQR5 to GQR7). Any other instruction in such a block is still R18.
+
 Progress reports two numbers: **matched under the rules** (the headline) and **bytes matched**.
 
 ### Project profile
@@ -331,6 +356,11 @@ where the sibling's Debug build shows it, and only there; the code carries `// D
 debug-warning macro `RWS_WARN( condition, text )` (`include/climax/Debug.h`), a release no-op named (name invented)
 after the debug stream `RWS::cdbg()` that Gormiti's Debug build writes to;
 it is written only where that build shows a file-and-line warning, with the comment `// Debug build: warning at this point (Gormiti Debug)` and the text that build prints, spelling included.
+The user's ruling of 2026-11-16 extends the case to a parameter that only a compiled-out debug report reads. Where the
+public reference's helper reports through a parameter and retail's data proves the release source still read it (the
+`__FUNCTION__` caller-name literals of `revolution/os/OSNet.c`, which the compiler emits only when the helper reads
+the parameter), the helper carries one `(void)parameter;` statement at the report's place, with the comment
+`// Debug build: report at this point (<reference project and file>)`.
 
 ## Matching rules that are easy to get wrong
 

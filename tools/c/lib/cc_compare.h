@@ -131,8 +131,9 @@ CcCompareResult *cc_compare_function_unit(AvpArena *a, const CcRepo *r, AvpStr u
                                           const char *asm_path, CcError *err);
 
 /* ObjectComparison: results {compiled name: CcCompareResult*} (compiled order); compiled_only (compiled functions
- * with no retail counterpart) and retail_only (retail functions nothing was paired with, gap_ excluded), both
- * sorted; retail / compiled the two parsed sides. */
+ * with no retail counterpart of their own: none, or a second one pairing with a retail name that another compiled
+ * function owns: the one of the same name, else the first in the object) and retail_only (retail functions nothing
+ * was paired with, gap_ excluded), both sorted; retail / compiled the two parsed sides. */
 typedef struct {
     AvpStr *v;
     size_t n;

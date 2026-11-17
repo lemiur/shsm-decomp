@@ -3,6 +3,7 @@
 #ifndef RWSDK_WORLD_CLIMAXPLATFORM_H
 #define RWSDK_WORLD_CLIMAXPLATFORM_H
 
+#include <revolution/gx/GXEnum.h>
 #include <revolution/mtx.h>
 #include <rwsdk/batextur.h>
 #include <rwsdk/plcore/bamatrix.h>
@@ -15,13 +16,22 @@ extern "C" {
 #endif
 
 struct RpGameCubeVtxFmt;
-struct StTevSetupData;
+/* What a TEV callback is told about the TEV setup of the effect being sent, and may change. Layout and names: Gormiti DWARF. */
+typedef struct StTevSetupData {
+    unsigned int Source;               /* 0x00 */
+    unsigned int SourceParm;           /* 0x04 */
+    GXTevColorArg LightingSrc;         /* 0x08 */
+    unsigned int Count_TexGens;        /* 0x0C */
+    unsigned int Count_IndTevs;        /* 0x10 */
+    unsigned int Count_Tevs;           /* 0x14 */
+    RxGameCubePipeData* pipeData;      /* 0x18 */
+} StTevSetupData;
 
 /* Called to set up an object's transform for the GX pipe: the local to world matrix, whether it has normals, the model view. */
 typedef unsigned int (*RwClimaxRVLTransformCallBack)(RwMatrix* ltm, int normals, float (*ModelView)[4]);
 
 /* Called before and after the TEV stages are set up. */
-typedef unsigned int (*RwClimaxRVLTevCallBack)(struct StTevSetupData* TevSetupData);
+typedef unsigned int (*RwClimaxRVLTevCallBack)(StTevSetupData* TevSetupData);
 
 /* Called to process the vertices of an instanced vertex buffer. */
 typedef unsigned int (*RwClimaxRVLVertexProcCallBack)(RwMatrix* Ltm, struct RpGameCubeVtxFmt* vtxFmt,

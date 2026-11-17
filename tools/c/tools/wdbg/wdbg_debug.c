@@ -143,6 +143,8 @@ void wdbg_debug_loop(WdbgDebug *d, WdbgSpec *spec) {
                 host_write(d, va, &cc, 1);
             }
         } else if (ev.dwDebugEventCode == EXIT_PROCESS_DEBUG_EVENT) {
+            d->exited = true;
+            d->exit_code = ev.u.ExitProcess.dwExitCode;
             break;
         } else if (ev.dwDebugEventCode == EXCEPTION_DEBUG_EVENT) {
             DWORD ex = ev.u.Exception.ExceptionRecord.ExceptionCode;

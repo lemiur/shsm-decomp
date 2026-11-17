@@ -11,6 +11,7 @@
 #include "shsm_text.h"
 #include "wdbg_debug.h"
 #include "wdbg_iro.h"
+#include "wdbg_run.h"
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -76,44 +77,20 @@ static int run(int argc, char **argv) {
     cargv[n++] = avp_path_abspath(a, src);
     cargv[n++] = "-o";
     cargv[n++] = avp_sprintf(a, "%s/o.o", outdir);
-    const char *cmdline = avp_list2cmdline_n(a, cargv, n);
-
-    STARTUPINFOW si;
-    memset(&si, 0, sizeof si);
-    si.cb = sizeof si;
-    PROCESS_INFORMATION pi;
-    memset(&pi, 0, sizeof pi);
-    wchar_t *wcmd = avp_to_w(a, avp_str(cmdline));
-    wchar_t *wcwd = avp_to_w(a, root_fwd);
-    /* creation flags 1 = DEBUG_PROCESS, handles not inherited, as the Python's CreateProcessW */
-    if (!CreateProcessW(NULL, wcmd, NULL, NULL, FALSE, DEBUG_PROCESS, NULL, wcwd, &si, &pi))
-        return fail("AssertionError", avp_str(avp_sprintf(a, "%lu", (unsigned long)GetLastError())));
-
-    WdbgDebug d = {0};
-    d.process = pi.hProcess;
-    d.outdir = outdir;
-    d.exe = exe;
-    d.build = avp_cz(a, ver);
-    /* open(outdir+'/log.txt','w'): the locale encoding (the ANSI code page), "\n" written as "\r\n" */
-    AvpFile *log = avp_fopen(avp_sprintf(a, "%s/log.txt", outdir), "w", AVP_TEXT(AVP_ENC_MBCS, AVP_ERR_STRICT, AVP_NL_DEFAULT));
-    if (!log) return fail_io(a);
-    d.log = log;
-    wdbg_debug_out(&d, avp_str(avp_sprintf(a, "compiler: %s (tools/compilers/%s/mwcceppc.exe)", d.build, d.build)));
-
     /* runpy.run_path(spec): here the spec language (SPEC.md) */
     AvpStr text;
     if (!avp_read_text(a, spec_path, AVP_TM_UTF8, &text)) return fail_io(a);
-    WdbgSpec *spec = wdbg_spec_parse(a, spec_path, text, &err);
-    if (!spec) return fail("SyntaxError", avp_str(err));
-    WdbgHost host = wdbg_debug_host(&d);
-    if (!wdbg_spec_load(spec, &host, &err)) { /* err is "Class: message" */
+    /* the compiler runs in a kill-on-close job (wdbg_run.h); the command line by subprocess.list2cmdline; cwd ROOT */
+    WdbgRun wr = {.exe = exe, .build = avp_cz(a, ver), .argv = cargv, .argc = n, .cwd = avp_cz(a, root_fwd),
+                  .outdir = outdir, .spec_path = spec_path, .spec_text = text};
+    const char *cls = NULL, *msg = NULL;
+    i64 code = -1;
+    if (!wdbg_run(a, &wr, &cls, &msg, &code)) {
+        if (cls) return fail(cls, avp_str(msg));
         fflush(stdout);
-        fprintf(stderr, "%s\n", err);
+        fprintf(stderr, "%s\n", msg); /* a spec load error: "Class: message" */
         return 1;
     }
-
-    wdbg_debug_loop(&d, spec);
-    avp_fclose(log);
     return 0;
 }
 

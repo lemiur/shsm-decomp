@@ -622,7 +622,10 @@ DSPConnectionI::setPan
 Configures the connection's level matrix for the given pan position and speaker mode, then starts a
 ramp.
 
-Equivalent modulo a register swap (f2/f3) in the QUAD and PROLOGIC 2-channel pan branches.
+Equivalent modulo a register swap (f2/f3) in the QUAD and PROLOGIC 2-channel pan branches (wall:
+register/schedule): retail colours l (coalesced with the 1.0f constant) before r, the build the reverse. The l, r
+declarations follow the sibling's DWARF (one line, l first); ruled out: the then-branch's statements swapped
+(`r = 2.0f * r;` first), and the declaration order itself (no change).
 ====================
 */
 FMOD_RESULT DSPConnectionI::setPan( float pan, int outchannels, int inchannels, FMOD_SPEAKERMODE speakermode ) {
@@ -737,8 +740,8 @@ FMOD_RESULT DSPConnectionI::setPan( float pan, int outchannels, int inchannels, 
         case FMOD_SPEAKERMODE_SURROUND:
         case FMOD_SPEAKERMODE_5POINT1:
         case FMOD_SPEAKERMODE_7POINT1: {
-            float r = ( 1.0f + pan ) / 2.0f;
-            float l;
+            float l, r;
+            r = ( 1.0f + pan ) / 2.0f;
 
             if ( inchannels == 1 ) {
                 l            = 1.0f - r;
@@ -769,8 +772,8 @@ FMOD_RESULT DSPConnectionI::setPan( float pan, int outchannels, int inchannels, 
         }
 
         case FMOD_SPEAKERMODE_PROLOGIC: {
-            float r = ( 1.0f + pan ) / 2.0f;
-            float l;
+            float l, r;
+            r = ( 1.0f + pan ) / 2.0f;
 
             if ( inchannels == 1 ) {
                 l            = 1.0f - r;

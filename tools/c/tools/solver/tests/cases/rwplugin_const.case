@@ -1,0 +1,8 @@
+# ClimaxP1AtomicDataDestructor: the const accessor CLIMAXP1_ATOMIC_CONST_DATA replaced by its plain twin; the
+# solver must find the const-accessor row of solver.tsv again.
+unit main/climax/RwPlugin
+function ClimaxP1AtomicDataDestructor__FPvii
+expect verdict MATCH
+expect winner const-accessor
+find: if ( CLIMAXP1_ATOMIC_CONST_DATA( atomic )->item != NULL ) {
+replace: if ( CLIMAXP1_ATOMIC_DATA( atomic )->item != NULL ) {
