@@ -59,7 +59,7 @@ extern void _rxGCResEntryWaitDone(RwResEntry* resEntry);
  * it is between and how far). Retail's copy of Gormiti's _rxGCInstanceMorphUpdate, which has one
  * parameter less; its unit is not split yet.
  */
-extern void fn_802DC4B8(RpGeometry* geometry, RxGameCubeVertexBuffer* vbHeader, RpInterpolator* interpolator);
+extern void _rxGCInstanceMorphUpdate(RpGeometry* geometry, RxGameCubeVertexBuffer* vbHeader, RpInterpolator* interpolator);
 
 /*
  * RxGameCubePipeData: what an all-in-one node hands its four stages: the object's instanced resource

@@ -2222,7 +2222,7 @@ header said 0x40), `game/unk_8000A040` has four unwritten functions (not five), 
   `.rodata` 0x803DA948, 0x2000 bytes, BYFOUR), `inffast.c`, `inflate.c` (`inflateReset`, `inflateInit2_`,
   `inflateInit_`, `updatewindow`, `inflate`, `inflateEnd`; `fixedtables` inlined), `inftrees.c` and `zutil.c`
   (`zcalloc`, `zcfree`). Unreferenced functions and data (`inflateSync`, `zError`, `inflate_copyright`...) are
-  dead-stripped. Unit names are zlib's. `fn_801CCA78` onward is another library (called from game code).
+  dead-stripped. Unit names are zlib's. `GetParent` onward is another library (called from game code).
 - **No deflate.** The cluster at 0x801B4354 once listed as "zlib deflate side" is not zlib: it is Climax engine
   C++ (an `__sinit` registering a global object with a vtable at 0x80428424, and a stream class whose
   0x801B4464 calls `inflateInit_(strm, "1.2.3", 0x38)`, then `inflate`/`inflateEnd`). No deflate code is linked.
@@ -2347,7 +2347,7 @@ all `Matching` there; `WPADEncrypt.c` is version-independent), adapted to this p
   `SDP_SetTraceLevel`, `btm_remove_acl`, `bta_sys_set_trace_level`).
 - **Names now confirmed:** `WPADiClearMemBlock` and `WPADWriteExtReg` (recorded as invented in sdk-wpad-2) are the
   names in the R4QK01 `WPADMem.c`.
-- **Open items.** `fn_80280A60` (WPAD.c; stamps the channel's last-input time) has no reference name. The WUD
+- **Open items.** `WPADResetAutoSleepTimeCount` (WPAD.c; stamps the channel's last-input time) has no reference name. The WUD
   functions without a retail copy carry R4QK01 names that this binary cannot confirm. `WPADVSStatus` keeps the
   reference's placeholder member names.
 - **KPAD closed from the R4QK01 `KPAD.c`.** `calc_obj_horizon` (inlined into `read_kpad_dpd`) keeps the square root
@@ -3279,9 +3279,6 @@ lyt_window (Matching).
   adds the array's byte count first, then `size`. The current spelling reproduces Gormiti's `-O0` code; every
   accumulation spelling, the accessors in the Debug form, the accessors' definition order and every compiler version
   (`flagsweep`) are ruled out.
-- `climax/RwPlugin`: 14 of 16 functions exact. `ClimaxP1AtomicDataDestructor` 93.89%: retail reloads the item pointer
-  after the null test (schedule; a macro and a local data pointer keep it in one register). `ClimaxP1EffectPluginAttach`
-  99.84% (1 row): one `subf` with swapped operands, the `==` test of the inlined atomic attach.
 - `fmod/fmod_dsp_resampler`: 8 of 9 functions exact; `DSPResampler::execute` 99.56% (11 rows), wall register/schedule: in
   the two position-wrap tails retail reloads `mNoDMA` after the loop-flag test. Reading `mNoDMA` through a pointer to
   const `DSPResampler` in either tail makes it exact (a const read is its own expression to the common-subexpression
@@ -3307,8 +3304,14 @@ lyt_window (Matching).
   exact; declaring `j` before `i` in the helper closes `SkinGeometryRead` and opens `SkinAtomicRead`'s, so neither
   form is kept.
 - `climax/Localisation`: 7 of 14 functions exact; `fn_801D197C`, `unk_StringTable::fn_801D1CFC`, `fn_801D207C`,
-  `fn_801D22E0`, `fn_801D2554`, `fn_801D2630` and `fn_801D26E0` are open; reason not yet recorded (no function header
-  in the source gives one).
+  `fn_801D22E0`, `fn_801D2554`, `fn_801D2630` and `fn_801D26E0` are open (93.0% to 98.6%); reason not yet recorded
+  (no function header in the source gives one). The source carries spellings that move scores but are not yet
+  justified by evidence and must be checked against the reader test before any of them counts: the `bool loaded`
+  temporary in `fn_801D26E0`, the `hdr` copy of `header` and the late `swapped`/`i` declarations in
+  `unk_StringTable::fn_801D1CFC`, the late `strings` declaration in `fn_801D197C`, `header = NULL` written at the two
+  call sites instead of in the constructor, and the dropped `text = NULL` before the search loop of `FindString`.
+- `fmod/fmod_musicengine`: scaffold only (0 of 38 functions); unit name and boundary from the Gormiti link map
+  (`fmod_event.a fmod_musicengine.obj`, 0x803AA228-0x803AC1EC), parked and linked from retail asm.
 - Invented names of the `integrate/antigravity2` units (marked at the code or the declaration): `CHANNELI_FLAG_0x1`,
   `CHANNELI_FLAG_0x2`, `SOUNDI_CHANNELMASK_ALLMONO`/`_ALLSTEREO`, `EVENTCATEGORYI_MAXPLAYBACKS_*`,
   `EVENTCATEGORYI_PATH_LENGTH`, `EVENTCATEGORYI_FILEVERSION_MAXPLAYBACKS`, `EVENT_CATEGORY_MASTER`/`_MUSIC`,
@@ -5043,7 +5046,7 @@ list as statics with the locals `result` and `offset`; the `= 0` on the five glo
   in the table's order (28 `CYCLICPIPELINE`, 34 `FRAGMENTEDPIPELINE`, 36 `INVALIDENTRYPOINT`, 40
   `NODETOOMANYCLUSTERSOFINTEREST`, 41 `NODETOOMANYOUTPUTS`, 42 `PIPELINETOOMANYNODES`, 52 `UNLOCKEDPIPE`), not read
   from a value table: unconfirmed until the table's numbering is read.
-- **Placeholder function names kept (not renamed).** `sibling.exe of` finds no counterpart for `fn_80295AA4`
+- **Placeholder function names kept (not renamed).** `sibling.exe of` finds no counterpart for `RwImageSetPath`
   (Gormiti `RwImageSetPath`), `fn_80295B94` (`ImagePathForAllFullNames`), `fn_802966AC` (`ImageConvertDepth`) and
   `fn_8029C13C` (`PipelineTopSort`), and only a seq-size pair for `fn_8029BEF0` (`_NodeCreate`), so they are not
   renamed; size and order in `baimage.obj` and `p2define.obj` agree with the names given in the comments at the code.

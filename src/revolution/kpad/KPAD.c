@@ -191,11 +191,11 @@ static void reset_kpad(KPADInsideStatus* kp) {
 } // 0x802780C0
 
 /*
- * fn_80278290
+ * KPADEnableAimingMode
  *
  * Raises two flags of a controller (purpose unknown).
  */
-void fn_80278290(s32 chan) {
+void KPADEnableAimingMode(s32 chan) {
     inside_kpads[chan].field_0x55C = TRUE;
     inside_kpads[chan].field_0x55D = TRUE;
 } // 0x80278290

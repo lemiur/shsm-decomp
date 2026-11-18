@@ -4,7 +4,7 @@
 // Retail is the Jun 2009 SDK (0x4302_145): the control blocks, the command queue and several callbacks differ from
 // the references.
 //
-// fn_80280A60 is the one function whose name no evidence gives.
+// WPADResetAutoSleepTimeCount is the one function whose name no evidence gives.
 #include <revolution/wpad/__wpad.h>
 #include <revolution/sc.h>
 #include <revolution/wud.h>
@@ -1464,7 +1464,7 @@ void WPADSetAutoSleepTime(u8 minute) {
 } // 0x80280A20
 
 // Name unknown (called from game code): stamps the channel's last-input time, which feeds the auto-sleep timer.
-void fn_80280A60(s32 chan) {
+void WPADResetAutoSleepTimeCount(s32 chan) {
     WPADControlBlock* cb = _wpdcb[chan];
     BOOL enabled = OSDisableInterrupts();
 

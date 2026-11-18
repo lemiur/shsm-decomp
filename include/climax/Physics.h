@@ -74,10 +74,10 @@ void    fn_802FA9D4( unk_RwpBody* body );                                   // d
 void    fn_802FAB10( unk_RwpBody* body );
 void    fn_80310778( unk_RwpShape* shape, float value );
 void    fn_80310880( unk_RwpShape* shape, float value );
-void    fn_803208C0( unk_RwpWorld* world, unk_RwpBody* body, int set );     // sets or clears the body's bit
-void    fn_80320A44( unk_RwpWorld* world, unk_RwpBody* body );
-void    fn_80320B48( unk_RwpWorld* world, unk_RwpBody* body );
-void    fn_80320C14( unk_RwpWorld* world, unk_RwpBody* body, u16 group );
+void    RwpMgrSetMoving( unk_RwpWorld* world, unk_RwpBody* body, int set );     // sets or clears the body's bit
+void    RwpMgrActivate( unk_RwpWorld* world, unk_RwpBody* body );
+void    RwpMgrDeactivate( unk_RwpWorld* world, unk_RwpBody* body );
+void    RwpMgrSetGroup( unk_RwpWorld* world, unk_RwpBody* body, u16 group );
 void    fn_8032110C( unk_RwpBody* body, int arg );
 }
 

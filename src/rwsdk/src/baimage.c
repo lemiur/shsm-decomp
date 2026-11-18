@@ -414,7 +414,7 @@ RwImage* RwImageApplyMask(RwImage* image, const RwImage* mask) {
 
 // Gormiti name: RwImageSetPath (same size 0xF0 and position in baimage.obj; the symbol keeps its placeholder because
 // sibling.exe pairs it with no counterpart).
-const RwChar* fn_80295AA4(const RwChar* path) {
+const RwChar* RwImageSetPath(const RwChar* path) {
     RwInt32 newPathLength;
 
     newPathLength = (RwInt32)rwstrlen(path) + 1;

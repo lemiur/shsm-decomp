@@ -475,8 +475,11 @@ static RwStream* SkinGeometryWrite(RwStream* stream, RwInt32 binaryLength, const
  * stream.
  *
  * Not exact (99.71%): the inlined SkinFindMaxWeights takes its two loop counters in swapped
- * registers (register wall; SkinAtomicRead's copy of the same inline is exact). Declaring j before i
- * in the helper closes this function and opens SkinAtomicRead's, so neither form is kept.
+ * registers (register wall). Retail's two copies want opposite orders, which the helper alone cannot
+ * give: SkinGeometryRead's inner counter is r5 and its outer r4, SkinAtomicRead's inner r4 and its
+ * outer r5. Declaring j before i closes this function and opens SkinAtomicRead's, so neither form is
+ * kept; closing both needs SkinAtomicRead's call-site context to differ from this one by one more live
+ * value, which no evidenced spelling supplies.
  */
 static RwStream* SkinGeometryRead(RwStream* stream, RwInt32 binaryLength, void* object,
                                   RwInt32 offsetInObject, RwInt32 sizeInObject) {

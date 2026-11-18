@@ -17,7 +17,7 @@ Counts cover functions linked from source (units marked `Matching` in `configure
 | bytes matched (linked from source, excluding `ORIGINAL-ASM`) | 5289 / 13922 | 1301960 / 3974484 |
 | `ORIGINAL-ASM` (linked, listed apart, outside both counts and totals) | 116 | 28536 |
 | linked from source in total (objdiff "complete") | 5405 | 1330496 |
-| `Matching` units | 589 / 1377 | |
+| `Matching` units | 589 / 1376 | |
 <!-- ledger:end numbers -->
 
 Totals exclude the `ORIGINAL-ASM` functions (<!-- ledger:begin gross -->14038 functions and 4003020 code bytes<!-- ledger:end gross --> in all, counting the dtk
@@ -2428,7 +2428,7 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `revolution/vi/vi3in1` | `__VISetRevolutionModeSimple` | 0x8022C550 | 1196 | matched |  |
 | `revolution/kpad/KPAD` | `KPADSetPosParam` | 0x802780A0 | 28 | matched |  |
 | `revolution/kpad/KPAD` | `reset_kpad` | 0x802780C0 | 464 | matched |  |
-| `revolution/kpad/KPAD` | `fn_80278290` | 0x80278290 | 32 | matched | placeholder |
+| `revolution/kpad/KPAD` | `KPADEnableAimingMode` | 0x80278290 | 32 | matched |  |
 | `revolution/kpad/KPAD` | `calc_button_repeat` | 0x802782B0 | 416 | matched |  |
 | `revolution/kpad/KPAD` | `read_kpad_button` | 0x80278450 | 160 | matched |  |
 | `revolution/kpad/KPAD` | `calc_acc` | 0x802784F0 | 180 | matched |  |
@@ -2509,7 +2509,7 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `revolution/wpad/WPAD` | `DisconnectCallback` | 0x80280930 | 36 | matched |  |
 | `revolution/wpad/WPAD` | `WPADDisconnect` | 0x80280960 | 192 | matched |  |
 | `revolution/wpad/WPAD` | `WPADSetAutoSleepTime` | 0x80280A20 | 52 | matched |  |
-| `revolution/wpad/WPAD` | `fn_80280A60` | 0x80280A60 | 88 | matched | placeholder |
+| `revolution/wpad/WPAD` | `WPADResetAutoSleepTimeCount` | 0x80280A60 | 88 | matched |  |
 | `revolution/wpad/WPAD` | `WPADProbe` | 0x80280AC0 | 140 | matched |  |
 | `revolution/wpad/WPAD` | `WPADSetSamplingCallback` | 0x80280B50 | 136 | matched |  |
 | `revolution/wpad/WPAD` | `WPADSetConnectCallback` | 0x80280BE0 | 136 | matched |  |
@@ -3319,7 +3319,7 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `rwsdk/src/baimage` | `RwImageFreePixels` | 0x80295494 | 88 | matched |  |
 | `rwsdk/src/baimage` | `RwImageMakeMask` | 0x802954EC | 216 | matched |  |
 | `rwsdk/src/baimage` | `RwImageApplyMask` | 0x802955C4 | 1248 | matched |  |
-| `rwsdk/src/baimage` | `fn_80295AA4` | 0x80295AA4 | 240 | matched | placeholder |
+| `rwsdk/src/baimage` | `RwImageSetPath` | 0x80295AA4 | 240 | matched |  |
 | `rwsdk/src/baimage` | `fn_80295B94` | 0x80295B94 | 816 | matched | placeholder |
 | `rwsdk/src/baimage` | `ImageAttempRead` | 0x80295EC4 | 104 | matched |  |
 | `rwsdk/src/baimage` | `RwImageRead` | 0x80295F2C | 376 | matched |  |
@@ -3644,7 +3644,7 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `rwsdk/plugin/dmorph/dmphintp` | `_rpDMorphAtomicPluginAttach` | 0x802BA66C | 120 | matched |  |
 | `rwsdk/plugin/dmorph/dmphintp` | `RpDMorphAtomicGetDMorphValues` | 0x802BA6E4 | 184 | matched |  |
 | `rwsdk/plugin/dmorph/dmphintp` | `RpDMorphAtomicSetAnimation` | 0x802BA79C | 664 | matched |  |
-| `rwsdk/plugin/dmorph/dmphintp` | `fn_802BAA34` | 0x802BAA34 | 36 | matched | placeholder |
+| `rwsdk/plugin/dmorph/dmphintp` | `RpDMorphAtomicGetAnimation` | 0x802BAA34 | 36 | matched |  |
 | `rwsdk/plugin/dmorph/dmphintp` | `RpDMorphAtomicAddTime` | 0x802BAA58 | 392 | matched |  |
 | `rwsdk/plugin/dmorph/dmphintp` | `RpDMorphAtomicSetAnimLoopCallBack` | 0x802BABE0 | 28 | matched |  |
 | `rwsdk/plugin/dmorph/rpdmorph` | `DMorphOpen` | 0x802BABFC | 20 | matched |  |
@@ -5042,6 +5042,44 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `fmod/fmod_eventuserproperty` | `init__Q24FMOD12UserPropertyFPQ24FMOD12UserProperty` | 0x803A9EE0 | 160 | matched |  |
 | `fmod/fmod_eventuserproperty` | `release__Q24FMOD12UserPropertyFv` | 0x803A9F80 | 172 | matched |  |
 | `fmod/fmod_eventuserproperty` | `load__Q24FMOD12UserPropertyFPQ24FMOD4FileUi` | 0x803AA02C | 508 | matched |  |
+| `fmod/fmod_musicengine` | `getStartSegment__Q24FMOD30@unnamed@fmod_musicengine_cpp@FUiRCQ24FMOD10MusicStatePUi` | 0x803AA228 | 448 | parked, not written |  |
+| `fmod/fmod_musicengine` | `addTheme__Q24FMOD17MusicStatePrimaryFUiPUi` | 0x803AA3E8 | 120 | parked, not written |  |
+| `fmod/fmod_musicengine` | `removeTheme__Q24FMOD17MusicStatePrimaryFUi` | 0x803AA460 | 140 | parked, not written |  |
+| `fmod/fmod_musicengine` | `isCueActive__Q24FMOD17MusicStatePrimaryCFUi` | 0x803AA4EC | 88 | parked, not written |  |
+| `fmod/fmod_musicengine` | `getThemeStackTop__Q24FMOD17MusicStatePrimaryCFv` | 0x803AA544 | 76 | parked, not written |  |
+| `fmod/fmod_musicengine` | `getSceneStackTop__Q24FMOD17MusicStatePrimaryCFv` | 0x803AA590 | 8 | parked, not written |  |
+| `fmod/fmod_musicengine` | `addTheme__Q24FMOD19MusicStateSecondaryFUiPUi` | 0x803AA598 | 24 | parked, not written |  |
+| `fmod/fmod_musicengine` | `removeTheme__Q24FMOD19MusicStateSecondaryFUi` | 0x803AA5B0 | 28 | parked, not written |  |
+| `fmod/fmod_musicengine` | `isCueActive__Q24FMOD19MusicStateSecondaryCFUi` | 0x803AA5CC | 36 | parked, not written |  |
+| `fmod/fmod_musicengine` | `getThemeStackTop__Q24FMOD19MusicStateSecondaryCFv` | 0x803AA5F0 | 8 | parked, not written |  |
+| `fmod/fmod_musicengine` | `getSceneStackTop__Q24FMOD19MusicStateSecondaryCFv` | 0x803AA5F8 | 36 | parked, not written |  |
+| `fmod/fmod_musicengine` | `getCurrentBeat__Q24FMOD9MusicSyncCFUxPiPi` | 0x803AA61C | 396 | parked, not written |  |
+| `fmod/fmod_musicengine` | `getNextSyncTime__Q24FMOD9MusicSyncCFUxQ34FMOD5Theme9SyncStyle` | 0x803AA7A8 | 188 | parked, not written |  |
+| `fmod/fmod_musicengine` | `__ct__Q24FMOD11MusicEngineFv` | 0x803AA864 | 168 | parked, not written |  |
+| `fmod/fmod_musicengine` | `init__Q24FMOD11MusicEngineFPQ24FMOD6SystemUiPQ24FMOD13MusicSettings` | 0x803AA90C | 508 | parked, not written |  |
+| `fmod/fmod_musicengine` | `release__Q24FMOD11MusicEngineFv` | 0x803AAB08 | 324 | parked, not written |  |
+| `fmod/fmod_musicengine` | `start__Q24FMOD11MusicEngineFv` | 0x803AAC4C | 16 | parked, not written |  |
+| `fmod/fmod_musicengine` | `stop__Q24FMOD11MusicEngineFv` | 0x803AAC5C | 128 | parked, not written |  |
+| `fmod/fmod_musicengine` | `reset__Q24FMOD11MusicEngineFv` | 0x803AACDC | 400 | parked, not written |  |
+| `fmod/fmod_musicengine` | `setVolume__Q24FMOD11MusicEngineFf` | 0x803AAE6C | 56 | parked, not written |  |
+| `fmod/fmod_musicengine` | `getVolume__Q24FMOD11MusicEngineFPf` | 0x803AAEA4 | 56 | parked, not written |  |
+| `fmod/fmod_musicengine` | `setPaused__Q24FMOD11MusicEngineFb` | 0x803AAEDC | 144 | parked, not written |  |
+| `fmod/fmod_musicengine` | `getPaused__Q24FMOD11MusicEngineFPb` | 0x803AAF6C | 32 | parked, not written |  |
+| `fmod/fmod_musicengine` | `setMute__Q24FMOD11MusicEngineFb` | 0x803AAF8C | 56 | parked, not written |  |
+| `fmod/fmod_musicengine` | `getMute__Q24FMOD11MusicEngineFPb` | 0x803AAFC4 | 56 | parked, not written |  |
+| `fmod/fmod_musicengine` | `getInfo__Q24FMOD11MusicEngineFP15FMOD_MUSIC_INFO` | 0x803AAFFC | 144 | parked, not written |  |
+| `fmod/fmod_musicengine` | `setCallback__Q24FMOD11MusicEngineFPF23FMOD_MUSIC_CALLBACKTYPEPvPvPv_11FMOD_RESULTPv` | 0x803AB08C | 16 | parked, not written |  |
+| `fmod/fmod_musicengine` | `update__Q24FMOD11MusicEngineFv` | 0x803AB09C | 784 | parked, not written |  |
+| `fmod/fmod_musicengine` | `beginTheme__Q24FMOD11MusicEngineFUiPQ24FMOD15ThemeStackEntry` | 0x803AB3AC | 1028 | parked, not written |  |
+| `fmod/fmod_musicengine` | `endTheme__Q24FMOD11MusicEngineFRCQ24FMOD15ThemeStackEntry` | 0x803AB7B0 | 416 | parked, not written |  |
+| `fmod/fmod_musicengine` | `beginCue__Q24FMOD11MusicEngineFUi` | 0x803AB950 | 248 | parked, not written |  |
+| `fmod/fmod_musicengine` | `endCue__Q24FMOD11MusicEngineFUi` | 0x803ABA48 | 80 | parked, not written |  |
+| `fmod/fmod_musicengine` | `beginDefaultTransition__Q24FMOD11MusicEngineFUi` | 0x803ABA98 | 892 | parked, not written |  |
+| `fmod/fmod_musicengine` | `findSecondaryPlayerWithTheme__Q24FMOD11MusicEngineFUi` | 0x803ABE14 | 216 | parked, not written |  |
+| `fmod/fmod_musicengine` | `updatePosition__Q24FMOD11MusicEngineFUiUi` | 0x803ABEEC | 8 | parked, not written |  |
+| `fmod/fmod_musicengine` | `startSegment__Q24FMOD11MusicEngineFUi` | 0x803ABEF4 | 76 | parked, not written |  |
+| `fmod/fmod_musicengine` | `endSegment__Q24FMOD11MusicEngineFUi` | 0x803ABF40 | 76 | parked, not written |  |
+| `fmod/fmod_musicengine` | `getNextSegment__Q34FMOD11MusicEngine11PlayerEntryCFUiRCQ24FMOD10LinkFilterPUi` | 0x803ABF8C | 608 | parked, not written |  |
 | `fmod/fmod_musicsystemi` | `isActive__Q24FMOD12MusicPromptIFPb` | 0x803AC1EC | 32 | matched |  |
 | `fmod/fmod_musicsystemi` | `getMemoryInfo__Q24FMOD12MusicPromptIFUiUiPUiPUi` | 0x803AC20C | 8 | matched |  |
 | `fmod/fmod_musicsystemi` | `release__Q24FMOD9CuePromptFv` | 0x803AC214 | 64 | matched |  |
@@ -5774,18 +5812,18 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `climax/ImageCodec` (unit name unconfirmed) | `fn_801B6E70__FPC7RwImage` | 0x801B6E70 | 88 | matched | placeholder |
 | `climax/ImageCodec` (unit name unconfirmed) | `fn_801B6EC8__FP7RwImagePv` | 0x801B6EC8 | 3284 | matched | placeholder |
 | `climax/ImageCodec` (unit name unconfirmed) | `fn_801B7B9C__FPv` | 0x801B7B9C | 2860 | matched | placeholder |
-| `climax/Localisation` (unit name unconfirmed) | `fn_801D197C` | 0x801D197C | 700 | parked, 91.2% | placeholder |
+| `climax/Localisation` (unit name unconfirmed) | `fn_801D197C` | 0x801D197C | 700 | parked, 98.6% | placeholder |
 | `climax/Localisation` (unit name unconfirmed) | `fn_800CC364__15unk_StringTableFPviPCciUl` | 0x801D1C38 | 196 | parked, 100% | placeholder |
-| `climax/Localisation` (unit name unconfirmed) | `fn_801D1CFC__15unk_StringTableFPv` | 0x801D1CFC | 540 | parked, 77.8% | placeholder |
+| `climax/Localisation` (unit name unconfirmed) | `fn_801D1CFC__15unk_StringTableFPv` | 0x801D1CFC | 540 | parked, 93.0% | placeholder |
 | `climax/Localisation` (unit name unconfirmed) | `__dt__11unk_List<i>Fv` | 0x801D1F18 | 216 | parked, 100% | placeholder |
 | `climax/Localisation` (unit name unconfirmed) | `fn_801D1FF0` | 0x801D1FF0 | 36 | parked, 100% | placeholder |
 | `climax/Localisation` (unit name unconfirmed) | `fn_801D2014` | 0x801D2014 | 44 | parked, 100% | placeholder |
 | `climax/Localisation` (unit name unconfirmed) | `fn_801D2040` | 0x801D2040 | 60 | parked, 100% | placeholder |
 | `climax/Localisation` (unit name unconfirmed) | `fn_801D207C__FPCcPcPCci` | 0x801D207C | 612 | parked, 97.6% | placeholder |
-| `climax/Localisation` (unit name unconfirmed) | `fn_801D22E0` | 0x801D22E0 | 628 | parked, 90.1% | placeholder |
-| `climax/Localisation` (unit name unconfirmed) | `fn_801D2554` | 0x801D2554 | 220 | parked, 89.7% | placeholder |
-| `climax/Localisation` (unit name unconfirmed) | `fn_801D2630` | 0x801D2630 | 176 | parked, 93.2% | placeholder |
-| `climax/Localisation` (unit name unconfirmed) | `fn_801D26E0` | 0x801D26E0 | 380 | parked, 95.9% | placeholder |
+| `climax/Localisation` (unit name unconfirmed) | `fn_801D22E0` | 0x801D22E0 | 628 | parked, 93.2% | placeholder |
+| `climax/Localisation` (unit name unconfirmed) | `fn_801D2554` | 0x801D2554 | 220 | parked, 94.9% | placeholder |
+| `climax/Localisation` (unit name unconfirmed) | `fn_801D2630` | 0x801D2630 | 176 | parked, 95.6% | placeholder |
+| `climax/Localisation` (unit name unconfirmed) | `fn_801D26E0` | 0x801D26E0 | 380 | parked, 98.6% | placeholder |
 | `climax/Localisation` (unit name unconfirmed) | `__sinit_\Localisation_cpp` | 0x801D285C | 56 | parked, 100% | placeholder (compiler-generated name) |
 | `climax/Localisation` (unit name unconfirmed) | `__dt__28unk_List<P15unk_StringTable>Fv` | 0x801D2894 | 216 | parked, 100% | placeholder |
 | `climax/GeometryData` | `RpGeometryGetData__FP10RpGeometry` | 0x801D2E00 | 184 | matched |  |

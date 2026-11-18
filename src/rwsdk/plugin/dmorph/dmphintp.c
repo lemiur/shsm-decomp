@@ -417,11 +417,11 @@ RpAtomic* RpDMorphAtomicSetAnimation(RpAtomic* atomic, RpDMorphAnimation* animat
 } // 0x802BA79C
 
 /*
- * ==================== fn_802BAA34 ====================
+ * ==================== RpDMorphAtomicGetAnimation ====================
  * The animation the atomic plays, NULL when it has no interpolator. Name not known: retail has this accessor
  * where Gormiti has RpDMorphAtomicInitialize (callers: fn_800231D4, fn_80023C64, fn_80023E60).
  */
-RpDMorphAnimation* fn_802BAA34(RpAtomic* atomic) {
+RpDMorphAnimation* RpDMorphAtomicGetAnimation(RpAtomic* atomic) {
     rpDMorphAtomicData* atomicData;
 
     atomicData = RPDMORPHATOMICGETDATA(atomic);

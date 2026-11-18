@@ -49,8 +49,7 @@ struct unk_StringHeader {
 class unk_StringTable : public unk_FileLoadCallback {
 public:
                     unk_StringTable( const char* fileName ) :
-                        name( fn_801B67FC( fileName, 0 ) ),
-                        header( NULL ) {}
+                        name( fn_801B67FC( fileName, 0 ) ) {}
 
     /* Takes the file's contents once it has been read. */
     virtual void    fn_800CC364( void* data, int a, const char* fileName, int b, u32 size );

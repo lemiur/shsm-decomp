@@ -26,7 +26,7 @@ file.
 
 ## Status
 
-As of 2026-11-16 (the live figures are in [`docs/progress.md`](docs/progress.md)):
+As of 2026-11-18 (the live figures are in [`docs/progress.md`](docs/progress.md)):
 
 | measure | functions | code bytes |
 |---|---|---|
@@ -34,10 +34,10 @@ As of 2026-11-16 (the live figures are in [`docs/progress.md`](docs/progress.md)
 | linked from source (byte-identical, excluding hand-written assembly) | 5,289 of 13,922 | 1,301,960 of 3,974,484 |
 | hand-written assembly in the original, listed apart | 116 | 28,536 |
 
-589 of 1,377 units are `Matching`, that is, linked from source into the gated build. Every other unit is linked
+589 of 1,376 units are `Matching`, that is, linked from source into the gated build. Every other unit is linked
 from the original bytes (see [Layout](#repository-layout) and `AGENTS.md`, "Parking mechanism").
 
-Work so far, by library (functions matched, from `build/tools/status.exe` on 2026-11-17; the address ranges that
+Work so far, by library (functions matched, from `build/tools/status.exe` on 2026-11-18; the address ranges that
 assign functions to libraries are approximate, see `docs/library_map.md`):
 
 | library | what it is | functions matched |

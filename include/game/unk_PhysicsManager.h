@@ -28,7 +28,7 @@ public:
                             }
 
     // defined in 0x8000F0F4, 0x8000F278, 0x8000F5E4 and 0x8000F6AC, unit not yet reconstructed:
-    // fn_8000F5E4 adds body to space's world (fn_8031FF6C)
+    // fn_8000F5E4 adds body to space's world (RwpMgrInsertObj)
     void                    fn_8000F0F4( unk_RwpBody* body, void* arg );
     void                    fn_8000F278( unk_RwpBody* body );
     void                    fn_8000F5E4( unk_RwpSpace* space, unk_RwpBody* body, int arg, u32 flags );

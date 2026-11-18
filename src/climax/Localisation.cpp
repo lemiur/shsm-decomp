@@ -64,10 +64,11 @@ file is "BootStrings.<language>"; in the US region a name whose last character i
 extern "C" void fn_801D197C() {
     char            path[256];
     const char*     file;
-    const char*     strings = "BootStrings";
     unk_Language*   language;
 
     fn_801D26E0();
+
+    const char*     strings = "BootStrings";
 
     language = &GetCurrentLanguage();
     file = NULL;
@@ -97,6 +98,7 @@ extern "C" void fn_801D197C() {
         if ( table == NULL ) {
             table = new( GAME_HEAP, GAME_HEAP_FLAGS ) unk_StringTable( file );
             language = &GetCurrentLanguage();
+            table->header = NULL;
             table->fn_801D1CFC( fn_801B3C40( file, NULL, 0 ) );
             fn_801CE6B8( language->japanese );
             lbl_804908B8.Push( table );
@@ -144,14 +146,16 @@ Format: RenderEclipse-Tools FileFormats.md, String Table; the loader never tests
 */
 // 0x801D1CFC
 void unk_StringTable::fn_801D1CFC( void* data ) {
-    unk_List< int >     swapped;
-    int                 i;
+    unk_StringHeader* hdr = (unk_StringHeader*)data;
 
-    header = (unk_StringHeader*)data;
-    RwMemNative32( &header->field_0x0, 4 );
-    RwMemNative32( &header->count, 4 );
-    entries = (unk_StringEntry*)( header + 1 );
+    header = hdr;
+    RwMemNative32( &hdr->field_0x0, 4 );
+    RwMemNative32( &hdr->count, 4 );
+    entries = (unk_StringEntry*)( hdr + 1 );
     texts = (wchar_t*)( entries + header->count );
+
+    unk_List< int > swapped;
+    int             i;
 
     for ( i = 0; i < (int)header->count; i++ ) {
         unk_StringEntry* entry = &entries[i];
@@ -354,6 +358,7 @@ extern "C" void fn_801D22E0() {
         if ( table == NULL ) {
             table = new( GAME_HEAP, GAME_HEAP_FLAGS ) unk_StringTable( file );
             language = &GetCurrentLanguage();
+            table->header = NULL;
             table->fn_801B250C( file, table, 0.5f );
             fn_801CE6B8( language->japanese );
             lbl_804908B8.Push( table );
@@ -383,7 +388,6 @@ static inline const wchar_t* FindString( u32 id ) {
             } else {
                 int i;
 
-                text = NULL;
                 for ( i = 0; i < (int)table->header->count; i++ ) {
                     if ( id == table->entries[i].id ) {
                         text = table->entries[i].text;
@@ -414,7 +418,7 @@ extern "C" const wchar_t* fn_801D2554( const char* name, int a ) {
     while ( *name != '\0' ) {
         char c = *name++;
 
-        c &= 0xDF;
+        c &= ~0x20;
         hash = ( hash << 5 ) + hash + c;
     }
 
@@ -464,7 +468,8 @@ extern "C" void fn_801D26E0() {
     if ( fn_801B3538( lbl_805287AC, 0, 0, 1 ) ) {
         unk_XmlNode* root = NULL;
 
-        if ( fn_801B6D50( &root, lbl_805287AC ) ) {
+        bool loaded = fn_801B6D50( &root, lbl_805287AC ) != 0;
+        if ( loaded ) {
             unk_XmlNode* config = fn_801CCC58( root, "CONFIG" );
 
             if ( config != NULL ) {

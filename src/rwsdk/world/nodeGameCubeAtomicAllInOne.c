@@ -319,7 +319,7 @@ void* _rxGCAtomicDefaultReinstanceCallback(void* object, RxGameCubePipeData* pip
 
     if (geometry->numMorphTargets != 1 && (atomic->interpolator.flags & rpINTERPOLATORDIRTYINSTANCE)) {
         rxGCVertexBufferWaitDone(vbHeader);
-        fn_802DC4B8(geometry, vbHeader, &atomic->interpolator);
+        _rxGCInstanceMorphUpdate(geometry, vbHeader, &atomic->interpolator);
         atomic->interpolator.flags &= ~rpINTERPOLATORDIRTYINSTANCE;
     }
 

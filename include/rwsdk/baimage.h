@@ -56,7 +56,7 @@ RwImage* RwImageAllocatePixels(RwImage* image);
 RwImage* RwImageFreePixels(RwImage* image);
 RwImage* RwImageMakeMask(RwImage* image);
 RwImage* RwImageApplyMask(RwImage* image, const RwImage* mask);
-const RwChar* fn_80295AA4(const RwChar* path);
+const RwChar* RwImageSetPath(const RwChar* path);
 RwChar* fn_80295B94(const RwChar* filename, RwInt32 extraBytes,
                     RwChar* (*callBack)(const RwChar*, void*), void* data);
 RwChar* ImageAttempRead(const RwChar* pathname, void* data);

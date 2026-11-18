@@ -88,12 +88,12 @@ void CCollisionCapsule::fn_801A73A8( const unk_AttributePacket& packet ) {
     unk_AttributeCommandIterator sys( packet, lbl_805297E8 );
     while ( !sys.IsFinished() ) {
         if ( sys->id == SYSCMD_SetMatrix ) {
-            fn_80320B48( body->world, body );
+            RwpMgrDeactivate( body->world, body );
             fn_8032110C( body, 0 );
             fn_802FAB10( body );
-            fn_803208C0( body->world, body, 0 );
-            fn_80320A44( body->world, body );
-            fn_803208C0( body->world, body, 1 );
+            RwpMgrSetMoving( body->world, body, 0 );
+            RwpMgrActivate( body->world, body );
+            RwpMgrSetMoving( body->world, body, 1 );
         }
         ++sys;
     }
@@ -131,7 +131,7 @@ u32 CCollisionCapsule::fn_8000CD40( u32 newGroup ) {
     u32 oldGroup = group;
     group = newGroup;
     if ( body->world != NULL ) {
-        fn_80320C14( body->world, body, newGroup );
+        RwpMgrSetGroup( body->world, body, newGroup );
     }
     return oldGroup;
 }
@@ -153,7 +153,7 @@ void CCollisionCapsule::fn_8000CD90( unk_RwpSpace* newSpace ) {
             }
             lbl_80529170->fn_8000F5E4( newSpace, body, -1, flags );
             lbl_80529170->fn_8000F0F4( body, field_0x44 );
-            fn_80320C14( body->world, body, group );
+            RwpMgrSetGroup( body->world, body, group );
             UpdateShape();
             world = body->world;
             space = newSpace;
@@ -174,7 +174,7 @@ Takes the body out of its world and clears its contacts.
 void CCollisionCapsule::fn_8000CEB8( unk_RwpSpace* ) {
     if ( world != NULL ) {
         lbl_80529170->fn_8000F278( body );
-        fn_80320C14( body->world, body, 0 );
+        RwpMgrSetGroup( body->world, body, 0 );
         lbl_80529170->fn_8000F6AC( body );
         unk_RwpContact* contact;
         unk_RwpBody* placedBody = body;

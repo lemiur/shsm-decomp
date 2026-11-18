@@ -2811,6 +2811,11 @@ fmod/fmod_eventuserproperty.cpp:
 	.text       start:0x803A9EC0 end:0x803AA228
 	.data       start:0x80452A20 end:0x80452AB0
 
+fmod/fmod_musicengine.cpp:
+	.text       start:0x803AA228 end:0x803AC1EC
+	.data       start:0x80452AB0 end:0x80452D38
+	.sdata2     start:0x8052FFD0 end:0x8052FFF8
+
 fmod/fmod_musicsystemi.cpp:
 	.text       start:0x803AC1EC end:0x803AD6B4
 	.rodata     start:0x803DE8D0 end:0x803DE920

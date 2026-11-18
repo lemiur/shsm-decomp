@@ -215,7 +215,7 @@ WPADConnectCallback KPADSetConnectCallback(s32 chan, WPADConnectCallback cb);
 
 
 /* Placeholder-named internals (purpose not yet established). */
-void fn_80278290(s32 chan);
+void KPADEnableAimingMode(s32 chan);
 void KPADSetPosPlayMode(s32 chan, KPADPlayMode mode);
 
 #ifdef __cplusplus

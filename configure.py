@@ -1109,6 +1109,7 @@ config.libs = [
             Object(NonMatching, "fmod/fmod_eventprojecti.cpp"),
             Object(Matching, "fmod/fmod_eventreverb.cpp"),
             Object(Matching, "fmod/fmod_eventuserproperty.cpp"),
+            Object(NonMatching, "fmod/fmod_musicengine.cpp"),
             Object(Matching, "fmod/fmod_musicsystemi.cpp"),
             Object(Matching, "fmod/fmod_simplemempool.cpp"),
             Object(Matching, "fmod/fmod_sounddef.cpp"),
