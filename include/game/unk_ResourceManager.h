@@ -16,4 +16,16 @@ struct unk_ResourceManager {
 
 extern unk_ResourceManager* lbl_8052A5C0;
 
+/*
+ * Reads size bytes from stream into buffer through the manager, returns the byte count read.
+ * Unit at 0x801B10AC not yet reconstructed; name and signature as the caller uses them.
+ */
+extern "C" {
+u32 fn_801B10AC( unk_ResourceManager* manager, void* stream, void* buffer, u32 size );
+// defined at 0x801B0F5C, unit not yet reconstructed; the manager argument is not read there
+u32 fn_801B0F5C( unk_ResourceManager* manager, void* obj );
+}
+// defined in 0x801B0A88, unit not yet reconstructed; the third argument is not read there
+extern "C" void fn_801B0A88( unk_ResourceManager* manager, void* handle, void* unused, int flags );
+
 #endif

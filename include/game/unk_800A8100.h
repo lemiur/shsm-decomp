@@ -7,6 +7,7 @@
 #include <revolution/types.h>
 #include <climax/AttributeHandler.h>
 #include <climax/Clump.h>
+#include <climax/Utils.h>
 #include <game/CGenericSpawner.h>
 #include <game/unk_80074138.h>
 #include <rwsdk/tool/anim/rtanim.h>
@@ -47,17 +48,19 @@ AssetTracker::CAssetList* Process( RwStream* stream, bool flag );
 
 // RenderWare (C linkage), unit not yet reconstructed (signatures by their use here)
 extern "C" {
-void            RpWorldAddClump( unk_RpWorld* world, unk_RpClump* clump );
+unk_RpWorld*     RpWorldAddClump( unk_RpWorld* world, unk_RpClump* clump );
 unk_RpHAnimHierarchy*   RpHAnimHierarchyAttach( unk_RpHAnimHierarchy* hierarchy );
 void            RpHAnimHierarchyUpdateMatrices( unk_RpHAnimHierarchy* hierarchy );
 }
 
 /*
  * A clump loaded from a named resource stream into the world. The constructor (fn_800A8100) stores
- * the vtable lbl_803E9B40; the member names are invented.
+ * the vtable __vt__12unk_800A8100 (0x803E9B40) and the clump is cloned from the one passed in; the member names are invented.
  */
 class unk_800A8100 : public unk_SpawnerResource {
 public:
+    unk_800A8100( const char* name, unk_RpClump* clump, unk_RpWorld* world, void* attachment );
+
     /* Virtual hook called with the loaded clump; empty by default (fn_800A8640). */
     virtual void    fn_800A8640( unk_RpClump* clump );
 
@@ -70,7 +73,7 @@ public:
     void*                           stream;         // 0x10, the resource stream of the named asset
     void*                           attachment;     // 0x14, attached to the clump when it is loaded
     RWS::AssetTracker::CAssetList*  assets;         // 0x18, the asset list the stream holds
-    const char*                     name;           // 0x1C, the resource name
+    char*                           name;           // 0x1C, a copy of the resource name (fn_801B67FC)
 };
 
 #endif

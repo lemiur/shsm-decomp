@@ -34,7 +34,7 @@ extern "C" {
 class unk_8009D2E4 : public CBaseBehaviour, public unk_803E8E64, public unk_80024158 {
 public:
                     unk_8009D2E4( const unk_AttributePacket& packet );
-                    unk_8009D2E4( const unk_AttributePacket& packet, bool flag );
+                    unk_8009D2E4( const unk_AttributePacket& packet, bool flag );   // 0x8009D41C, the constructor of the derived scene behaviours
     virtual void    fn_8009CB1C( unk_Msg& msg );  // override
     virtual void    fn_801A73A8( const unk_AttributePacket& packet );  // override
     virtual         ~unk_8009D2E4();  // override

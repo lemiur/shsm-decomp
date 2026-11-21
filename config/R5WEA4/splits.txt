@@ -863,6 +863,30 @@ game/CSceneObject.cpp:
 	.sbss       start:0x80529810 end:0x80529818
 	.sdata2     start:0x8052C370 end:0x8052C378
 
+game/CSequenceObject.cpp:
+	.text       start:0x800A5928 end:0x800A6A60
+	.ctors      start:0x803D8454 end:0x803D8458
+	.data       start:0x803E9620 end:0x803E9858
+	.bss        start:0x8046E8D0 end:0x8046E8E0
+	.sbss       start:0x80529818 end:0x80529820
+	.sdata2     start:0x8052C378 end:0x8052C388
+
+game/CSkyDome.cpp:
+	.text       start:0x800A6A60 end:0x800A72E4
+	.ctors      start:0x803D8458 end:0x803D845C
+	.data       start:0x803E9858 end:0x803E9960
+	.bss        start:0x8046E8E0 end:0x8046E8F0
+	.sbss       start:0x80529820 end:0x80529830
+	.sdata2     start:0x8052C388 end:0x8052C390
+
+game/CSmashableObject.cpp:
+	.text       start:0x800A72E4 end:0x800A7CF8
+	.ctors      start:0x803D845C end:0x803D8460
+	.data       start:0x803E9960 end:0x803E9A98
+	.bss        start:0x8046E8F0 end:0x8046E900
+	.sbss       start:0x80529830 end:0x80529838
+	.sdata2     start:0x8052C390 end:0x8052C3A8
+
 game/CSplineHelper.cpp:
 	.text       start:0x800A7CF8 end:0x800A8100
 	.ctors      start:0x803D8460 end:0x803D8464
@@ -871,10 +895,32 @@ game/CSplineHelper.cpp:
 	.sbss       start:0x80529838 end:0x80529840
 	.sdata2     start:0x8052C3A8 end:0x8052C3B0
 
+game/unk_800A8100.cpp:
+	.text       start:0x800A8100 end:0x800A8208
+
 game/unk_800A82E4.cpp:
 	.text       start:0x800A82E4 end:0x800A8644
 	.data       start:0x803E9B20 end:0x803E9B40
 	.sdata2     start:0x8052C3B0 end:0x8052C3B8
+
+game/CIGCBorderControl.cpp:
+	.text       start:0x800A8644 end:0x800A9064
+	.ctors      start:0x803D8464 end:0x803D8468
+	.data       start:0x803E9B50 end:0x803E9C30
+	.bss        start:0x8046E910 end:0x8046E920
+	.sdata      start:0x805272F0 end:0x805272F8
+	.sbss       start:0x80529840 end:0x80529858
+	.sdata2     start:0x8052C3B8 end:0x8052C3E0
+
+game/unk_800A9064.cpp:
+	.text       start:0x800A9064 end:0x800AAFF4
+
+game/MsgTrigger.cpp:
+	.text       start:0x800AB158 end:0x800AB27C
+	.ctors      start:0x803D8468 end:0x803D846C
+	.data       start:0x803E9DC8 end:0x803E9E38
+	.bss        start:0x8046E920 end:0x8046E930
+	.sbss       start:0x80529858 end:0x80529860
 
 game/CIGCPlayerMover.cpp:
 	.text       start:0x800AB27C end:0x800AB544
@@ -883,6 +929,108 @@ game/CIGCPlayerMover.cpp:
 	.bss        start:0x8046E930 end:0x8046E948
 	.sbss       start:0x80529860 end:0x80529870
 	.sdata2     start:0x8052C3F0 end:0x8052C3F8
+
+game/unk_IGCStream.cpp:
+	.text       start:0x800AB544 end:0x800AB754
+	.ctors      start:0x803D8470 end:0x803D8474
+	.data       start:0x803E9ED0 end:0x803E9F68
+	.bss        start:0x8046E948 end:0x8046E958
+	.sdata      start:0x80527340 end:0x80527348
+	.sbss       start:0x80529870 end:0x80529878
+
+game/unk_800ABADC.cpp:
+	.text       start:0x800ABADC end:0x800ABBDC
+
+game/unk_800ABBDC.cpp:
+	.text       start:0x800ABBDC end:0x800ABD5C
+
+game/unk_800ABD5C.cpp:
+	.text       start:0x800ABD5C end:0x800ABDA0
+
+game/unk_800ABDA0.cpp:
+	.text       start:0x800ABDA0 end:0x800ABDE4
+
+game/unk_800ABDE4.cpp:
+	.text       start:0x800ABDE4 end:0x800ABE6C
+
+game/unk_800ABE6C.cpp:
+	.text       start:0x800ABE6C end:0x800AC0D8
+
+game/unk_800AC0D8.cpp:
+	.text       start:0x800AC0D8 end:0x800AEF7C
+	.data       start:0x803EA014 end:0x803EA0F8
+	.bss        start:0x8046EA58 end:0x8046EA70
+	.sbss       start:0x80529880 end:0x80529888
+	.sdata2     start:0x8052C3F8 end:0x8052C440
+
+game/unk_800AEF7C.cpp:
+	.text       start:0x800AEF7C end:0x800AEFE4
+	.ctors      start:0x803D8474 end:0x803D8478
+
+game/unk_800AEFE4.cpp:
+	.text       start:0x800AEFE4 end:0x800AF03C
+	.sbss       start:0x80529888 end:0x80529890
+	.sdata2     start:0x8052C440 end:0x8052C448
+
+game/unk_800AF03C.cpp:
+	.text       start:0x800AF03C end:0x800AF050
+
+game/unk_800AF050.cpp:
+	.text       start:0x800AF050 end:0x800AF064
+
+game/unk_800AF064.cpp:
+	.text       start:0x800AF064 end:0x800AF098
+
+game/unk_800AF098.cpp:
+	.text       start:0x800AF098 end:0x800AF0B4
+
+game/unk_800AF0B4.cpp:
+	.text       start:0x800AF0B4 end:0x800AF100
+
+game/unk_800AF100.cpp:
+	.text       start:0x800AF100 end:0x800AF188
+
+game/unk_800AF188.cpp:
+	.text       start:0x800AF188 end:0x800AF210
+
+game/unk_800AF210.cpp:
+	.text       start:0x800AF210 end:0x800AF298
+
+game/unk_800AF298.cpp:
+	.text       start:0x800AF298 end:0x800B0C64
+	.ctors      start:0x803D8478 end:0x803D847C
+	.data       start:0x803EA0F8 end:0x803EA408
+	.bss        start:0x8046EA80 end:0x8046EA98
+	.sdata      start:0x80527358 end:0x80527380
+	.sbss       start:0x80529890 end:0x805298A0
+	.sdata2     start:0x8052C448 end:0x8052C458
+
+game/unk_800B0C64.cpp:
+	.text       start:0x800B0C64 end:0x800B0DEC
+	.ctors      start:0x803D847C end:0x803D8480
+	.bss        start:0x8046EA98 end:0x8046EB40
+	.sbss       start:0x805298A0 end:0x80529910
+
+game/unk_800B28E0.cpp:
+	.text       start:0x800B28E0 end:0x800B290C
+	.sdata      start:0x805273C8 end:0x805273CC
+
+game/unk_800B290C.cpp:
+	.text       start:0x800B290C end:0x800B2AA4
+	.sdata      start:0x805273D4 end:0x805273D8
+
+game/unk_800B2AA4.cpp:
+	.text       start:0x800B2AA4 end:0x800B41AC
+	.data       start:0x803EA5C0 end:0x803EA660
+	.sdata      start:0x805273D8 end:0x805273F8
+	.sbss       start:0x80529910 end:0x80529918
+	.sdata2     start:0x8052C4B0 end:0x8052C4C0
+
+game/unk_800B41AC.cpp:
+	.text       start:0x800B41AC end:0x800B45E0
+
+game/unk_800B6210.cpp:
+	.text       start:0x800B6210 end:0x800B63C8
 
 game/CAmbientInterferencePoint.cpp:
 	.text       start:0x800C1E48 end:0x800C2C48

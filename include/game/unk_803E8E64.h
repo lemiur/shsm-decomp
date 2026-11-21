@@ -29,7 +29,7 @@ public:
     virtual void    fn_8001750C();
     virtual bool    fn_80017504();
 
-    u8              field_0x4[0x4];
+    s32             field_0x4;
 };
 
 #endif

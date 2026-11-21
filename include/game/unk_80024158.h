@@ -29,9 +29,13 @@ public:
     // defined in 0x80024C74 and 0x80024A14, unit not yet reconstructed: the first takes a float
     // (0 from CSceneObject); the second returns the clump the object holds (its field at 0x54)
     void            fn_80024C74( float value );
+    int             fn_80024BAC();
+    void            fn_80024BB4();
     unk_RpClump*    fn_80024A14();
 
-    u8              field_0x4[0x60];   // the rest of the object, including the member at 0x5C
+    u8              field_0x4[0x38];
+    u8              field_0x3C;         // a flag set to 1 by the constructor of CSkyDome (0x800A6A60) and by CSmashableObject::fn_800A76CC; meaning not yet known
+    u8              field_0x3D[0x27];   // the rest of the object, including the member at 0x5C
 };
 
 #endif
