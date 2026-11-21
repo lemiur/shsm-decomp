@@ -5,7 +5,9 @@
 #include <game/CBaseSpawner.h>
 
 /* The resource manager behind lbl_8052A5C0 (unit at 0x801B0120 not yet reconstructed). Name invented. */
-struct unk_ResourceManager;
+struct unk_ResourceManager {
+    u32 field_0x0;      // 0x0, read by fn_80015F8C; the rest of the object is not recovered
+};
 
 extern unk_ResourceManager* lbl_8052A5C0;
 

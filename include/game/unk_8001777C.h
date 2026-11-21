@@ -12,9 +12,10 @@ struct unk_AnimController {
 struct unk_8001B000;
 
 /*
- * A behaviour class (vtable lbl_803E08F4, size 0x124, constructor 0x8001777C, destructor
+ * A behaviour class (vtable __vt__12unk_8001777C, size 0x124, constructor 0x8001777C, destructor
  * 0x80017850), the base of CPlayer's base unk_8003C454, CFlare, cPhone and CWheelchair. fn_8000CFD4 and
- * fn_801A7A88 override CAttributeHandler slots. The object is 0x1BC bytes; most fields remain padding.
+ * fn_801A7A88 override CAttributeHandler slots. The object is 0x1BC bytes; the constructor's fields are
+ * named by offset and the rest remain padding.
  */
 class unk_8001777C : public unk_8009D2E4 {
 public:
@@ -40,11 +41,36 @@ public:
 
     void            fn_80019734( int animId, u32 flags, float a, float b );
 
-    u8                  field_0x144[0x4];
-    unk_AnimController* field_0x148;    // 0x148
-    u8                  field_0x14C[0x4];
-    unk_8001B000*       field_0x150;    // 0x150
-    u8                  field_0x154[0x68];
+    const unk_AttributePacket*  field_0x144;    // 0x144: the packet the constructor was given
+    unk_AnimController*         field_0x148;    // 0x148
+    u8                          field_0x14C[0x4];
+    unk_8001B000*               field_0x150;    // 0x150
+    s32                         field_0x154;
+    s32                         field_0x158;
+    s32                         field_0x15C;
+    s32                         field_0x160;
+    s32                         field_0x164;
+    s32                         field_0x168;
+    s32                         field_0x16C;
+    s32                         field_0x170;
+    s32                         field_0x174;
+    u8                          field_0x178[0x4];
+    s32                         field_0x17C;
+    s32                         field_0x180;
+    s32                         field_0x184;
+    u8                          field_0x188[0x4];
+    s32                         field_0x18C;
+    s32                         field_0x190;
+    s32                         field_0x194;
+    u8                          field_0x198[0x4];
+    s32                         field_0x19C;
+    s32                         field_0x1A0;
+    s32                         field_0x1A4;
+    u8                          field_0x1A8[0x4];
+    s32                         field_0x1AC;
+    s32                         field_0x1B0;
+    s32                         field_0x1B4;
+    s32                         field_0x1B8;
 };
 
 #endif

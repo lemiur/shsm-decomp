@@ -82,6 +82,10 @@ game/unk_8000D090.cpp:
 game/unk_8000D70C.cpp:
 	.text       start:0x8000D70C end:0x8000D83C
 
+game/unk_8000D83C.cpp:
+	.text       start:0x8000D83C end:0x8000EC94
+	.sdata2     start:0x8052B718 end:0x8052B748
+
 game/unk_8000EC94.cpp:
 	.text       start:0x8000EC94 end:0x8000EE44
 	.data       start:0x803DFC38 end:0x803DFC50
@@ -105,6 +109,11 @@ game/unk_8000F8F8.cpp:
 	.text       start:0x8000F8F8 end:0x8000FC5C
 	.sdata      start:0x80526820 end:0x80526830
 
+game/unk_8000FC5C.cpp:
+	.text       start:0x8000FC5C end:0x80011054
+	.sdata      start:0x80526830 end:0x80526890
+	.sdata2     start:0x8052B758 end:0x8052B760
+
 game/unk_80011054.cpp:
 	.text       start:0x80011054 end:0x800110FC
 	.data       start:0x803DFFA0 end:0x803DFFF0
@@ -113,8 +122,93 @@ game/unk_80011054.cpp:
 game/unk_80011AA4.cpp:
 	.text       start:0x80011AA4 end:0x80011BB0
 
+game/unk_8001205C.cpp:
+	.text       start:0x8001205C end:0x80012330
+	.data       start:0x803E0030 end:0x803E0068
+
 game/unk_80012330.cpp:
 	.text       start:0x80012330 end:0x8001238C
+
+game/unk_800129E0.cpp:
+	.text       start:0x800129E0 end:0x80012A68
+
+game/unk_80015234.cpp:
+	.text       start:0x80015234 end:0x800152C0
+	.ctors      start:0x803D8374 end:0x803D8378
+	.bss        start:0x8045A6C8 end:0x8045A6E0
+	.sbss       start:0x80529180 end:0x80529198
+	.sdata2     start:0x8052B778 end:0x8052B780
+
+game/unk_800152C0.cpp:
+	.text       start:0x800152C0 end:0x80015348
+
+game/unk_80015348.cpp:
+	.text       start:0x80015348 end:0x80015358
+
+game/unk_80015358.cpp:
+	.text       start:0x80015358 end:0x8001539C
+
+game/unk_80015598.cpp:
+	.text       start:0x80015598 end:0x8001590C
+
+game/unk_8001590C.cpp:
+	.text       start:0x8001590C end:0x80015F8C
+
+game/unk_80015F8C.cpp:
+	.text       start:0x80015F8C end:0x80016074
+
+game/unk_800161DC.cpp:
+	.text       start:0x800161DC end:0x80016200
+	.data       start:0x803E0738 end:0x803E0748
+	.sdata      start:0x8052693C end:0x80526940
+	.sdata2     start:0x8052B780 end:0x8052B788
+
+game/unk_80016200.cpp:
+	.text       start:0x80016200 end:0x80016250
+
+game/unk_80016634.cpp:
+	.text       start:0x80016634 end:0x80016644
+	.sbss       start:0x805291D0 end:0x805291D8
+
+game/unk_80016644.cpp:
+	.text       start:0x80016644 end:0x80016678
+
+game/unk_80016678.cpp:
+	.text       start:0x80016678 end:0x800168F8
+	.data       start:0x803E0760 end:0x803E0790
+	.bss        start:0x804698C0 end:0x80469A10
+
+game/unk_800168F8.cpp:
+	.text       start:0x800168F8 end:0x80016A48
+	.data       start:0x803E0790 end:0x803E07C4
+
+game/unk_80016E84.cpp:
+	.text       start:0x80016E84 end:0x80016E94
+
+game/unk_800174B8.cpp:
+	.text       start:0x800174B8 end:0x80017570
+	.sdata2     start:0x8052B7A0 end:0x8052B7A8
+
+game/CAnimBehaviour.cpp:
+	.text       start:0x80017570 end:0x8001759C
+	.ctors      start:0x803D8380 end:0x803D8384
+	.data       start:0x803E0870 end:0x803E0880
+	.sbss       start:0x805291F0 end:0x805291F8
+
+game/unk_800175A4.cpp:
+	.text       start:0x800175A4 end:0x800176A4
+	.sbss       start:0x805291F8 end:0x80529200
+
+game/unk_8001777C.cpp:
+	.text       start:0x8001777C end:0x80017850
+
+game/unk_803E0A48.cpp:
+	.text       start:0x80017B10 end:0x80017B88
+	.data       start:0x803E0A48 end:0x803E0A54
+
+game/unk_80017B88.cpp:
+	.text       start:0x80017B88 end:0x80017E88
+	.data       start:0x803E0A54 end:0x803E0A60
 
 game/CPreCache.cpp:
 	.text       start:0x800288F4 end:0x8002905C

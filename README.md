@@ -30,11 +30,11 @@ As of 2026-11-20 (the live figures are in [`docs/progress.md`](docs/progress.md)
 
 | measure | functions | code bytes |
 |---|---|---|
-| matched under the rules (headline) | 5,304 of 13,922 (38.1%) | 1,306,624 of 3,974,484 (32.9%) |
-| linked from source (byte-identical, excluding hand-written assembly) | 5,309 of 13,922 | 1,308,644 of 3,974,484 |
+| matched under the rules (headline) | 5,335 of 13,922 (38.3%) | 1,307,800 of 3,974,484 (32.9%) |
+| linked from source (byte-identical, excluding hand-written assembly) | 5,340 of 13,922 | 1,309,820 of 3,974,484 |
 | hand-written assembly in the original, listed apart | 116 | 28,536 |
 
-600 of 1,400 units are `Matching`, that is, linked from source into the gated build. Every other unit is linked
+612 of 1,437 units are `Matching`, that is, linked from source into the gated build. Every other unit is linked
 from the original bytes (see [Layout](#repository-layout) and `AGENTS.md`, "Parking mechanism").
 
 Work so far, by library (functions matched, from `build/tools/status.exe` on 2026-11-20; the address ranges that
@@ -50,7 +50,7 @@ assign functions to libraries are approximate, see `docs/library_map.md`):
 | RenderWare Physics | physics middleware | 40 of 525 (7.6%) |
 | FMOD Ex 4.x | audio middleware, including its embedded dlmalloc | 645 of 1,879 (34.3%) |
 | Climax engine | the developer's engine layer | 320 of 1,278 (25.0%) |
-| Game code | Silent Hill: Shattered Memories itself | 431 of 5,842 (7.4%) |
+| Game code | Silent Hill: Shattered Memories itself | 462 of 5,842 (7.9%) |
 
 ## Building
 

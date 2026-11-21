@@ -229,6 +229,26 @@ public:
 };
 
 /*
+ * The registry's record of a class, the 0x5C-byte block that the registration allocates. Only
+ * the factory, the size, the interned name, the behaviour name and the asset list are named;
+ * the rest (the matrix, the reference count, the flag byte) is not reached by the code so far.
+ * Gormiti: SClassInfo, the same members without the flag byte.
+ */
+struct SClassInfo {
+    CAttributeHandler* ( *factory )( const unk_AttributePacket& packet );    // 0x0
+    u32                 instanceSize;                                       // 0x4
+    const char*         name;                                               // 0x8, interned
+    const char*         behaviourName;                                      // 0xC
+    RWS::AssetTracker::CAssetList* assetList;                               // 0x10
+    u8                  field_0x14[0x48];                                   // 0x14
+};
+
+// The registry's table of class records and its count, in .sbss owned by units not yet
+// reconstructed (the table itself is allocated elsewhere; both words are zero-initialised).
+extern SClassInfo** lbl_805291BC;
+extern int          lbl_805291C0;
+
+/*
  * Callees in units not yet reconstructed (symbols without a C++ name yet).
  */
 extern "C" {

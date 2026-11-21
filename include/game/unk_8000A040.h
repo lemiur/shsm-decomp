@@ -24,6 +24,8 @@ public:
 
     u8              field_0x0[0x28];
     bool            field_0x28;     // enabled
+    u8              field_0x29[0x83];
+    bool            field_0xAC;     // set by fn_80016E84
 };
 
 extern unk_PadInputSink* lbl_805291E8;  // defined elsewhere, unit not yet reconstructed

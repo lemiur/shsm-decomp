@@ -7,17 +7,37 @@
 #include <climax/AttributeHandler.h>
 #include <climax/Frame.h>
 
-/* A collision shape of a body. */
-struct unk_RwpShape;
+/* The geometry a shape describes: its kind (0x0) and flags (0x40; bit 2 means the shape has no
+ * local transform, so its matrix product takes the identity). Names invented. */
+struct unk_RwpGeometry {
+    u16         type;           // 0x0
+    u8          field_0x2[0x3E];
+    u32         flags;          // 0x40
+};
 
 struct unk_RwpBody;
 
-/* The simulation a body is added to. Its object table holds the bodies by their index; layout partly known. */
+/* A collision shape of a body: its local transform (a matrix at 0x0), two float extents and the
+ * geometry it describes. Names invented; the offsets are the accesses of fn_8000E89C. */
+struct unk_RwpShape {
+    unk_RwMatrix        local;          // 0x00
+    float               field_0x40;     // 0x40
+    float               field_0x44;     // 0x44
+    u8                  field_0x48[0x4];
+    float               field_0x4C;     // 0x4C
+    u8                  field_0x50[0xC];
+    unk_RwpGeometry*    geometry;       // 0x5C
+};
+
+/* The simulation a body is added to. Its object table holds the bodies by their index; its bits at 0x60 mark the
+ * bodies a flagged sweep skips (one bit per body index, read by fn_8000E89C). Layout partly known. */
 struct unk_RwpWorld {
     u8                  field_0x0[0x44];
     u32                 objectCount;    // 0x44, the entries of objects a body index may name
     u8                  field_0x48[0x8];
     unk_RwpBody**       objects;        // 0x50
+    u8                  field_0x54[0xC];
+    u32*                bodyBits;       // 0x60
 };
 
 /* What a body is placed in: its first word is its world (fn_8031E364 reads it). */
@@ -84,7 +104,8 @@ struct unk_PhysicsNode;
 struct unk_RwpBody {
     u8                  field_0x0[0x8];
     u32                 flags;          // 0x8, bit 0x40 is set while the body is in unk_PhysicsManager's active list
-    u8                  field_0xC[0x4];
+    u16                 partCount;  // 0xC, the number of entries in parts
+    u8                  field_0xE[0x2];
     unk_RwpBodyParts*   parts;      // 0x10
     u8                  field_0x14[0xC];
     u16                 index;      // 0x20, the body's number in its world (read by the Rwp functions)
@@ -105,6 +126,10 @@ void    fn_802FAB10( unk_RwpBody* body );
 void    fn_80310778( unk_RwpShape* shape, float value );
 void    fn_80310880( unk_RwpShape* shape, float value );
 void    RwpMgrRemoveObj( unk_RwpWorld* world, unk_RwpBody* body );
+float   fn_802FDE64( unk_RwpShape* shape );     // reads the shape's 0x4C
+float   fn_802FDE6C( unk_RwpShape* shape );     // reads the shape's 0x40
+float   fn_8030195C( unk_RwpShape* shape );     // reads the shape's 0x44
+float   fn_80301964( unk_RwpShape* shape );     // reads the shape's 0x40
 void    RwpMgrSetMoving( unk_RwpWorld* world, unk_RwpBody* body, int set );     // sets or clears the body's bit
 void    RwpMgrActivate( unk_RwpWorld* world, unk_RwpBody* body );
 void    RwpMgrDeactivate( unk_RwpWorld* world, unk_RwpBody* body );

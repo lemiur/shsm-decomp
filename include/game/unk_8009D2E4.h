@@ -5,6 +5,13 @@
 #include <game/unk_803E8E64.h>
 #include <game/unk_80024158.h>
 #include <climax/Clump.h>
+#include <climax/Frame.h>
+#include <game/Vec4.h>
+
+// C-linkage position accessor at 0x8009CD14: the same body as CBaseBehaviour::fn_8009CD08
+// (loads the position from the object's field at 0x30 and returns its vector at 0x40), defined
+// in another unit under its address name.
+extern "C" const unk_RwV3d* fn_8009CD14( const void* self );
 
 /*
  * The base of the scene behaviours (vtable lbl_803E8D78, size 0xEC, constructors 0x8009D2E4 and
@@ -20,16 +27,18 @@ public:
     virtual         ~unk_8009D2E4();  // override
     virtual void    fn_801A7BFC( CZoneChangeInfo* change );  // override
     virtual void    fn_8009E6D4();
-    virtual void    fn_8009ECB0();  // override
+    virtual void    fn_8009ECB0( unk_Vec4* out );  // override
     virtual void    fn_8009EB8C();
-    virtual void    fn_80017568();
+    virtual u32     fn_80017568();
     virtual void    fn_80017564();
     virtual void    fn_80017560();
     virtual void    fn_8009EC0C();
 
     u8              field_0xA0[0x90];
     unk_RpClump*    field_0x130;    // presumably the behaviour's clump: fn_801DD29C walks its atomics
-    u8              field_0x134[0x10];
+    u8              field_0x134[0x4];
+    u32             field_0x138;    // read by fn_80017568; its writer is not yet identified
+    u8              field_0x13C[0x8];
 };
 
 #endif

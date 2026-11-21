@@ -81,7 +81,7 @@ public:
     virtual void    fn_80041D2C();  // override
     virtual void    fn_8003AC14();  // override
     virtual void    fn_80067DCC();  // override
-    virtual void    fn_80017504();  // override
+    virtual bool    fn_80017504();  // override
     virtual void    fn_8003AE98();  // override
     virtual void    fn_80071824();  // override
 

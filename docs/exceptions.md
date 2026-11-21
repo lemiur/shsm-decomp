@@ -177,6 +177,22 @@ functions holding the same instruction sequence).
 
 ## Open items that do not block a match
 
+- **Game unit name unconfirmed (fn_80015F8C):** `game/unk_80015F8C.cpp` (0x80015F8C-0x80016074, one function: a
+  name lookup in a 0x3c-byte entry table, then the binding of the entry) is named after its address; no string or class
+  evidence names the file, and its table types (`unk_NameTable`, `unk_NameEntry`, `unk_NameDesc`) are invented. The
+  caller `fn_80014CA8` is in `main/auto_03_800129E0_text`. `fn_8001590C` (called here) and the global `lbl_8052A5C0`
+  (`.sbss`, shared with `fn_8001590C`) are declared in `include/game/unk_80015F8C.h` and not yet owned by a unit.
+- **Game unit name unconfirmed (fn_8001590C):** `game/unk_8001590C.cpp` (0x8001590C-0x80015F8C, four functions; the boundary is the unit plan at confidence 0.16, with no sibling object). fn_80015E98, fn_80015C10 and fn_80015D2C are reconstructed with register residue only (98.6%, 94.5%, 94.8%); fn_8001590C is open (stub). The registry type `unk_EntryRegistry` and its fields are placeholders, and the callees fn_800149C8, fn_80012E18 and fn_8001397C are declared in `include/game/unk_8001590C.h`.
+- **Game unit name unconfirmed (fn_80016644):** `game/unk_80016644.cpp` (0x80016644-0x80016678, one function) is named after
+  its address. `fn_80016644` is slot 13 of the vtable `lbl_803E07F0` (constructor `fn_80016200`, class not yet
+  reconstructed), so the true form is a virtual member of that class; it is written as a free `extern "C"` dispatcher
+  with untyped `self` and message parameters until the class is recovered. Its `.sbss` words `lbl_805291D0` and
+  `lbl_805291D4` are owned by the unit of `fn_80016634`. The rule checker reports only R7 names.
+- **Game unit name unconfirmed (unk_800174B8):** `game/unk_800174B8.cpp` (0x800174B8-0x80017570, 19 slot functions of
+  the unk_8009D2E4, unk_803E8E64 and unk_80024158 interfaces) is named after its address; no string or class evidence
+  names the file. `fn_8009ECB0` is an identity open item (its second argument is a 16-byte out vector; the position
+  accessor it calls, `fn_8009CD14`, is a C-linkage copy of CBaseBehaviour's `fn_8009CD08`).
+
 - **Game unit name unconfirmed (fn_80009EC8):** `game/unk_80009EC8.cpp` (0x80009EC8-0x80009F60, one function: the WPAD
   and KPAD start-up of the pad input) is named after its address; no string or class evidence names the file. Its
   callees `fn_80009CCC` and `fn_80009CD4` (the WPAD allocator and free callbacks) and `fn_80009CF8` (the KPAD connect
@@ -203,6 +219,21 @@ functions holding the same instruction sequence).
   `fn_8000F648`, is a member whose instance is unused and whose body is identical to `fn_8000F5E4` (not yet in
   this unit). The counter `lbl_80529178` is declared extern in the header and is owned by the unreconstructed unit
   that holds 0x80529178. Rename the unit and class when evidence appears.
+- **`game/unk_80015234` unit name unconfirmed (R12, R7):** `src/game/unk_80015234.cpp` carries the "unit name
+  unconfirmed" comment; no string or class name names it. Its only function is the compiler-generated static
+  initialiser `__sinit_\unk_80015234_cpp`, which sets the display-height pair (`game/DisplayHeight.h`) and constructs
+  the two message ids `lbl_80529188` and `lbl_80529190` (placeholder names, many referrers; `unk_801A92A8` is the
+  placeholder class of `include/climax/unk_801A92A8.h`).
+
+- **Unit name unconfirmed (R12, R7):** `game/unk_80015348.cpp` (`fn_80015348`, the accessor of the registry table
+  `lbl_805291BC`) carries the "unit name unconfirmed" comment. It returns the registry record (`SClassInfo`) at the index;
+  `lbl_805291BC` has no owner unit yet (the table is filled by `fn_8001539C` in the auto_03 region).
+- **Unit name unconfirmed (R12):** `game/unk_800152C0.cpp` carries the "unit name unconfirmed"
+  comment: `fn_800152C0` (the registry lookup of a class record by name, `SClassInfo`) has no class or string
+  evidence for its file or name. The registry globals `lbl_805291BC` (table) and `lbl_805291C0` (count) are declared
+  in `climax/AttributeHandler.h` and still defined by the unreconstructed `.sbss` unit `auto_10_80529170_sbss`.
+  `SClassInfo` past its name and factory is padding (`field_0x14`), not yet reconstructed.
+
 - **`fmod/fmod_memory` helpers (R7, R30; invented):** `FindFreeBlocks` and `FindThreadSlot` are invented inline
   helpers (name and shape marked at the code; the sibling's line table puts each on one line of its callers, so the
   original was probably a macro). The declaration order of their locals gives retail's register numbering in `alloc`
@@ -3372,6 +3403,7 @@ lyt_window (Matching).
   slots of `end() - begin()`; the other open functions state their walls in their header comments.
 - `game/CDrawingTest`: `fn_801796F8` 99.47% (11 rows): only the floating-point registers of the texture-coordinate block
   remain (retail loads 0.2666 and 0.2 before the subtraction and adds 0.5 as the first operand).
+- `game/unk_8001205C` (unit name unconfirmed: no string names the unit or its class; the start-node group, its boundary from the unit plan only): 2 of 4 functions exact (`fn_800122A4`, `fn_800122C0`); `fn_8001205C` 98.15% and `fn_800121A0` 98.15%, the path-A counter loads of both (retail hoists the this copy among them; register/schedule), and `fn_8001205C`s start-index store base register. Not linked.
 
 ## Game code rulings (game-5)
 
@@ -5245,3 +5277,4 @@ Parked functions of these units are under "Parked (NonMatching), with reasons". 
   (retail's `ToMatrix` converts the rotation once and multiplies it by the scale matrix); both are static, and their
   identity rests on `Register` storing them as the scheme's callbacks and `Interpolate` calling `Blend`. `HANIMFULLKEYFRAME_TYPE_ID` is an
   invented name.
+
