@@ -18,6 +18,9 @@ class unk_NamedEntryPlayer {
 public:
     // defined in 0x8014EC98, unit not yet reconstructed
     void    fn_8014EC98( const char* name, bool flag, void* result );
+    // defined in 0x8014F114, unit not yet reconstructed: looks the name up and returns 1 when it
+    // is found, writing the entry's value to value. Name invented.
+    u32     fn_8014F114( const char* name, u32* value );
 };
 
 extern unk_NamedEntryPlayer* lbl_8052A0D0;  // defined elsewhere, unit not yet reconstructed

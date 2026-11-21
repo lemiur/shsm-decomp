@@ -7,8 +7,7 @@
 
 /*
  * The class id of the system attribute commands, hashed from "CSystemCommands" by the static
- * initialiser 0x800A2900 (unit not yet reconstructed). Behaviours read these commands as well as
- * their own.
+ * initialiser 0x800A2900. Behaviours read these commands as well as their own.
  */
 extern u32 lbl_805297E8;
 

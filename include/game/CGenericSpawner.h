@@ -3,6 +3,7 @@
 
 #include <climax/Memory.h>
 #include <game/CBaseSpawner.h>
+#include <game/unk_800A26D8.h>
 #include <game/unk_ResourceManager.h>
 
 /*
@@ -26,8 +27,6 @@ void    fn_801B2004( unk_ResourceManager* manager, void* resource );
 // defined in 0x801A8554 and 0x801A89A0, unit not yet reconstructed
 void*   fn_801A8554( const char* name, void* resource );
 void    fn_801A89A0( const char* name );
-// defined in 0x800A26D8, unit not yet reconstructed: the first name command in a packet, NULL if none
-const char* fn_800A26D8( const unk_AttributePacket& packet );
 
 /*
  * A spawner that caches the asset named by its packet and starts spawning once it is loaded

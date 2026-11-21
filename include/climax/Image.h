@@ -36,12 +36,17 @@ typedef u16 RwImVertexIndex;
 #define IM3D_VERTEXXYZ          0x08
 #define IM3D_VERTEXRGBA         0x10
 
+/* RwIm3DRenderPrimitive types (RwPrimitiveType of rwcore.h). */
+#define IM3D_PRIMTYPE_TRIFAN    5
+
 extern "C" {
 
 // defined in 0x8029A898 (RenderWare), unit not yet reconstructed: RwIm3DTransform
 void*           RwIm3DTransform( unk_RwIm3DVertex* vertices, u32 numVertices, unk_RwMatrix* ltm, u32 flags );
 // defined in 0x8029A978 (RenderWare), unit not yet reconstructed: RwIm3DEnd
 int             RwIm3DEnd();
+// defined in 0x8029AB9C (RenderWare), unit not yet reconstructed: RwIm3DRenderPrimitive
+int             RwIm3DRenderPrimitive( int primType );
 // defined in 0x8029A9C8 (RenderWare), unit not yet reconstructed: RwIm3DRenderIndexedPrimitive
 int             RwIm3DRenderIndexedPrimitive( int primType, RwImVertexIndex* indices, s32 numIndices );
 

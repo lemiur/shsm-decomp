@@ -3,6 +3,8 @@
 
 #include <revolution/os.h>
 #include <revolution/thp.h>
+#include <revolution/os/OSMessage.h>
+#include <revolution/os/OSThread.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,6 +46,20 @@ void __THPInverseDCTY8(THPCoeff* in, u32 xPos);
 void __THPHuffDecodeDCTCompY(THPFileInfo* info, THPCoeff* block);
 void __THPHuffDecodeDCTCompU(THPFileInfo* info, THPCoeff* block);
 void __THPHuffDecodeDCTCompV(THPFileInfo* info, THPCoeff* block);
+
+/* THPAudioDecode.c internals: the buffer hand-off between the audio decode thread and its users (owners pending). */
+void* fn_8009C1A4(void);
+void AudioDecode(void* buffer);
+void fn_8009C220(void* buffer);
+
+/* THP read thread state (names and field names invented): the thread object at 0x8046C1B8. */
+typedef struct THPReadThread {
+    OSThread thread;          /* 0x000 */
+    u8 stack[0x1000];         /* 0x318 */
+} THPReadThread;
+
+extern THPReadThread lbl_8046C1B8;
+extern s32 lbl_80529798;
 
 #ifdef __cplusplus
 }

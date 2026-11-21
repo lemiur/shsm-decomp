@@ -45,6 +45,7 @@ namespace AssetTracker {
     // unit not yet reconstructed); the other members are not yet known.
     class CAssetList {
     public:
+        void                    IncRefCount();
         void                    DecRefCount();
     };
     ::CAttributeHandler*    Find( const RWSGUID& id );

@@ -5,16 +5,18 @@
 
 // One named entry of a lookup table searched by fn_800A2A18: 0x14 bytes.
 struct unk_LookupEntry {
-    u8              field_0x00[0x08];
+    u8              field_0x00[0x04];
+    s32             index;              // 0x04: the index the entry was added with; fn_800A292C returns it
     const char*     name;               // 0x08
     u32             id;                 // 0x0C
     s32             value;              // 0x10
 };
 
-// The header of a lookup table: the entry array and its count.
+// The header of a lookup table: the entry array, its count and the number of entries it holds room for.
 struct unk_NamedTable {
     unk_LookupEntry* entries;            // 0x00
     s32             count;              // 0x04
+    s32             capacity;           // 0x08 (name invented)
 };
 
 // One lazily resolved lookup. The name and the id are searched for in the owner's table; the
@@ -58,7 +60,7 @@ struct unk_LookupOwner {
 };
 
 extern "C" {
-// Lookup of a named entry in a table (name invented; defined in another unit).
+// Lookup of a named entry in a table (name invented; defined in game/unk_800A292C.cpp).
 unk_LookupEntry* fn_800A2A18(unk_NamedTable* table, const char* name, u32 id);
 
 // Callbacks registered by the object factories. The first argument of each is not read.

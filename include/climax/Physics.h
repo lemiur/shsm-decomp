@@ -16,6 +16,7 @@ struct unk_RwpGeometry {
 };
 
 struct unk_RwpBody;
+struct unk_RpAtomic;
 
 /* A collision shape of a body: its local transform (a matrix at 0x0), two float extents and the
  * geometry it describes. Names invented; the offsets are the accesses of fn_8000E89C. */
@@ -122,6 +123,7 @@ unk_RwpBody* fn_801AB878( const unk_AttributePacket& packet );
 // defined in RW Physics (C linkage, as RenderWare is C), unit not yet reconstructed
 extern "C" {
 void    fn_802FA9D4( unk_RwpBody* body );                                   // destroys the body
+void    RpAtomicSetBody( unk_RpAtomic* atomic, unk_RwpBody* body );         // presumed RpAtomicSetBody (Rwp); its result is unused
 void    fn_802FAB10( unk_RwpBody* body );
 void    fn_80310778( unk_RwpShape* shape, float value );
 void    fn_80310880( unk_RwpShape* shape, float value );
@@ -148,6 +150,17 @@ unk_RwpSpace* fn_8031E078( void* params, const void* box, float radius );
 unk_RwpShape* fn_8030E904( const void* def );
 void    fn_8030F770( unk_RwpShape* shape, int arg );
 void    fn_8030F768( unk_RwpShape* shape, float value );
+
+/* A body definition: the collision shape it creates at 0x0. Name invented. */
+struct unk_RwpBodyDefinition {
+    unk_RwpShape*       shape;          // 0x0
+};
+
+unk_RwpBodyDefinition*  RwpBodyDefCreate();
+void    RwpCapsuleInit( unk_RwpShape* shape, float radius, float length );
+void    RwpPartDefSetMassProperties( unk_RwpBodyDefinition* def, int part, float mass );
+unk_RwpBody*    RwpBodyCreate( unk_RwpBodyDefinition* def );
+void    RwpBodyDefDestroy( unk_RwpBodyDefinition* def );
 void    fn_8031E288( unk_RwpSpace* space, unk_RwpShape* shape, int arg );
 unk_RwpWorld* fn_8031E364( unk_RwpSpace* space );
 void    fn_80320D48( unk_RwpWorld* world, unk_RwpBitTable* table );

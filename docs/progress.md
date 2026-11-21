@@ -13,11 +13,11 @@ Counts cover functions linked from source (units marked `Matching` in `configure
 <!-- ledger:begin numbers -->
 | measure | functions | code bytes |
 |---|---|---|
-| **matched under the rules** (headline) | 5450 / 13922 | 1317236 / 3974484 |
-| bytes matched (linked from source, excluding `ORIGINAL-ASM`) | 5455 / 13922 | 1319256 / 3974484 |
+| **matched under the rules** (headline) | 5466 / 13922 | 1318724 / 3974484 |
+| bytes matched (linked from source, excluding `ORIGINAL-ASM`) | 5471 / 13922 | 1320744 / 3974484 |
 | `ORIGINAL-ASM` (linked, listed apart, outside both counts and totals) | 116 | 28536 |
-| linked from source in total (objdiff "complete") | 5571 | 1347792 |
-| `Matching` units | 637 / 1555 | |
+| linked from source in total (objdiff "complete") | 5587 | 1349280 |
+| `Matching` units | 651 / 1579 | |
 <!-- ledger:end numbers -->
 
 Totals exclude the `ORIGINAL-ASM` functions (<!-- ledger:begin gross -->14038 functions and 4003020 code bytes<!-- ledger:end gross --> in all, counting the dtk
@@ -961,6 +961,8 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `revolution/os/__ppc_eabi_init` | `exit` | 0x8021E920 | 76 | matched |  |
 | `revolution/thp/THPPlayer` | `CreateAudioDecodeThread` | 0x80099B78 | 208 | parked, 87.2% | unit name unconfirmed |
 | `revolution/thp/THPPlayer` | `fn_80099C48` | 0x80099C48 | 28 | parked, 100% | placeholder; unit name unconfirmed |
+| `revolution/thp/THPAudioDecode` | `fn_80099C64` | 0x80099C64 | 60 | matched | placeholder; unit name unconfirmed |
+| `revolution/thp/THPAudioDecode` | `AudioDecoder` | 0x80099CA0 | 40 | matched | unit name unconfirmed |
 | `revolution/db/db` | `DBInit` | 0x8021E970 | 40 | matched |  |
 | `revolution/db/db` | `__DBExceptionDestinationAux` | 0x8021E9A0 | 72 | matched |  |
 | `revolution/db/db` | `__DBExceptionDestination` | 0x8021E9F0 | 16 | ORIGINAL-ASM |  |
@@ -6533,6 +6535,19 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/cWind` | `fn_80091BA4__5cWindFRC19unk_AttributePacket` | 0x80091BA4 | 72 | parked, 100% | placeholder |
 | `game/cWind` | `@36@fn_8009CB1C__5cWindFR7unk_Msg` | 0x80091BEC | 8 | parked, 100% | compiler-generated thunk, placeholder |
 | `game/cWind` | `@36@__dt__5cWindFv` | 0x80091BF4 | 8 | parked, 100% | compiler-generated thunk |
+| `game/CFogConfig` | `__ct__10CFogConfigFRC19unk_AttributePacket` | 0x80091BFC | 324 | parked, 100% | placeholder |
+| `game/CFogConfig` | `__dt__10CFogConfigFv` | 0x80091D40 | 232 | parked, 98.8% |  |
+| `game/CFogConfig` | `fn_8009CB1C__10CFogConfigFR7unk_Msg` | 0x80091E28 | 88 | parked, 100% | placeholder |
+| `game/CFogConfig` | `fn_801A73A8__10CFogConfigFRC19unk_AttributePacket` | 0x80091E80 | 436 | parked, 100% | placeholder |
+| `game/CFogConfig` | `fn_801A7A88__10CFogConfigFv` | 0x80092034 | 64 | parked, 100% | placeholder |
+| `game/CFogConfig` | `fn_80092074__10CFogConfigFP12unk_80491B38` | 0x80092074 | 724 | parked, 100% | placeholder |
+| `game/CFogConfig` | `fn_80092348__10CFogConfigFP12unk_80491B38P15unk_FogParticlelff` | 0x80092348 | 696 | parked, 93.7% | placeholder |
+| `game/CFogConfig` | `fn_80092600__10CFogConfigFP12unk_80491B38` | 0x80092600 | 444 | parked, 30.3% | placeholder |
+| `game/CFogConfig` | `fn_800927BC` | 0x800927BC | 468 | parked, 100% | placeholder |
+| `game/CFogConfig` | `__sinit_\CFogConfig_cpp` | 0x80092990 | 96 | parked, 100% | placeholder (compiler-generated name) |
+| `game/CFogConfig` | `fn_800929F0__10CFogConfigFRC19unk_AttributePacket` | 0x800929F0 | 72 | parked, 100% | placeholder |
+| `game/CFogConfig` | `@36@fn_8009CB1C__10CFogConfigFR7unk_Msg` | 0x80092A38 | 8 | parked, 100% | compiler-generated thunk, placeholder |
+| `game/CFogConfig` | `@36@__dt__10CFogConfigFv` | 0x80092A40 | 8 | parked, 100% | compiler-generated thunk |
 | `game/unk_80092A48` (unit name unconfirmed) | `fn_80092A48` | 0x80092A48 | 656 | parked, 99.7% | placeholder |
 | `game/unk_80092A48` (unit name unconfirmed) | `fn_80092CD8` | 0x80092CD8 | 292 | parked, 100% | placeholder |
 | `game/unk_80092A48` (unit name unconfirmed) | `fn_80092DFC` | 0x80092DFC | 76 | parked, 100% | placeholder |
@@ -6563,6 +6578,36 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/unk_80099EB8` (unit name unconfirmed) | `RestoreGXState__Fv` | 0x80099EB8 | 364 | matched |  |
 | `game/unk_8009A024` (unit name unconfirmed) | `fn_8009A024` | 0x8009A024 | 1192 | parked, 97.8% | placeholder |
 | `game/unk_8009A024` (unit name unconfirmed) | `fn_8009A4CC` | 0x8009A4CC | 612 | parked, 91.6% | placeholder |
+| `game/THPPlayer` (unit name unconfirmed) | `THPPlayerQuit` | 0x8009A850 | 84 | matched |  |
+| `game/THPPlayer` (unit name unconfirmed) | `fn_8009A8A4` | 0x8009A8A4 | 348 | matched | placeholder |
+| `game/unk_MovieFrame` (unit name unconfirmed) | `fn_8009B840` | 0x8009B840 | 316 | matched | placeholder |
+| `revolution/thp/THPRead` (unit name unconfirmed) | `fn_8009C014` | 0x8009C014 | 28 | matched | placeholder |
+| `game/unk_8009C030` (unit name unconfirmed) | `fn_8009C030` | 0x8009C030 | 60 | matched | placeholder |
+| `game/unk_8009C1D8` (unit name unconfirmed) | `fn_8009C1D8` | 0x8009C1D8 | 20 | matched | placeholder |
+| `game/unk_8009C1EC` (unit name unconfirmed) | `fn_8009C1EC` | 0x8009C1EC | 52 | matched | placeholder |
+| `game/unk_8009C220` (unit name unconfirmed) | `fn_8009C220` | 0x8009C220 | 20 | matched | placeholder |
+| `game/unk_8009C234` (unit name unconfirmed) | `CreateVideoDecodeThread` | 0x8009C234 | 212 | parked, 87.4% |  |
+| `game/unk_8009C308` (unit name unconfirmed) | `fn_8009C308` | 0x8009C308 | 28 | matched | placeholder |
+| `game/unk_8009C324` (unit name unconfirmed) | `fn_8009C324` | 0x8009C324 | 60 | parked, 100% | placeholder |
+| `game/unk_8009C6A8` (unit name unconfirmed) | `fn_8009C6A8` | 0x8009C6A8 | 20 | matched | placeholder |
+| `game/unk_8009C6BC` (unit name unconfirmed) | `fn_8009C6BC` | 0x8009C6BC | 68 | parked, 100% | placeholder |
+| `game/unk_8009C88C` (unit name unconfirmed) | `fn_8009C88C__FPCcRC19unk_AttributePacket` | 0x8009C88C | 208 | matched | placeholder |
+| `game/CBaseBehaviour` | `fn_8009C95C__FRC19unk_AttributePacketb` | 0x8009C95C | 448 | parked, 94.2% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CB1C__14CBaseBehaviourFR7unk_Msg` | 0x8009CB1C | 4 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_801A73A8__14CBaseBehaviourFRC19unk_AttributePacket` | 0x8009CB20 | 384 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CCA0` | 0x8009CCA0 | 36 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CCC4` | 0x8009CCC4 | 36 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CCE8__14CBaseBehaviourCFP8unk_Vec3` | 0x8009CCE8 | 32 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CD08__14CBaseBehaviourCFv` | 0x8009CD08 | 12 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CD14` | 0x8009CD14 | 12 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CD20__14CBaseBehaviourCFv` | 0x8009CD20 | 12 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CD2C__14CBaseBehaviourCFP8unk_Vec3` | 0x8009CD2C | 32 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CD4C__14CBaseBehaviourCFv` | 0x8009CD4C | 12 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CD58` | 0x8009CD58 | 32 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CD78__14CBaseBehaviourCFv` | 0x8009CD78 | 12 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CD84__14CBaseBehaviourCFP8unk_Vec3` | 0x8009CD84 | 32 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CDA4__14CBaseBehaviourCFP15unk_RwMatrixTag` | 0x8009CDA4 | 136 | parked, 100% | placeholder |
+| `game/CBaseBehaviour` | `fn_8009CE2C__14CBaseBehaviourFPCv` | 0x8009CE2C | 192 | parked, 100% | placeholder |
 | `game/CBasicMount` | `__ct__11CBasicMountFRC19unk_AttributePacket` | 0x8009CF20 | 224 | matched | placeholder |
 | `game/CBasicMount` | `__dt__11CBasicMountFv` | 0x8009D000 | 148 | matched |  |
 | `game/CBasicMount` | `fn_8009CB1C__11CBasicMountFR7unk_Msg` | 0x8009D094 | 252 | matched | placeholder |
@@ -6571,6 +6616,33 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/CBasicMount` | `fn_8009D28C__11CBasicMountFRC19unk_AttributePacket` | 0x8009D28C | 72 | matched | placeholder |
 | `game/CBasicMount` | `@36@fn_8009CB1C__11CBasicMountFR7unk_Msg` | 0x8009D2D4 | 8 | matched | compiler-generated thunk, placeholder |
 | `game/CBasicMount` | `@36@__dt__11CBasicMountFv` | 0x8009D2DC | 8 | matched | compiler-generated thunk |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `__ct__12unk_8009D2E4FRC19unk_AttributePacket` | 0x8009D2E4 | 248 | parked, 67.4% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009D3DC` | 0x8009D3DC | 64 | parked, not written | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `__ct__12unk_8009D2E4FRC19unk_AttributePacketb` | 0x8009D41C | 260 | parked, 64.8% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009D520` | 0x8009D520 | 360 | parked, 1.1% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009D688` | 0x8009D688 | 144 | parked, 100% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `__dt__12unk_8009D2E4Fv` | 0x8009D718 | 296 | parked, 37.3% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_801A7BFC__12unk_8009D2E4FP15CZoneChangeInfo` | 0x8009D840 | 112 | parked, 100% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009CB1C__12unk_8009D2E4FR7unk_Msg` | 0x8009D8B0 | 68 | parked, 100% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009D8F4` | 0x8009D8F4 | 2744 | parked, 0.1% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009E3AC` | 0x8009E3AC | 352 | parked, 1.1% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009E50C` | 0x8009E50C | 56 | parked, 7.1% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009E544` | 0x8009E544 | 84 | parked, 4.8% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009E598` | 0x8009E598 | 60 | parked, 6.7% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_801A73A8__12unk_8009D2E4FRC19unk_AttributePacket` | 0x8009E5D4 | 256 | parked, 1.6% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009E6D4__12unk_8009D2E4Fv` | 0x8009E6D4 | 240 | parked, 1.7% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009E7C4` | 0x8009E7C4 | 200 | parked, 2.0% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009E88C` | 0x8009E88C | 8 | parked, 50.0% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009E894` | 0x8009E894 | 100 | parked, 4.0% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009E8F8` | 0x8009E8F8 | 76 | parked, 5.3% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009E944` | 0x8009E944 | 60 | parked, 6.7% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009E980` | 0x8009E980 | 352 | parked, 1.1% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009EAE0` | 0x8009EAE0 | 76 | parked, 5.3% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009EB2C` | 0x8009EB2C | 96 | parked, 4.2% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009EB8C__12unk_8009D2E4Fv` | 0x8009EB8C | 128 | parked, 3.1% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009EC0C__12unk_8009D2E4Fv` | 0x8009EC0C | 80 | parked, 5.0% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009EC5C` | 0x8009EC5C | 84 | parked, 4.8% | placeholder |
+| `game/unk_8009D2E4` (unit name unconfirmed) | `fn_8009ECB0` | 0x8009ECB0 | 4 | parked, 100% | placeholder |
 | `game/CClumpSwap` | `__ct__10CClumpSwapFRC19unk_AttributePacket` | 0x8009ED10 | 88 | matched | placeholder |
 | `game/CClumpSwap` | `__dt__10CClumpSwapFv` | 0x8009ED68 | 156 | matched |  |
 | `game/CClumpSwap` | `fn_801A73A8__10CClumpSwapFRC19unk_AttributePacket` | 0x8009EE04 | 176 | matched | placeholder |
@@ -6578,6 +6650,62 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/CClumpSwap` | `__sinit_\CClumpSwap_cpp` | 0x8009EEC8 | 96 | matched | placeholder (compiler-generated name) |
 | `game/CClumpSwap` | `fn_8009EF28__10CClumpSwapFRC19unk_AttributePacket` | 0x8009EF28 | 112 | matched | placeholder |
 | `game/CClumpSwap` | `@36@__dt__10CClumpSwapFv` | 0x8009EF98 | 8 | matched | compiler-generated thunk |
+| `game/unk_ClumpSwapList` (unit name unconfirmed) | `fn_8009EFA0` | 0x8009EFA0 | 72 | parked, 100% | placeholder |
+| `game/unk_ClumpSwapList` (unit name unconfirmed) | `fn_8009EFE8__17unk_ClumpSwapListFP11unk_RpClumpPCc` | 0x8009EFE8 | 440 | parked, 84.9% | placeholder |
+| `game/unk_ClumpSwapList` (unit name unconfirmed) | `fn_8009F1A0__17unk_ClumpSwapListFPCc` | 0x8009F1A0 | 248 | parked, 99.6% | placeholder |
+| `game/unk_ClumpSwapList` (unit name unconfirmed) | `fn_8009F298__17unk_ClumpSwapListFPCc` | 0x8009F298 | 180 | parked, 99.4% | placeholder |
+| `game/CSceneGraphContainer` | `fn_8009F34C` | 0x8009F34C | 360 | parked, 1.1% | placeholder |
+| `game/CSceneGraphContainer` | `fn_8009F4B4` | 0x8009F4B4 | 156 | parked, 100% | placeholder |
+| `game/CSceneGraphContainer` | `fn_8009F550` | 0x8009F550 | 936 | parked, 0.4% | placeholder |
+| `game/CSceneGraphContainer` | `fn_8009F8F8` | 0x8009F8F8 | 92 | parked, 100% | placeholder |
+| `game/CSceneGraphContainer` | `fn_8009F954` | 0x8009F954 | 292 | parked, 73.1% | placeholder |
+| `game/CSceneGraphContainer` | `fn_8009FA78` | 0x8009FA78 | 108 | parked, 93.7% | placeholder |
+| `game/CSceneGraphContainer` | `fn_8009FAE4` | 0x8009FAE4 | 168 | parked, 2.4% | placeholder |
+| `game/CSceneGraphContainer` | `fn_8009FB8C` | 0x8009FB8C | 88 | parked, 4.3% | placeholder |
+| `game/CSceneGraphContainer` | `fn_8009FBE4` | 0x8009FBE4 | 204 | parked, 2.0% | placeholder |
+| `game/CSceneGraphContainer` | `fn_8009FCB0` | 0x8009FCB0 | 1500 | parked, 0.3% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A028C` | 0x800A028C | 1560 | parked, 0.3% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A08A4` | 0x800A08A4 | 520 | parked, 0.8% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A0AAC` | 0x800A0AAC | 1816 | parked, 0.2% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A11C4` | 0x800A11C4 | 1096 | parked, 0.4% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A160C` | 0x800A160C | 1788 | parked, 0.2% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A1D08` | 0x800A1D08 | 1488 | parked, 0.3% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A22D8` | 0x800A22D8 | 212 | parked, 1.9% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A23AC` | 0x800A23AC | 252 | parked, 1.6% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A24A8` | 0x800A24A8 | 168 | parked, not written | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A2550` | 0x800A2550 | 188 | parked, 2.1% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A260C` | 0x800A260C | 140 | parked, 2.9% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A2698` | 0x800A2698 | 8 | parked, 20.0% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A26A0` | 0x800A26A0 | 8 | parked, 20.0% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A26A8` | 0x800A26A8 | 8 | parked, 20.0% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A26B0` | 0x800A26B0 | 8 | parked, 20.0% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A26B8` | 0x800A26B8 | 8 | parked, 20.0% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A26C0` | 0x800A26C0 | 8 | parked, 20.0% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A26C8` | 0x800A26C8 | 8 | parked, 20.0% | placeholder |
+| `game/CSceneGraphContainer` | `fn_800A26D0` | 0x800A26D0 | 8 | parked, 20.0% | placeholder |
+| `game/unk_800A26D8` (unit name unconfirmed) | `fn_800A26D8__FRC19unk_AttributePacket` | 0x800A26D8 | 132 | matched | placeholder |
+| `game/CSystemCommands` (unit name unconfirmed) | `__sinit_\CSystemCommands_cpp` | 0x800A2900 | 44 | matched | placeholder (compiler-generated name) |
+| `game/unk_800A292C` (unit name unconfirmed) | `fn_800A292C` | 0x800A292C | 236 | parked, 99.5% | placeholder |
+| `game/unk_800A292C` (unit name unconfirmed) | `fn_800A2A18` | 0x800A2A18 | 160 | parked, 100% | placeholder |
+| `game/unk_800A292C` (unit name unconfirmed) | `fn_800A2AB8` | 0x800A2AB8 | 192 | parked, 100% | placeholder |
+| `game/unk_800A4098` (unit name unconfirmed) | `fn_800A4098` | 0x800A4098 | 28 | matched | placeholder |
+| `game/CPhysicsObject` | `fn_800A40B4` | 0x800A40B4 | 336 | parked, 1.2% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4204` | 0x800A4204 | 376 | parked, 1.1% | placeholder |
+| `game/CPhysicsObject` | `fn_800A437C` | 0x800A437C | 4 | parked, 100% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4380` | 0x800A4380 | 240 | parked, 98.1% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4470` | 0x800A4470 | 184 | parked, 100% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4528` | 0x800A4528 | 1060 | parked, 0.4% | placeholder |
+| `game/CPhysicsObject` | `fn_800A494C` | 0x800A494C | 776 | parked, 0.5% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4C54` | 0x800A4C54 | 416 | parked, 1.0% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4DF4` | 0x800A4DF4 | 152 | parked, 2.6% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4E8C` | 0x800A4E8C | 96 | parked, not written | placeholder |
+| `game/CPhysicsObject` | `fn_800A4EEC` | 0x800A4EEC | 72 | parked, 5.6% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4F34` | 0x800A4F34 | 8 | parked, 20.0% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4F3C` | 0x800A4F3C | 8 | parked, 20.0% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4F44` | 0x800A4F44 | 8 | parked, 20.0% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4F4C` | 0x800A4F4C | 8 | parked, 20.0% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4F54` | 0x800A4F54 | 8 | parked, 20.0% | placeholder |
+| `game/CPhysicsObject` | `fn_800A4F5C` | 0x800A4F5C | 8 | parked, 20.0% | placeholder |
 | `game/CScalingObject` | `__ct__14CScalingObjectFRC19unk_AttributePacket` | 0x800A4F64 | 192 | matched | placeholder |
 | `game/CScalingObject` | `__dt__14CScalingObjectFv` | 0x800A5024 | 168 | matched |  |
 | `game/CScalingObject` | `fn_8000CFD0__14CScalingObjectFv` | 0x800A50CC | 136 | matched | placeholder |
@@ -6602,6 +6730,15 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/CSceneObject` | `@52@__dt__12CSceneObjectFv` | 0x800A5910 | 8 | matched | compiler-generated thunk |
 | `game/CSceneObject` | `@60@__dt__12CSceneObjectFv` | 0x800A5918 | 8 | matched | compiler-generated thunk |
 | `game/CSceneObject` | `@60@fn_8009CB1C__12CSceneObjectFR7unk_Msg` | 0x800A5920 | 8 | matched | compiler-generated thunk, placeholder |
+| `game/CSplineHelper` | `__dt__13CSplineHelperFv` | 0x800A7CF8 | 232 | parked, 100% |  |
+| `game/CSplineHelper` | `fn_8009CB1C__13CSplineHelperFR7unk_Msg` | 0x800A7DE0 | 132 | parked, 100% | placeholder |
+| `game/CSplineHelper` | `fn_801A73A8__13CSplineHelperFRC19unk_AttributePacket` | 0x800A7E64 | 352 | parked, 100% | placeholder |
+| `game/CSplineHelper` | `__sinit_\CSplineHelper_cpp` | 0x800A7FC4 | 96 | parked, 100% | placeholder (compiler-generated name) |
+| `game/CSplineHelper` | `fn_800A8024__13CSplineHelperFRC19unk_AttributePacket` | 0x800A8024 | 204 | parked, 100% | placeholder |
+| `game/CSplineHelper` | `@36@fn_8009CB1C__13CSplineHelperFR7unk_Msg` | 0x800A80F0 | 8 | parked, 100% | compiler-generated thunk, placeholder |
+| `game/CSplineHelper` | `@36@__dt__13CSplineHelperFv` | 0x800A80F8 | 8 | parked, 100% | compiler-generated thunk |
+| `game/unk_800A82E4` (unit name unconfirmed) | `fn_800A82E4__12unk_800A8100Fv` | 0x800A82E4 | 860 | parked, 90.1% | placeholder |
+| `game/unk_800A82E4` (unit name unconfirmed) | `fn_800A8640__12unk_800A8100FP11unk_RpClump` | 0x800A8640 | 4 | parked, 100% | placeholder |
 | `game/CIGCPlayerMover` | `__dt__15CIGCPlayerMoverFv` | 0x800AB27C | 160 | matched |  |
 | `game/CIGCPlayerMover` | `fn_801A73A8__15CIGCPlayerMoverFRC19unk_AttributePacket` | 0x800AB31C | 156 | matched | placeholder |
 | `game/CIGCPlayerMover` | `fn_8009CB1C__15CIGCPlayerMoverFR7unk_Msg` | 0x800AB3B8 | 124 | matched | placeholder |

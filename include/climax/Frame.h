@@ -67,6 +67,10 @@ inline unk_RwMatrix* RwFrameGetMatrix( unk_RwFrame* frame ) {
     return &frame->modelling;
 }
 
+// defined in 0x80294DA4 (RenderWare), unit not yet reconstructed: resets the frame's modelling
+// matrix to the identity (C linkage, as RenderWare is C)
+extern "C" unk_RwFrame* RwFrameSetIdentity( unk_RwFrame* frame );
+
 /* RwFrameCallBack: returns NULL to stop the iteration. */
 typedef unk_RwFrame* ( *unk_RwFrameCallBack )( unk_RwFrame* frame, void* data );
 
@@ -100,6 +104,9 @@ extern "C" float _rwSqrt( const float num );
 // defined in 0x802A2724 (RenderWare), unit not yet reconstructed: clears the matrix's type flags
 // after its vectors were written (presumed RwMatrixUpdate, by its body; C linkage)
 extern "C" void RwMatrixUpdate( unk_RwMatrix* matrix );
+// RenderWare 3.7's RwMatrixOptimize (rwsdk/plcore/bamatrix.h, on RwMatrix): the tolerance is NULL
+// wherever the code passes it so (C linkage)
+extern "C" unk_RwMatrix* RwMatrixOptimize( unk_RwMatrix* matrix, const void* tolerance );
 
 /*
  * out = a x b (RwV3dCrossProduct; the RW 3.7 SDK's release build expands it as the macro
@@ -145,6 +152,9 @@ unk_RwFrame*    RwFrameUpdateObjects( unk_RwFrame* frame );
 // defined in rwsdk/src/baframe.c (parked): the frame's world matrix, at 0x50, synchronised first
 // when dirty. Open item: rwsdk/baframe.h declares it too, on RwFrame.
 unk_RwMatrix*   RwFrameGetLTM( unk_RwFrame* frame );
+// defined in rwsdk/src/baframe.c (parked): destroys one frame, its matrix and its links; the SDK
+// returns RwBool, which the callers here ignore
+void            RwFrameDestroy( unk_RwFrame* frame );
 // defined in 0x802A2B64 (RenderWare), unit not yet reconstructed: rotates the matrix by an angle
 // in degrees about an axis (presumed RwMatrixRotate, by its body and arguments)
 unk_RwMatrix*   RwMatrixRotate( unk_RwMatrix* matrix, const unk_RwV3d* axis, float angle, unk_RwOpCombineType combineOp );

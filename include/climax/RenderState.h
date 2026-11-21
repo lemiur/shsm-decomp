@@ -12,6 +12,7 @@
 enum {
     BLENDMODE_OPAQUE    = 1,    // source only
     BLENDMODE_ALPHA     = 2,    // source alpha over inverse source alpha
+    BLENDMODE_FOG       = 7,    // source alpha over one, the fog pass
     BLENDMODE_SUBTRACT  = 10,   // source alpha subtracted from the destination
     BLENDMODE_MULTIPLY  = 11    // source times destination
 };
@@ -115,6 +116,14 @@ inline void SetBlendMode( u32 mode ) {
             RwRenderStateSet( rwRENDERSTATEALPHATESTFUNCTIONREF, ( void* )0 );
             RwRenderStateSet( rwRENDERSTATEALPHATESTFUNCTION, ( void* )rwALPHATESTFUNCTIONGREATER );
             lbl_8052A6E8 = FOGCOLOUR_SCENE;
+            break;
+        case BLENDMODE_FOG:
+            RwRenderStateSet( rwRENDERSTATESRCBLEND, ( void* )rwBLENDSRCALPHA );
+            RwRenderStateSet( rwRENDERSTATEDESTBLEND, ( void* )rwBLENDONE );
+            RwRenderStateSet( rwRENDERSTATEVERTEXALPHAENABLE, ( void* )1 );
+            RwRenderStateSet( rwRENDERSTATEALPHATESTFUNCTIONREF, ( void* )0 );
+            RwRenderStateSet( rwRENDERSTATEALPHATESTFUNCTION, ( void* )rwALPHATESTFUNCTIONGREATER );
+            lbl_8052A6E8 = FOGCOLOUR_BLACK;
             break;
         case BLENDMODE_SUBTRACT:
             RwRenderStateSet( rwRENDERSTATEALPHATESTFUNCTIONREF, ( void* )0 );
