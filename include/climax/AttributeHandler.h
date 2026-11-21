@@ -41,7 +41,12 @@ struct RWSGUID {
 // (unit not yet reconstructed). Remove and RegisterForDelete are Gormiti's names for functions
 // that pair by call shape; their symbols name the handler as ::CAttributeHandler.
 namespace AssetTracker {
-    class CAssetList;       // Gormiti: RWS::AssetTracker::CAssetList
+    // Gormiti: RWS::AssetTracker::CAssetList. Only DecRefCount is recovered here (its body is in a
+    // unit not yet reconstructed); the other members are not yet known.
+    class CAssetList {
+    public:
+        void                    DecRefCount();
+    };
     ::CAttributeHandler*    Find( const RWSGUID& id );
     void                    Remove( ::CAttributeHandler* handler );
     void                    RegisterForDelete( ::CAttributeHandler* handler );

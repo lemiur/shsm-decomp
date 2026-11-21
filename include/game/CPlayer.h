@@ -49,22 +49,22 @@ public:
     virtual void    fn_8004315C();  // override
     virtual void    fn_8003D98C();  // override
     virtual int     fn_80072D14();  // override
-    virtual void    fn_8003CCC4();  // override
+    virtual void    fn_8003CCC4( u32 index );  // override
     virtual void    fn_8003F940();  // override
     virtual bool    fn_800436C8();  // override
     virtual void    fn_8001750C();  // override
     virtual void    fn_80041D08();  // override
-    virtual void    fn_800436C0();  // override
+    virtual bool    fn_800436C0();  // override
     virtual void    fn_8003FE38();  // override
     virtual void    fn_8003FE48();  // override
     virtual void    fn_8003FED8();  // override
     virtual void    fn_8003FFC8();  // override
     virtual void    fn_800435E8();  // override
-    virtual void    fn_8003CF5C();  // override
+    virtual void    fn_8003CF5C( int value );  // override
     virtual void    fn_8003EC88();  // override
     virtual void    fn_8003D2B4();  // override
     virtual void    fn_8003F05C();  // override
-    virtual void    fn_800436A8();  // override
+    virtual bool    fn_800436A8();  // override
     virtual void    fn_8003E470();  // override
     virtual void    fn_8003D604();  // override
     virtual void    fn_8003E658();  // override

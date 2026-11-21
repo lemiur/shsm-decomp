@@ -320,6 +320,10 @@ game/ZoneLink.cpp:
 game/unk_8002C8D0.cpp:
 	.text       start:0x8002C8D0 end:0x8002C9DC
 
+game/unk_8002CD08.cpp:
+	.text       start:0x8002CD08 end:0x8002D148
+	.data       start:0x803E175C end:0x803E1788
+
 game/unk_8002D148.cpp:
 	.text       start:0x8002D148 end:0x8002D158
 	.sdata2     start:0x8052B8C8 end:0x8052B8CC
@@ -335,11 +339,54 @@ game/unk_8002D384.cpp:
 	.text       start:0x8002D384 end:0x8002D480
 	.sdata      start:0x80526A24 end:0x80526A28
 
+game/unk_8002D480.cpp:
+	.text       start:0x8002D480 end:0x80031F1C
+	.data       start:0x803E1998 end:0x803E1CB8
+	.sdata      start:0x80526A28 end:0x80526A48
+	.sdata2     start:0x8052B8D0 end:0x8052B8DC
+
 game/unk_80031F1C.cpp:
 	.text       start:0x80031F1C end:0x80031F54
 	.ctors      start:0x803D839C end:0x803D83A0
 	.sbss       start:0x80529258 end:0x80529260
 	.sdata2     start:0x8052B8E0 end:0x8052B8E8
+
+game/unk_80031F54.cpp:
+	.text       start:0x80031F54 end:0x80032298
+
+game/unk_800338DC.cpp:
+	.text       start:0x800338DC end:0x80033D34
+	.data       start:0x803E1F88 end:0x803E1FE0
+	.sdata2     start:0x8052B8F8 end:0x8052B900
+
+game/AudioManager.cpp:
+	.text       start:0x80033DEC end:0x80033EC4
+
+climax/Audio/AudioManager.cpp:
+	.text       start:0x80033EC4 end:0x800397A0
+
+game/AudioMaterialMap.cpp:
+	.text       start:0x80039B04 end:0x80039E40
+	.ctors      start:0x803D83AC end:0x803D83B0
+	.data       start:0x803E2490 end:0x803E2548
+	.bss        start:0x80469B38 end:0x80469B48
+	.sbss       start:0x80529300 end:0x80529310
+
+game/unk_80039E40.cpp:
+	.text       start:0x80039E40 end:0x8003B538
+	.data       start:0x803E2548 end:0x803E2568
+	.sdata2     start:0x8052B950 end:0x8052B960
+
+game/CAudioReverb.cpp:
+	.text       start:0x8003B898 end:0x8003BCA4
+	.ctors      start:0x803D83B0 end:0x803D83B4
+	.data       start:0x803E2568 end:0x803E25F0
+	.bss        start:0x80469B48 end:0x80469B58
+	.sbss       start:0x80529310 end:0x80529318
+
+climax/Audio/Music.cpp:
+	.text       start:0x8003BCA4 end:0x8003BE3C
+	.sbss       start:0x80529318 end:0x80529320
 
 game/CActorTest.cpp:
 	.text       start:0x8003BE3C end:0x8003C3FC
@@ -349,12 +396,84 @@ game/CActorTest.cpp:
 	.sbss       start:0x80529320 end:0x80529330
 	.sdata2     start:0x8052B960 end:0x8052B968
 
+game/unk_8003C3FC.cpp:
+	.text       start:0x8003C3FC end:0x8003C454
+
+game/unk_8003C454.cpp:
+	.text       start:0x8003C454 end:0x80043658
+	.data       start:0x803E2738 end:0x803E2BA4
+	.sdata      start:0x80526BF0 end:0x80526C78
+	.sdata2     start:0x8052B968 end:0x8052BA00
+
+game/unk_80043658.cpp:
+	.text       start:0x80043658 end:0x800436D8
+	.sdata      start:0x80526C78 end:0x80526C80
+
+game/CCharacter.cpp:
+	.text       start:0x800436D8 end:0x80043858
+	.ctors      start:0x803D83B8 end:0x803D83BC
+	.data       start:0x803E2BA4 end:0x803E2BC0
+	.bss        start:0x80469B68 end:0x80469BA0
+	.sbss       start:0x80529330 end:0x80529348
+
+game/unk_800438A8.cpp:
+	.text       start:0x800438A8 end:0x80043950
+
+game/unk_80043950.cpp:
+	.text       start:0x80043950 end:0x80052C88
+
+game/CEnemy.cpp:
+	.text       start:0x80052E58 end:0x8005305C
+	.ctors      start:0x803D83BC end:0x803D83C0
+	.data       start:0x803E34D8 end:0x803E3518
+	.bss        start:0x80469BA0 end:0x80469BB8
+	.sdata      start:0x80526D2C end:0x80526D40
+	.sbss       start:0x80529348 end:0x80529360
+
+game/CEnemySpawn.cpp:
+	.text       start:0x8005305C end:0x800530D4
+
+game/unk_800531A0.cpp:
+	.text       start:0x800531A0 end:0x80053C40
+	.ctors      start:0x803D83C0 end:0x803D83C4
+	.data       start:0x803E3518 end:0x803E3830
+	.bss        start:0x80469BD8 end:0x80469BE8
+	.sdata      start:0x80526D40 end:0x80526D48
+	.sbss       start:0x80529360 end:0x80529368
+	.sdata2     start:0x8052BAF0 end:0x8052BAF8
+
+game/unk_80053C40.cpp:
+	.text       start:0x80053C40 end:0x80055174
+	.ctors      start:0x803D83C4 end:0x803D83C8
+
+game/unk_80055174.cpp:
+	.text       start:0x80055174 end:0x80055310
+	.data       start:0x803E3BD8 end:0x803E3E70
+	.sdata2     start:0x8052BB38 end:0x8052BB48
+
+game/unk_80055310.cpp:
+	.text       start:0x80055310 end:0x80055358
+
+game/unk_8005549C.cpp:
+	.text       start:0x8005549C end:0x800558B4
+
 game/CPlayerCostume.cpp:
 	.text       start:0x80073E3C end:0x80073FB8
 	.ctors      start:0x803D83D0 end:0x803D83D4
 	.data       start:0x803E6410 end:0x803E6490
 	.bss        start:0x80469EC8 end:0x80469ED8
 	.sbss       start:0x80529580 end:0x80529588
+
+game/unk_80073FB8.cpp:
+	.text       start:0x80073FB8 end:0x80074138
+	.data       start:0x803E6590 end:0x803E65A8
+
+game/unk_80074138.cpp:
+	.text       start:0x80074138 end:0x80074890
+	.data       start:0x803E65A8 end:0x803E65D0
+
+game/unk_80075424.cpp:
+	.text       start:0x80075424 end:0x8007566C
 
 game/CCopCar.cpp:
 	.text       start:0x80077A8C end:0x80077C9C
@@ -364,6 +483,10 @@ game/CCopCar.cpp:
 	.sdata      start:0x805270F0 end:0x80527100
 	.sbss       start:0x80529590 end:0x805295A0
 	.sdata2     start:0x8052BE20 end:0x8052BE28
+
+game/unk_8007BAD4.cpp:
+	.text       start:0x8007BAD4 end:0x8007BB78
+	.sdata2     start:0x8052BE44 end:0x8052BE48
 
 game/CHitEffectManager.cpp:
 	.text       start:0x80087614 end:0x800878D0

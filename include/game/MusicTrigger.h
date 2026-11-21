@@ -6,7 +6,7 @@
 #include <game/CGenericSpawner.h>
 
 /* The music player behind lbl_805292F8 (unit at 0x80033D94 not yet reconstructed). Name invented. */
-struct unk_MusicPlayer;
+class unk_MusicPlayer;
 
 extern unk_MusicPlayer* lbl_805292F8;
 
@@ -15,6 +15,14 @@ extern unk_MusicPlayer* lbl_805292F8;
 void    fn_80038DB8( unk_MusicPlayer* player, const char* name, float arg );
 void    fn_80038FF4( unk_MusicPlayer* player, const char* name, float arg, int flag0, int flag1, int flag2,
                      int flag3 );
+
+namespace Audio {
+class MixerSettings;
+}
+
+// defined in 0x80039350, unit not yet reconstructed: the player is handed a mixer's settings with two
+// flags, both unknown (called from Audio::MixerItem::EditFunc)
+extern "C" void fn_80039350( unk_MusicPlayer* player, Audio::MixerSettings* mixer, int flag0, int flag1 );
 
 /*
  * Plays a music track when its message arrives ("MusicTrigger[%s]: Play %s"), or stops the music

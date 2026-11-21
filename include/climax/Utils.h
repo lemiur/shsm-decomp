@@ -50,6 +50,7 @@ unk_XmlNode* fn_801CCB98( unk_XmlNode* node, const char* name );
 unk_XmlNode* fn_801CDEA8( char* text );
 
 extern "C" int       fn_801B6138( const char* a, const char* b );  // true when the strings are equal, ignoring case
+extern "C" int       fn_801B6188( const char* a, const char* b, int n );  // true when the first n characters are equal, ignoring case
 char*                   fn_801B67FC( const char* str, int extra );
 char*                   fn_801B6870( const char* str, int extra );
 void                    fn_801B68E4( char* dst, const char* src, int size );
