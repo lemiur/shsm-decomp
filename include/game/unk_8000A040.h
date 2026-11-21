@@ -11,6 +11,7 @@
 #include <game/PadRumble.h>
 #include <game/Vec3.h>
 #include <revolution/kpad.h>
+#include <revolution/wpad/__wpad.h>
 #include <string.h>
 
 /*
@@ -34,10 +35,12 @@ extern unk_PadInputSink* lbl_805291E8;  // defined elsewhere, unit not yet recon
 struct unk_PadChannel {
     bool            field_0x0;          // the channel is read
     KPADStatus      samples[16];        // 0x008
-    u32             field_0xB08;
+    s32             field_0xB08;        // 0xB08, the valid samples, at most 16
     s32             sampleCount;        // 0xB0C, the result of KPADRead
     bool            field_0xB10;
-    u8              field_0xB11[0x1F];
+    u8              field_0xB11[3];
+    WPADInfo        info;               // 0xB14, the device info of WPADGetInfoAsync
+    u8              field_0xB2C[4];
 };
 
 extern unk_PadChannel lbl_804579C0[4];

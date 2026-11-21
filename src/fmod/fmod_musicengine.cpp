@@ -1,137 +1,258 @@
 // Unit name and boundary: Gormiti link map (fmod_event.a fmod_musicengine.obj)
 
-// TODO: includes
+#include <new>
+
+#include <fmod/fmod.hpp>
+#include <fmod/fmod_memory.h>
+#include <fmod/fmod_musicengine.h>
 
 // Data owned by this unit (declare each once in the header, define it here; names are the
-// symbols.txt names):
-//   .data 0x80452AB0 size 0x1C0 lbl_80452AB0
-//   .data 0x80452C70 size 0x15 lbl_80452C70
-//   .data 0x80452C88 size 0x15 lbl_80452C88
-//   .data 0x80452CA0 size 0x14 lbl_80452CA0
-//   .data 0x80452CB4 size 0xC lbl_80452CB4
-//   .data 0x80452CC0 size 0x1C lbl_80452CC0
-//   .data 0x80452CDC size 0x5C lbl_80452CDC
-//   .sdata2 0x8052FFD0 size 0x4 lbl_8052FFD0
-//   .sdata2 0x8052FFD4 size 0x4 lbl_8052FFD4
-//   .sdata2 0x8052FFD8 size 0x4 lbl_8052FFD8
-//   .sdata2 0x8052FFDC size 0x4 lbl_8052FFDC
-//   .sdata2 0x8052FFE0 size 0x8 lbl_8052FFE0
-//   .sdata2 0x8052FFE8 size 0x4 lbl_8052FFE8
-//   .sdata2 0x8052FFF0 size 0x8 lbl_8052FFF0
+// symbols.txt names): lbl_80452AB0 (0x1C0), lbl_80452C70, lbl_80452C88, lbl_80452CA0, lbl_80452CB4,
+// lbl_80452CC0, lbl_80452CDC (.data); lbl_8052FFD0 .. lbl_8052FFF0 (.sdata2).
 
-// TODO: signature not expanded or needs a complete type: getStartSegment__Q24FMOD30@unnamed@fmod_musicengine_cpp@FUiRCQ24FMOD10MusicStatePUi
-// void FMOD::@unnamed@fmod_musicengine_cpp@::getStartSegment( unsigned int, const FMOD::MusicState&, unsigned int* ) { } // 0x803AA228
+namespace FMOD {
 
-// TODO: signature not expanded or needs a complete type: addTheme__Q24FMOD17MusicStatePrimaryFUiPUi
-// void FMOD::MusicStatePrimary::addTheme( unsigned int, unsigned int* ) { } // 0x803AA3E8
+// Not reconstructed yet (NonMatching): getStartSegment (anonymous namespace), MusicSync::getCurrentBeat,
+// getNextSyncTime, MusicEngine::init, release, stop, reset, setPaused, getInfo, update, beginTheme, endTheme,
+// beginDefaultTransition, findSecondaryPlayerWithTheme, PlayerEntry::getNextSegment. Most of them call
+// SegmentPlayer, SegmentBuffer, the repositories or Segment::quantizeTime, whose units are not reconstructed.
+// MusicEngine::MusicEngine (66%): retail clears the primary state's cue list and the MusicSync block in its
+// own order, which the member initialisers do not reproduce.
 
-// TODO: signature not expanded or needs a complete type: removeTheme__Q24FMOD17MusicStatePrimaryFUi
-// void FMOD::MusicStatePrimary::removeTheme( unsigned int ) { } // 0x803AA460
+// Top of the primary state's scene stack: the primary state has one scene.
+unsigned int MusicStatePrimary::getSceneStackTop() const {
+    return 1;
+} // 0x803AA590
 
-// TODO: signature not expanded or needs a complete type: isCueActive__Q24FMOD17MusicStatePrimaryCFUi
-// void FMOD::MusicStatePrimary::isCueActive( unsigned int ) const { } // 0x803AA4EC
+// Theme of the top stack entry, or 0 when the stack is empty.
+// Not matched: retail keeps the copied StackItem in a stack frame, this copy stays in registers
+// (wall: placement of the aggregate local).
+unsigned int MusicStatePrimary::getThemeStackTop() const {
+    ThemeStack::StackItem item;
+    if ( m_themestack.m_length != 0 ) {
+        item = m_themestack.m_stack[ m_themestack.m_length - 1 ];
+    } else {
+        item.theme_id = 0;
+        item.stack_id = 0;
+    }
+    return item.theme_id;
+} // 0x803AA544
 
-// TODO: signature not expanded or needs a complete type: getThemeStackTop__Q24FMOD17MusicStatePrimaryCFv
-// void FMOD::MusicStatePrimary::getThemeStackTop() const { } // 0x803AA544
+// Theme of the secondary state's stack top, kept by the state itself.
+unsigned int MusicStateSecondary::getThemeStackTop() const {
+    return m_themestacktop;
+} // 0x803AA5F0
 
-// TODO: signature not expanded or needs a complete type: getSceneStackTop__Q24FMOD17MusicStatePrimaryCFv
-// void FMOD::MusicStatePrimary::getSceneStackTop() const { } // 0x803AA590
+// The scene stack top follows the primary state, or is 0 when there is no primary state.
+unsigned int MusicStateSecondary::getSceneStackTop() const {
+    if ( m_primary != NULL ) {
+        return m_primary->getSceneStackTop();
+    }
+    return 0;
+} // 0x803AA5F8
 
-// TODO: signature not expanded or needs a complete type: addTheme__Q24FMOD19MusicStateSecondaryFUiPUi
-// void FMOD::MusicStateSecondary::addTheme( unsigned int, unsigned int* ) { } // 0x803AA598
+FMOD_RESULT MusicEngine::updatePosition( unsigned int, unsigned int ) {
+    return FMOD_OK;
+} // 0x803ABEEC
 
-// TODO: signature not expanded or needs a complete type: removeTheme__Q24FMOD19MusicStateSecondaryFUi
-// void FMOD::MusicStateSecondary::removeTheme( unsigned int ) { } // 0x803AA5B0
+FMOD_RESULT MusicEngine::startSegment( unsigned int segment ) {
+    if ( m_callback != NULL ) {
+        FMOD_RESULT result = m_callback( FMOD_MUSIC_CALLBACKTYPE_SEGMENT_START, (void *)segment, NULL, m_callbackdata );
+        if ( result != FMOD_OK ) {
+            return result;
+        }
+    }
+    return FMOD_OK;
+} // 0x803ABEF4
 
-// TODO: signature not expanded or needs a complete type: isCueActive__Q24FMOD19MusicStateSecondaryCFUi
-// void FMOD::MusicStateSecondary::isCueActive( unsigned int ) const { } // 0x803AA5CC
+FMOD_RESULT MusicEngine::endSegment( unsigned int segment ) {
+    if ( m_callback != NULL ) {
+        FMOD_RESULT result = m_callback( FMOD_MUSIC_CALLBACKTYPE_SEGMENT_END, (void *)segment, NULL, m_callbackdata );
+        if ( result != FMOD_OK ) {
+            return result;
+        }
+    }
+    return FMOD_OK;
+} // 0x803ABF40
 
-// TODO: signature not expanded or needs a complete type: getThemeStackTop__Q24FMOD19MusicStateSecondaryCFv
-// void FMOD::MusicStateSecondary::getThemeStackTop() const { } // 0x803AA5F0
+FMOD_RESULT MusicEngine::setCallback( FMOD_MUSIC_CALLBACK callback, void *userdata ) {
+    m_callback = callback;
+    m_callbackdata = userdata;
+    return FMOD_OK;
+} // 0x803AB08C
 
-// TODO: signature not expanded or needs a complete type: getSceneStackTop__Q24FMOD19MusicStateSecondaryCFv
-// void FMOD::MusicStateSecondary::getSceneStackTop() const { } // 0x803AA5F8
+FMOD_RESULT MusicEngine::start() {
+    m_playing = true;
+    return FMOD_OK;
+} // 0x803AAC4C
 
-void getCurrentBeat() {
-    // TODO
-} // 0x803AA61C
+FMOD_RESULT MusicEngine::getPaused( bool *paused ) {
+    if ( paused == NULL ) {
+        return FMOD_ERR_INVALID_PARAM;
+    }
+    *paused = m_paused;
+    return FMOD_OK;
+} // 0x803AAF6C
 
-// TODO: signature not expanded or needs a complete type: getNextSyncTime__Q24FMOD9MusicSyncCFUxQ34FMOD5Theme9SyncStyle
-// void FMOD::MusicSync::getNextSyncTime( u64, FMOD::Theme::SyncStyle ) const { } // 0x803AA7A8
+FMOD_RESULT MusicEngine::setVolume( float volume ) {
+    FMOD_RESULT _result = m_channelgroup->setVolume( volume );
+    if ( _result != FMOD_OK ) {
+        return _result;
+    }
+    return FMOD_OK;
+} // 0x803AAE6C
 
-// TODO: signature not expanded or needs a complete type: __ct__Q24FMOD11MusicEngineFv
-// FMOD::MusicEngine::MusicEngine() { } // 0x803AA864
+FMOD_RESULT MusicEngine::getVolume( float *volume ) {
+    FMOD_RESULT _result = m_channelgroup->getVolume( volume );
+    if ( _result != FMOD_OK ) {
+        return _result;
+    }
+    return FMOD_OK;
+} // 0x803AAEA4
 
-// TODO: signature not expanded or needs a complete type: init__Q24FMOD11MusicEngineFPQ24FMOD6SystemUiPQ24FMOD13MusicSettings
-// void FMOD::MusicEngine::init( FMOD::System*, unsigned int, FMOD::MusicSettings* ) { } // 0x803AA90C
+FMOD_RESULT MusicEngine::setMute( bool mute ) {
+    FMOD_RESULT _result = m_channelgroup->setMute( mute );
+    if ( _result != FMOD_OK ) {
+        return _result;
+    }
+    return FMOD_OK;
+} // 0x803AAF8C
 
-// TODO: signature not expanded or needs a complete type: release__Q24FMOD11MusicEngineFv
-// void FMOD::MusicEngine::release() { } // 0x803AAB08
+FMOD_RESULT MusicEngine::getMute( bool *mute ) {
+    FMOD_RESULT _result = m_channelgroup->getMute( mute );
+    if ( _result != FMOD_OK ) {
+        return _result;
+    }
+    return FMOD_OK;
+} // 0x803AAFC4
 
-// TODO: signature not expanded or needs a complete type: start__Q24FMOD11MusicEngineFv
-// void FMOD::MusicEngine::start() { } // 0x803AAC4C
+// The secondary state takes its theme as the stack top, and reports it through handle when asked.
+FMOD_RESULT MusicStateSecondary::addTheme( unsigned int theme, unsigned int *handle ) {
+    m_themestacktop = theme;
+    if ( handle != NULL ) {
+        *handle = theme;
+    }
+    return FMOD_OK;
+} // 0x803AA598
 
-// TODO: signature not expanded or needs a complete type: stop__Q24FMOD11MusicEngineFv
-// void FMOD::MusicEngine::stop() { } // 0x803AAC5C
+// Removing the theme on top clears the stack top.
+FMOD_RESULT MusicStateSecondary::removeTheme( unsigned int handle ) {
+    if ( handle == m_themestacktop ) {
+        m_themestacktop = 0;
+    }
+    return FMOD_OK;
+} // 0x803AA5B0
 
-// TODO: signature not expanded or needs a complete type: reset__Q24FMOD11MusicEngineFv
-// void FMOD::MusicEngine::reset() { } // 0x803AACDC
+// A cue is active when the primary state has it; a secondary state without a primary has none.
+bool MusicStateSecondary::isCueActive( unsigned int cue ) const {
+    if ( m_primary != NULL ) {
+        return m_primary->isCueActive( cue );
+    }
+    return false;
+} // 0x803AA5CC
 
-// TODO: signature not expanded or needs a complete type: setVolume__Q24FMOD11MusicEngineFf
-// void FMOD::MusicEngine::setVolume( float ) { } // 0x803AAE6C
+// Adds a theme on top of the primary stack when there is room; handle receives its stack id (0 when full).
+FMOD_RESULT MusicStatePrimary::addTheme( unsigned int theme, unsigned int *handle ) {
+    unsigned int stack_id;
+    if ( m_themestack.m_length < m_themestack.m_max_length ) {
+        m_themestack.m_stack[ m_themestack.m_length ].theme_id = theme;
+        m_themestack.m_stack[ m_themestack.m_length ].stack_id = m_themestack.m_next_stack_id;
+        m_themestack.m_next_stack_id++;
+        m_themestack.m_length++;
+        stack_id = m_themestack.m_stack[ m_themestack.m_length - 1 ].stack_id;
+    } else {
+        stack_id = 0;
+    }
+    if ( handle != NULL ) {
+        *handle = stack_id;
+    }
+    return FMOD_OK;
+} // 0x803AA3E8
 
-// TODO: signature not expanded or needs a complete type: getVolume__Q24FMOD11MusicEngineFPf
-// void FMOD::MusicEngine::getVolume( float* ) { } // 0x803AAEA4
+// Removes the theme with the given stack id, closing the gap by moving the entries above it down.
+FMOD_RESULT MusicStatePrimary::removeTheme( unsigned int handle ) {
+    unsigned int i;
+    for ( i = 0; i < m_themestack.m_length; i++ ) {
+        if ( m_themestack.m_stack[ i ].stack_id == handle ) {
+            break;
+        }
+    }
+    if ( i < m_themestack.m_length ) {
+        m_themestack.m_length--;
+        for ( ; i < m_themestack.m_length; i++ ) {
+            m_themestack.m_stack[ i ] = m_themestack.m_stack[ i + 1 ];
+        }
+    }
+    return FMOD_OK;
+} // 0x803AA460
 
-// TODO: signature not expanded or needs a complete type: setPaused__Q24FMOD11MusicEngineFb
-// void FMOD::MusicEngine::setPaused( bool ) { } // 0x803AAEDC
+// A cue is active while it has begun and not yet ended.
+bool MusicStatePrimary::isCueActive( unsigned int cue ) const {
+    const LinkedListNode *node;
+    for ( node = m_cuestates.m_cuestates.mNodeNext; node != &m_cuestates.m_cuestates; node = node->mNodeNext ) {
+        if ( static_cast<const CueState *>( node )->m_cue == cue ) {
+            break;
+        }
+    }
+    if ( node == &m_cuestates.m_cuestates ) {
+        node = NULL;
+    }
+    unsigned int count;
+    if ( node != NULL ) {
+        count = static_cast<const CueState *>( node )->m_count;
+    } else {
+        count = 0;
+    }
+    return count != 0;
+} // 0x803AA4EC
 
-// TODO: signature not expanded or needs a complete type: getPaused__Q24FMOD11MusicEngineFPb
-// void FMOD::MusicEngine::getPaused( bool* ) { } // 0x803AAF6C
+// Starts a cue: the first begin creates its entry; each begin counts one more.
+FMOD_RESULT MusicEngine::beginCue( unsigned int cue ) {
+    LinkedListNode *node;
+    for ( node = m_primary_state.m_cuestates.m_cuestates.mNodeNext; node != &m_primary_state.m_cuestates.m_cuestates; node = node->mNodeNext ) {
+        if ( static_cast<CueState *>( node )->m_cue == cue ) {
+            break;
+        }
+    }
+    if ( node == &m_primary_state.m_cuestates.m_cuestates ) {
+        node = NULL;
+    }
+    CueState *state = static_cast<CueState *>( node );
+    if ( state == NULL ) {
+#line 102
+        state = new ( FMOD_Memory_Alloc( sizeof( CueState ) ) ) CueState;
+        if ( state == NULL ) {
+            return FMOD_ERR_MEMORY;
+        }
+        state->m_cue = cue;
+        state->addBefore( &m_primary_state.m_cuestates.m_cuestates );
+    }
+    state->m_count++;
+    return FMOD_OK;
+} // 0x803AB950
 
-// TODO: signature not expanded or needs a complete type: setMute__Q24FMOD11MusicEngineFb
-// void FMOD::MusicEngine::setMute( bool ) { } // 0x803AAF8C
+// Ends one begin of a cue; the entry stays in the table with its count.
+FMOD_RESULT MusicEngine::endCue( unsigned int cue ) {
+    LinkedListNode *node;
+    for ( node = m_primary_state.m_cuestates.m_cuestates.mNodeNext; node != &m_primary_state.m_cuestates.m_cuestates; node = node->mNodeNext ) {
+        if ( static_cast<CueState *>( node )->m_cue == cue ) {
+            break;
+        }
+    }
+    if ( node == &m_primary_state.m_cuestates.m_cuestates ) {
+        node = NULL;
+    }
+    if ( node != NULL ) {
+        static_cast<CueState *>( node )->m_count--;
+    }
+    return FMOD_OK;
+} // 0x803ABA48
 
-// TODO: signature not expanded or needs a complete type: getMute__Q24FMOD11MusicEngineFPb
-// void FMOD::MusicEngine::getMute( bool* ) { } // 0x803AAFC4
+// Every member starts cleared; the sub-objects set up their own state.
+MusicEngine::MusicEngine()
+    : m_system( NULL ), m_numplayers( 0 ), m_players( NULL ), m_primary_player( NULL ), m_master_player( NULL ),
+      m_paused( false ), m_playing( false ), m_primary_state(), m_musicsync(), m_channelgroup( NULL ),
+      m_timer_end( 0 ), m_current_bar( 0 ), m_current_beat( 0 ), m_callback( NULL ), m_callbackdata( NULL ) {
+} // 0x803AA864
 
-// TODO: signature not expanded or needs a complete type: getInfo__Q24FMOD11MusicEngineFP15FMOD_MUSIC_INFO
-// void FMOD::MusicEngine::getInfo( FMOD_MUSIC_INFO* ) { } // 0x803AAFFC
-
-// TODO: signature not expanded or needs a complete type: setCallback__Q24FMOD11MusicEngineFPF23FMOD_MUSIC_CALLBACKTYPEPvPvPv_11FMOD_RESULTPv
-// void FMOD::MusicEngine::setCallback( FMOD_RESULT (*)(FMOD_MUSIC_CALLBACKTYPE, void*, void*, void*), void* ) { } // 0x803AB08C
-
-// TODO: signature not expanded or needs a complete type: update__Q24FMOD11MusicEngineFv
-// void FMOD::MusicEngine::update() { } // 0x803AB09C
-
-// TODO: signature not expanded or needs a complete type: beginTheme__Q24FMOD11MusicEngineFUiPQ24FMOD15ThemeStackEntry
-// void FMOD::MusicEngine::beginTheme( unsigned int, FMOD::ThemeStackEntry* ) { } // 0x803AB3AC
-
-// TODO: signature not expanded or needs a complete type: endTheme__Q24FMOD11MusicEngineFRCQ24FMOD15ThemeStackEntry
-// void FMOD::MusicEngine::endTheme( const FMOD::ThemeStackEntry& ) { } // 0x803AB7B0
-
-// TODO: signature not expanded or needs a complete type: beginCue__Q24FMOD11MusicEngineFUi
-// void FMOD::MusicEngine::beginCue( unsigned int ) { } // 0x803AB950
-
-// TODO: signature not expanded or needs a complete type: endCue__Q24FMOD11MusicEngineFUi
-// void FMOD::MusicEngine::endCue( unsigned int ) { } // 0x803ABA48
-
-void beginDefaultTransition() {
-    // TODO
-} // 0x803ABA98
-
-void findSecondaryPlayerWithTheme() {
-    // TODO
-} // 0x803ABE14
-
-// TODO: signature not expanded or needs a complete type: updatePosition__Q24FMOD11MusicEngineFUiUi
-// void FMOD::MusicEngine::updatePosition( unsigned int, unsigned int ) { } // 0x803ABEEC
-
-// TODO: signature not expanded or needs a complete type: startSegment__Q24FMOD11MusicEngineFUi
-// void FMOD::MusicEngine::startSegment( unsigned int ) { } // 0x803ABEF4
-
-// TODO: signature not expanded or needs a complete type: endSegment__Q24FMOD11MusicEngineFUi
-// void FMOD::MusicEngine::endSegment( unsigned int ) { } // 0x803ABF40
-
-// TODO: signature not expanded or needs a complete type: getNextSegment__Q34FMOD11MusicEngine11PlayerEntryCFUiRCQ24FMOD10LinkFilterPUi
-// void FMOD::MusicEngine::PlayerEntry::getNextSegment( unsigned int, const FMOD::LinkFilter&, unsigned int* ) const { } // 0x803ABF8C
+} // namespace FMOD

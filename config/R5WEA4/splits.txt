@@ -26,11 +26,31 @@ game/unk_80006C7C.cpp:
 	.data       start:0x803DF1D0 end:0x803DF208
 	.sdata2     start:0x8052B608 end:0x8052B650
 
+climax/unk_80008828.cpp:
+	.text       start:0x80008828 end:0x80009628
+	.data       start:0x803DF208 end:0x803DF270
+
+game/unk_80009628.cpp:
+	.text       start:0x80009628 end:0x80009CF8
+	.bss        start:0x804575A0 end:0x804579C0
+	.sbss       start:0x80529150 end:0x80529158
+	.sdata2     start:0x8052B650 end:0x8052B690
+
+game/unk_80009CF8.cpp:
+	.text       start:0x80009CF8 end:0x80009DB4
+
 game/unk_80009DB4.cpp:
 	.text       start:0x80009DB4 end:0x80009DD0
 
+game/unk_80009DD0.cpp:
+	.text       start:0x80009DD0 end:0x80009EC8
+	.sdata      start:0x80526720 end:0x80526724
+
 game/unk_80009EC8.cpp:
 	.text       start:0x80009EC8 end:0x80009F60
+
+game/unk_80009F60.cpp:
+	.text       start:0x80009F60 end:0x8000A028
 
 game/unk_8000A040.cpp:
 	.text       start:0x8000A028 end:0x8000C32C
@@ -41,6 +61,11 @@ game/unk_8000A040.cpp:
 	.sbss       start:0x80529158 end:0x80529168
 	.sdata2     start:0x8052B690 end:0x8052B700
 
+game/AtomicTags.cpp:
+	.text       start:0x8000C32C end:0x8000C5C4
+	.data       start:0x803DFB00 end:0x803DFB88
+	.sdata      start:0x80526738 end:0x805267A8
+
 game/CCollisionCapsule.cpp:
 	.text       start:0x8000C8A8 end:0x8000D090
 	.ctors      start:0x803D836C end:0x803D8370
@@ -48,6 +73,48 @@ game/CCollisionCapsule.cpp:
 	.bss        start:0x8045A6A0 end:0x8045A6B0
 	.sbss       start:0x80529168 end:0x80529170
 	.sdata2     start:0x8052B700 end:0x8052B708
+
+game/unk_8000D090.cpp:
+	.text       start:0x8000D090 end:0x8000D70C
+	.sbss       start:0x80529170 end:0x80529174
+	.sdata2     start:0x8052B708 end:0x8052B718
+
+game/unk_8000D70C.cpp:
+	.text       start:0x8000D70C end:0x8000D83C
+
+game/unk_8000EC94.cpp:
+	.text       start:0x8000EC94 end:0x8000EE44
+	.data       start:0x803DFC38 end:0x803DFC50
+
+game/unk_8000EE44.cpp:
+	.text       start:0x8000EE44 end:0x8000EFA4
+	.sdata2     start:0x8052B748 end:0x8052B758
+
+game/unk_PhysicsManager.cpp:
+	.text       start:0x8000EFA4 end:0x8000F6AC
+	.sbss       start:0x80529174 end:0x80529178
+
+game/unk_8000F71C.cpp:
+	.text       start:0x8000F71C end:0x8000F80C
+
+game/unk_8000F80C.cpp:
+	.text       start:0x8000F80C end:0x8000F8F8
+	.sdata      start:0x80526810 end:0x80526820
+
+game/unk_8000F8F8.cpp:
+	.text       start:0x8000F8F8 end:0x8000FC5C
+	.sdata      start:0x80526820 end:0x80526830
+
+game/unk_80011054.cpp:
+	.text       start:0x80011054 end:0x800110FC
+	.data       start:0x803DFFA0 end:0x803DFFF0
+	.sdata      start:0x80526890 end:0x80526898
+
+game/unk_80011AA4.cpp:
+	.text       start:0x80011AA4 end:0x80011BB0
+
+game/unk_80012330.cpp:
+	.text       start:0x80012330 end:0x8001238C
 
 game/CPreCache.cpp:
 	.text       start:0x800288F4 end:0x8002905C

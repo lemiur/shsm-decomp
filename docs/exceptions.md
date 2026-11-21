@@ -181,6 +181,28 @@ functions holding the same instruction sequence).
   and KPAD start-up of the pad input) is named after its address; no string or class evidence names the file. Its
   callees `fn_80009CCC` and `fn_80009CD4` (the WPAD allocator and free callbacks) and `fn_80009CF8` (the KPAD connect
   callback) are declared extern "C" in `include/game/unk_80009EC8.h`, defined in their own units (not yet reconstructed).
+- **Unit name unconfirmed (R12, R7; game lane L0003):** `game/unk_80009CF8.cpp` holds one function, `fn_80009CF8`; the
+  file name is an address placeholder. Its shape is the WPAD connect callback `(chan, result)` (`WPADConnectCallback`),
+  but no caller in the tree names it, so the name and the role are invented. `Audio::Manager::InitWiiController` is
+  declared in `include/climax/Audio/Manager.h` from its dtk signature name alone (static, one `long`).
+
+- **Node-list destructor unit (R12, R7):** `src/game/unk_8000EC94.cpp` holds `__dt__12unk_NodeListFv`
+  (0x8000EC94), exact, but the class is a unit-local copy of the `unk_List<T>` shape in `climax/unk_List.h` for an 8-byte
+  element (the destructor is that template's `~unk_List` with the same `Remove` test). The owner of the instance is the
+  unit that builds it (the constructor inlined in fn_8000EE44's region, with `__vt__12unk_NodeList` at 0x803DFC44), not
+  this one-function unit. Parked NonMatching until the owner is reconstructed and instantiates the template; then delete
+  the copy.
+- **`game/unk_8000F71C.cpp` (unit name unconfirmed):** the file name is the address (no class-name evidence). It holds
+  four functions of the physics manager's region: `unk_PhysicsManager::fn_8000F71C` (matched), `fn_8000F804` (matched,
+  owner unknown), `fn_8000F7F8` (matched as a free function: its manager argument is untyped and its object's class is
+  unnamed) and `fn_8000F78C` (stub: it constructs a 0x10C-byte object with `fn_8000D090` and passes the manager's
+  member at 0xC, whose type is not yet known). `fn_8000D70C` is declared in `include/game/unk_PhysicsManager.h` as an
+  identity TODO. `lbl_80529178` is declared there and defined in the unit of `fn_8000F5E4`.
+- **`game/unk_PhysicsManager` unit name (unit name unconfirmed; R7):** `src/game/unk_PhysicsManager.cpp` takes its name
+  from the invented class `unk_PhysicsManager` (`include/game/unk_PhysicsManager.h`). Its one function,
+  `fn_8000F648`, is a member whose instance is unused and whose body is identical to `fn_8000F5E4` (not yet in
+  this unit). The counter `lbl_80529178` is declared extern in the header and is owned by the unreconstructed unit
+  that holds 0x80529178. Rename the unit and class when evidence appears.
 - **`fmod/fmod_memory` helpers (R7, R30; invented):** `FindFreeBlocks` and `FindThreadSlot` are invented inline
   helpers (name and shape marked at the code; the sibling's line table puts each on one line of its callers, so the
   original was probably a macro). The declaration order of their locals gives retail's register numbering in `alloc`
@@ -204,6 +226,7 @@ functions holding the same instruction sequence).
   types `AXFX_REVERBSTD` and `AXFX_REVERBSTD_EXP` (layout derived from the asm) and `AXFX_BUS_DPL2` (the DPL2 bus
   pointer type of `AXFX_REVERBHI_EXP_DPL2`). Modelled on the Hi names; rename when evidence appears.
 - **Unit name unconfirmed (R12):** `revolution/wpad/wpad_debug_msg.c` (tp's file name; ogws `WPAD/debug_msg.c`). `VISetCGMS`'s `OSPanic` line (1) is an unknown placeholder.
+- **Unit name unconfirmed (R12, R7; game/AtomicTags):** `src/game/AtomicTags.cpp` holds `fn_8000C32C`, the reader of the atomic's `atomicType` user-data integer (callers: `AtomicTags::FindAtomicByTypeCB`, `AtomicTags::FindAllAtomicsByTypeCB`, `fn_8009E3AC`). The file name follows the class in the callers' symbol names; no string names the file. The name `fn_8000C32C` is a placeholder for a free function (`extern "C"`).
 - **Invented macro name (R7):** `ALARM_TAG_INTERNAL` in `revolution/os/OSAlarm`, the tag that
   `__OSSetInternalAlarmUserData` (0x802125E0, named from the Gormiti link map, os.a OSAlarm.o) stores in the alarm.
   Its partner at 0x802125F0 is `__OSCancelInternalAlarms`, the name zeldaret/tp `libs/revolution/src/os/OSThread.c`
@@ -323,6 +346,11 @@ functions holding the same instruction sequence).
   open-code the register stores that the SDK writes as the `OS_EXCEPTION_SAVE_GPRS(context)` macro. Restoring the
   macro in `OSContext.h` is a [checked] readability fix (both are ORIGINAL-ASM, so no count changes).
 
+- **Game unit name unconfirmed (R7 invented class, R12):** `src/game/unk_80012330.cpp` (its one function `fn_80012330`,
+  a reference release: the last reference frees the block's RenderWare data and the block) carries the "unit name
+  unconfirmed" comment; the class `unk_RefBlock` (`include/game/unk_80012330.h`) is a role name invented from that
+  function alone. The caller `fn_80187470` (game/G7) passes its owner as the second argument, which this path never
+  reads. Gormiti has no counterpart.
 - **RenderWare unit name unconfirmed (R12):** `rwsdk/src/plcore/batkbin.c` (the plugin-registry stream functions
   `_rwPluginRegistryAddPluginStream` .. `_rwPluginRegistrySkipDataChunks`; tgsm/pbg has no such file, the name
   follows RenderWare's own `ba*` naming) carries the "unit name unconfirmed" comment.
@@ -790,6 +818,8 @@ functions holding the same instruction sequence).
 - **Game unit name unconfirmed (Localisation):** `climax/Localisation.cpp` (the languages and regions, the Config.xml
   reader, the "BootStrings" and "Strings" table loaders and the text lookup) is named after what it does; no string
   names the file. It carries the "unit name unconfirmed" comment; rename it when a class-name string evidences the unit.
+- **Game unit name unconfirmed (unk_80009F60):** `game/unk_80009F60.cpp` (0x80009F60-0x8000A028, one function) is named
+  after its first address; no string names the file. It carries the "unit name unconfirmed" comment; rename it when evidence appears.
 - **Game placeholder names (game-bootstrap, R7):** every class, member function and global of `game/PadRumble`
   except the `Msg*` message objects is a placeholder under the placeholder-naming ruling (AGENTS.md): the classes
   `unk_Ramp`, `unk_Tweaks`, `unk_TweakEntry` (names invented) and `unk_801A92A8` (the 8-byte message identifier,
@@ -807,7 +837,8 @@ functions holding the same instruction sequence).
   `climax/EventHandler.cpp` (named after `CEventHandler`, the payload type string of `iMsgOnDeleteEntity`); the framework
   header names (`AttributeHandler.h`, `Memory.h`, `Display.h`, `unk_MessageInbox.h`) are invented. game-3 adds
   `game/unk_800C8598.cpp` (the listener before CColdTrigger; placeholder) and the invented header names `Map.h`,
-  `Vec3.h` and `Messages.h`.
+  `Vec3.h` and `Messages.h`. The creator of the physics manager `lbl_80529170` is `game/unk_8000EE44.cpp` (fn_8000EE44,
+  placeholder unit name; the class is `unk_PhysicsManager` in `include/game/unk_PhysicsManager.h`, name invented).
 - **Climax helper units unconfirmed (climax-strings):** `climax/Utils.cpp` (0x801B67FC-0x801B6E44: string copies,
   RenderWare hierarchy and texture searches, byte swaps, the XML file loader) and `climax/ImageCodec.cpp`
   (0x801B6E44-0x801B86C8: the size, encoder and decoder of an 8x8-block image codec over `RwImage`) carry the "unit
@@ -842,6 +873,9 @@ functions holding the same instruction sequence).
   difference as the only layout finding of the parked units `MetroTRK/Portable/mem_TRK.c`, `game/PlaneTrigger.cpp`,
   `revolution/NdevExi2AD/DebuggerDriver.c`, `revolution/NdevExi2AD/exi2.c`, `revolution/gx/GXTransform.c` and
   `revolution/os/OSExec.c`.
+- **Unit name unconfirmed (`climax/unk_80008828.cpp`):** holds `fn_80008828`, the blend-mode setter (modes 0 to 12; mode 0 re-applies the current mode). No class or string evidence names the file or the function, so the file name is invented and its top comment says so. The two jump tables are compiler output owned by this unit. The blend and fog caches are declared in `include/climax/RenderState.h` (names invented there).
+
+- **Unit name unconfirmed (game/unk_80009DD0.cpp):** the KPAD sampling step `fn_80009DD0` of the pad channel `lbl_804579C0[0]` (the `0x80006C7C` unit, split off as its own unit) carries the "unit name unconfirmed" comment; `fn_80009DD0` is parked at 64% on a register/schedule wall (retail keeps the constant 16 and the callback address in registers from entry).
 
 ## EXIBios `-schedule off` (ruling)
 

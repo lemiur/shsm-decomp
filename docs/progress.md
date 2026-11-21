@@ -13,11 +13,11 @@ Counts cover functions linked from source (units marked `Matching` in `configure
 <!-- ledger:begin numbers -->
 | measure | functions | code bytes |
 |---|---|---|
-| **matched under the rules** (headline) | 5294 / 13922 | 1301500 / 3974484 |
-| bytes matched (linked from source, excluding `ORIGINAL-ASM`) | 5299 / 13922 | 1303520 / 3974484 |
+| **matched under the rules** (headline) | 5304 / 13922 | 1306624 / 3974484 |
+| bytes matched (linked from source, excluding `ORIGINAL-ASM`) | 5309 / 13922 | 1308644 / 3974484 |
 | `ORIGINAL-ASM` (linked, listed apart, outside both counts and totals) | 116 | 28536 |
-| linked from source in total (objdiff "complete") | 5415 | 1332056 |
-| `Matching` units | 592 / 1381 | |
+| linked from source in total (objdiff "complete") | 5425 | 1337180 |
+| `Matching` units | 600 / 1400 | |
 <!-- ledger:end numbers -->
 
 Totals exclude the `ORIGINAL-ASM` functions (<!-- ledger:begin gross -->14038 functions and 4003020 code bytes<!-- ledger:end gross --> in all, counting the dtk
@@ -5043,42 +5043,42 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `fmod/fmod_eventuserproperty` | `release__Q24FMOD12UserPropertyFv` | 0x803A9F80 | 172 | matched |  |
 | `fmod/fmod_eventuserproperty` | `load__Q24FMOD12UserPropertyFPQ24FMOD4FileUi` | 0x803AA02C | 508 | matched |  |
 | `fmod/fmod_musicengine` | `getStartSegment__Q24FMOD30@unnamed@fmod_musicengine_cpp@FUiRCQ24FMOD10MusicStatePUi` | 0x803AA228 | 448 | parked, not written |  |
-| `fmod/fmod_musicengine` | `addTheme__Q24FMOD17MusicStatePrimaryFUiPUi` | 0x803AA3E8 | 120 | parked, not written |  |
-| `fmod/fmod_musicengine` | `removeTheme__Q24FMOD17MusicStatePrimaryFUi` | 0x803AA460 | 140 | parked, not written |  |
-| `fmod/fmod_musicengine` | `isCueActive__Q24FMOD17MusicStatePrimaryCFUi` | 0x803AA4EC | 88 | parked, not written |  |
-| `fmod/fmod_musicengine` | `getThemeStackTop__Q24FMOD17MusicStatePrimaryCFv` | 0x803AA544 | 76 | parked, not written |  |
-| `fmod/fmod_musicengine` | `getSceneStackTop__Q24FMOD17MusicStatePrimaryCFv` | 0x803AA590 | 8 | parked, not written |  |
-| `fmod/fmod_musicengine` | `addTheme__Q24FMOD19MusicStateSecondaryFUiPUi` | 0x803AA598 | 24 | parked, not written |  |
-| `fmod/fmod_musicengine` | `removeTheme__Q24FMOD19MusicStateSecondaryFUi` | 0x803AA5B0 | 28 | parked, not written |  |
-| `fmod/fmod_musicengine` | `isCueActive__Q24FMOD19MusicStateSecondaryCFUi` | 0x803AA5CC | 36 | parked, not written |  |
-| `fmod/fmod_musicengine` | `getThemeStackTop__Q24FMOD19MusicStateSecondaryCFv` | 0x803AA5F0 | 8 | parked, not written |  |
-| `fmod/fmod_musicengine` | `getSceneStackTop__Q24FMOD19MusicStateSecondaryCFv` | 0x803AA5F8 | 36 | parked, not written |  |
+| `fmod/fmod_musicengine` | `addTheme__Q24FMOD17MusicStatePrimaryFUiPUi` | 0x803AA3E8 | 120 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `removeTheme__Q24FMOD17MusicStatePrimaryFUi` | 0x803AA460 | 140 | parked, 96.0% |  |
+| `fmod/fmod_musicengine` | `isCueActive__Q24FMOD17MusicStatePrimaryCFUi` | 0x803AA4EC | 88 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `getThemeStackTop__Q24FMOD17MusicStatePrimaryCFv` | 0x803AA544 | 76 | parked, 50.5% |  |
+| `fmod/fmod_musicengine` | `getSceneStackTop__Q24FMOD17MusicStatePrimaryCFv` | 0x803AA590 | 8 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `addTheme__Q24FMOD19MusicStateSecondaryFUiPUi` | 0x803AA598 | 24 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `removeTheme__Q24FMOD19MusicStateSecondaryFUi` | 0x803AA5B0 | 28 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `isCueActive__Q24FMOD19MusicStateSecondaryCFUi` | 0x803AA5CC | 36 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `getThemeStackTop__Q24FMOD19MusicStateSecondaryCFv` | 0x803AA5F0 | 8 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `getSceneStackTop__Q24FMOD19MusicStateSecondaryCFv` | 0x803AA5F8 | 36 | parked, 100% |  |
 | `fmod/fmod_musicengine` | `getCurrentBeat__Q24FMOD9MusicSyncCFUxPiPi` | 0x803AA61C | 396 | parked, not written |  |
 | `fmod/fmod_musicengine` | `getNextSyncTime__Q24FMOD9MusicSyncCFUxQ34FMOD5Theme9SyncStyle` | 0x803AA7A8 | 188 | parked, not written |  |
-| `fmod/fmod_musicengine` | `__ct__Q24FMOD11MusicEngineFv` | 0x803AA864 | 168 | parked, not written |  |
+| `fmod/fmod_musicengine` | `__ct__Q24FMOD11MusicEngineFv` | 0x803AA864 | 168 | parked, 66.1% |  |
 | `fmod/fmod_musicengine` | `init__Q24FMOD11MusicEngineFPQ24FMOD6SystemUiPQ24FMOD13MusicSettings` | 0x803AA90C | 508 | parked, not written |  |
 | `fmod/fmod_musicengine` | `release__Q24FMOD11MusicEngineFv` | 0x803AAB08 | 324 | parked, not written |  |
-| `fmod/fmod_musicengine` | `start__Q24FMOD11MusicEngineFv` | 0x803AAC4C | 16 | parked, not written |  |
+| `fmod/fmod_musicengine` | `start__Q24FMOD11MusicEngineFv` | 0x803AAC4C | 16 | parked, 100% |  |
 | `fmod/fmod_musicengine` | `stop__Q24FMOD11MusicEngineFv` | 0x803AAC5C | 128 | parked, not written |  |
 | `fmod/fmod_musicengine` | `reset__Q24FMOD11MusicEngineFv` | 0x803AACDC | 400 | parked, not written |  |
-| `fmod/fmod_musicengine` | `setVolume__Q24FMOD11MusicEngineFf` | 0x803AAE6C | 56 | parked, not written |  |
-| `fmod/fmod_musicengine` | `getVolume__Q24FMOD11MusicEngineFPf` | 0x803AAEA4 | 56 | parked, not written |  |
+| `fmod/fmod_musicengine` | `setVolume__Q24FMOD11MusicEngineFf` | 0x803AAE6C | 56 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `getVolume__Q24FMOD11MusicEngineFPf` | 0x803AAEA4 | 56 | parked, 100% |  |
 | `fmod/fmod_musicengine` | `setPaused__Q24FMOD11MusicEngineFb` | 0x803AAEDC | 144 | parked, not written |  |
-| `fmod/fmod_musicengine` | `getPaused__Q24FMOD11MusicEngineFPb` | 0x803AAF6C | 32 | parked, not written |  |
-| `fmod/fmod_musicengine` | `setMute__Q24FMOD11MusicEngineFb` | 0x803AAF8C | 56 | parked, not written |  |
-| `fmod/fmod_musicengine` | `getMute__Q24FMOD11MusicEngineFPb` | 0x803AAFC4 | 56 | parked, not written |  |
+| `fmod/fmod_musicengine` | `getPaused__Q24FMOD11MusicEngineFPb` | 0x803AAF6C | 32 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `setMute__Q24FMOD11MusicEngineFb` | 0x803AAF8C | 56 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `getMute__Q24FMOD11MusicEngineFPb` | 0x803AAFC4 | 56 | parked, 100% |  |
 | `fmod/fmod_musicengine` | `getInfo__Q24FMOD11MusicEngineFP15FMOD_MUSIC_INFO` | 0x803AAFFC | 144 | parked, not written |  |
-| `fmod/fmod_musicengine` | `setCallback__Q24FMOD11MusicEngineFPF23FMOD_MUSIC_CALLBACKTYPEPvPvPv_11FMOD_RESULTPv` | 0x803AB08C | 16 | parked, not written |  |
+| `fmod/fmod_musicengine` | `setCallback__Q24FMOD11MusicEngineFPF23FMOD_MUSIC_CALLBACKTYPEPvPvPv_11FMOD_RESULTPv` | 0x803AB08C | 16 | parked, 100% |  |
 | `fmod/fmod_musicengine` | `update__Q24FMOD11MusicEngineFv` | 0x803AB09C | 784 | parked, not written |  |
 | `fmod/fmod_musicengine` | `beginTheme__Q24FMOD11MusicEngineFUiPQ24FMOD15ThemeStackEntry` | 0x803AB3AC | 1028 | parked, not written |  |
 | `fmod/fmod_musicengine` | `endTheme__Q24FMOD11MusicEngineFRCQ24FMOD15ThemeStackEntry` | 0x803AB7B0 | 416 | parked, not written |  |
-| `fmod/fmod_musicengine` | `beginCue__Q24FMOD11MusicEngineFUi` | 0x803AB950 | 248 | parked, not written |  |
-| `fmod/fmod_musicengine` | `endCue__Q24FMOD11MusicEngineFUi` | 0x803ABA48 | 80 | parked, not written |  |
+| `fmod/fmod_musicengine` | `beginCue__Q24FMOD11MusicEngineFUi` | 0x803AB950 | 248 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `endCue__Q24FMOD11MusicEngineFUi` | 0x803ABA48 | 80 | parked, 100% |  |
 | `fmod/fmod_musicengine` | `beginDefaultTransition__Q24FMOD11MusicEngineFUi` | 0x803ABA98 | 892 | parked, not written |  |
 | `fmod/fmod_musicengine` | `findSecondaryPlayerWithTheme__Q24FMOD11MusicEngineFUi` | 0x803ABE14 | 216 | parked, not written |  |
-| `fmod/fmod_musicengine` | `updatePosition__Q24FMOD11MusicEngineFUiUi` | 0x803ABEEC | 8 | parked, not written |  |
-| `fmod/fmod_musicengine` | `startSegment__Q24FMOD11MusicEngineFUi` | 0x803ABEF4 | 76 | parked, not written |  |
-| `fmod/fmod_musicengine` | `endSegment__Q24FMOD11MusicEngineFUi` | 0x803ABF40 | 76 | parked, not written |  |
+| `fmod/fmod_musicengine` | `updatePosition__Q24FMOD11MusicEngineFUiUi` | 0x803ABEEC | 8 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `startSegment__Q24FMOD11MusicEngineFUi` | 0x803ABEF4 | 76 | parked, 100% |  |
+| `fmod/fmod_musicengine` | `endSegment__Q24FMOD11MusicEngineFUi` | 0x803ABF40 | 76 | parked, 100% |  |
 | `fmod/fmod_musicengine` | `getNextSegment__Q34FMOD11MusicEngine11PlayerEntryCFUiRCQ24FMOD10LinkFilterPUi` | 0x803ABF8C | 608 | parked, not written |  |
 | `fmod/fmod_musicsystemi` | `isActive__Q24FMOD12MusicPromptIFPb` | 0x803AC1EC | 32 | matched |  |
 | `fmod/fmod_musicsystemi` | `getMemoryInfo__Q24FMOD12MusicPromptIFUiUiPUiPUi` | 0x803AC20C | 8 | matched |  |
@@ -5182,8 +5182,16 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/unk_80006C7C` (unit name unconfirmed) | `fn_80007270__12unk_80006C7CFPbPb` | 0x80007270 | 276 | parked, 1.4% | placeholder |
 | `game/unk_80006C7C` (unit name unconfirmed) | `fn_80007384__12unk_80006C7CFi` | 0x80007384 | 4604 | parked, 0.1% | placeholder |
 | `game/unk_80006C7C` (unit name unconfirmed) | `fn_80008580__12unk_80006C7CFi` | 0x80008580 | 680 | parked, 100% | placeholder |
+| `climax/unk_80008828` (unit name unconfirmed) | `fn_80008828` | 0x80008828 | 3584 | matched | placeholder |
+| `game/unk_80009628` (unit name unconfirmed) | `fn_80009628` | 0x80009628 | 1168 | parked, 93.5% | placeholder |
+| `game/unk_80009628` (unit name unconfirmed) | `fn_80009AB8` | 0x80009AB8 | 532 | parked, 59.1% | placeholder |
+| `game/unk_80009628` (unit name unconfirmed) | `fn_80009CCC` | 0x80009CCC | 8 | parked, 100% | placeholder |
+| `game/unk_80009628` (unit name unconfirmed) | `fn_80009CD4` | 0x80009CD4 | 36 | parked, 100% | placeholder |
+| `game/unk_80009CF8` (unit name unconfirmed) | `fn_80009CF8` | 0x80009CF8 | 188 | matched | placeholder |
 | `game/unk_80009DB4` (unit name unconfirmed) | `fn_80009DB4__Fi` | 0x80009DB4 | 28 | matched | placeholder |
+| `game/unk_80009DD0` (unit name unconfirmed) | `fn_80009DD0` | 0x80009DD0 | 248 | parked, 74.5% | placeholder |
 | `game/unk_80009EC8` (unit name unconfirmed) | `fn_80009EC8` | 0x80009EC8 | 152 | matched | placeholder |
+| `game/unk_80009F60` (unit name unconfirmed) | `fn_80009F60` | 0x80009F60 | 200 | matched | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8000A028__Fb` | 0x8000A028 | 4 | parked, 100% | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8000A02C__Fv` | 0x8000A02C | 8 | parked, 100% | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8000A034__Fb` | 0x8000A034 | 12 | parked, 100% | placeholder |
@@ -5204,6 +5212,11 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8000BF24__12unk_8000A040Fif` | 0x8000BF24 | 168 | parked, 100% | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8009CB1C__12unk_8000A040FR7unk_Msg` | 0x8000BFCC | 808 | parked, 100% | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `__sinit_\unk_8000A040_cpp` | 0x8000C2F4 | 56 | parked, 100% | placeholder (compiler-generated name) |
+| `game/AtomicTags` (unit name unconfirmed) | `fn_8000C32C` | 0x8000C32C | 184 | parked, 100% | placeholder |
+| `game/AtomicTags` (unit name unconfirmed) | `fn_8000C3E4` | 0x8000C3E4 | 184 | parked, 100% | placeholder |
+| `game/AtomicTags` (unit name unconfirmed) | `FindAtomicByTypeCB__10AtomicTagsFP8RpAtomicPv` | 0x8000C49C | 100 | parked, 100% |  |
+| `game/AtomicTags` (unit name unconfirmed) | `FindAtomicByType__10AtomicTagsFP7RpClumpQ210AtomicTags12E_AtomicType` | 0x8000C500 | 76 | parked, 100% |  |
+| `game/AtomicTags` (unit name unconfirmed) | `FindAllAtomicsByTypeCB__10AtomicTagsFP8RpAtomicPv` | 0x8000C54C | 120 | parked, 100% |  |
 | `game/CCollisionCapsule` | `__ct__17CCollisionCapsuleFRC19unk_AttributePacket` | 0x8000C8A8 | 212 | matched | placeholder |
 | `game/CCollisionCapsule` | `__dt__17CCollisionCapsuleFv` | 0x8000C97C | 196 | matched |  |
 | `game/CCollisionCapsule` | `fn_8009CB1C__17CCollisionCapsuleFR7unk_Msg` | 0x8000CA40 | 328 | matched | placeholder |
@@ -5222,6 +5235,32 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/CCollisionCapsule` | `fn_8000D038__17CCollisionCapsuleFRC19unk_AttributePacket` | 0x8000D038 | 72 | matched | placeholder |
 | `game/CCollisionCapsule` | `@36@fn_8009CB1C__17CCollisionCapsuleFR7unk_Msg` | 0x8000D080 | 8 | matched | compiler-generated thunk, placeholder |
 | `game/CCollisionCapsule` | `@36@__dt__17CCollisionCapsuleFv` | 0x8000D088 | 8 | matched | compiler-generated thunk |
+| `game/unk_8000D090` (unit name unconfirmed) | `__ct__12unk_8000D090FPC15unk_RwpShapeDefRC14unk_RwpBodyDefPvPvPCfPC9unk_RwV3d` | 0x8000D090 | 1660 | parked, 60.6% | placeholder |
+| `game/unk_8000D70C` (unit name unconfirmed) | `__dt__12unk_8000D090Fv` | 0x8000D70C | 304 | matched | placeholder |
+| `game/unk_8000EC94` (unit name unconfirmed) | `__dt__12unk_NodeListFv` | 0x8000EC94 | 216 | parked, 100% | placeholder |
+| `game/unk_8000EC94` (unit name unconfirmed) | `__dt__12unk_803DFC38Fv` | 0x8000ED6C | 216 | parked, 100% | placeholder |
+| `game/unk_8000EE44` (unit name unconfirmed) | `fn_8000EE44` | 0x8000EE44 | 352 | matched | placeholder |
+| `game/unk_PhysicsManager` (unit name unconfirmed) | `fn_8000EFA4` | 0x8000EFA4 | 184 | parked, 31.2% | placeholder |
+| `game/unk_PhysicsManager` (unit name unconfirmed) | `fn_8000F05C` | 0x8000F05C | 152 | parked, 100% | placeholder |
+| `game/unk_PhysicsManager` (unit name unconfirmed) | `fn_8000F0F4__18unk_PhysicsManagerFP11unk_RwpBodyPv` | 0x8000F0F4 | 388 | parked, 100% | placeholder |
+| `game/unk_PhysicsManager` (unit name unconfirmed) | `fn_8000F278__18unk_PhysicsManagerFP11unk_RwpBody` | 0x8000F278 | 216 | parked, 100% | placeholder |
+| `game/unk_PhysicsManager` (unit name unconfirmed) | `fn_8000F350` | 0x8000F350 | 652 | parked, not written | placeholder |
+| `game/unk_PhysicsManager` (unit name unconfirmed) | `fn_8000F5DC__12unk_803E8E64Fv` | 0x8000F5DC | 4 | parked, 100% | placeholder |
+| `game/unk_PhysicsManager` (unit name unconfirmed) | `fn_8000F5E0__12unk_803E8E64Fv` | 0x8000F5E0 | 4 | parked, 100% | placeholder |
+| `game/unk_PhysicsManager` (unit name unconfirmed) | `fn_8000F5E4__18unk_PhysicsManagerFP12unk_RwpSpaceP11unk_RwpBodyiUl` | 0x8000F5E4 | 100 | parked, 100% | placeholder |
+| `game/unk_PhysicsManager` (unit name unconfirmed) | `fn_8000F648__18unk_PhysicsManagerFP12unk_RwpSpaceP11unk_RwpBodyiUl` | 0x8000F648 | 100 | parked, 100% | placeholder |
+| `game/unk_8000F71C` (unit name unconfirmed) | `fn_8000F71C__18unk_PhysicsManagerFP11unk_RwpBody` | 0x8000F71C | 112 | parked, 100% | placeholder |
+| `game/unk_8000F71C` (unit name unconfirmed) | `fn_8000F78C` | 0x8000F78C | 108 | parked, 3.7% | placeholder |
+| `game/unk_8000F71C` (unit name unconfirmed) | `fn_8000F7F8` | 0x8000F7F8 | 12 | parked, 100% | placeholder |
+| `game/unk_8000F71C` (unit name unconfirmed) | `fn_8000F804` | 0x8000F804 | 8 | parked, 100% | placeholder |
+| `game/unk_8000F80C` (unit name unconfirmed) | `__ct__12unk_8000F80CFP18unk_8000F80CSourceUlPv` | 0x8000F80C | 220 | matched | placeholder |
+| `game/unk_8000F80C` (unit name unconfirmed) | `GetName__12unk_8000F80CCFv` | 0x8000F8E8 | 8 | matched | placeholder |
+| `game/unk_8000F80C` (unit name unconfirmed) | `GetNameHash__12unk_8000F80CCFv` | 0x8000F8F0 | 8 | matched | placeholder |
+| `game/unk_8000F8F8` (unit name unconfirmed) | `fn_8000F8F8` | 0x8000F8F8 | 868 | parked, 64.1% (MATCH-PENDING: R17, exceptions.md) | placeholder |
+| `game/unk_80011054` (unit name unconfirmed) | `fn_80011054__FP18unk_ExpressionListPvPv` | 0x80011054 | 168 | matched | placeholder |
+| `game/unk_80011AA4` (unit name unconfirmed) | `fn_80011AA4` | 0x80011AA4 | 208 | parked, 91.0% | placeholder |
+| `game/unk_80011AA4` (unit name unconfirmed) | `fn_80011B74` | 0x80011B74 | 60 | parked, 100% | placeholder |
+| `game/unk_80012330` (unit name unconfirmed) | `fn_80012330` | 0x80012330 | 92 | matched | placeholder |
 | `game/CPreCache` | `__ct__9CPreCacheFRC19unk_AttributePacket` | 0x800288F4 | 136 | matched | placeholder |
 | `game/CPreCache` | `__dt__9CPreCacheFv` | 0x8002897C | 196 | matched |  |
 | `game/CPreCache` | `fn_801A73A8__9CPreCacheFRC19unk_AttributePacket` | 0x80028A40 | 368 | matched | placeholder |

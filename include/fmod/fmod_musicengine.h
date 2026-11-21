@@ -28,13 +28,27 @@ public:
 // The stack of the themes a music state is playing.
 class ThemeStack {
 public:
-    class StackItem;
+    // One pushed theme: the stack id it was given and the theme it plays.
+    class StackItem {
+    public:
+        unsigned int stack_id;                      // 0x00
+        unsigned int theme_id;                      // 0x04
+    }; // size 0x8
 
     unsigned int m_max_length;                      // 0x00
     unsigned int m_length;                          // 0x04
     unsigned int m_next_stack_id;                   // 0x08
     StackItem *m_stack;                             // 0x0C
 }; // size 0x10
+
+// One cue the primary state has active, with the number of begins not yet ended (names invented).
+class CueState : public LinkedListNode {
+public:
+    CueState() : m_cue( 0 ), m_count( 0 ) {}
+
+    unsigned int m_cue;                             // 0x0C
+    unsigned int m_count;                           // 0x10
+}; // size 0x14
 
 // The cues a music state has active.
 class CueStateTable {
@@ -45,7 +59,12 @@ public:
 // The state of the primary player.
 class MusicStatePrimary : public MusicState {
 public:
-    MusicStatePrimary();
+    MusicStatePrimary() : m_cuestates() {
+        m_themestack.m_max_length = 0;
+        m_themestack.m_length = 0;
+        m_themestack.m_next_stack_id = 0;
+        m_themestack.m_stack = NULL;
+    }
     FMOD_RESULT init( unsigned int maxthemes );
 
     // Slots of the retail MusicStatePrimary vtable, overriding MusicState's.
@@ -58,6 +77,20 @@ public:
     ThemeStack m_themestack;                        // 0x04
     CueStateTable m_cuestates;                      // 0x14
 }; // size 0x20
+
+// The state of a secondary player: the top of its own theme stack and the primary state it follows.
+class MusicStateSecondary : public MusicState {
+public:
+    // Slots of the retail MusicStateSecondary vtable, overriding MusicState's.
+    virtual FMOD_RESULT addTheme( unsigned int theme, unsigned int *handle );
+    virtual FMOD_RESULT removeTheme( unsigned int handle );
+    virtual bool isCueActive( unsigned int cue ) const;
+    virtual unsigned int getThemeStackTop() const;
+    virtual unsigned int getSceneStackTop() const;
+
+    unsigned int m_themestacktop;                   // 0x04
+    MusicState *m_primary;                          // 0x08
+}; // size 0xC
 
 // The time signature and tempo of the music, and where it started.
 class MusicSync {

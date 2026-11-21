@@ -75,6 +75,8 @@ public:
     u32                 field_0xA8;     // 0xA8, a flag CAmbientInterferencePoint reads
     u8                  field_0xAC[0x6C4 - 0xAC];
     unk_HUDController   field_0x6C4;    // 0x6C4
+    u8                  field_0x6C5[0x1FEC - 0x6C5];
+    u32                 field_0x1FEC;   // 0x1FEC, 1 when the pad device is not a Freestyle pointer (fn_80009F60 sets it)
 
     // defined in 0x800E97C8, unit not yet reconstructed: drops behaviour from the list at 0xDA8
     // (fn_800D2334 unlinks and frees the node whose key it is); the parameter type is
