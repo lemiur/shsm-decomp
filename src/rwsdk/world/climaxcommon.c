@@ -117,11 +117,11 @@ void RwClimaxAtomicSetLightMask(RpAtomic* atomic, RwUInt32 lightMask) {
 } // 0x802DB680
 
 /* Sets the flags of a material (its pad member). */
-void RwClimaxMaterialSetFlags(RpMaterial* material, RwUInt16 flags) {
+void RwClimaxMaterialSetFlags(RpMaterial* material, RwUInt32 flags) {
     material->pad = flags;
 } // 0x802DB694
 
-RwInt16 RwClimaxMaterialGetFlags(RpMaterial* material) {
+RwInt32 RwClimaxMaterialGetFlags(RpMaterial* material) {
     return material->pad;
 } // 0x802DB69C
 

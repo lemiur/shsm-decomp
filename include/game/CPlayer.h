@@ -29,6 +29,11 @@ public:
  */
 class CPlayer : public unk_8003C454, public unk_CPlayerBase700, public unk_CPlayerBase704 {
 public:
+                    CPlayer( const unk_AttributePacket& packet );
+
+    // the registered factory (0x80073BDC; size 0x2368), defined in src/game/CPlayer.cpp
+    static CAttributeHandler* fn_80073BDC( const unk_AttributePacket& packet );
+
     virtual void    fn_8009CB1C( unk_Msg& msg );  // override
     virtual void    fn_801A73A8( const unk_AttributePacket& packet );  // override
     virtual         ~CPlayer();  // override

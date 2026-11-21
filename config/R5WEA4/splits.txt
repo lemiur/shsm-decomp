@@ -457,6 +457,14 @@ game/unk_80055310.cpp:
 game/unk_8005549C.cpp:
 	.text       start:0x8005549C end:0x800558B4
 
+game/CPlayer.cpp:
+	.text       start:0x80073554 end:0x80073E3C
+	.ctors      start:0x803D83CC end:0x803D83D0
+	.data       start:0x803E5EE0 end:0x803E5F38
+	.bss        start:0x80469BF8 end:0x80469EC8
+	.sdata      start:0x80527058 end:0x80527068
+	.sbss       start:0x80529378 end:0x80529580
+
 game/CPlayerCostume.cpp:
 	.text       start:0x80073E3C end:0x80073FB8
 	.ctors      start:0x803D83D0 end:0x803D83D4
@@ -472,6 +480,10 @@ game/unk_80074138.cpp:
 	.text       start:0x80074138 end:0x80074890
 	.data       start:0x803E65A8 end:0x803E65D0
 
+game/unk_80074A08.cpp:
+	.text       start:0x80074A08 end:0x80075424
+	.sdata      start:0x80527068 end:0x80527088
+
 game/unk_80075424.cpp:
 	.text       start:0x80075424 end:0x8007566C
 
@@ -484,9 +496,82 @@ game/CCopCar.cpp:
 	.sbss       start:0x80529590 end:0x805295A0
 	.sdata2     start:0x8052BE20 end:0x8052BE28
 
+game/unk_80077C9C.cpp:
+	.text       start:0x80077C9C end:0x80078EFC
+
+game/CGenericCar.cpp:
+	.text       start:0x8007B8F0 end:0x8007B9A8
+
 game/unk_8007BAD4.cpp:
 	.text       start:0x8007BAD4 end:0x8007BB78
 	.sdata2     start:0x8052BE44 end:0x8052BE48
+
+game/CSUV.cpp:
+	.text       start:0x8007BB78 end:0x8007C9E0
+	.ctors      start:0x803D83E0 end:0x803D83E4
+	.data       start:0x803E75DC end:0x803E78C8
+	.bss        start:0x80469F08 end:0x80469F20
+	.sdata      start:0x80527220 end:0x80527238
+	.sbss       start:0x805295B0 end:0x805295C8
+	.sdata2     start:0x8052BE48 end:0x8052BE50
+
+climax/unk_8007C9E0.cpp:
+	.text       start:0x8007C9E0 end:0x8007F044
+	.ctors      start:0x803D83E4 end:0x803D83E8
+	.data       start:0x803E78C8 end:0x803E7A38
+	.bss        start:0x80469F20 end:0x80469F90
+	.sbss       start:0x805295D0 end:0x80529608
+	.sdata2     start:0x8052BE50 end:0x8052BE90
+
+game/unk_8007F044.cpp:
+	.text       start:0x8007F044 end:0x8007F20C
+
+game/DynamicTrails.cpp:
+	.text       start:0x8007F20C end:0x8007F514
+	.sbss       start:0x80529608 end:0x80529610
+
+game/unk_Trail.cpp:
+	.text       start:0x800817C0 end:0x80081928
+	.data       start:0x803E7A38 end:0x803E7A50
+
+game/cDynamicWater.cpp:
+	.text       start:0x80081928 end:0x80084F90
+	.ctors      start:0x803D83E8 end:0x803D83EC
+	.data       start:0x803E7A50 end:0x803E7D78
+	.bss        start:0x80469F90 end:0x8046A000
+	.sbss       start:0x80529610 end:0x80529648
+	.sdata2     start:0x8052BEE8 end:0x8052BFA0
+
+game/EffectWrapper.cpp:
+	.text       start:0x80084F90 end:0x8008503C
+
+game/unk_80085094.cpp:
+	.text       start:0x80085094 end:0x80085104
+
+game/cFlexFilter.cpp:
+	.text       start:0x80085250 end:0x80085CBC
+	.ctors      start:0x803D83EC end:0x803D83F0
+	.data       start:0x803E7D78 end:0x803E7E48
+	.bss        start:0x8046A000 end:0x8046A480
+	.sbss       start:0x80529648 end:0x80529650
+	.sdata2     start:0x8052BFA8 end:0x8052BFD8
+
+game/cFogOveride.cpp:
+	.text       start:0x80085CBC end:0x800865DC
+	.ctors      start:0x803D83F0 end:0x803D83F4
+	.data       start:0x803E7E48 end:0x803E7EE0
+	.bss        start:0x8046A480 end:0x8046A4C0
+	.sdata      start:0x80527238 end:0x80527250
+	.sbss       start:0x80529650 end:0x80529670
+	.sdata2     start:0x8052BFD8 end:0x8052C000
+
+game/unk_800865DC.cpp:
+	.text       start:0x800865DC end:0x80087614
+	.ctors      start:0x803D83F4 end:0x803D83F8
+	.data       start:0x803E7EE0 end:0x803E8020
+	.sdata      start:0x80527250 end:0x80527258
+	.sbss       start:0x80529670 end:0x80529680
+	.sdata2     start:0x8052C000 end:0x8052C040
 
 game/CHitEffectManager.cpp:
 	.text       start:0x80087614 end:0x800878D0
@@ -494,6 +579,158 @@ game/CHitEffectManager.cpp:
 	.data       start:0x803E8020 end:0x803E80D8
 	.bss        start:0x8046A4D8 end:0x8046A4E8
 	.sbss       start:0x80529688 end:0x80529698
+
+game/cIce.cpp:
+	.text       start:0x800878D0 end:0x80087EC8
+	.ctors      start:0x803D83FC end:0x803D8400
+	.data       start:0x803E80D8 end:0x803E81C8
+	.bss        start:0x8046A4E8 end:0x8046A550
+	.sdata      start:0x80527258 end:0x80527268
+	.sbss       start:0x80529698 end:0x805296A0
+	.sdata2     start:0x8052C040 end:0x8052C058
+
+game/cIceTransition.cpp:
+	.text       start:0x80087EC8 end:0x80088F50
+	.ctors      start:0x803D8400 end:0x803D8404
+	.rodata     start:0x803D88C0 end:0x803D88D0
+	.data       start:0x803E81C8 end:0x803E8388
+	.bss        start:0x8046A550 end:0x8046A598
+	.sbss       start:0x805296A0 end:0x805296B8
+	.sdata2     start:0x8052C058 end:0x8052C078
+
+game/unk_80088F50.cpp:
+	.text       start:0x80088F50 end:0x80088F54
+
+game/unk_80088F54.cpp:
+	.text       start:0x80088F54 end:0x80089D0C
+	.bss        start:0x8046A598 end:0x8046A618
+	.sdata      start:0x80527268 end:0x80527270
+	.sbss       start:0x805296BC end:0x805296D0
+	.sdata2     start:0x8052C078 end:0x8052C0B0
+
+game/CZone.cpp:
+	.text       start:0x80089D0C end:0x80089E58
+	.data       start:0x803E8388 end:0x803E83B0
+
+game/unk_80089E58.cpp:
+	.text       start:0x80089E58 end:0x80089F10
+	.data       start:0x803E83B0 end:0x803E83C8
+
+game/Effects.cpp:
+	.text       start:0x80089F10 end:0x8008C3F0
+	.data       start:0x803E83C8 end:0x803E84D8
+	.sdata      start:0x80527270 end:0x80527280
+	.sdata2     start:0x8052C0B0 end:0x8052C0C0
+
+game/SFXManager.cpp:
+	.text       start:0x8008C5E0 end:0x8008C62C
+	.ctors      start:0x803D8404 end:0x803D8408
+	.data       start:0x803E84D8 end:0x803E84E8
+	.bss        start:0x8046A618 end:0x8046A628
+	.sbss       start:0x805296D0 end:0x805296DC
+
+game/cSnow.cpp:
+	.text       start:0x8008C62C end:0x8008E64C
+	.ctors      start:0x803D8408 end:0x803D840C
+	.data       start:0x803E84E8 end:0x803E8638
+	.bss        start:0x8046A628 end:0x8046A640
+	.sdata      start:0x80527280 end:0x80527290
+	.sbss       start:0x805296E8 end:0x80529700
+	.sdata2     start:0x8052C0C0 end:0x8052C130
+
+game/cTexTransition.cpp:
+	.text       start:0x8008E64C end:0x8008EF34
+	.ctors      start:0x803D840C end:0x803D8410
+	.data       start:0x803E8638 end:0x803E8700
+	.bss        start:0x8046A640 end:0x8046A650
+	.sbss       start:0x80529700 end:0x80529710
+	.sdata2     start:0x8052C130 end:0x8052C140
+
+game/cTextureSwap.cpp:
+	.text       start:0x8008EF34 end:0x80091108
+	.ctors      start:0x803D8410 end:0x803D8414
+	.data       start:0x803E8700 end:0x803E87E0
+	.bss        start:0x8046A650 end:0x8046A688
+	.sdata      start:0x80527290 end:0x80527298
+	.sbss       start:0x80529710 end:0x80529718
+	.sdata2     start:0x8052C140 end:0x8052C148
+
+game/cVHSConfig.cpp:
+	.text       start:0x80091108 end:0x800914A8
+	.ctors      start:0x803D8414 end:0x803D8418
+	.data       start:0x803E87E0 end:0x803E8850
+	.bss        start:0x8046A688 end:0x8046A698
+	.sbss       start:0x80529718 end:0x80529728
+	.sdata2     start:0x8052C148 end:0x8052C150
+
+game/cWind.cpp:
+	.text       start:0x800914A8 end:0x80091BFC
+	.ctors      start:0x803D8418 end:0x803D841C
+	.data       start:0x803E8850 end:0x803E88A8
+	.bss        start:0x8046A698 end:0x8046A6A8
+	.sdata      start:0x80527298 end:0x805272A8
+	.sbss       start:0x80529728 end:0x80529738
+	.sdata2     start:0x8052C150 end:0x8052C160
+
+game/unk_80092A48.cpp:
+	.text       start:0x80092A48 end:0x80095030
+	.rodata     start:0x803D88D0 end:0x803D88E0
+	.data       start:0x803E8968 end:0x803E8A08
+	.bss        start:0x8046A6B8 end:0x8046A6D8
+	.sbss       start:0x80529748 end:0x80529750
+	.sdata2     start:0x8052C1B0 end:0x8052C1E8
+
+game/unk_80095030.cpp:
+	.text       start:0x80095030 end:0x80095108
+
+game/unk_80095108.cpp:
+	.text       start:0x80095108 end:0x80095154
+	.ctors      start:0x803D8420 end:0x803D8424
+	.bss        start:0x8046A6D8 end:0x8046A700
+	.sdata2     start:0x8052C1E8 end:0x8052C1F0
+
+game/unk_80098F2C.cpp:
+	.text       start:0x80098F2C end:0x80098F34
+
+game/unk_80098F34.cpp:
+	.text       start:0x80098F34 end:0x80099278
+	.data       start:0x803E8A68 end:0x803E8A78
+	.sdata      start:0x805272D0 end:0x805272E0
+
+game/unk_8009996C.cpp:
+	.text       start:0x8009996C end:0x800999A8
+	.ctors      start:0x803D8428 end:0x803D842C
+	.bss        start:0x8046A738 end:0x8046A744
+	.sbss       start:0x80529758 end:0x80529760
+
+game/unk_800999A8.cpp:
+	.text       start:0x800999A8 end:0x80099A7C
+
+game/unk_80099A7C.cpp:
+	.text       start:0x80099A7C end:0x80099AB4
+
+game/unk_80099AB4.cpp:
+	.text       start:0x80099AB4 end:0x80099B78
+	.bss        start:0x8046A790 end:0x8046A7B0
+	.sbss       start:0x80529768 end:0x80529770
+
+revolution/thp/THPPlayer.c:
+	.text       start:0x80099B78 end:0x80099C64
+	.bss        start:0x8046A7B0 end:0x8046BB40
+	.sbss       start:0x80529770 end:0x80529778
+
+game/unk_80099CC8.cpp:
+	.text       start:0x80099CC8 end:0x80099D74
+
+game/unk_80099E60.cpp:
+	.text       start:0x80099E60 end:0x80099E74
+
+game/unk_80099EB8.cpp:
+	.text       start:0x80099EB8 end:0x8009A024
+
+game/unk_8009A024.cpp:
+	.text       start:0x8009A024 end:0x8009A730
+	.sdata2     start:0x8052C2C8 end:0x8052C2F0
 
 game/CBasicMount.cpp:
 	.text       start:0x8009CF20 end:0x8009D2E4

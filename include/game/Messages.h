@@ -13,6 +13,7 @@ extern unk_801A92A8 lbl_8052A788;   // CAmbientInterferencePoint listens to it e
 extern unk_801A92A8 lbl_8052A790;   // CCollisionCapsule listens to it and aligns its body
 extern unk_801A92A8 lbl_8052A798;   // the pad manager listens to it
 extern unk_801A92A8 lbl_8052A7A0;   // CFadeTrigger listens to it, with lbl_8052A788, while its fade runs
+extern unk_801A92A8 lbl_8052A7B0;   // unk_803E8A68 listens to it: marks its load active (role name invented)
 
 // .sbss 0x8052A828, owner not yet reconstructed: sent once per frame for 2D drawing; the splash
 // screen fades in on it and CDesignerDebugMsg draws its text on it. Role name invented.
@@ -28,5 +29,9 @@ extern unk_801A92A8 lbl_80529E70;
 // .sbss 0x805294E0, owner not yet reconstructed: CPlayerStateTrigger posts its state name and
 // flag to it. Role name invented.
 extern unk_801A92A8 lbl_805294E0;
+
+// .sbss 0x8052A858, owner not yet reconstructed: cTexTransition subscribes to it when it is made.
+// Role name invented.
+extern unk_801A92A8 lbl_8052A858;
 
 #endif

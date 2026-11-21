@@ -11,7 +11,7 @@ fn_80031F54
 // Not exact (99.47%): retail passes a third argument (0) to RwClimaxWorldRender, which the declared
 // prototype in rwsdk/world/climaxplatform.h does not take.
 // 0x80031F54
-extern "C" void fn_80031F54( unk_RenderPass* self, void* arg ) {
+extern "C" void fn_80031F54( unk_RenderObject* self, void* arg ) {
     SetRefractionDirty__6CBloomFv();
     SetDepthMode( DEPTHMODE_ON );
     fn_800285BC( self, 0 );
@@ -50,7 +50,7 @@ fn_80032240
 ====================
 */
 // 0x80032240
-extern "C" void fn_80032240( unk_RenderPass* self, void* arg ) {
+extern "C" void fn_80032240( unk_RenderObject* self, void* arg ) {
     fn_80031F54( self, arg );
 }
 
@@ -60,7 +60,7 @@ fn_80032244
 ====================
 */
 // 0x80032244
-extern "C" void fn_80032244( unk_RenderPass* self, void* arg ) {
+extern "C" void fn_80032244( unk_RenderObject* self, void* arg ) {
     fn_800285BC( self, 0 );
     fn_801D9DD0( 1 );
     SetFogOff__11RenderStateFv( self );

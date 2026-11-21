@@ -12,7 +12,7 @@
 
 // Placeholder: the render object the pass runs on. Name invented; only the members the pass
 // uses are named, the rest of the layout is not yet reconstructed.
-class unk_RenderPass {
+class unk_RenderObject {
 public:
     u8 field_0x0[0xA4];
     RpWorld* field_0xA4;        // the world RwClimaxWorldRender draws
@@ -50,9 +50,9 @@ void SetRefractionDirty__6CBloomFv( void );
 }
 
 extern "C" {
-void fn_80031F54( unk_RenderPass* self, void* arg );
-void fn_80032240( unk_RenderPass* self, void* arg );
-void fn_80032244( unk_RenderPass* self, void* arg );
+void fn_80031F54( unk_RenderObject* self, void* arg );
+void fn_80032240( unk_RenderObject* self, void* arg );
+void fn_80032244( unk_RenderObject* self, void* arg );
 }
 
 #endif

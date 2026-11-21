@@ -3,6 +3,7 @@
 
 #include <game/unk_8009D2E4.h>
 #include <game/unk_AnimController.h>
+#include <game/unk_HashTable.h>
 
 struct unk_8001B000;
 
@@ -38,7 +39,7 @@ public:
 
     const unk_AttributePacket*  field_0x144;    // 0x144: the packet the constructor was given
     unk_AnimController*         field_0x148;    // 0x148
-    u8                          field_0x14C[0x4];
+    unk_HashTable*              field_0x14C;    // 0x14C: the hash table the car slots resolve in (role invented)
     unk_8001B000*               field_0x150;    // 0x150
     s32                         field_0x154;
     s32                         field_0x158;
@@ -67,5 +68,7 @@ public:
     s32                         field_0x1B4;
     s32                         field_0x1B8;
 };
+
+extern "C" void fn_80019F74( unk_8001777C* self, int slot );
 
 #endif

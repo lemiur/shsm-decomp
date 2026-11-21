@@ -68,9 +68,30 @@ typedef struct {
     s16 yn2;
 } THPAudioDecodeInfo;
 
+/* THPPlayer API. Members of the two info records are not recovered: they are 16-byte records the
+ * game passes by address. */
+typedef struct THPVideoInfo {
+    u8 field_0x0[0x10];
+} THPVideoInfo;
+
+typedef struct THPAudioInfo {
+    u8 field_0x0[0x10];
+} THPAudioInfo;
+
+BOOL THPPlayerPrepare(s32 frame, s32 flag, s32 audioTrack);
+BOOL THPPlayerPlay(void);
+BOOL THPPlayerClose(void);
+void THPPlayerQuit(void);
+void THPPlayerGetVideoInfo(THPVideoInfo* info);
+void THPPlayerGetAudioInfo(THPAudioInfo* info);
+
 BOOL THPInit(void);
 s32 THPVideoDecode(void* file, void* tileY, void* tileU, void* tileV, void* work);
 u32 THPAudioDecode(s16* audioBuffer, u8* audioFrame, s32 flag);
+
+/* THPPlayer: the movie player the game drives. */
+void THPPlayerDrawDone(void);
+s32 THPPlayerGetState(void);
 
 #ifdef __cplusplus
 }

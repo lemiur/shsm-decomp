@@ -34,6 +34,7 @@ void PSMTXTransApply(const Mtx src, Mtx dst, f32 xT, f32 yT, f32 zT);
 void PSMTXScale(Mtx m, f32 xS, f32 yS, f32 zS);
 u32 PSMTXInverse(const Mtx src, Mtx inv); /* 0: the matrix is singular, 1: inverted */
 void PSMTXMultVec(const Mtx m, const Vec* src, Vec* dst);
+void C_MTXOrtho(Mtx44 m, f32 t, f32 b, f32 l, f32 r, f32 n, f32 f);
 
 #ifdef __cplusplus
 }

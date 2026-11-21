@@ -21,6 +21,8 @@ public:
     void    fn_800D85CC( u32 id );
     // defined in 0x800D8DBC: always false in this build (role unknown)
     bool    fn_800D8DBC();
+    // defined in 0x800D838C, unit not yet reconstructed: shows the named prompt for time seconds
+    void    fn_800D838C( float time, const char* name, bool flag, bool flag2 );
 };
 
 extern unk_PromptManager* lbl_80529C78; // defined elsewhere, unit not yet reconstructed

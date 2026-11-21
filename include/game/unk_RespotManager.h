@@ -29,7 +29,9 @@ public:
     void            fn_80031CE0( unk_ZoneHandle* handle );
 
     // members before 0x64 are not yet recovered
-    u8              field_0x0[0x64];
+    u8              field_0x0[0x40];
+    u8              field_0x40;     // 0x40, a flag read by fn_800897B0 (tested by fn_8008930C)
+    u8              field_0x41[0x23];
     int             field_0x64;     // 0x64, read by fn_8002D384
 };
 

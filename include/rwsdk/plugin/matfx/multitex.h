@@ -120,6 +120,7 @@ extern RpMTEffect* RpMTEffectCreateDummy(void);
 extern void RpMTEffectDestroy(RpMTEffect* effect);
 extern RpMTEffect* RpMTEffectFind(RwChar* name);
 extern RpMTEffect* RpMTEffectSetName(RpMTEffect* effect, const RwChar* name);
+extern const RwChar* RpMTEffectGetName(const RpMTEffect* effect);
 extern RpMTEffect* RpMTEffectAddRef(RpMTEffect* effect);
 
 /* RpMatFX's texture streaming (rpmatfx.c). */

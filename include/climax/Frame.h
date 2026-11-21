@@ -23,6 +23,12 @@ struct unk_RwV2d {
     float       y;
 };
 
+/* RwBBox: an axis-aligned bounding box, its supremum (maximum) corner first (RenderWare 3.7 babbox.h layout). */
+struct unk_RwBBox {
+    unk_RwV3d   sup;        // 0x0
+    unk_RwV3d   inf;        // 0xC
+};
+
 /* RwMatrix: the right, up and at vectors and the position, each padded to 16 bytes. */
 struct unk_RwMatrixTag {
     unk_RwV3d   right;      // 0x0
@@ -151,6 +157,8 @@ unk_RwMatrix*   RwMatrixMultiply( unk_RwMatrix* out, const unk_RwMatrix* in1, co
 // defined in 0x802A2E18 (RenderWare), unit not yet reconstructed: scales the matrix (presumed
 // RwMatrixScale, by its body and arguments)
 unk_RwMatrix*   RwMatrixScale( unk_RwMatrix* matrix, const unk_RwV3d* scale, unk_RwOpCombineType combineOp );
+// defined in 0x802A300C (RenderWare, RwMatrixTranslate by its dtk name): translates the matrix
+unk_RwMatrix*   RwMatrixTranslate( unk_RwMatrix* matrix, const unk_RwV3d* translation, unk_RwOpCombineType combineOp );
 // defined in 0x802A65E0 (RenderWare), unit not yet reconstructed: a table square root (presumed
 // the RenderWare square root behind rwSqrt, by its body)
 float           fn_802A65E0( float x );
@@ -175,6 +183,18 @@ inline void RwV2dScale( unk_RwV2d* out, const unk_RwV2d* a, float scale ) {
 inline void RwV2dAdd( unk_RwV2d* out, const unk_RwV2d* a, const unk_RwV2d* b ) {
     out->x = a->x + b->x;
     out->y = a->y + b->y;
+}
+
+/*
+ * The display-list inverse camera matrix, owned by RenderWare's dldevice unit, which declares it as RwMatrix
+ * (rwsdk/driver/wii/dldevice.h). That header cannot be included next to this one (its RwMatrixMultiply declaration
+ * conflicts with the one above), so the global is declared by its SDK type and read through the Climax view of it.
+ */
+struct RwMatrixTag;
+typedef struct RwMatrixTag RwMatrix;
+extern RwMatrix _RwDlInvCamLTM;
+inline const unk_RwMatrix* DisplayListInvCamLTM() {
+    return (const unk_RwMatrix*)&_RwDlInvCamLTM;
 }
 
 #endif

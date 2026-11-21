@@ -49,6 +49,8 @@ extern "C" {
 unk_RpAtomic*   RpAtomicCreate();
 // defined in 0x802D1B20 (RenderWare), unit not yet reconstructed: RpAtomicSetFrame
 unk_RpAtomic*   RpAtomicSetFrame( unk_RpAtomic* atomic, unk_RwFrame* frame );
+// RenderWare, unit not yet reconstructed: RpAtomicDestroy (the SDK declaration is in rwsdk/world/baclump.h)
+s32             RpAtomicDestroy( unk_RpAtomic* atomic );
 // defined in 0x802CFD84 (RenderWare), unit not yet reconstructed: _rpAtomicResyncInterpolatedSphere
 void            _rpAtomicResyncInterpolatedSphere( unk_RpAtomic* atomic );
 // defined in 0x802CF178 (RenderWare), unit not yet reconstructed: AtomicDefaultRenderCallBack
