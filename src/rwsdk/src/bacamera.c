@@ -6,15 +6,6 @@
  * camera's sync function rebuilds its view matrix and its view frustum (planes, corners and
  * bounding box) for its projection. The camera module's free list hands out the cameras.
  * Parked: retail inlines no call here (needs a per-object -inline noauto, docs/exceptions.md).
- * RwCameraClone keeps a register residue: retail colours the parameter before the new camera (r31 and
- * r30), this source the other way round (register/schedule). The allocator colours the higher
- * virtual-register index first, and a local set from a call result is a late node, so the parameter
- * must be the later one. The only exact state found (permuter, then reduced by hand) reads every
- * field through `RwCamera** source = &camera;`: taking the parameter's address gives it a late node.
- * That is a fake carrier, rejected. Not changed by: a truth test or an assignment in the null test,
- * an initialiser, if-body form, struct copies, a const source local, an unaligned RwCamera typedef
- * (the IR optimiser is off here either way: every member read is through the aligned type), -O4,
- * -opt nolifetimes/nocse/nopeephole, any Wii or GC compiler.
  */
 #include <rwsdk/bacamera.h>
 #include <rwsdk/badevice.h>
@@ -675,35 +666,37 @@ RwCamera* RwCameraCreate(void) {
 
     return camera;
 } // 0x802935C8
-
-/* Creates a copy of a camera, attached to the same frame. */
+/*
+ * RwCameraClone: a new camera on the same frame, with the same callbacks, rasters, view window,
+ * view offset, clip and fog planes and projection. Its z scale and shift are rebuilt from the
+ * copied projection, and its plugin data is copied from the source.
+ * Register/schedule wall: retail keeps the parameter in r31 and the clone in r30, and copies the
+ * parameter in before the r30 save; this compile gives the clone r31 and copies the parameter after.
+ */
 RwCamera* RwCameraClone(RwCamera* camera) {
-    RwCamera* newCamera;
+    RwCamera* clone;
 
-    newCamera = RwCameraCreate();
-    if (newCamera == NULL) {
+    clone = RwCameraCreate();
+    if (clone == NULL) {
         return NULL;
     }
+    RwCameraSetFrame(clone, RwCameraGetFrame(camera));
+    clone->beginUpdate = camera->beginUpdate;
+    clone->endUpdate = camera->endUpdate;
+    clone->viewWindow.x = camera->viewWindow.x;
+    clone->viewWindow.y = camera->viewWindow.y;
+    clone->recipViewWindow.x = camera->recipViewWindow.x;
+    clone->recipViewWindow.y = camera->recipViewWindow.y;
+    clone->viewOffset.x = camera->viewOffset.x;
+    clone->viewOffset.y = camera->viewOffset.y;
+    clone->nearPlane = camera->nearPlane;
+    clone->farPlane = camera->farPlane;
+    clone->fogPlane = camera->fogPlane;
+    clone->frameBuffer = camera->frameBuffer;
+    clone->zBuffer = camera->zBuffer;
+    clone->projectionType = camera->projectionType;
+    CameraUpdateZShiftScale(clone);
+    _rwPluginRegistryCopyObject(&cameraTKList, clone, camera);
 
-    RwCameraSetFrame(newCamera, RwCameraGetFrame(camera));
-
-    newCamera->beginUpdate = camera->beginUpdate;
-    newCamera->endUpdate = camera->endUpdate;
-    newCamera->viewWindow.x = camera->viewWindow.x;
-    newCamera->viewWindow.y = camera->viewWindow.y;
-    newCamera->recipViewWindow.x = camera->recipViewWindow.x;
-    newCamera->recipViewWindow.y = camera->recipViewWindow.y;
-    newCamera->viewOffset.x = camera->viewOffset.x;
-    newCamera->viewOffset.y = camera->viewOffset.y;
-    newCamera->nearPlane = camera->nearPlane;
-    newCamera->farPlane = camera->farPlane;
-    newCamera->fogPlane = camera->fogPlane;
-    newCamera->frameBuffer = camera->frameBuffer;
-    newCamera->zBuffer = camera->zBuffer;
-    newCamera->projectionType = camera->projectionType;
-    CameraUpdateZShiftScale(newCamera);
-
-    _rwPluginRegistryCopyObject(&cameraTKList, newCamera, camera);
-
-    return newCamera;
+    return clone;
 } // 0x802936CC

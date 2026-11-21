@@ -740,7 +740,7 @@ config.libs = [
             Object(Matching, "revolution/os/OSPlayRecord.c"),
             Object(Matching, "revolution/os/OSStateFlags.c"),
             # OSNet.c: only functions marked inline are expanded (-inline noauto); the NWC24 entry points are out-of-line in retail.
-            Object(NonMatching, "revolution/os/OSNet.c", extra_cflags=["-inline noauto"]),
+            Object(Matching, "revolution/os/OSNet.c", extra_cflags=["-inline noauto"]),
             Object(Matching, "revolution/os/OSNandbootInfo.c"),
             Object(Matching, "revolution/os/OSPlayTime.c"),
             Object(Matching, "revolution/os/OSLaunch.c"),
@@ -1276,6 +1276,9 @@ config.libs = [
         "game",
         [
             Object(Matching, "game/PadRumble.cpp"),
+            Object(NonMatching, "game/unk_80006C7C.cpp"),
+            Object(Matching, "game/unk_80009DB4.cpp"),
+            Object(Matching, "game/unk_80009EC8.cpp"),
             Object(NonMatching, "game/unk_8000A040.cpp"),
             Object(Matching, "game/CCollisionCapsule.cpp"),
             Object(Matching, "game/CPreCache.cpp"),

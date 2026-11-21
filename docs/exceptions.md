@@ -177,6 +177,10 @@ functions holding the same instruction sequence).
 
 ## Open items that do not block a match
 
+- **Game unit name unconfirmed (fn_80009EC8):** `game/unk_80009EC8.cpp` (0x80009EC8-0x80009F60, one function: the WPAD
+  and KPAD start-up of the pad input) is named after its address; no string or class evidence names the file. Its
+  callees `fn_80009CCC` and `fn_80009CD4` (the WPAD allocator and free callbacks) and `fn_80009CF8` (the KPAD connect
+  callback) are declared extern "C" in `include/game/unk_80009EC8.h`, defined in their own units (not yet reconstructed).
 - **`fmod/fmod_memory` helpers (R7, R30; invented):** `FindFreeBlocks` and `FindThreadSlot` are invented inline
   helpers (name and shape marked at the code; the sibling's line table puts each on one line of its callers, so the
   original was probably a macro). The declaration order of their locals gives retail's register numbering in `alloc`
@@ -780,6 +784,9 @@ functions holding the same instruction sequence).
 - **Game unit name unconfirmed (game-bootstrap):** `game/PadRumble.cpp` (0x800067A0-0x80006C7C) is named after
   the pad rumble messages it defines (`"MsgStartBigRumble"`...); no string names the file. It carries the "unit
   name unconfirmed" comment; rename it when a class-name string evidences the unit.
+- **Game unit name unconfirmed (lane L0000_80006C7C):** `game/unk_80006C7C.cpp` (0x80006C7C-0x80008828) is named after
+  its placeholder class `unk_80006C7C` (the constructor address); no string names the class or the file. It carries the
+  "unit name unconfirmed" comment; rename it when class-name evidence appears.
 - **Game unit name unconfirmed (Localisation):** `climax/Localisation.cpp` (the languages and regions, the Config.xml
   reader, the "BootStrings" and "Strings" table loaders and the text lookup) is named after what it does; no string
   names the file. It carries the "unit name unconfirmed" comment; rename it when a class-name string evidences the unit.

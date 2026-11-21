@@ -160,13 +160,11 @@ static const size_t extra_pool_slop[JPOOL_NUMPOOLS] = {
 
 #define MIN_SLOP 50 /* greater than 0 to avoid futile looping */
 
-// NonMatching: retail recomputes min_request + slop after the loop; MWCC merges the two sums of the stock IJG 6b text
-// into one saved register (every Wii/GC compiler, -O/-ipa/-inline/-opt variants tried).
-// Not a const-parameter effect: no access through cinfo crosses a store differently from retail.
+// NonMatching: retail recomputes min_request + slop after the retry loop, this compiler shares the
+// first sum with the second (register/schedule wall: saved registers r22 vs r23, one frame slot).
 // 0x801C4F84
 METHODDEF(void *)
 alloc_small(j_common_ptr cinfo, int pool_id, size_t sizeofobject)
-/* Allocate a "small" object */
 {
   my_mem_ptr mem = (my_mem_ptr) cinfo->mem;
   small_pool_ptr hdr_ptr, prev_hdr_ptr;
@@ -177,14 +175,17 @@ alloc_small(j_common_ptr cinfo, int pool_id, size_t sizeofobject)
   if (sizeofobject > (size_t) (MAX_ALLOC_CHUNK - SIZEOF(small_pool_hdr)))
     out_of_memory(cinfo, 1); /* request exceeds malloc's ability */
 
-  /* Round up the requested size to a multiple of SIZEOF(ALIGN_TYPE) */
+  /* Round up the requested size to a multiple of SIZEOF(ALIGN_TYPE) in order
+   * to assure alignment for the next object allocated in the same pool
+   * and so that algorithm can assume it is good.
+   */
   odd_bytes = sizeofobject % SIZEOF(ALIGN_TYPE);
   if (odd_bytes > 0)
     sizeofobject += SIZEOF(ALIGN_TYPE) - odd_bytes;
 
-  /* See if space is available in any existing pool */
   if (pool_id < 0 || pool_id >= JPOOL_NUMPOOLS)
     ERREXIT1(cinfo, JERR_BAD_POOL_ID, pool_id); /* safety check */
+
   prev_hdr_ptr = NULL;
   hdr_ptr = mem->small_list[pool_id];
   while (hdr_ptr != NULL) {
@@ -226,7 +227,7 @@ alloc_small(j_common_ptr cinfo, int pool_id, size_t sizeofobject)
   }
 
   /* OK, allocate the object from the current pool */
-  data_ptr = (char *) (hdr_ptr + 1); /* point to first data byte in pool */
+  data_ptr = (char *) (hdr_ptr + 1); /* point to first byte after header */
   data_ptr += hdr_ptr->hdr.bytes_used; /* point to place for object */
   hdr_ptr->hdr.bytes_used += sizeofobject;
   hdr_ptr->hdr.bytes_left -= sizeofobject;

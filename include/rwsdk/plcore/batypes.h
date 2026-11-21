@@ -49,6 +49,14 @@ typedef struct RwTexCoords {
     RwReal v;   /* 0x4 */
 } RwTexCoords;
 
+/* RwRect: a rectangle in pixels, its origin and its size (Gormiti DWARF: four ints). */
+typedef struct RwRect {
+    RwInt32 x;  /* 0x0 */
+    RwInt32 y;  /* 0x4 */
+    RwInt32 w;  /* 0x8 */
+    RwInt32 h;  /* 0xC */
+} RwRect;
+
 /* The bracket of a statement macro; the guards are the SDK header's. */
 #ifndef MACRO_START
 #define MACRO_START do

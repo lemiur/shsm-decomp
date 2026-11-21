@@ -6,23 +6,12 @@
 #include <game/Display.h>
 #include <game/unk_Deque.h>
 #include <game/unk_800E671C.h>
+#include <game/unk_80006C7C.h>
 #include <game/Messages.h>
 #include <game/PadRumble.h>
 #include <game/Vec3.h>
 #include <revolution/kpad.h>
 #include <string.h>
-
-// defined in 0x80006C7C-0x8000A040, unit not yet reconstructed.
-class unk_80006C7C {
-public:
-                    unk_80006C7C();     // 0x80006C7C
-                    ~unk_80006C7C();    // 0x80006D34
-    void            fn_80007270( int a, int b );
-    void            fn_80007384( int a );
-    float           fn_80008580( int index );
-
-    u32             field_0x0[0x5078 / 4];
-};
 
 /*
  * Defined in 0x80016C6C's unit, unit not yet reconstructed: takes the pad state as numbered
@@ -156,6 +145,6 @@ float           fn_8000A6B8( float x, float deadZone, float saturation, float ex
 unk_PadQueues*  fn_8000BE94();
 void            fn_8000BEA0();
 void            fn_8000BED8();
-void            fn_8000BF10( int a, int b );
+void            fn_8000BF10( bool* a, bool* b );
 
 #endif

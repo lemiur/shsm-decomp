@@ -13,11 +13,11 @@ Counts cover functions linked from source (units marked `Matching` in `configure
 <!-- ledger:begin numbers -->
 | measure | functions | code bytes |
 |---|---|---|
-| **matched under the rules** (headline) | 5284 / 13922 | 1299940 / 3974484 |
-| bytes matched (linked from source, excluding `ORIGINAL-ASM`) | 5289 / 13922 | 1301960 / 3974484 |
+| **matched under the rules** (headline) | 5294 / 13922 | 1301500 / 3974484 |
+| bytes matched (linked from source, excluding `ORIGINAL-ASM`) | 5299 / 13922 | 1303520 / 3974484 |
 | `ORIGINAL-ASM` (linked, listed apart, outside both counts and totals) | 116 | 28536 |
-| linked from source in total (objdiff "complete") | 5405 | 1330496 |
-| `Matching` units | 589 / 1376 | |
+| linked from source in total (objdiff "complete") | 5415 | 1332056 |
+| `Matching` units | 592 / 1381 | |
 <!-- ledger:end numbers -->
 
 Totals exclude the `ORIGINAL-ASM` functions (<!-- ledger:begin gross -->14038 functions and 4003020 code bytes<!-- ledger:end gross --> in all, counting the dtk
@@ -929,14 +929,14 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `revolution/os/OSPlayRecord` | `__OSStopPlayRecord` | 0x8021D300 | 492 | MATCH-PENDING (R17: RecordCheckSum reshaped to steer .bss order) |  |
 | `revolution/os/OSStateFlags` | `__OSWriteStateFlags` | 0x8021D4F0 | 228 | MATCH-PENDING (R17) |  |
 | `revolution/os/OSStateFlags` | `__OSReadStateFlags` | 0x8021D5E0 | 296 | matched |  |
-| `revolution/os/OSNet` | `__OSInitNet` | 0x8021D710 | 180 | parked, 100% |  |
-| `revolution/os/OSNet` | `NWC24iPrepareShutdown` | 0x8021D7D0 | 184 | parked, 100% |  |
-| `revolution/os/OSNet` | `NWC24iSynchronizeRtcCounter` | 0x8021D890 | 148 | parked, 100% |  |
-| `revolution/os/OSNet` | `NWC24SuspendScheduler` | 0x8021D930 | 256 | parked, 100% |  |
-| `revolution/os/OSNet` | `NWC24iRequestShutdown` | 0x8021DA30 | 108 | parked, 100% |  |
-| `revolution/os/OSNet` | `NWC24Shutdown_` | 0x8021DAA0 | 184 | parked, 100% |  |
-| `revolution/os/OSNet` | `NWC24iSetRtcCounter_` | 0x8021DB60 | 292 | parked, 100% |  |
-| `revolution/os/OSNet` | `CallbackAsyncIpc` | 0x8021DC90 | 28 | parked, 100% |  |
+| `revolution/os/OSNet` | `__OSInitNet` | 0x8021D710 | 180 | matched |  |
+| `revolution/os/OSNet` | `NWC24iPrepareShutdown` | 0x8021D7D0 | 184 | matched |  |
+| `revolution/os/OSNet` | `NWC24iSynchronizeRtcCounter` | 0x8021D890 | 148 | matched |  |
+| `revolution/os/OSNet` | `NWC24SuspendScheduler` | 0x8021D930 | 256 | matched |  |
+| `revolution/os/OSNet` | `NWC24iRequestShutdown` | 0x8021DA30 | 108 | matched |  |
+| `revolution/os/OSNet` | `NWC24Shutdown_` | 0x8021DAA0 | 184 | matched |  |
+| `revolution/os/OSNet` | `NWC24iSetRtcCounter_` | 0x8021DB60 | 292 | matched |  |
+| `revolution/os/OSNet` | `CallbackAsyncIpc` | 0x8021DC90 | 28 | matched |  |
 | `revolution/os/OSNandbootInfo` | `__OSCreateNandbootInfo` | 0x8021DCB0 | 176 | matched |  |
 | `revolution/os/OSNandbootInfo` | `__OSWriteNandbootInfo` | 0x8021DD60 | 344 | matched |  |
 | `revolution/os/OSPlayTime` | `OSPlayTimeIsLimited` | 0x8021DEC0 | 24 | matched |  |
@@ -3593,16 +3593,16 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `rwsdk/src/plcore/rwstring` | `StringStreamRead` | 0x802A715C | 380 | matched |  |
 | `rwsdk/src/plcore/rwstring` | `UnicodeStringStreamRead` | 0x802A72D8 | 452 | matched |  |
 | `rwsdk/src/plcore/rwstring` | `_rwStringStreamFindAndRead` | 0x802A749C | 260 | matched |  |
-| `rwsdk/src/driver/wii/dlsprite` | `fn_802B212C` | 0x802B212C | 368 | parked, 1.1% | placeholder |
-| `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterRender` | 0x802B229C | 12 | parked, 13.3% |  |
-| `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterRenderFast` | 0x802B22A8 | 12 | parked, 13.3% |  |
-| `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterRenderScaled` | 0x802B22B4 | 12 | parked, 13.3% |  |
-| `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterCamera_ZClearRectInit` | 0x802B22C0 | 812 | parked, 0.5% |  |
+| `rwsdk/src/driver/wii/dlsprite` | `fn_802B212C` | 0x802B212C | 368 | parked, 99.6% | placeholder |
+| `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterRender` | 0x802B229C | 12 | parked, 100% |  |
+| `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterRenderFast` | 0x802B22A8 | 12 | parked, 100% |  |
+| `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterRenderScaled` | 0x802B22B4 | 12 | parked, 100% |  |
+| `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterCamera_ZClearRectInit` | 0x802B22C0 | 812 | parked, 100% |  |
 | `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterCamera_ZClearRect` | 0x802B25EC | 680 | parked, 0.6% |  |
-| `rwsdk/src/driver/wii/dlsprite` | `fn_802B2894` | 0x802B2894 | 968 | parked, 0.4% | placeholder |
-| `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterClearRect` | 0x802B2C5C | 8 | parked, 20.0% |  |
-| `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterClear` | 0x802B2C64 | 68 | parked, 5.9% |  |
-| `rwsdk/src/driver/wii/dlsprite` | `_rwDlSetRasterContext` | 0x802B2CA8 | 12 | parked, 33.3% |  |
+| `rwsdk/src/driver/wii/dlsprite` | `fn_802B2894` | 0x802B2894 | 968 | parked, not written | placeholder |
+| `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterClearRect` | 0x802B2C5C | 8 | parked, 100% |  |
+| `rwsdk/src/driver/wii/dlsprite` | `_rwDlRasterClear` | 0x802B2C64 | 68 | parked, 100% |  |
+| `rwsdk/src/driver/wii/dlsprite` | `_rwDlSetRasterContext` | 0x802B2CA8 | 12 | parked, 100% |  |
 | `rwsdk/src/driver/wii/dltexdic` | `_rwDlNativeTextureGetSize` | 0x802B2CB4 | 136 | matched |  |
 | `rwsdk/src/driver/wii/dltexdic` | `_rwDlNativeTextureWrite` | 0x802B2D3C | 632 | matched |  |
 | `rwsdk/src/driver/wii/dltexdic` | `_rwDlNativeTextureRead` | 0x802B2FB4 | 660 | matched |  |
@@ -4439,7 +4439,7 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `fmod/fmod_pluginfactory` | `getOutput__Q24FMOD13PluginFactoryFUiPPQ24FMOD26FMOD_OUTPUT_DESCRIPTION_EX` | 0x8033F4DC | 104 | parked, 100% |  |
 | `fmod/fmod_pluginfactory` | `createCodec__Q24FMOD13PluginFactoryFPQ24FMOD25FMOD_CODEC_DESCRIPTION_EXPPQ24FMOD5Codec` | 0x8033F544 | 328 | parked, 100% |  |
 | `fmod/fmod_pluginfactory` | `defaultGetWaveFormat__Q24FMOD5CodecFP16FMOD_CODEC_STATEiP21FMOD_CODEC_WAVEFORMAT` | 0x8033F68C | 120 | parked, 100% |  |
-| `fmod/fmod_pluginfactory` | `createDSP__Q24FMOD13PluginFactoryFPQ24FMOD23FMOD_DSP_DESCRIPTION_EXPPQ24FMOD4DSPI` | 0x8033F704 | 988 | parked, not written |  |
+| `fmod/fmod_pluginfactory` | `createDSP__Q24FMOD13PluginFactoryFPQ24FMOD23FMOD_DSP_DESCRIPTION_EXPPQ24FMOD4DSPI` | 0x8033F704 | 988 | parked, 65.9% |  |
 | `fmod/fmod_pluginfactory` | `createOutput__Q24FMOD13PluginFactoryFPQ24FMOD26FMOD_OUTPUT_DESCRIPTION_EXPPQ24FMOD6Output` | 0x8033FAE0 | 308 | parked, 100% |  |
 | `fmod/fmod_reverb` | `release__Q24FMOD6ReverbFv` | 0x8033FC14 | 60 | matched |  |
 | `fmod/fmod_reverb` | `set3DAttributes__Q24FMOD6ReverbFPC11FMOD_VECTORff` | 0x8033FC50 | 104 | matched |  |
@@ -4508,10 +4508,10 @@ Naming lists placeholder names (R7), which are open work and do not affect the s
 | `fmod/fmod_codec_dsp` | `setPositionCallback__Q24FMOD8CodecDSPFP16FMOD_CODEC_STATEiUiUi` | 0x80357004 | 448 | parked, 96.2% |  |
 | `fmod/fmod_codec_dsp` | `canPointCallback__Q24FMOD8CodecDSPFP16FMOD_CODEC_STATE` | 0x803571C4 | 8 | parked, 100% |  |
 | `fmod/fmod_codec_dsp` | `__sinit_\fmod_codec_dsp_cpp` | 0x803571CC | 40 | parked, 100% | placeholder (compiler-generated name) |
-| `fmod/fmod_dsp_connection_wii` | `FMOD_DSP_Connection_MixMonoToStereo_SIMD` | 0x803571F4 | 376 | parked, 60.7% (C with an inline-asm block; listed helper when linked) |  |
-| `fmod/fmod_dsp_connection_wii` | `FMOD_DSP_Connection_MixStereoToStereo_SIMD` | 0x8035736C | 368 | parked, 1.1% |  |
-| `fmod/fmod_dsp_connection_wii` | `FMOD_DSP_Connection_MixMonoTo5_1_SIMD` | 0x803574DC | 952 | parked, 0.4% |  |
-| `fmod/fmod_dsp_connection_wii` | `FMOD_DSP_Connection_Mix5_1To5_1_SIMD` | 0x80357894 | 936 | parked, 0.4% |  |
+| `fmod/fmod_dsp_connection_wii` | `FMOD_DSP_Connection_MixMonoToStereo_SIMD` | 0x803571F4 | 376 | parked, 100% (MATCH-PENDING: R18, exceptions.md) |  |
+| `fmod/fmod_dsp_connection_wii` | `FMOD_DSP_Connection_MixStereoToStereo_SIMD` | 0x8035736C | 368 | parked, 100% (MATCH-PENDING: R18, exceptions.md) |  |
+| `fmod/fmod_dsp_connection_wii` | `FMOD_DSP_Connection_MixMonoTo5_1_SIMD` | 0x803574DC | 952 | parked, 96.6% |  |
+| `fmod/fmod_dsp_connection_wii` | `FMOD_DSP_Connection_Mix5_1To5_1_SIMD` | 0x80357894 | 936 | parked, 97.1% |  |
 | `fmod/fmod_dsp_convert_wii` | `FMOD_DSP_Convert_FloatToPCM16` | 0x80357C3C | 460 | parked, 92.0% |  |
 | `fmod/fmod_os_misc` | `FMOD_OS_Memory_Alloc__Fi` | 0x80357E08 | 20 | matched |  |
 | `fmod/fmod_os_misc` | `FMOD_OS_Memory_Realloc__FPvi` | 0x80357E1C | 152 | matched |  |
@@ -5176,6 +5176,14 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/PadRumble` (unit name unconfirmed) | `fn_80006A18__Fb` | 0x80006A18 | 8 | matched | placeholder |
 | `game/PadRumble` (unit name unconfirmed) | `fn_80006A20__Fv` | 0x80006A20 | 8 | matched | placeholder |
 | `game/PadRumble` (unit name unconfirmed) | `__sinit_\PadRumble_cpp` | 0x80006A28 | 596 | matched | placeholder (compiler-generated name) |
+| `game/unk_80006C7C` (unit name unconfirmed) | `__ct__12unk_80006C7CFv` | 0x80006C7C | 184 | parked, 100% | placeholder |
+| `game/unk_80006C7C` (unit name unconfirmed) | `__dt__12unk_80006C7CFv` | 0x80006D34 | 64 | parked, 100% | placeholder |
+| `game/unk_80006C7C` (unit name unconfirmed) | `fn_80006D74` | 0x80006D74 | 1276 | parked, 0.3% | placeholder |
+| `game/unk_80006C7C` (unit name unconfirmed) | `fn_80007270__12unk_80006C7CFPbPb` | 0x80007270 | 276 | parked, 1.4% | placeholder |
+| `game/unk_80006C7C` (unit name unconfirmed) | `fn_80007384__12unk_80006C7CFi` | 0x80007384 | 4604 | parked, 0.1% | placeholder |
+| `game/unk_80006C7C` (unit name unconfirmed) | `fn_80008580__12unk_80006C7CFi` | 0x80008580 | 680 | parked, 100% | placeholder |
+| `game/unk_80009DB4` (unit name unconfirmed) | `fn_80009DB4__Fi` | 0x80009DB4 | 28 | matched | placeholder |
+| `game/unk_80009EC8` (unit name unconfirmed) | `fn_80009EC8` | 0x80009EC8 | 152 | matched | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8000A028__Fb` | 0x8000A028 | 4 | parked, 100% | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8000A02C__Fv` | 0x8000A02C | 8 | parked, 100% | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8000A034__Fb` | 0x8000A034 | 12 | parked, 100% | placeholder |
@@ -5192,7 +5200,7 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8000BE94__Fv` | 0x8000BE94 | 12 | parked, 100% | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8000BEA0__Fv` | 0x8000BEA0 | 56 | parked, 100% | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8000BED8__Fv` | 0x8000BED8 | 56 | parked, 100% | placeholder |
-| `game/unk_8000A040` (unit name unconfirmed) | `fn_8000BF10__Fii` | 0x8000BF10 | 20 | parked, 100% | placeholder |
+| `game/unk_8000A040` (unit name unconfirmed) | `fn_8000BF10__FPbPb` | 0x8000BF10 | 20 | parked, 100% | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8000BF24__12unk_8000A040Fif` | 0x8000BF24 | 168 | parked, 100% | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `fn_8009CB1C__12unk_8000A040FR7unk_Msg` | 0x8000BFCC | 808 | parked, 100% | placeholder |
 | `game/unk_8000A040` (unit name unconfirmed) | `__sinit_\unk_8000A040_cpp` | 0x8000C2F4 | 56 | parked, 100% | placeholder (compiler-generated name) |

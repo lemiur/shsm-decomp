@@ -466,57 +466,54 @@ static RwStream* SkinGeometryWrite(RwStream* stream, RwInt32 binaryLength, const
 
     return stream;
 } // 0x802EA250
-
 /*
  * ==================== SkinGeometryRead ====================
- * Reads the skin's chunk into a new skin of the geometry. A stream that does not say how many
- * weights or used bones the skin has gets them counted from the data (the original counts them
- * before the data is read, from null arrays). A native geometry's skin goes through the native
- * stream.
+ * Reads the skin's chunk into a new skin of the geometry: the counts packed into one word, the
+ * used bone list, the vertices' indices and weights, the maximum weights, the inverse bone
+ * matrices, then the split data. A native geometry's skin goes through the native stream. A chunk
+ * whose word leaves the used bone count or the maximum weights zero gets them counted before the
+ * data is read, from NULL arrays (the original's order); the chunk's maximum weights word is then
+ * stored over that count (original quirk, kept).
  *
- * Not exact (99.71%): the inlined SkinFindMaxWeights takes its two loop counters in swapped
- * registers (register wall). Retail's two copies want opposite orders, which the helper alone cannot
- * give: SkinGeometryRead's inner counter is r5 and its outer r4, SkinAtomicRead's inner r4 and its
- * outer r5. Declaring j before i closes this function and opens SkinAtomicRead's, so neither form is
- * kept; closing both needs SkinAtomicRead's call-site context to differ from this one by one more live
- * value, which no evidenced spelling supplies.
+ * Not exact (99.71%): register/schedule wall. The inlined SkinFindMaxWeights loop takes its outer and
+ * inner counters in r4 and r5 swapped against retail; SkinAtomicRead's exact copy of the same helper
+ * takes them the other way, so no one spelling of the helper closes both.
  */
 static RwStream* SkinGeometryRead(RwStream* stream, RwInt32 binaryLength, void* object,
                                   RwInt32 offsetInObject, RwInt32 sizeInObject) {
     RpSkin* skin;
     RpGeometry* geometry = (RpGeometry*)object;
+    unsigned int maxWeightsInChunk;
+    unsigned int numBones;
+    unsigned int numUsedBonesInChunk;
+    unsigned int numVertices;
+    RwInt32 skinInfo;
+    unsigned int numUsedBones;
+    unsigned char usedBoneList[256];
 
     if ((geometry->flags & rpGEOMETRYNATIVE) == 0) {
-        unsigned int skinInfo;
-        unsigned int maxWeights;
-        unsigned int numBones;
-        unsigned int numUsedBones;
-        unsigned int numVertices;
-        unsigned int size;
-        unsigned char usedBoneList[256];
-
-        if (RwStreamReadInt32(stream, (RwInt32*)&skinInfo, sizeof(skinInfo)) == NULL) {
+        if (RwStreamReadInt32(stream, &skinInfo, sizeof(skinInfo)) == NULL) {
             return NULL;
         }
 
         numBones = skinInfo & 0xFF;
-        numUsedBones = (skinInfo >> 8) & 0xFF;
-        maxWeights = (skinInfo >> 16) & 0xFF;
+        numUsedBonesInChunk = (skinInfo >> 8) & 0xFF;
+        maxWeightsInChunk = (skinInfo >> 16) & 0xFF;
         numVertices = geometry->numVertices;
-        size = numUsedBones;
+        numUsedBones = numUsedBonesInChunk;
 
         skin = (RpSkin*)RwFreeListAlloc(_rpSkinGlobals.freeList, rwMEMHINTDUR_EVENT | rwID_SKINPLUGIN);
         memset(skin, 0, sizeof(RpSkin));
 
-        if (maxWeights == 0) {
+        if (maxWeightsInChunk == 0) {
             SkinFindMaxWeights(skin, NULL, numVertices);
         }
 
-        if (size == 0) {
-            SkinFindNumUsedBones(skin, NULL, NULL, usedBoneList, &size, numVertices);
+        if (numUsedBones == 0) {
+            SkinFindNumUsedBones(skin, NULL, NULL, usedBoneList, &numUsedBones, numVertices);
         }
 
-        if (!SkinCreateSkinData(skin, numBones, size, numVertices, usedBoneList, NULL, NULL, NULL)) {
+        if (!SkinCreateSkinData(skin, numBones, numUsedBones, numVertices, usedBoneList, NULL, NULL, NULL)) {
             RwFreeListFree(_rpSkinGlobals.freeList, skin);
             skin = NULL;
         }
@@ -525,7 +522,7 @@ static RwStream* SkinGeometryRead(RwStream* stream, RwInt32 binaryLength, void* 
             return NULL;
         }
 
-        if (RwStreamRead(stream, skin->boneData.usedBoneList, numUsedBones) != numUsedBones) {
+        if (RwStreamRead(stream, skin->boneData.usedBoneList, numUsedBonesInChunk) != numUsedBonesInChunk) {
             return NULL;
         }
 
@@ -539,7 +536,7 @@ static RwStream* SkinGeometryRead(RwStream* stream, RwInt32 binaryLength, void* 
             return NULL;
         }
 
-        skin->vertexMaps.maxWeights = maxWeights;
+        skin->vertexMaps.maxWeights = maxWeightsInChunk;
 
         if (RwStreamReadReal(stream, (RwReal*)skin->boneData.invBoneToSkinMat,
                              skin->boneData.numBones * sizeof(RwMatrix)) == NULL) {

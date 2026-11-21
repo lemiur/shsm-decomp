@@ -621,7 +621,7 @@ fn_8000BF10
 ====================
 */
 // 0x8000BF10
-void fn_8000BF10( int a, int b ) {
+void fn_8000BF10( bool* a, bool* b ) {
     lbl_80529160->field_0xA4.fn_80007270( a, b );
 }
 

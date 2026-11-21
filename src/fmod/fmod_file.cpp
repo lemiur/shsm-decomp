@@ -1049,22 +1049,20 @@ FMOD_RESULT File::setStartOffset( unsigned int offset ) {
 ====================
 File::enableDoubleBuffer
 
-Doubles the buffer: sizebytes (at least 2048 and one block, rounded down to whole blocks) is the size
-of each half, and the file thread is given the file to keep ahead of the reader. oldbuffer is the
-buffer to carry over, or NULL to keep the one already allocated.
-Wall: register/schedule. Retail keeps sizebytes and oldbuffersize in one register (r30) and uses one load of
-mBlockSize for the clamp, the division, the product and mBufferSkip; the build reloads it for the division and
-needs a second callee-saved register. Ruled out: the clamp as `mBlockSize > sizebytes` or as a ternary; the round-down
-as `sizebytes /= ...; sizebytes *= ...;` with mBlockSize = sizebytes; four orders of the oldbuffersize, mBufferSkip,
-mBlockOffset and mBlockSize statements. The sibling's line table (oldbuffersize 1962, divide 1965, product and the
-mBlockSize store 1966, mBufferSkip 1968 storing the old block size, mBlockOffset 1969) fits none of them.
+Turns the buffer into two halves of sizebytes each (at least 2048 and one block, rounded down to whole blocks).
+The file joins its file thread's list so the thread keeps the second half filled. oldbuffer is copied into the
+new buffer, or NULL to reallocate the buffer already held.
+Wall: register/schedule (91%). The build reloads mBlockSize after the clamp's join, where retail keeps one load
+in r4 for the clamp, the divide and mBufferSkip, and the build keeps sizebytes in r28 where retail uses r30.
+Tried: a blockcount local for the divide (94%, but an extra local the sibling DWARF does not list), the store
+orders of mBlockOffset, mBufferSkip and oldbuffersize, and the swapped clamp comparison (`mBlockSize > sizebytes`).
 ====================
 */
 FMOD_RESULT File::enableDoubleBuffer( unsigned int sizebytes, void *oldbuffer ) {
-    FMOD_RESULT  result;
     unsigned int oldbuffersize;
+    FMOD_RESULT  result;
 
-    if ( !mBlockSize ) {
+    if ( mBlockSize == 0 ) {
         return FMOD_OK;
     }
 
@@ -1072,19 +1070,17 @@ FMOD_RESULT File::enableDoubleBuffer( unsigned int sizebytes, void *oldbuffer ) 
     if ( result != FMOD_OK ) {
         return result;
     }
-
     FMOD_OS_Semaphore_Signal( mSema, false );
 
-    if ( sizebytes < 2048 ) {
-        sizebytes = 2048;
+    if ( sizebytes < 0x800 ) {
+        sizebytes = 0x800;
     }
-
     if ( sizebytes < mBlockSize ) {
         sizebytes = mBlockSize;
     }
 
     mBufferSkip          = mBlockSize;
-    mBlockSize           = sizebytes / mBlockSize * mBlockSize;
+    mBlockSize           = ( sizebytes / mBlockSize ) * mBlockSize;
     mBlockOffset         = 0;
     oldbuffersize        = mBufferSize;
     mNextPosition        = mBlockSize;
@@ -1097,7 +1093,6 @@ FMOD_RESULT File::enableDoubleBuffer( unsigned int sizebytes, void *oldbuffer ) 
         if ( !mBufferMemory ) {
             return FMOD_ERR_MEMORY;
         }
-
         memcpy( mBufferMemory, oldbuffer, oldbuffersize );
     } else {
 #line 1987
@@ -1122,7 +1117,6 @@ FMOD_RESULT File::enableDoubleBuffer( unsigned int sizebytes, void *oldbuffer ) 
     if ( result != FMOD_OK && result != FMOD_ERR_FILE_EOF ) {
         return result;
     }
-
     return FMOD_OK;
 } // 0x803751D0
 

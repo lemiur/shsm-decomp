@@ -72,10 +72,10 @@ public:
 } // namespace FMOD
 
 extern "C" {
-void FMOD_DSP_Connection_MixMonoToStereo_SIMD( const float *inbuffer, float *outbuffer, unsigned int length, double volumel, double volumer );
-void FMOD_DSP_Connection_MixStereoToStereo_SIMD( const float *inbuffer, float *outbuffer, unsigned int length, double volumel, double volumer );
-void FMOD_DSP_Connection_MixMonoTo5_1_SIMD( const float *inbuffer, float *outbuffer, unsigned int length, float *volume0to3, float *volume4to1, float *volume2to5 );
-void FMOD_DSP_Connection_Mix5_1To5_1_SIMD( const float *inbuffer, float *outbuffer, unsigned int length, float *volume0to3, float *volume4to1, float *volume2to5 );
+void FMOD_DSP_Connection_MixMonoToStereo_SIMD( float *inbuffer, float *outbuffer, unsigned int length, double volumel, double volumer );
+void FMOD_DSP_Connection_MixStereoToStereo_SIMD( float *inbuffer, float *outbuffer, unsigned int length, double volumel, double volumer );
+void FMOD_DSP_Connection_MixMonoTo5_1_SIMD( float *inbuffer, float *outbuffer, unsigned int length, float *volume0to3, float *volume4to1, float *volume2to5 );
+void FMOD_DSP_Connection_Mix5_1To5_1_SIMD( float *inbuffer, float *outbuffer, unsigned int length, float *volume0to3, float *volume4to1, float *volume2to5 );
 }
 
 #endif /* _FMOD_DSP_CONNECTIONI_H */

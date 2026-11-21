@@ -10,6 +10,10 @@
 
 #include <fmod/fmod.h>
 #include <fmod/fmod_codeci.h>
+#include <fmod/fmod_dsp_codec.h>
+#include <fmod/fmod_dsp_resampler.h>
+#include <fmod/fmod_dsp_soundcard.h>
+#include <fmod/fmod_dsp_wavetable.h>
 #include <fmod/fmod_dspi.h>
 #include <fmod/fmod_file.h>
 #include <fmod/fmod_memory.h>
@@ -608,14 +612,108 @@ FMOD_RESULT F_CALLBACK Codec::defaultGetWaveFormat( FMOD_CODEC_STATE *codec_stat
     return FMOD_OK;
 } // 0x8033F68C
 
-// Not written. Retail is a switch on dspdesc->mCategory (0x8033F704, unpaired with Gormiti: that revision builds more codec
-// DSPs). Cases: FILTER 0x118 bytes, line 1542 (DSPFilter); DSPCODEC* 1..4: allocation of at least 0x498 bytes with
-// memory type 0x200000, line 1680, then only RAW builds a DSPCodec-derived object (DSPResampler base, MemoryFile at 0x1B4, a
-// CodecRaw at 0x48A8; vtables lbl_8044CC88 and lbl_8044CCEC are weak copies emitted here) and the others return FMOD_ERR_FORMAT;
-// SOUNDCARD 0x120 line 1772; WAVETABLE 0x150 line 1802; RESAMPLER 0x1B0 line 1752. The class of the RAW DSP is not in Gormiti.
-// After the switch: mSystem set, the description's alloc called through the vtable, and the allocation freed (lines 1835, 1886)
-// when it fails.
-// void FMOD::PluginFactory::createDSP( FMOD::FMOD_DSP_DESCRIPTION_EX*, FMOD::DSPI** ) { } // 0x8033F704
+/*
+====================
+PluginFactory::createDSP
+
+Makes a DSP unit from its description when the caller's pointer is empty: the unit's class follows the
+description's category, and the unit is initialised by its alloc callback and then handed its create callback.
+====================
+*/
+FMOD_RESULT PluginFactory::createDSP( FMOD_DSP_DESCRIPTION_EX *dspdesc, DSPI **dsp ) {
+    FMOD_RESULT result;
+    DSPI       *newdsp;
+    void       *memory;
+
+    if ( !dspdesc || !dsp ) {
+        return FMOD_ERR_INVALID_PARAM;
+    }
+
+    newdsp = *dsp;
+    if ( !newdsp ) {
+        switch ( dspdesc->mCategory ) {
+        case FMOD_DSP_CATEGORY_FILTER:
+            dspdesc->mSize = dspdesc->mSize >= sizeof( DSPFilter ) ? dspdesc->mSize : sizeof( DSPFilter );
+#line 1542
+            memory = FMOD_Memory_Calloc( dspdesc->mSize );
+            if ( !memory ) {
+                return FMOD_ERR_MEMORY;
+            }
+            newdsp = new ( memory ) DSPFilter;
+            break;
+
+        case FMOD_DSP_CATEGORY_DSPCODECMPEG:
+        case FMOD_DSP_CATEGORY_DSPCODECADPCM:
+        case FMOD_DSP_CATEGORY_DSPCODECXMA:
+        case FMOD_DSP_CATEGORY_DSPCODECRAW:
+#line 1680
+            memory = FMOD_Memory_CallocType( dspdesc->mSize >= sizeof( DSPCodec ) ? dspdesc->mSize : sizeof( DSPCodec ), 0x200000 );
+            if ( !memory ) {
+                return FMOD_ERR_MEMORY;
+            }
+            if ( dspdesc->mCategory != FMOD_DSP_CATEGORY_DSPCODECRAW ) {
+                return FMOD_ERR_FORMAT;
+            }
+            newdsp = new ( memory ) DSPCodec;
+            // identity TODO: retail then stores a Codec-derived object at +0x48A8 (its vtable lbl_8044CCEC, file callbacks
+            // Codec::defaultFileRead/Seek/MetaData, a self-linked list at +0x491C). The layout is not in the headers yet.
+            break;
+
+        case FMOD_DSP_CATEGORY_SOUNDCARD:
+            dspdesc->mSize = dspdesc->mSize >= sizeof( DSPSoundCard ) ? dspdesc->mSize : sizeof( DSPSoundCard );
+#line 1772
+            newdsp = new ( FMOD_Memory_Calloc( dspdesc->mSize >= sizeof( DSPSoundCard ) ? dspdesc->mSize : sizeof( DSPSoundCard ) ) ) DSPSoundCard;
+            break;
+
+        case FMOD_DSP_CATEGORY_WAVETABLE:
+#line 1802
+            memory = FMOD_Memory_Calloc( dspdesc->mSize >= sizeof( DSPWaveTable ) ? dspdesc->mSize : sizeof( DSPWaveTable ) );
+            if ( !memory ) {
+                return FMOD_ERR_MEMORY;
+            }
+            newdsp = new ( memory ) DSPWaveTable;
+            break;
+
+        case FMOD_DSP_CATEGORY_RESAMPLER:
+#line 1752
+            memory = FMOD_Memory_Calloc( dspdesc->mSize >= sizeof( DSPResampler ) ? dspdesc->mSize : sizeof( DSPResampler ) );
+            if ( !memory ) {
+                return FMOD_ERR_MEMORY;
+            }
+            newdsp = new ( memory ) DSPResampler;
+            break;
+
+        default:
+            return FMOD_ERR_INVALID_PARAM;
+        }
+    }
+
+    if ( !newdsp ) {
+        *dsp = NULL;
+        return FMOD_ERR_MEMORY;
+    }
+
+    newdsp->mSystem = mSystem;
+    result          = newdsp->alloc( dspdesc );
+    if ( result ) {
+#line 1835
+        FMOD_Memory_Free( newdsp );
+        return result;
+    }
+
+    if ( dspdesc->create ) {
+        newdsp->instance = (FMOD_DSP *)newdsp;
+        result           = ( (FMOD_RESULT( F_CALLBACK * )( FMOD_DSP_STATE * ))dspdesc->create )( newdsp );
+        if ( result ) {
+#line 1886
+            FMOD_Memory_Free( newdsp );
+            return result;
+        }
+    }
+
+    *dsp = newdsp;
+    return FMOD_OK;
+} // 0x8033F704
 
 /*
 ====================

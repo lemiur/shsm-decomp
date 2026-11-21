@@ -115,40 +115,30 @@ inline int ClimaxS1DataGetArrayType( char* data, int array ) {
 ====================
 ClimaxS1DataGetSize
 
-The size of a data block in bytes, as it is stored: the arrays and their headers, and the count word.
+The size of a data block in bytes, as it is stored: the count word, then for each array its header and
+its elements (int and float arrays).
 
-Not matched: two rows, the operand order of the two adds that accumulate size (retail: the array's
-byte count first, then size); wall class register/schedule. Other spellings of the accumulation
-(`size = ... * 4 + size + 8`, `size = size + ...`, header first, `sizeof( int ) *` before or after, the
-explicit expression) compile to the same order. Also ruled out: the accessors in Gormiti's Debug form (a
-char* offset local) and ClimaxS1DataGetNumArrays/GetArrayType defined after this function as plain
-functions (Gormiti's order); every compiler version (flagsweep). Gormiti's Debug code (-O0) is reproduced
-by this spelling (statement order included), so the difference arises in the optimiser's operand ordering.
-Declaring size `unsigned int` makes the function exact, but Gormiti's DWARF (Debug and Final) records
-`int size`, so that state is not taken. Also ruled out: an unsigned right-hand side (`sizeof` for the
-element or the header, either side), the header added first, a const read of the array count, the
-array-type accessor as a char* offset with an index.
+Not matched: 2 rows, the operand order of the add that accumulates the element bytes (register/schedule
+wall, wall.exe); the register numbering matches.
 ====================
 */
 // 0x801D7534
 int ClimaxS1DataGetSize( char* data ) {
-    int i;
-    int imax;
-    int size;
+    char* array;
+    int size = 0;
 
-    imax = ClimaxS1DataGetNumArrays( data );
-    size = 0;
-    for ( i = 0; i < imax; i++ ) {
-        switch ( ClimaxS1DataGetArrayType( data, i ) ) {
+    for ( int i = 0; i < ClimaxS1DataGetNumArrays( data ); i++ ) {
+        array = data + ( (int*)data )[CLIMAXS1_HEADER_WORDS + i];
+        switch ( ( (int*)array )[1] ) {
         case CLIMAXS1_ARRAY_INT:
-            size += ClimaxS1DataGetArraySize( data, i ) * 4 + CLIMAXS1_ARRAY_HEADER;
+            size = ( (int*)array )[0] * sizeof( int ) + size + CLIMAXS1_ARRAY_HEADER;
             break;
         case CLIMAXS1_ARRAY_FLOAT:
-            size += ClimaxS1DataGetArraySize( data, i ) * 4 + CLIMAXS1_ARRAY_HEADER;
+            size = ( (int*)array )[0] * sizeof( int ) + size + CLIMAXS1_ARRAY_HEADER;
             break;
         }
     }
-    return size + 4;
+    return size + sizeof( int );
 }
 
 /*

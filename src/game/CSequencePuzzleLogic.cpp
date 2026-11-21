@@ -70,9 +70,8 @@ records each input received and, when the sequence is complete, solves the puzzl
 after the delay counted on the frame message.
 ====================
 */
-// NonMatching: remaining difference not yet diagnosed
-// Not a const-parameter effect: msg's type is fixed by the CBaseBehaviour virtual, and the rows that move are
-// accesses to this and register choices.
+// NonMatching: register/schedule only; control flow is isomorphic to retail. The inlined
+// Update, OnInput and Solve locals take other registers, and msg's accesses sit in other slots.
 // 0x8016FEC0
 void CSequencePuzzleLogic::fn_8009CB1C( unk_Msg& msg ) {
     CBaseBehaviour::fn_8009CB1C( msg );
@@ -192,16 +191,54 @@ void CSequencePuzzleLogic::fn_801A73A8( const unk_AttributePacket& packet ) {
 
 /*
 ====================
+CSequencePuzzleLogic::Load
+
+Loads the history from the instance's save block, when it holds one. Inlined into
+fn_8000CFD0 (dead-stripped copy).
+====================
+*/
+void CSequencePuzzleLogic::Load() {
+    void* root = fn_802050AC( fn_80204C04(), "GWI", 1, 0, 0, 0 );
+    void* save = fn_802050AC( root, fn_800264AC( mZone ), 1, 0, 0, 0 );
+    const char* text = NULL;
+    fn_802057FC( save, "CSequencePuzzleLogic", 5, &text, 0 );
+    if ( text != NULL ) {
+        SetHistory( text );
+    }
+}
+
+/*
+====================
 CSequencePuzzleLogic::fn_8000CFD0
 
 Loads the history from the instance's save block.
 ====================
 */
-// NonMatching: this and text swap registers, and DestroyAll's iterator and end() temporaries sit in
-// swapped stack slots
+// NonMatching: register/schedule only. this and the loaded text swap r30 and r31; the rest of the
+// inlined Load (SetHistory, push_back loop) matches its retail listing.
 // 0x8017076C
 void CSequencePuzzleLogic::fn_8000CFD0() {
     Load();
+}
+
+/*
+====================
+CSequencePuzzleLogic::Save
+
+Saves the history to the instance's save block as text, one letter per input from 'a'.
+Inlined into fn_8000CFCC (dead-stripped copy).
+====================
+*/
+void CSequencePuzzleLogic::Save() {
+    char text[SAVE_TEXT_SIZE];
+    char* p = text;
+    for ( u32 i = 0; i != history.size(); i++ ) {
+        *p++ = history[i] + 'a';
+    }
+    *p = '\0';
+    void* root = fn_802050AC( fn_80204C04(), "GWI", 1, 0, 0, 0 );
+    void* save = fn_802050AC( root, fn_800264AC( mZone ), 1, 0, 0, 0 );
+    fn_80205354( save, "CSequencePuzzleLogic", 5, text, 0 );
 }
 
 /*
@@ -211,10 +248,8 @@ CSequencePuzzleLogic::fn_8000CFCC
 Saves the history to the instance's save block.
 ====================
 */
-// NonMatching: size()'s iterators are built begin-first, retail end-first, but with the stack slots
-// of end() - begin() (begin's copies at 0x08/0x18). A non-member operator-, a named end() local, a
-// distance helper taking (begin(), end()) by value or by reference, and a by-value operator- all
-// load end first but move the slots or registers.
+// NonMatching: the size() in the loop test loads begin before end; retail loads end first, and the
+// stack slots and the counter's register follow from that order (the header's size() is kept).
 // 0x80170B14
 void CSequencePuzzleLogic::fn_8000CFCC() {
     Save();
@@ -267,52 +302,14 @@ void CSequencePuzzleLogic::Solve() {
 
 /*
 ====================
-CSequencePuzzleLogic::Save
-
-Saves the history to the instance's save block as text, one letter per input from 'a'.
-Inlined into fn_8000CFCC (dead-stripped copy).
-====================
-*/
-void CSequencePuzzleLogic::Save() {
-    char text[SAVE_TEXT_SIZE];
-    char* p = text;
-    for ( u32 i = 0; i != history.size(); i++ ) {
-        *p++ = history[i] + 'a';
-    }
-    *p = '\0';
-    void* root = fn_802050AC( fn_80204C04(), "GWI", 1, 0, 0, 0 );
-    void* save = fn_802050AC( root, fn_800264AC( mZone ), 1, 0, 0, 0 );
-    fn_80205354( save, "CSequencePuzzleLogic", 5, text, 0 );
-}
-
-/*
-====================
-CSequencePuzzleLogic::Load
-
-Loads the history from the instance's save block, when it holds one. Inlined into
-fn_8000CFD0 (dead-stripped copy).
-====================
-*/
-void CSequencePuzzleLogic::Load() {
-    void* root = fn_802050AC( fn_80204C04(), "GWI", 1, 0, 0, 0 );
-    void* save = fn_802050AC( root, fn_800264AC( mZone ), 1, 0, 0, 0 );
-    const char* text = NULL;
-    fn_802057FC( save, "CSequencePuzzleLogic", 5, &text, 0 );
-    if ( text != NULL ) {
-        SetHistory( text );
-    }
-}
-
-/*
-====================
 CSequencePuzzleLogic::fn_80170C54
 
 Whether the history holds the sequence: its latest sequenceLength inputs are inputs 0 to
 sequenceLength - 1 in order (the latest first), or in ordered mode off, each of them anywhere.
 ====================
 */
-// NonMatching: retail hoists more iterator copies in the unordered search and tests the ordered
-// count with beq
+// NonMatching: control flow differs only in the ordered precheck (beq in retail, ble here); the
+// unordered search's iterator temporaries sit in other stack slots (frame 0x70 in retail).
 // 0x80170C54
 bool CSequencePuzzleLogic::fn_80170C54() {
     bool solved = false;

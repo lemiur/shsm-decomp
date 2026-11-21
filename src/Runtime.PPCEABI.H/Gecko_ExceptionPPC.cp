@@ -17,6 +17,8 @@ static ExceptionInfo fragmentinfo[MAX_FRAGMENTS];
  *
  * Enters a code fragment in the first free slot of the fragment table and
  * returns its ID, or -1 when the table is full.
+ * Wall: register/schedule only (retail zeroes the index after the table
+ * address; the compiler schedules it first), 93.7%.
  */
 int __register_fragment(__eti_init_info* info, char* TOC) {
     ExceptionInfo* fragment;

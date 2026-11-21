@@ -26,23 +26,23 @@ file.
 
 ## Status
 
-As of 2026-11-18 (the live figures are in [`docs/progress.md`](docs/progress.md)):
+As of 2026-11-20 (the live figures are in [`docs/progress.md`](docs/progress.md)):
 
 | measure | functions | code bytes |
 |---|---|---|
-| matched under the rules (headline) | 5,284 of 13,922 (38.0%) | 1,299,940 of 3,974,484 (32.7%) |
-| linked from source (byte-identical, excluding hand-written assembly) | 5,289 of 13,922 | 1,301,960 of 3,974,484 |
+| matched under the rules (headline) | 5,294 of 13,922 (38.0%) | 1,301,500 of 3,974,484 (32.7%) |
+| linked from source (byte-identical, excluding hand-written assembly) | 5,299 of 13,922 | 1,303,520 of 3,974,484 |
 | hand-written assembly in the original, listed apart | 116 | 28,536 |
 
-589 of 1,376 units are `Matching`, that is, linked from source into the gated build. Every other unit is linked
+592 of 1,381 units are `Matching`, that is, linked from source into the gated build. Every other unit is linked
 from the original bytes (see [Layout](#repository-layout) and `AGENTS.md`, "Parking mechanism").
 
-Work so far, by library (functions matched, from `build/tools/status.exe` on 2026-11-18; the address ranges that
+Work so far, by library (functions matched, from `build/tools/status.exe` on 2026-11-20; the address ranges that
 assign functions to libraries are approximate, see `docs/library_map.md`):
 
 | library | what it is | functions matched |
 |---|---|---|
-| RVL SDK | Nintendo Revolution SDK, including the Bluetooth stack, Home Button Menu and nw4hbm | 2,531 of 2,701 (93.7%) |
+| RVL SDK | Nintendo Revolution SDK, including the Bluetooth stack, Home Button Menu and nw4hbm | 2,539 of 2,701 (94.0%) |
 | MSL C, Metrowerks runtime, MetroTRK | C library, compiler runtime, debugger kernel | 147 of 147; 10 of 27; 99 of 143 |
 | zlib 1.2.3 | inflate side | 14 of 14 |
 | IJG libjpeg 6b | JPEG decoder | 162 of 176 (92.0%) |
@@ -50,7 +50,7 @@ assign functions to libraries are approximate, see `docs/library_map.md`):
 | RenderWare Physics | physics middleware | 40 of 525 (7.6%) |
 | FMOD Ex 4.x | audio middleware, including its embedded dlmalloc | 645 of 1,879 (34.3%) |
 | Climax engine | the developer's engine layer | 320 of 1,278 (25.0%) |
-| Game code | Silent Hill: Shattered Memories itself | 419 of 5,842 (7.2%) |
+| Game code | Silent Hill: Shattered Memories itself | 421 of 5,842 (7.2%) |
 
 ## Building
 
