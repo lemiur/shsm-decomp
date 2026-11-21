@@ -55,6 +55,12 @@ public:
                             ptr->AddRef();
                         }
                     }
+                    unk_RefPtr( const unk_RefPtr& other ) :
+                        ptr( other.ptr ) {
+                        if ( ptr != NULL ) {
+                            ptr->AddRef();
+                        }
+                    }
                     ~unk_RefPtr() {
                         if ( ptr != NULL ) {
                             ptr->Release();

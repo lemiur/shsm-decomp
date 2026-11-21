@@ -129,6 +129,10 @@ game/unk_8001205C.cpp:
 game/unk_80012330.cpp:
 	.text       start:0x80012330 end:0x8001238C
 
+game/unk_8001238C.cpp:
+	.text       start:0x8001238C end:0x800129B4
+	.sdata2     start:0x8052B768 end:0x8052B770
+
 game/unk_800129E0.cpp:
 	.text       start:0x800129E0 end:0x80012A68
 
@@ -210,6 +214,64 @@ game/unk_80017B88.cpp:
 	.text       start:0x80017B88 end:0x80017E88
 	.data       start:0x803E0A54 end:0x803E0A60
 
+game/unk_AnimController.cpp:
+	.text       start:0x8001A100 end:0x8001A5D4
+
+game/unk_NamedEntryTable.cpp:
+	.text       start:0x8001A5D4 end:0x8001A848
+	.sdata      start:0x805269A0 end:0x805269A8
+
+game/unk_8001A848.cpp:
+	.text       start:0x8001A848 end:0x8001A8E8
+	.sdata2     start:0x8052B7B0 end:0x8052B7B8
+
+game/unk_8004B2F0.cpp:
+	.text       start:0x8001A8E8 end:0x8001B200
+
+game/unk_8001B200.cpp:
+	.text       start:0x8001B200 end:0x800202D0
+	.data       start:0x803E0A70 end:0x803E0BA0
+	.sdata      start:0x805269A8 end:0x805269C8
+	.sdata2     start:0x8052B7B8 end:0x8052B810
+
+game/unk_803E0D28.cpp:
+	.text       start:0x800202D0 end:0x8002039C
+	.data       start:0x803E0D28 end:0x803E0D80
+
+climax/unk_InterpCache.cpp:
+	.text       start:0x8002039C end:0x80020564
+
+game/unk_8004BC94.cpp:
+	.text       start:0x80020564 end:0x80020730
+
+game/unk_800208FC.cpp:
+	.text       start:0x800208FC end:0x80020B04
+
+game/CBasicAnimatedObject.cpp:
+	.text       start:0x80020B04 end:0x800221F8
+	.ctors      start:0x803D8388 end:0x803D838C
+	.data       start:0x803E0E30 end:0x803E1038
+	.bss        start:0x80469A10 end:0x80469A20
+	.sbss       start:0x80529208 end:0x80529218
+	.sdata2     start:0x8052B810 end:0x8052B820
+
+game/unk_800221F8.cpp:
+	.text       start:0x800221F8 end:0x80022200
+
+game/unk_80022200.cpp:
+	.text       start:0x80022200 end:0x80024158
+	.sdata2     start:0x8052B820 end:0x8052B830
+
+game/CSimpleAnimation.cpp:
+	.text       start:0x80025434 end:0x80025460
+	.ctors      start:0x803D838C end:0x803D8390
+	.data       start:0x803E1130 end:0x803E1148
+	.sbss       start:0x80529218 end:0x80529220
+
+game/unk_ClumpBounds.cpp:
+	.text       start:0x80025674 end:0x80025750
+	.sdata2     start:0x8052B840 end:0x8052B844
+
 game/CPreCache.cpp:
 	.text       start:0x800288F4 end:0x8002905C
 	.ctors      start:0x803D8394 end:0x803D8398
@@ -218,6 +280,66 @@ game/CPreCache.cpp:
 	.sdata      start:0x80526A00 end:0x80526A08
 	.sbss       start:0x80529248 end:0x80529250
 	.sdata2     start:0x8052B898 end:0x8052B8A0
+
+game/unk_800290F0.cpp:
+	.text       start:0x800290F0 end:0x80029164
+
+game/CZoneChangeInfo.cpp:
+	.text       start:0x80029164 end:0x80029444
+	.sdata2     start:0x8052B8A0 end:0x8052B8A8
+
+game/unk_80029444.cpp:
+	.text       start:0x80029444 end:0x800298AC
+
+game/unk_800298AC.cpp:
+	.text       start:0x800298AC end:0x8002A9A4
+	.data       start:0x803E16D0 end:0x803E16E0
+	.sdata2     start:0x8052B8A8 end:0x8052B8B0
+
+game/unk_8002A9A4.cpp:
+	.text       start:0x8002A9A4 end:0x8002AF94
+	.sdata2     start:0x8052B8B0 end:0x8052B8B4
+
+game/unk_8002AF94.cpp:
+	.text       start:0x8002AF94 end:0x8002B368
+	.sdata2     start:0x8052B8B4 end:0x8052B8B8
+
+game/unk_8002B368.cpp:
+	.text       start:0x8002B368 end:0x8002B7D4
+
+game/unk_8002B7D4.cpp:
+	.text       start:0x8002B7D4 end:0x8002BC7C
+
+game/unk_8002C6AC.cpp:
+	.text       start:0x8002C6AC end:0x8002C79C
+	.sdata2     start:0x8052B8C4 end:0x8052B8C8
+
+game/ZoneLink.cpp:
+	.text       start:0x8002C79C end:0x8002C8D0
+
+game/unk_8002C8D0.cpp:
+	.text       start:0x8002C8D0 end:0x8002C9DC
+
+game/unk_8002D148.cpp:
+	.text       start:0x8002D148 end:0x8002D158
+	.sdata2     start:0x8052B8C8 end:0x8052B8CC
+
+game/unk_8002D158.cpp:
+	.text       start:0x8002D158 end:0x8002D1A8
+	.sdata2     start:0x8052B8CC end:0x8052B8D0
+
+game/unk_8002D2DC.cpp:
+	.text       start:0x8002D2DC end:0x8002D384
+
+game/unk_8002D384.cpp:
+	.text       start:0x8002D384 end:0x8002D480
+	.sdata      start:0x80526A24 end:0x80526A28
+
+game/unk_80031F1C.cpp:
+	.text       start:0x80031F1C end:0x80031F54
+	.ctors      start:0x803D839C end:0x803D83A0
+	.sbss       start:0x80529258 end:0x80529260
+	.sdata2     start:0x8052B8E0 end:0x8052B8E8
 
 game/CActorTest.cpp:
 	.text       start:0x8003BE3C end:0x8003C3FC

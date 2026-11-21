@@ -13,11 +13,11 @@ Counts cover functions linked from source (units marked `Matching` in `configure
 <!-- ledger:begin numbers -->
 | measure | functions | code bytes |
 |---|---|---|
-| **matched under the rules** (headline) | 5335 / 13922 | 1307800 / 3974484 |
-| bytes matched (linked from source, excluding `ORIGINAL-ASM`) | 5340 / 13922 | 1309820 / 3974484 |
+| **matched under the rules** (headline) | 5347 / 13922 | 1308292 / 3974484 |
+| bytes matched (linked from source, excluding `ORIGINAL-ASM`) | 5352 / 13922 | 1310312 / 3974484 |
 | `ORIGINAL-ASM` (linked, listed apart, outside both counts and totals) | 116 | 28536 |
-| linked from source in total (objdiff "complete") | 5456 | 1338356 |
-| `Matching` units | 612 / 1437 | |
+| linked from source in total (objdiff "complete") | 5468 | 1338848 |
+| `Matching` units | 617 / 1483 | |
 <!-- ledger:end numbers -->
 
 Totals exclude the `ORIGINAL-ASM` functions (<!-- ledger:begin gross -->14038 functions and 4003020 code bytes<!-- ledger:end gross --> in all, counting the dtk
@@ -5282,6 +5282,21 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/unk_8001205C` (unit name unconfirmed) | `fn_800122A4__18unk_StartNodeGroupFv` | 0x800122A4 | 28 | parked, 100% | placeholder |
 | `game/unk_8001205C` (unit name unconfirmed) | `fn_800122C0` | 0x800122C0 | 112 | parked, 100% | placeholder |
 | `game/unk_80012330` (unit name unconfirmed) | `fn_80012330` | 0x80012330 | 92 | matched | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_8001238C` | 0x8001238C | 388 | parked, 92.8% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `__ct__17unk_NameHashEntryFv` | 0x80012510 | 20 | parked, 100% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_80012524` | 0x80012524 | 164 | parked, 100% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_800125C8` | 0x800125C8 | 136 | parked, 100% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_80012650` | 0x80012650 | 44 | parked, 80.9% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_8001267C` | 0x8001267C | 28 | parked, 100% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_80012698` | 0x80012698 | 20 | parked, 100% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_800126AC` | 0x800126AC | 20 | parked, 100% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_800126C0` | 0x800126C0 | 140 | parked, 100% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_8001274C` | 0x8001274C | 244 | parked, 93.7% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_80012840` | 0x80012840 | 72 | parked, 82.5% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_80012888` | 0x80012888 | 12 | parked, 100% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_80012894` | 0x80012894 | 112 | parked, 100% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_80012904` | 0x80012904 | 88 | parked, 100% | placeholder |
+| `game/unk_8001238C` (unit name unconfirmed) | `fn_8001295C` | 0x8001295C | 88 | parked, 99.3% | placeholder |
 | `game/unk_800129E0` (unit name unconfirmed) | `fn_800129E0` | 0x800129E0 | 132 | matched | placeholder |
 | `game/unk_800129E0` (unit name unconfirmed) | `fn_80012A64` | 0x80012A64 | 4 | matched | placeholder |
 | `game/unk_80015234` (unit name unconfirmed) | `__sinit_\unk_80015234_cpp` | 0x80015234 | 140 | matched | placeholder (compiler-generated name) |
@@ -5335,6 +5350,154 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/unk_80017B88` (unit name unconfirmed) | `fn_80017CBC__12unk_8001777CFv` | 0x80017CBC | 284 | parked, 1.4% | placeholder |
 | `game/unk_80017B88` (unit name unconfirmed) | `fn_80017DD8__12unk_8001777CFv` | 0x80017DD8 | 148 | parked, 2.7% | placeholder |
 | `game/unk_80017B88` (unit name unconfirmed) | `__ct__12unk_80017E6CFv` | 0x80017E6C | 28 | parked, 100% | placeholder |
+| `game/unk_AnimController` (unit name unconfirmed) | `fn_8001A100__18unk_AnimControllerFPCcib` | 0x8001A100 | 808 | parked, 7.2% | placeholder |
+| `game/unk_AnimController` (unit name unconfirmed) | `fn_8001A428__18unk_AnimControllerFi` | 0x8001A428 | 248 | parked, 76.3% | placeholder |
+| `game/unk_AnimController` (unit name unconfirmed) | `fn_8001A520__18unk_AnimControllerFPCcb` | 0x8001A520 | 180 | parked, 98.8% | placeholder |
+| `game/unk_NamedEntryTable` (unit name unconfirmed) | `fn_8001A5D4` | 0x8001A5D4 | 100 | parked, 100% | placeholder |
+| `game/unk_NamedEntryTable` (unit name unconfirmed) | `fn_8001A638` | 0x8001A638 | 60 | parked, 97.0% | placeholder |
+| `game/unk_NamedEntryTable` (unit name unconfirmed) | `fn_8001A674` | 0x8001A674 | 272 | parked, 98.9% | placeholder |
+| `game/unk_NamedEntryTable` (unit name unconfirmed) | `fn_8001A784` | 0x8001A784 | 100 | parked, 100% | placeholder |
+| `game/unk_NamedEntryTable` (unit name unconfirmed) | `fn_8001A7E8` | 0x8001A7E8 | 96 | parked, 100% | placeholder |
+| `game/unk_8001A848` (unit name unconfirmed) | `fn_8001A848` | 0x8001A848 | 120 | parked, 100% | placeholder |
+| `game/unk_8001A848` (unit name unconfirmed) | `fn_8001A8C0` | 0x8001A8C0 | 40 | parked, 10.0% | placeholder |
+| `game/unk_8004B2F0` (unit name unconfirmed) | `fn_8001A8E8` | 0x8001A8E8 | 2228 | parked, 0.2% | placeholder |
+| `game/unk_8004B2F0` (unit name unconfirmed) | `fn_8001B19C__12unk_8004B2F0Fv` | 0x8001B19C | 32 | parked, 100% | placeholder |
+| `game/unk_8004B2F0` (unit name unconfirmed) | `fn_8001B1BC__12unk_8004B2F0Fv` | 0x8001B1BC | 32 | parked, 100% | placeholder |
+| `game/unk_8004B2F0` (unit name unconfirmed) | `fn_8001B1DC__12unk_8004B2F0Fv` | 0x8001B1DC | 36 | parked, 100% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B200__FP12unk_8001B000` | 0x8001B200 | 124 | parked, 3.2% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B27C` | 0x8001B27C | 28 | parked, 48.6% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B298` | 0x8001B298 | 8 | parked, 100% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B2A0` | 0x8001B2A0 | 144 | parked, 100% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B330` | 0x8001B330 | 684 | parked, 0.6% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B5DC` | 0x8001B5DC | 116 | parked, 3.4% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B650` | 0x8001B650 | 20 | parked, 8.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B664` | 0x8001B664 | 148 | parked, 2.7% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B6F8` | 0x8001B6F8 | 108 | parked, 3.7% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B764` | 0x8001B764 | 4 | parked, 100% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B768` | 0x8001B768 | 16 | parked, 100% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B778` | 0x8001B778 | 52 | parked, 100% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B7AC` | 0x8001B7AC | 216 | parked, 1.9% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001B884` | 0x8001B884 | 440 | parked, 0.9% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001BA3C` | 0x8001BA3C | 2544 | parked, 0.2% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001C42C` | 0x8001C42C | 460 | parked, 0.9% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001C5F8` | 0x8001C5F8 | 448 | parked, 0.9% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001C7B8` | 0x8001C7B8 | 512 | parked, 0.8% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001C9B8` | 0x8001C9B8 | 372 | parked, 1.1% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001CB2C` | 0x8001CB2C | 240 | parked, 1.7% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001CC1C` | 0x8001CC1C | 256 | parked, 1.6% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001CD1C` | 0x8001CD1C | 8 | parked, 50.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001CD24` | 0x8001CD24 | 12 | parked, 33.3% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001CD30` | 0x8001CD30 | 580 | parked, 0.7% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001CF74` | 0x8001CF74 | 4 | parked, 100% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001CF78` | 0x8001CF78 | 412 | parked, 1.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001D114` | 0x8001D114 | 68 | parked, 5.9% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001D158` | 0x8001D158 | 252 | parked, 1.6% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001D254` | 0x8001D254 | 40 | parked, 10.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001D27C` | 0x8001D27C | 472 | parked, 0.8% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001D454` | 0x8001D454 | 300 | parked, 1.3% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001D580` | 0x8001D580 | 320 | parked, 1.2% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001D6C0` | 0x8001D6C0 | 628 | parked, 0.6% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001D934` | 0x8001D934 | 584 | parked, 0.7% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001DB7C` | 0x8001DB7C | 932 | parked, 0.4% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001DF20` | 0x8001DF20 | 80 | parked, 5.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001DF70` | 0x8001DF70 | 1056 | parked, 0.4% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001E390` | 0x8001E390 | 536 | parked, 0.7% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001E5A8` | 0x8001E5A8 | 84 | parked, 4.8% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001E5FC` | 0x8001E5FC | 548 | parked, 0.7% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001E820` | 0x8001E820 | 1184 | parked, 0.3% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001ECC0` | 0x8001ECC0 | 496 | parked, 0.8% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001EEB0` | 0x8001EEB0 | 140 | parked, 2.9% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001EF3C` | 0x8001EF3C | 8 | parked, 50.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001EF44` | 0x8001EF44 | 44 | parked, 9.1% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001EF70` | 0x8001EF70 | 84 | parked, 4.8% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001EFC4` | 0x8001EFC4 | 360 | parked, 1.1% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001F12C` | 0x8001F12C | 68 | parked, 5.9% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001F170` | 0x8001F170 | 240 | parked, 1.7% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001F260` | 0x8001F260 | 556 | parked, 0.7% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001F48C` | 0x8001F48C | 88 | parked, 4.5% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001F4E4` | 0x8001F4E4 | 344 | parked, 1.2% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001F63C` | 0x8001F63C | 204 | parked, 2.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001F708` | 0x8001F708 | 704 | parked, 0.6% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001F9C8` | 0x8001F9C8 | 300 | parked, 1.3% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FAF4` | 0x8001FAF4 | 4 | parked, 100% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FAF8` | 0x8001FAF8 | 8 | parked, 50.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FB00` | 0x8001FB00 | 8 | parked, 50.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FB08` | 0x8001FB08 | 4 | parked, 100% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FB0C` | 0x8001FB0C | 36 | parked, 11.1% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FB30` | 0x8001FB30 | 124 | parked, 3.2% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FBAC` | 0x8001FBAC | 32 | parked, 12.5% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FBCC` | 0x8001FBCC | 32 | parked, 12.5% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FBEC` | 0x8001FBEC | 36 | parked, 11.1% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FC10` | 0x8001FC10 | 8 | parked, 50.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FC18` | 0x8001FC18 | 8 | parked, 50.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FC20` | 0x8001FC20 | 116 | parked, 3.4% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FC94` | 0x8001FC94 | 132 | parked, 3.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FD18` | 0x8001FD18 | 136 | parked, 2.9% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FDA0` | 0x8001FDA0 | 8 | parked, 50.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FDA8` | 0x8001FDA8 | 140 | parked, 2.9% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FE34` | 0x8001FE34 | 8 | parked, 50.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_8001FE3C` | 0x8001FE3C | 452 | parked, 0.9% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_80020000` | 0x80020000 | 36 | parked, 11.1% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_80020024` | 0x80020024 | 136 | parked, 2.9% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_800200AC` | 0x800200AC | 116 | parked, 3.4% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_80020120` | 0x80020120 | 136 | parked, 2.9% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_800201A8` | 0x800201A8 | 8 | parked, 50.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_800201B0` | 0x800201B0 | 8 | parked, 50.0% | placeholder |
+| `game/unk_8001B200` (unit name unconfirmed) | `fn_800201B8` | 0x800201B8 | 280 | parked, 1.4% | placeholder |
+| `game/unk_803E0D28` (unit name unconfirmed) | `__dt__12unk_803E0D28Fv` | 0x800202D0 | 128 | parked, 99.1% | placeholder |
+| `game/unk_803E0D28` (unit name unconfirmed) | `fn_80020350` | 0x80020350 | 8 | parked, 50.0% | placeholder |
+| `game/unk_803E0D28` (unit name unconfirmed) | `fn_80020358__12unk_803E0D28Fv` | 0x80020358 | 8 | parked, 100% | placeholder |
+| `game/unk_803E0D28` (unit name unconfirmed) | `fn_80020360__12unk_803E0D28Fv` | 0x80020360 | 8 | parked, 100% | placeholder |
+| `game/unk_803E0D28` (unit name unconfirmed) | `fn_80020368__12unk_803E0D28Fv` | 0x80020368 | 8 | parked, 100% | placeholder |
+| `game/unk_803E0D28` (unit name unconfirmed) | `fn_80020370__12unk_803E0D28FUlUl` | 0x80020370 | 44 | parked, 100% | placeholder |
+| `climax/unk_InterpCache` (unit name unconfirmed) | `__dt__15unk_InterpCacheFv` | 0x8002039C | 456 | parked, 99.1% | placeholder |
+| `game/unk_8004BC94` (unit name unconfirmed) | `__dt__12unk_8004BC94Fv` | 0x80020564 | 460 | parked, 89.9% | placeholder |
+| `game/unk_800208FC` (unit name unconfirmed) | `__dt__12unk_803E0D80Fv` | 0x800208FC | 456 | parked, 85.7% | placeholder |
+| `game/unk_800208FC` (unit name unconfirmed) | `__dt__12unk_80054F0CFv` | 0x80020AC4 | 64 | parked, 100% | placeholder |
+| `game/CBasicAnimatedObject` | `__ct__20CBasicAnimatedObjectFRC19unk_AttributePacket` | 0x80020B04 | 328 | parked, 100% | placeholder |
+| `game/CBasicAnimatedObject` | `__dt__20CBasicAnimatedObjectFv` | 0x80020C4C | 604 | parked, 84.8% |  |
+| `game/CBasicAnimatedObject` | `fn_80020EA8` | 0x80020EA8 | 112 | parked, 97.9% | placeholder |
+| `game/CBasicAnimatedObject` | `fn_801A7A88__20CBasicAnimatedObjectFv` | 0x80020F18 | 404 | parked, 54.6% | placeholder |
+| `game/CBasicAnimatedObject` | `fn_801A73A8__20CBasicAnimatedObjectFRC19unk_AttributePacket` | 0x800210AC | 868 | parked, 0.5% | placeholder |
+| `game/CBasicAnimatedObject` | `fn_80021410` | 0x80021410 | 656 | parked, 0.6% | placeholder |
+| `game/CBasicAnimatedObject` | `fn_800216A0` | 0x800216A0 | 476 | parked, 0.8% | placeholder |
+| `game/CBasicAnimatedObject` | `fn_8002187C` | 0x8002187C | 176 | parked, 2.3% | placeholder |
+| `game/CBasicAnimatedObject` | `fn_8009CB1C__20CBasicAnimatedObjectFR7unk_Msg` | 0x8002192C | 1784 | parked, 0.2% | placeholder |
+| `game/CBasicAnimatedObject` | `fn_80017554__20CBasicAnimatedObjectFv` | 0x80022024 | 200 | parked, 2.0% | placeholder |
+| `game/CBasicAnimatedObject` | `fn_800220EC` | 0x800220EC | 140 | parked, not written | placeholder |
+| `game/CBasicAnimatedObject` | `fn_80022178` | 0x80022178 | 72 | parked, 5.6% | placeholder |
+| `game/CBasicAnimatedObject` | `@36@fn_8009CB1C__20CBasicAnimatedObjectFR7unk_Msg` | 0x800221C0 | 8 | parked, 100% | compiler-generated thunk, placeholder |
+| `game/CBasicAnimatedObject` | `@36@__dt__20CBasicAnimatedObjectFv` | 0x800221C8 | 8 | parked, 100% | compiler-generated thunk |
+| `game/CBasicAnimatedObject` | `@52@__dt__20CBasicAnimatedObjectFv` | 0x800221D0 | 8 | parked, 100% | compiler-generated thunk |
+| `game/CBasicAnimatedObject` | `@60@fn_80017554__20CBasicAnimatedObjectFv` | 0x800221D8 | 8 | parked, 100% | compiler-generated thunk, placeholder |
+| `game/CBasicAnimatedObject` | `@60@__dt__20CBasicAnimatedObjectFv` | 0x800221E0 | 8 | parked, 100% | compiler-generated thunk |
+| `game/CBasicAnimatedObject` | `@60@fn_801A73A8__20CBasicAnimatedObjectFRC19unk_AttributePacket` | 0x800221E8 | 8 | parked, 100% | compiler-generated thunk, placeholder |
+| `game/CBasicAnimatedObject` | `@60@fn_8009CB1C__20CBasicAnimatedObjectFR7unk_Msg` | 0x800221F0 | 8 | parked, 100% | compiler-generated thunk, placeholder |
+| `game/unk_800221F8` (unit name unconfirmed) | `fn_800221F8` | 0x800221F8 | 8 | matched | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80022200` | 0x80022200 | 1340 | parked, 89.3% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_8002273C` | 0x8002273C | 112 | parked, 100% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_800227AC` | 0x800227AC | 76 | parked, 100% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_800227F8` | 0x800227F8 | 264 | parked, 86.4% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80022900` | 0x80022900 | 848 | parked, 82.2% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80022C50` | 0x80022C50 | 716 | parked, 0.6% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80022F1C` | 0x80022F1C | 304 | parked, 1.3% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_8002304C` | 0x8002304C | 180 | parked, 62.4% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80023100` | 0x80023100 | 212 | parked, 1.9% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_800231D4` | 0x800231D4 | 884 | parked, 0.5% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80023548` | 0x80023548 | 20 | parked, 100% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_8002355C` | 0x8002355C | 124 | parked, 93.5% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_800235D8` | 0x800235D8 | 188 | parked, 99.0% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80023694` | 0x80023694 | 508 | parked, 0.8% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80023890` | 0x80023890 | 332 | parked, 1.2% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_800239DC` | 0x800239DC | 8 | parked, 100% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_800239E4` | 0x800239E4 | 332 | parked, 1.2% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80023B30` | 0x80023B30 | 308 | parked, 1.3% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80023C64` | 0x80023C64 | 316 | parked, 1.3% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80023DA0` | 0x80023DA0 | 8 | parked, 100% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80023DA8` | 0x80023DA8 | 184 | parked, 100% | placeholder |
+| `game/unk_80022200` (unit name unconfirmed) | `fn_80023E60` | 0x80023E60 | 760 | parked, 0.5% | placeholder |
+| `game/CSimpleAnimation` | `__sinit_\CSimpleAnimation_cpp` | 0x80025434 | 44 | matched | placeholder (compiler-generated name) |
+| `game/unk_ClumpBounds` (unit name unconfirmed) | `fn_80025674__FP11unk_RpClump` | 0x80025674 | 220 | parked, 97.8% | placeholder |
 | `game/CPreCache` | `__ct__9CPreCacheFRC19unk_AttributePacket` | 0x800288F4 | 136 | matched | placeholder |
 | `game/CPreCache` | `__dt__9CPreCacheFv` | 0x8002897C | 196 | matched |  |
 | `game/CPreCache` | `fn_801A73A8__9CPreCacheFRC19unk_AttributePacket` | 0x80028A40 | 368 | matched | placeholder |
@@ -5348,6 +5511,47 @@ copy at 0x80053190, exceptions.md "Game code rulings (game-4)").
 | `game/CPreCache` | `fn_80029004__9CPreCacheFRC19unk_AttributePacket` | 0x80029004 | 72 | matched | placeholder |
 | `game/CPreCache` | `@36@fn_8009CB1C__9CPreCacheFR7unk_Msg` | 0x8002904C | 8 | matched | compiler-generated thunk, placeholder |
 | `game/CPreCache` | `@36@__dt__9CPreCacheFv` | 0x80029054 | 8 | matched | compiler-generated thunk |
+| `game/unk_800290F0` (unit name unconfirmed) | `__dt__14unk_ZoneHandleFv` | 0x800290F0 | 116 | matched | placeholder |
+| `game/CZoneChangeInfo` | `__ct__15CZoneChangeInfoFv` | 0x80029164 | 424 | parked, 94.7% |  |
+| `game/CZoneChangeInfo` | `__dt__15CZoneChangeInfoFv` | 0x8002930C | 200 | parked, 55.9% |  |
+| `game/CZoneChangeInfo` | `fn_800293D4__15CZoneChangeInfoFPCcPCcPCc` | 0x800293D4 | 112 | parked, 100% | placeholder |
+| `game/unk_80029444` (unit name unconfirmed) | `fn_80029444` | 0x80029444 | 96 | parked, 100% | placeholder |
+| `game/unk_80029444` (unit name unconfirmed) | `fn_800294A4` | 0x800294A4 | 888 | parked, 98.6% | placeholder |
+| `game/unk_80029444` (unit name unconfirmed) | `fn_8002981C` | 0x8002981C | 144 | parked, 98.9% | placeholder |
+| `game/unk_800298AC` (unit name unconfirmed) | `fn_800298AC` | 0x800298AC | 3288 | parked, 0.1% | placeholder |
+| `game/unk_800298AC` (unit name unconfirmed) | `fn_8002A584` | 0x8002A584 | 256 | parked, 1.6% | placeholder |
+| `game/unk_800298AC` (unit name unconfirmed) | `fn_8002A684` | 0x8002A684 | 212 | parked, 100% | placeholder |
+| `game/unk_800298AC` (unit name unconfirmed) | `fn_8002A758` | 0x8002A758 | 208 | parked, 96.7% | placeholder |
+| `game/unk_800298AC` (unit name unconfirmed) | `fn_8002A828` | 0x8002A828 | 316 | parked, 1.3% | placeholder |
+| `game/unk_800298AC` (unit name unconfirmed) | `fn_8002A964` | 0x8002A964 | 64 | parked, 100% | placeholder |
+| `game/unk_8002A9A4` (unit name unconfirmed) | `fn_8002A9A4` | 0x8002A9A4 | 980 | parked, 66.2% | placeholder |
+| `game/unk_8002A9A4` (unit name unconfirmed) | `fn_8002AD78` | 0x8002AD78 | 180 | parked, 100% | placeholder |
+| `game/unk_8002A9A4` (unit name unconfirmed) | `fn_8002AE2C` | 0x8002AE2C | 196 | parked, 100% | placeholder |
+| `game/unk_8002A9A4` (unit name unconfirmed) | `fn_8002AEF0` | 0x8002AEF0 | 164 | parked, 100% | placeholder |
+| `game/unk_8002AF94` (unit name unconfirmed) | `fn_8002AF94` | 0x8002AF94 | 980 | parked, 100% | placeholder |
+| `game/unk_8002B368` (unit name unconfirmed) | `fn_8002B368` | 0x8002B368 | 836 | parked, 61.4% | placeholder |
+| `game/unk_8002B368` (unit name unconfirmed) | `fn_8002B6AC` | 0x8002B6AC | 208 | parked, 95.1% | placeholder |
+| `game/unk_8002B368` (unit name unconfirmed) | `fn_8002B77C` | 0x8002B77C | 88 | parked, 100% | placeholder |
+| `game/unk_8002B7D4` (unit name unconfirmed) | `fn_8002B7D4` | 0x8002B7D4 | 836 | parked, 63.5% | placeholder |
+| `game/unk_8002B7D4` (unit name unconfirmed) | `fn_8002BB18` | 0x8002BB18 | 208 | parked, 95.1% | placeholder |
+| `game/unk_8002B7D4` (unit name unconfirmed) | `fn_8002BBE8` | 0x8002BBE8 | 92 | parked, 95.7% | placeholder |
+| `game/unk_8002B7D4` (unit name unconfirmed) | `fn_8002BC44` | 0x8002BC44 | 56 | parked, 97.1% | placeholder |
+| `game/unk_8002C6AC` (unit name unconfirmed) | `fn_8002C6AC` | 0x8002C6AC | 240 | parked, 100% | placeholder |
+| `game/ZoneLink` | `fn_8002C79C__8ZoneLinkFv` | 0x8002C79C | 136 | matched | placeholder |
+| `game/ZoneLink` | `fn_8002C824__8ZoneLinkFv` | 0x8002C824 | 8 | matched | placeholder |
+| `game/ZoneLink` | `fn_8002C82C__8ZoneLinkFv` | 0x8002C82C | 36 | matched | placeholder |
+| `game/ZoneLink` | `fn_8002C850__8ZoneLinkFv` | 0x8002C850 | 36 | matched | placeholder |
+| `game/ZoneLink` | `fn_8002C874__8ZoneLinkFv` | 0x8002C874 | 8 | matched | placeholder |
+| `game/ZoneLink` | `fn_8002C87C__8ZoneLinkFv` | 0x8002C87C | 36 | matched | placeholder |
+| `game/ZoneLink` | `fn_8002C8A0__8ZoneLinkFUl` | 0x8002C8A0 | 48 | matched | placeholder |
+| `game/unk_8002C8D0` (unit name unconfirmed) | `fn_8002C8D0__12unk_8002BC7CFPv` | 0x8002C8D0 | 268 | parked, 71.7% | placeholder |
+| `game/unk_8002D148` (unit name unconfirmed) | `fn_8002D148` | 0x8002D148 | 8 | matched | placeholder |
+| `game/unk_8002D148` (unit name unconfirmed) | `fn_8002D150` | 0x8002D150 | 8 | matched | placeholder |
+| `game/unk_8002D158` (unit name unconfirmed) | `fn_8002D158` | 0x8002D158 | 8 | parked, 100% | placeholder |
+| `game/unk_8002D158` (unit name unconfirmed) | `fn_8002D160` | 0x8002D160 | 72 | parked, 100% | placeholder |
+| `game/unk_8002D2DC` (unit name unconfirmed) | `fn_8002D2DC` | 0x8002D2DC | 168 | parked, 71.9% | placeholder |
+| `game/unk_8002D384` (unit name unconfirmed) | `fn_8002D384` | 0x8002D384 | 252 | parked, 74.6% | placeholder |
+| `game/unk_80031F1C` (unit name unconfirmed) | `__sinit_\unk_80031F1C_cpp` | 0x80031F1C | 56 | parked, 100% | placeholder (compiler-generated name) |
 | `game/CActorTest` | `__ct__10CActorTestFRC19unk_AttributePacket` | 0x8003BE3C | 272 | matched | placeholder |
 | `game/CActorTest` | `__dt__10CActorTestFv` | 0x8003BF4C | 212 | matched |  |
 | `game/CActorTest` | `fn_801A7A88__10CActorTestFv` | 0x8003C020 | 4 | matched | placeholder |

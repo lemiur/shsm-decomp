@@ -3,6 +3,9 @@
 
 #include <revolution/types.h>
 
+class CZone;            // climax/AttributeHandler.h
+class unk_ZoneHandle;   // game/CZoneChangeInfo.h
+
 /*
  * The keeper of the current respot zone, as RespotZoneTrigger uses it (the object behind
  * lbl_80529260; its unit, around 0x80030F34, is not yet reconstructed). Class name invented,
@@ -19,6 +22,15 @@ public:
     // defined in 0x80030314: the name of the texture dictionary that goes with an asset, NULL if
     // none (CPreCache)
     const char*     fn_80030314( u32 level, const char* name );
+    // defined in 0x80030284 (unit not yet reconstructed): fills out with the zones of the manager's
+    // list, at most max, and returns how many it wrote (CZoneChangeInfo's zone handles)
+    s32             fn_80030284( CZone** out, s32 max );
+    // defined in 0x80031CE0 (unit not yet reconstructed): registers a zone handle with the manager
+    void            fn_80031CE0( unk_ZoneHandle* handle );
+
+    // members before 0x64 are not yet recovered
+    u8              field_0x0[0x64];
+    int             field_0x64;     // 0x64, read by fn_8002D384
 };
 
 extern unk_RespotManager* lbl_80529260;     // defined elsewhere, unit not yet reconstructed

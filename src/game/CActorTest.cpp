@@ -98,7 +98,7 @@ void CActorTest::fn_8009CB1C( unk_Msg& msg ) {
     unk_80491B38& record = GetPlayerRecord();
     if ( lbl_8052A788 == msg.record ) {
         if ( field_0x1CC != field_0x1D0 || field_0x1D5 != field_0x1D4 ) {
-            s32 count = field_0x148->field_0xC;
+            s32 count = field_0x148->slotCount;
             field_0x1CC = field_0x1D0 = ( field_0x1D0 + count ) % count;
             u32 flags = 4;
             if ( field_0x1D4 ) {

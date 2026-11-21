@@ -3,13 +3,7 @@
 
 #include <climax/Memory.h>
 #include <game/CBaseSpawner.h>
-
-/* The resource manager behind lbl_8052A5C0 (unit at 0x801B0120 not yet reconstructed). Name invented. */
-struct unk_ResourceManager {
-    u32 field_0x0;      // 0x0, read by fn_80015F8C; the rest of the object is not recovered
-};
-
-extern unk_ResourceManager* lbl_8052A5C0;
+#include <game/unk_ResourceManager.h>
 
 /*
  * The owner a resource request is filed under: an empty base of the classes that cache assets
@@ -30,7 +24,7 @@ void    fn_801B0B8C( unk_ResourceManager* manager, void* handle, unk_SpawnerReso
 void*   fn_801B1E3C( unk_ResourceManager* manager, const char* name, unk_SpawnerResource* owner, int flags );
 void    fn_801B2004( unk_ResourceManager* manager, void* resource );
 // defined in 0x801A8554 and 0x801A89A0, unit not yet reconstructed
-void    fn_801A8554( const char* name, void* resource );
+void*   fn_801A8554( const char* name, void* resource );
 void    fn_801A89A0( const char* name );
 // defined in 0x800A26D8, unit not yet reconstructed: the first name command in a packet, NULL if none
 const char* fn_800A26D8( const unk_AttributePacket& packet );

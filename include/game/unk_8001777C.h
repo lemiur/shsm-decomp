@@ -2,12 +2,7 @@
 #define GAME_UNK_8001777C_H
 
 #include <game/unk_8009D2E4.h>
-
-/* Animation controller owned by unk_8001777C at field_0x148 (partial layout). Name invented. */
-struct unk_AnimController {
-    u8      field_0x0[0xC];
-    s32     field_0xC;
-};
+#include <game/unk_AnimController.h>
 
 struct unk_8001B000;
 

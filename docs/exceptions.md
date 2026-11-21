@@ -176,6 +176,11 @@ functions holding the same instruction sequence).
 | `NWC24iOpenResourceManager_`, `NWC24iCloseResourceManager_`, `NWC24iIoctlResourceManager_`, `NWC24iIoctlResourceManagerAsync_`, `CheckCallingStatus`, `NWC24ResumeScheduler` | R17 | Each resource-manager helper takes `callerName` and reads it with one `(void)callerName;` statement at the place of the reference's debug report, with the comment `// Debug build: report at this point (zeldaret/tp libs/revolution/src/os/OSNet.c)`. That read is what materialises the caller's `__FUNCTION__` literal in retail `.data` (the sibling's `OSNet.o` names the objects `__FUNCTION__$NNN`, one per caller, and its Release build has the same `.data` order and sizes); without it the compiler drops the literals. User's ruling of 2026-11-16 (AGENTS.md, "Release-compiled-out debug checks"): a parameter that only a compiled-out debug report reads. `NWC24ResumeScheduler` is the dead-stripped twin that owns the fifth literal (user's ruling of 2026-11-16, dead-stripped functions without reference text). Evidence: `orig/_ref/gormiti_wii/Exe/MAP/GormitiRelease.MAP`, `os.a OSNet.o`. |
 
 ## Open items that do not block a match
+- **Climax unit name unconfirmed (0x8002039C):** `climax/unk_InterpCache.cpp` (0x8002039C-0x80020564, one function: the
+  destructor of an interpolator-cache class `unk_InterpCache`, names invented; the constructor is not in this unit). The
+  vtable `lbl_803E0D80` is shared with other units (not renamed here). Parked NonMatching at 99.12%: retail repeats the
+  this-null test (0x800203C4, dead) which is not reproduced; the vptr relocation names differ. `FindInterpNode` is an
+  invented static helper for the search loop.
 
 - **Game unit name unconfirmed (fn_80015F8C):** `game/unk_80015F8C.cpp` (0x80015F8C-0x80016074, one function: a
   name lookup in a 0x3c-byte entry table, then the binding of the entry) is named after its address; no string or class
@@ -193,15 +198,55 @@ functions holding the same instruction sequence).
   names the file. `fn_8009ECB0` is an identity open item (its second argument is a 16-byte out vector; the position
   accessor it calls, `fn_8009CD14`, is a C-linkage copy of CBaseBehaviour's `fn_8009CD08`).
 
+- **Game unit name unconfirmed (fn_8001A5D4):** `game/unk_NamedEntryTable.cpp` (0x8001A5D4-0x8001A848, five functions:
+  the lookups of a table of named entries, by index and by case-folded name). No string or class evidence names the
+  file or the table; the struct `unk_NamedEntryTable` and `unk_NamedEntry` in `include/game/unk_NamedEntryTable.h` are
+  invented. Its callers (fn_800191B4 of unk_8001777C, fn_80113540, fn_801134E8) are not reconstructed yet. `fn_8001A638`
+  and `fn_8001A674` are register/schedule walls (see their header comments); the other three are exact.
+- **Game unit name unconfirmed (fn_80020564):** `game/unk_8004BC94.cpp` (0x80020564-0x80020730, one destructor, `__dt__12unk_8004BC94Fv`; not matched). The class is named after its constructor fn_8004BC94 (the vtable lbl_803E0C60 stores it); the base vtable lbl_803E0D80 is stored by the body and is not declared (base class not reconstructed), and the duplicate guards and register numbering of the inlined base destructor are not reproduced. The unit stays NonMatching.
+
+- **Game unit name unconfirmed (fn_800221F8):** `game/unk_800221F8.cpp` (0x800221F8-0x80022200, one function) is named
+  after its address; no string or class evidence names the file. `fn_800221F8` is the callback slot of a morph controller
+  (stored at +0x118 of the 0x120-byte object built at 0x80022900 and called as (context, atomic, deltaTime)) and forwards
+  to `RpDMorphAtomicAddTime`. The owning class is not yet reconstructed.
+- **Unit name unconfirmed (game lane L0096, unk_8002A9A4):** `game/unk_8002A9A4.cpp` (0x8002A9A4-0x8002AF94, four functions) is named after its address; no string or class evidence names the file. `fn_8002AD78`, `fn_8002AE2C` and `fn_8002AEF0` match; `fn_8002A9A4`  (the counted-pointer object pair, 66% in match) is open. Its constructor `fn_8012BDB0` is declared extern "C" in  `include/game/unk_8002A9A4.h` and defined in unit auto_03_8012BD58 (not yet reconstructed); the class `unk_8012BDB0`  is named after that address. The lookups and list types are placeholders (`unk_NameIndex`, `unk_RefList`).
+- **Unit name unconfirmed (fn_8002C8D0; lane L0109):** `game/unk_8002C8D0.cpp` (0x8002C8D0-0x8002C9DC, one virtual of
+  unk_8002BC7C) is named after its address; no string or class-name evidence names the file. The class is named after its
+  constructor fn_8002BC7C (vtable lbl_803E1788); only the members the function reads are declared in
+  `include/game/unk_8002C8D0.h`. The function is NonMatching (register/schedule wall, see its header comment).
+- **Game unit name unconfirmed (fn_8002AF94):** `game/unk_8002AF94.cpp` (0x8002AF94-0x8002B368, one function) is named
+  after its address; no string or class evidence names the file. Its body is exact and the unit is parked NonMatching:
+  the gate reports the object's 8-aligned `.sdata2` and an out-of-line copy of `unk_RefPtr<unk_80120188>::~unk_RefPtr`.
+  The classes `unk_80120188` (constructor fn_80120188, a 0x28-byte timed object whose base vtable 0x803F6490 is not yet
+  reconstructed) and the list types `unk_EndList`/`unk_EndNode` are invented; `unk_RefPtr` gained an owning copy
+  constructor in `include/game/unk_HUDRequest.h`.
+- **`game/unk_8002D384.cpp` (unit name unconfirmed, NonMatching):** the file name is the address (no class-name evidence). Its one function `fn_8002D384` (0x8002D384-0x8002D480, unit_plan heuristic boundary, low confidence) is a free function with an unread second argument. The wall is the owner: retail converts `lbl_80529260` (`unk_RespotManager*`) to `unk_SpawnerResource*` through a null-checked +8 base conversion, so the base relation is not yet recovered and the body uses `reinterpret_cast`. Also open: the name table `lbl_803E1A90`, `lbl_80526A1C`/`lbl_80526A20`/`lbl_80529268` (owners in the unit around 0x8002E364), and `unk_RespotManager` members before 0x64 (`field_0x0` gap).
+
+- **`game/unk_8002D158.cpp` (unit name unconfirmed):** the file name is the first function's address (no class-name or
+  string evidence). It holds `fn_8002D158` (a float constant getter) and `fn_8002D160` (a flag test on the object's
+  field at 0x394 and a call to `fn_80183114`), both matched. Their object is `unk_8002BC7C` (the constructor's address),
+  a placeholder in `include/game/unk_8002BC7C.h` whose vtable `lbl_803E1788` is not declared yet, so the class holds only
+  the bytes the two functions read. `fn_80183114` is declared extern "C" with the class pointer until its unit is named.
+
 - **Game unit name unconfirmed (fn_80009EC8):** `game/unk_80009EC8.cpp` (0x80009EC8-0x80009F60, one function: the WPAD
   and KPAD start-up of the pad input) is named after its address; no string or class evidence names the file. Its
   callees `fn_80009CCC` and `fn_80009CD4` (the WPAD allocator and free callbacks) and `fn_80009CF8` (the KPAD connect
   callback) are declared extern "C" in `include/game/unk_80009EC8.h`, defined in their own units (not yet reconstructed).
+- **Unit name unconfirmed (R7; game lane L0115):** `game/unk_8002D148.cpp` (0x8002D148-0x8002D158, two leaves) is named after
+  its address. `fn_8002D148` returns the float 1.6f and `fn_8002D150` returns 0; both are slots of the vtable `lbl_803E1788`
+  (a CPointOfInterest-derived class, not reconstructed). The int return of `fn_8002D150` is a guess; the function is
+  declared extern "C" in `include/game/unk_8002D148.h`.
 - **Unit name unconfirmed (R12, R7; game lane L0003):** `game/unk_80009CF8.cpp` holds one function, `fn_80009CF8`; the
   file name is an address placeholder. Its shape is the WPAD connect callback `(chan, result)` (`WPADConnectCallback`),
   but no caller in the tree names it, so the name and the role are invented. `Audio::Manager::InitWiiController` is
   declared in `include/climax/Audio/Manager.h` from its dtk signature name alone (static, one `long`).
 
+- **Game unit name unconfirmed (fn_8002D2DC):** `game/unk_8002D2DC.cpp` (0x8002D2DC-0x8002D384, one function: the load
+  callback that 0x8002D4BC passes to fn_801B05C0) is named after its address. Parked NonMatching, identity TODO at the
+  code: the owner `lbl_80529260` is converted to its `unk_SpawnerResource` base at offset 8 with a null check; that
+  needs `unk_RespotManager` to have an 8-byte non-empty base before the spawner base (checked by a disposable
+  experiment: the function is exact with such a base, which is not identified yet). `lbl_80529264` is declared in
+  `include/game/unk_8002D2DC.h`, defined in the unit of 0x8002E364 and 0x8002ECE0 (not yet reconstructed).
 - **Node-list destructor unit (R12, R7):** `src/game/unk_8000EC94.cpp` holds `__dt__12unk_NodeListFv`
   (0x8000EC94), exact, but the class is a unit-local copy of the `unk_List<T>` shape in `climax/unk_List.h` for an 8-byte
   element (the destructor is that template's `~unk_List` with the same `Remove` test). The owner of the instance is the
@@ -234,6 +279,10 @@ functions holding the same instruction sequence).
   in `climax/AttributeHandler.h` and still defined by the unreconstructed `.sbss` unit `auto_10_80529170_sbss`.
   `SClassInfo` past its name and factory is padding (`field_0x14`), not yet reconstructed.
 
+- **Game unit name unconfirmed (fn_8001A848):** `game/unk_8001A848.cpp` (0x8001A848-0x8001A8E8, two functions) is named
+  after its address; no string or class evidence names the file. `fn_8001A848` (a table lookup that returns the float of
+  a target) is exact. `fn_8001A8C0` is a stub: its retail body is a virtual call on the second argument (slot 21), the
+  loop callback installed by the RtAnimInterpolator setters at 0x8001B85C and 0x8001BAE8; the class is not recovered.
 - **`fmod/fmod_memory` helpers (R7, R30; invented):** `FindFreeBlocks` and `FindThreadSlot` are invented inline
   helpers (name and shape marked at the code; the sibling's line table puts each on one line of its callers, so the
   original was probably a macro). The declaration order of their locals gives retail's register numbering in `alloc`
@@ -382,6 +431,11 @@ functions holding the same instruction sequence).
   unconfirmed" comment; the class `unk_RefBlock` (`include/game/unk_80012330.h`) is a role name invented from that
   function alone. The caller `fn_80187470` (game/G7) passes its owner as the second argument, which this path never
   reads. Gormiti has no counterpart.
+- **Game unit name unconfirmed (R7 invented classes, R12):** `src/game/unk_80029444.cpp` (`fn_80029444`, `fn_800294A4`,
+  `fn_8002981C`) carries the "unit name unconfirmed" comment. The chunk table (`unk_ChunkTable` and its entry and record
+  structs, `include/game/unk_80029444.h`) is a role name invented from the loader. `fn_80029444` takes a
+  `CZoneChangeInfo` (flags at 0x95 and 0x97) and reads the byte at 0x10 of `lbl_8052A5C0` through the partial
+  `unk_ResourceManager` (`include/game/unk_ResourceManager.h`, layout not reconstructed). Gormiti has no counterpart.
 - **RenderWare unit name unconfirmed (R12):** `rwsdk/src/plcore/batkbin.c` (the plugin-registry stream functions
   `_rwPluginRegistryAddPluginStream` .. `_rwPluginRegistrySkipDataChunks`; tgsm/pbg has no such file, the name
   follows RenderWare's own `ba*` naming) carries the "unit name unconfirmed" comment.
@@ -846,6 +900,12 @@ functions holding the same instruction sequence).
 - **Game unit name unconfirmed (lane L0000_80006C7C):** `game/unk_80006C7C.cpp` (0x80006C7C-0x80008828) is named after
   its placeholder class `unk_80006C7C` (the constructor address); no string names the class or the file. It carries the
   "unit name unconfirmed" comment; rename it when class-name evidence appears.
+- **Game unit name unconfirmed (lane L0076_800202D0):** `game/unk_803E0D28.cpp` (0x800202D0-0x8002039C) is named after
+  its placeholder class `unk_803E0D28` (the vtable address `__vt__12unk_803E0D28`, 20 slots; the factory is fn_8001ECC0,
+  the constructor is not identified). It carries the "unit name unconfirmed" comment. The unit is NonMatching: four of
+  six functions are exact; the destructor is register/schedule residue only (r0/r4 for retail's r4/r5). `fn_80020350` is
+  a virtual of unk_8004C25C (vtable lbl_803E0BA0, slot 0x50) placed here by address; it is a stub until that class's unit
+  exists. The class's other 19 slots are placeholders in `include/game/unk_803E0D28.h`.
 - **Game unit name unconfirmed (Localisation):** `climax/Localisation.cpp` (the languages and regions, the Config.xml
   reader, the "BootStrings" and "Strings" table loaders and the text lookup) is named after what it does; no string
   names the file. It carries the "unit name unconfirmed" comment; rename it when a class-name string evidences the unit.
@@ -907,6 +967,8 @@ functions holding the same instruction sequence).
 - **Unit name unconfirmed (`climax/unk_80008828.cpp`):** holds `fn_80008828`, the blend-mode setter (modes 0 to 12; mode 0 re-applies the current mode). No class or string evidence names the file or the function, so the file name is invented and its top comment says so. The two jump tables are compiler output owned by this unit. The blend and fog caches are declared in `include/climax/RenderState.h` (names invented there).
 
 - **Unit name unconfirmed (game/unk_80009DD0.cpp):** the KPAD sampling step `fn_80009DD0` of the pad channel `lbl_804579C0[0]` (the `0x80006C7C` unit, split off as its own unit) carries the "unit name unconfirmed" comment; `fn_80009DD0` is parked at 64% on a register/schedule wall (retail keeps the constant 16 and the callback address in registers from entry).
+
+- **Unit name unconfirmed (game/unk_ClumpBounds.cpp):** holds `fn_80025674`, the bounds maker of the clump (one function of the unnamed range 0x80025460-0x8002598C; the other functions of that range are in other units). Its class is invented as `unk_ClumpBounds` in `include/game/unk_ClumpBounds.h`; `symbols.txt` names the class `CBoundsUpdater` (`CheckAtomic__14CBoundsUpdaterFP8RpAtomic`), so the rename is open. The function is parked at 97.8% on a register/schedule wall (the loop test's load of `nodes`).
 
 ## EXIBios `-schedule off` (ruling)
 
@@ -5278,3 +5340,5 @@ Parked functions of these units are under "Parked (NonMatching), with reasons". 
   identity rests on `Register` storing them as the scheme's callbacks and `Interpolate` calling `Blend`. `HANIMFULLKEYFRAME_TYPE_ID` is an
   invented name.
 
+- **game/unk_AnimController.cpp (unit name unconfirmed).** The table at unk_8001777C field_0x148 (`unk_AnimController`) and its entry (`unk_803E0A48`, vtable `__vt__12unk_803E0A48`) have no string or class-name evidence; both names are invented. Open: fn_8001A100 6
+- **game/unk_AnimController.cpp (unit name unconfirmed).** The table at unk_8001777C field_0x148 (`unk_AnimController`) and its entry (`unk_803E0A48`, vtable `__vt__12unk_803E0A48`) have no string or class-name evidence; both names are invented. Open: fn_8001A100 6 percent, fn_8001A428 76 percent, fn_8001A520 94 percent; the unit stays NonMatching.

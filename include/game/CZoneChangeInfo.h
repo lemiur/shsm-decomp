@@ -7,14 +7,20 @@
 #include <revolution/types.h>
 #include <climax/AttributeHandler.h>
 #include <climax/Frame.h>
+#include <game/unk_RespotManager.h>
 
 /*
  * Callees in the CZone unit, not yet reconstructed (symbols without a C++ name yet): they add
  * and drop a reference to a zone (the count at 0x208).
  */
+class unk_ZoneHandle;
+class unk_RespotManager;
+
 extern "C" {
     void    fn_80028170( CZone* zone );
     void    fn_80028180( CZone* zone );
+    // defined in 0x80031E18 (the respot manager's unit): unregisters a zone handle from the manager
+    void    fn_80031E18( unk_RespotManager* manager, unk_ZoneHandle* handle );
 }
 
 /*
@@ -24,7 +30,9 @@ extern "C" {
  */
 class unk_ZoneHandle {
 public:
-                    unk_ZoneHandle( CZone* zone );     // 0x8002905C
+                    unk_ZoneHandle( CZone* candidate ); // 0x8002905C, defined inline in CZoneChangeInfo.cpp
+    // the zone when the manager's list holds it, NULL otherwise (name invented)
+    static CZone*   FindListedZone( CZone* candidate );
                     ~unk_ZoneHandle();                  // 0x800290F0
 
     unk_ZoneHandle& operator=( const unk_ZoneHandle& other ) {
@@ -56,11 +64,14 @@ public:
                     CZoneChangeInfo();                  // 0x80029164, both zones NULL
                     ~CZoneChangeInfo();                 // 0x8002930C
 
+    // 0x800293D4; keeps a copy of each of the three names (fn_801B67FC) in the owned strings
+    void            fn_800293D4( const char* a, const char* b, const char* c );
+
     unk_ZoneHandle  oldZone;        // 0x0
     unk_ZoneHandle  newZone;        // 0x4
-    u8*             field_0x8;      // owned arrays, delete[] by the destructor
-    u8*             field_0xC;
-    u8*             field_0x10;
+    char*           field_0x8;      // owned copies of the names, delete[] by the destructor
+    char*           field_0xC;
+    char*           field_0x10;
     unk_RwMatrix    field_0x14;     // identity after construction
     unk_RwMatrix    field_0x54;     // identity after construction
     u8              field_0x94;     // cleared by the constructor
